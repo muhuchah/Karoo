@@ -13,7 +13,7 @@ from account_module.utils.jwt_token_generator import get_token_for_user
 from .utils.generate_active_code import generate_activate_code
 from validate_email_address import validate_email
 from .utils.email_service import send_activation_email, expiretime_validator
-
+from django.contrib.auth.hashers import make_password
 
 # Create your views here.
 
@@ -183,7 +183,7 @@ class ForgotPasswordAPIView(APIView):
             # It's a good practice not to confirm whether an email exists in the database for security purposes.
             # You can return a generic message that doesn't indicate whether or not the email was found.
             return Response({
-                'message': 'If your email is registered, you will receive a password reset email.'
+                'message': 'we sent you an Email for reset your password.'
             }, status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -197,18 +197,14 @@ class ResetPasswordView(View):
         return render(request, 'account_module/reset_password.html', {'active_code': active_code})
 
     def post(self, request, active_code):
-        new_password = request.POST.get('new_password')
-        confirm_password = request.POST.get('confirm_password')
-
-        # Check if the new password and confirm password match
-        if new_password != confirm_password:
-            return HttpResponse("Passwords do not match")
+        new_password = request.POST.get('new-password')
 
         try:
             # Retrieve the user object
             user = User.objects.get(email_active_code=active_code)
 
-            # Set the new password
+            # make hashing for set to data base and Set the new password
+
             user.set_password(new_password)
             user.save()
 
