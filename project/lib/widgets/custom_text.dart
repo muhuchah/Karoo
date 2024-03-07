@@ -8,16 +8,16 @@ class BigText extends StatelessWidget {
   final FontWeight weight;
 
   const BigText({super.key , required this.text,
-    this.size = 32 , this.textColor = AppColor.text1 ,
-    this.weight = FontWeight.bold});
+    required this.size ,required this.textColor ,
+    required this.weight});
 
   @override
   Widget build(BuildContext context) {
     return Text(text ,
       style: TextStyle(
-        color: textColor ,
-        fontSize: size,
-        fontWeight: weight
+          color: textColor ,
+          fontSize: size,
+          fontWeight: weight
       ),
     );
   }
