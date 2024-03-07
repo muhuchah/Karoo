@@ -1,7 +1,4 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:project/home/home_app_bar.dart';
 import 'package:project/utils/app_color.dart';
 
 class HomePage extends StatelessWidget {
