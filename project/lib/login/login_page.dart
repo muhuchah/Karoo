@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/big_text.dart';
 import 'package:project/widgets/custom_text.dart';
+import 'package:project/widgets/text_icon_widget.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -27,7 +28,7 @@ class LoginPage extends StatelessWidget {
         height: double.infinity,
         width: double.infinity,
         child: Container(
-          margin: const EdgeInsets.only(left : 20 ,top: 200),
+          margin: const EdgeInsets.only(left : 20 , right: 20 ,top: 200),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -38,7 +39,8 @@ class LoginPage extends StatelessWidget {
                 size: 20,
                 textColor: AppColor.text1,
                 weight: FontWeight.normal),
-
+              SizedBox(height: 50,),
+              TextIcon(labelText: "Email", icon: Icons.email_outlined,)
             ],
           ),
         ),
