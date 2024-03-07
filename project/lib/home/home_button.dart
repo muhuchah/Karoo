@@ -10,7 +10,7 @@ class HomeButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(onPressed: (){
-      print("login");
+      Navigator.of(context).pushNamed("/login");
     },
       style: ElevatedButton.styleFrom(
           backgroundColor: AppColor.button1,
