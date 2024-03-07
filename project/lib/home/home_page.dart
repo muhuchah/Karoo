@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/big_text.dart';
+import 'package:project/widgets/custom_text.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -37,13 +38,12 @@ class HomePage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    BigText(text: "Do Do" , size: 24,),
-                    SizedBox(height: 40,),
-                    BigText(text: "an app to find people to do your work" , size: 20,weight: FontWeight.normal,),
-                    ElevatedButton(onPressed: (){
-
-                    }, child: Text(""))
-                  ],),
+                    const BigText(text: "Do Do" , size: 24,),
+                    const SizedBox(height: 40,),
+                    const BigText(text: "an app to find people to do your work" , size: 20,weight: FontWeight.normal,),
+                    const SizedBox(height: 100,),
+                  ],
+                ),
               ),
               ),
             ),
