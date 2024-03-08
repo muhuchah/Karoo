@@ -5,8 +5,9 @@ import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/text_icon_widget.dart';
 
 class LoginPage extends StatelessWidget {
-
-  const LoginPage({super.key});
+  TextEditingController? emailController = TextEditingController();
+  TextEditingController? passwordController = TextEditingController();
+  LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +46,17 @@ class LoginPage extends StatelessWidget {
                   textColor: AppColor.text1,
                   weight: FontWeight.normal),
                 const SizedBox(height: 50,),
-                const TextIcon(labelText: "EMAIL", icon: Icons.email_outlined,),
+                TextIcon(
+                  labelText: "EMAIL",
+                  icon: Icons.email_outlined,
+                  controller: emailController,
+                ),
                 const SizedBox(height: 30,),
-                const TextIcon(labelText: "PASSWORD", icon: Icons.email_outlined,),
+                TextIcon(
+                  labelText: "PASSWORD",
+                  icon: Icons.email_outlined,
+                  controller: passwordController,
+                ),
                 const SizedBox(height: 40,),
                 Align(
                   alignment: Alignment.centerRight,
