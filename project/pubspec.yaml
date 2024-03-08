@@ -85,6 +85,29 @@ flutter:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
+
+fonts:
+  - family: Inter
+    fonts:
+    - asset: asset/fonts/Inter-Regular.ttf
+      weight: 400
+    - asset: asset/fonts/Inter-Bold.ttf
+      weight: 700
+    - asset: asset/fonts/Inter-Medium.ttf
+      weight: 500
+    - asset: asset/fonts/Inter-Black.ttf
+      weight: 900
+    - asset: asset/fonts/Inter-Thin.ttf
+      weight: 100
+    - asset: asset/fonts/Inter-SemiBold.ttf
+      weight: 600
+    - asset: asset/fonts/Inter-Light.ttf
+      weight: 300
+    - asset: asset/fonts/Inter-ExtraLight.ttf
+      weight: 200
+    - asset: asset/fonts/ExtraBold.ttf
+      weight: 800
+
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
