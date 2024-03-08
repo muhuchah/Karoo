@@ -5,7 +5,11 @@ import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/text_icon_widget.dart';
 
 class SignUpPage extends StatelessWidget {
-  const SignUpPage({super.key});
+  TextEditingController? fullNameController = TextEditingController();
+  TextEditingController? emailController = TextEditingController();
+  TextEditingController? passwordController = TextEditingController();
+  TextEditingController? confirmPasswordController = TextEditingController();
+  SignUpPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,13 +42,29 @@ class SignUpPage extends StatelessWidget {
               children: [
                 const BigText(text: "Create Account"),
                 const SizedBox(height: 50,),
-                const TextIcon(labelText: "FULL NAME", icon: Icons.person_outline,),
+                TextIcon(
+                  labelText: "FULL NAME",
+                  icon: Icons.person_outline,
+                  controller: fullNameController,
+                ),
                 const SizedBox(height: 20,),
-                const TextIcon(labelText: "EMAIL", icon: Icons.email_outlined,),
+                TextIcon(
+                  labelText: "EMAIL",
+                  icon: Icons.email_outlined,
+                  controller: emailController,
+                ),
                 const SizedBox(height: 20,),
-                const TextIcon(labelText: "PASSWORD", icon: Icons.email_outlined,),
+                TextIcon(
+                  labelText: "PASSWORD",
+                  icon: Icons.email_outlined,
+                  controller: passwordController,
+                ),
                 const SizedBox(height: 20,),
-                const TextIcon(labelText: "CONFIRM PASSWORD", icon: Icons.email_outlined,),
+                TextIcon(
+                  labelText: "CONFIRM PASSWORD",
+                  icon: Icons.email_outlined,
+                  controller: confirmPasswordController,
+                ),
                 const SizedBox(height: 40,),
                 Align(
                   alignment: Alignment.centerRight,

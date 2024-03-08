@@ -7,9 +7,11 @@ class TextIcon extends StatelessWidget {
   final double size;
   final double fontSize;
   final Color borderColor;
+  final TextEditingController? controller;
   const TextIcon({super.key , required this.labelText,
     required this.icon , this.size = 30 ,
-    this.fontSize = 16 , this.borderColor = AppColor.text1});
+    this.fontSize = 16 , this.borderColor = AppColor.text1,
+    required this.controller});
 
   @override
   Widget build(BuildContext context) {

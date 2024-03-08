@@ -5,6 +5,7 @@ import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/text_icon_widget.dart';
 
 class LoginPage extends StatelessWidget {
+
   const LoginPage({super.key});
 
   @override
