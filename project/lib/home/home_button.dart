@@ -5,13 +5,13 @@ import '../widgets/custom_text.dart';
 
 class HomeButton extends StatelessWidget {
   final String text;
-  const HomeButton({super.key , required this.text});
+  final void Function() onTap;
+  const HomeButton({super.key , required this.text,
+    required this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(onPressed: (){
-      Navigator.of(context).pushNamed("/login");
-    },
+    return ElevatedButton(onPressed: onTap,
       style: ElevatedButton.styleFrom(
           backgroundColor: AppColor.button1,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),

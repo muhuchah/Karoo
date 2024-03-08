@@ -29,16 +29,20 @@ class HomePage extends StatelessWidget {
             child: Container(
               width: double.infinity,
               padding: const EdgeInsets.only(left: 30 , top: 40 , right: 30),
-              child: const Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   BigText(text: "Do Do" , size: 24,),
                   SizedBox(height: 30,),
                   BigText(text: "an app to find people to do your work" , size: 20,weight: FontWeight.normal,),
                   SizedBox(height: 100,),
-                  HomeButton(text : "Log in"),
+                  HomeButton(text : "Log in",onTap: (){
+                    Navigator.of(context).pushNamed("/login");
+                  },),
                   SizedBox(height: 15,),
-                  HomeButton(text: "Sign in")
+                  HomeButton(text: "Sign in" , onTap: (){
+                    Navigator.of(context).pushNamed("/signup");
+                  },)
                 ],
               ),
             ),
