@@ -1,4 +1,5 @@
 class User{
+  String? _token;
   String _fullName;
   String _email;
   String _password;
@@ -26,6 +27,10 @@ class User{
     _password = password;
   }
 
+  set token(String token){
+    _password = password;
+  }
+
   String get fullName{return _fullName;}
 
   String get email{return _email;}
@@ -33,4 +38,6 @@ class User{
   String get phoneNumber{return _phoneNumber;}
 
   String get password{return _password;}
+
+
 }

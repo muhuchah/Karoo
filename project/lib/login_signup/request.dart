@@ -19,14 +19,12 @@ class Request{
         "full_name": fullName,
         "email": email}
       ));
-    //
-    // print(response.statusCode);
-    //
+
     if(response.statusCode == 201){
       return "Please confirm email";
     }
-    else if(response.statusCode == 40){
-      error = jsonDecode(response.body)["message"];
+    else if(response.statusCode == 400){
+      error = jsonDecode(response.body)["email"][0];
     }
     throw Exception(error);
   }

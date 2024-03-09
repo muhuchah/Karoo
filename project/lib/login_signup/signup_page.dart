@@ -136,7 +136,10 @@ class _SignUpPage extends State<StatefulWidget> {
                               password: password);
                           ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text("You sign up successfully . please confirm email"),
-                                duration: Duration(seconds: 3),));
+                                duration: Duration(seconds: 3),))
+                          .closed.then((value){
+                            Navigator.of(context).pushReplacementNamed("/login");
+                          });
                         }
                         catch(e){
                           ScaffoldMessenger.of(context).showSnackBar(
