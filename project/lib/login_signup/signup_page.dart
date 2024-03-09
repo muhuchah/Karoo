@@ -17,8 +17,24 @@ class _SignUpPage extends State<StatefulWidget> {
   TextEditingController? emailController = TextEditingController();
   TextEditingController? passwordController = TextEditingController();
   TextEditingController? confirmPasswordController = TextEditingController();
+  FocusNode fullNameFocus = FocusNode();
+  FocusNode emailFocus = FocusNode();
+  FocusNode passwordFocus = FocusNode();
+  FocusNode confirmPasswordFocus = FocusNode();
+  final _formKey = GlobalKey<FormState>();
 
-
+  @override
+  void dispose() {
+    super.dispose();
+    fullNameController?.dispose();
+    emailController?.dispose();
+    passwordController?.dispose();
+    confirmPasswordController?.dispose();
+    fullNameFocus.dispose();
+    emailFocus.dispose();
+    passwordFocus.dispose();
+    confirmPasswordFocus.dispose();
+  }
 
   @override
   Widget build(BuildContext context){
@@ -45,90 +61,140 @@ class _SignUpPage extends State<StatefulWidget> {
           height: screenHeight - kToolbarHeight,
 
           width: double.infinity,
-          child: Container(
-            margin: const EdgeInsets.only(left : 20 , right: 20 ,top: 70),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const BigText(text: "Create Account"),
-                const SizedBox(height: 50,),
-                TextIcon(
-                  labelText: "FULL NAME",
-                  icon: Icons.person_outline,
-                  controller: fullNameController,
-
-                ),
-                const SizedBox(height: 20,),
-                TextIcon(
-                  labelText: "EMAIL",
-                  icon: Icons.email_outlined,
-                  controller: emailController,
-                ),
-                const SizedBox(height: 20,),
-                TextIcon(
-                  labelText: "PASSWORD",
-                  icon: Icons.email_outlined,
-                  controller: passwordController,
-                ),
-                const SizedBox(height: 20,),
-                TextIcon(
-                  labelText: "CONFIRM PASSWORD",
-                  icon: Icons.email_outlined,
-                  controller: confirmPasswordController,
-                ),
-                const SizedBox(height: 40,),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: ElevatedButton(onPressed: () async {
-                    String? fullName = fullNameController?.text??"";
-                    String? email = emailController?.text??"";
-                    String? password = passwordController?.text??"";
-                    try {
-                      var _futureUser = await Request.signup(
-                          fullName: "Hamid Mehranfar",
-                          email: "hamidmehranfar2@gmail.com",
-                          password: "12345678");
-                      print("you signup successfully");
-                    }
-                    catch(e){
-                      print(e.toString());
-                    }
-                  },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColor.main,
-                      fixedSize: Size(180, 60),
-                    ),
-                    child:const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CustomText(
-                          text: "SIGN UP",
-                          size: 20,
-                          textColor: AppColor.background,
-                          weight: FontWeight.bold,
-                        ),
-                        SizedBox(width: 20,),
-                        Icon(Icons.arrow_forward , size: 30 ,color: AppColor.background,)
-                      ],
+          child: Form(
+            key: _formKey,
+            child: Container(
+              margin: const EdgeInsets.only(left : 20 , right: 20 ,top: 50),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const BigText(text: "Create Account"),
+                  const SizedBox(height: 50,),
+                  TextIcon(
+                    labelText: "FULL NAME",
+                    icon: Icons.person_outline,
+                    controller: fullNameController,
+                    validatorFunction: (value){
+                      if(value==null || value.isEmpty){
+                        return "Please enter full name";
+                      }
+                      return null;
+                    },
+                    focus: fullNameFocus,
+                  ),
+                  const SizedBox(height: 20,),
+                  TextIcon(
+                    labelText: "EMAIL",
+                    icon: Icons.email_outlined,
+                    controller: emailController,
+                    validatorFunction: (value){
+                      if(value==null || value.isEmpty){
+                        return "Please enter email";
+                      }
+                      return null;
+                    },
+                    focus: emailFocus,
+                  ),
+                  const SizedBox(height: 20,),
+                  TextIcon(
+                    labelText: "PASSWORD",
+                    icon: Icons.email_outlined,
+                    controller: passwordController,
+                    validatorFunction: (value){
+                      if(value==null || value.isEmpty){
+                        return "Please enter password";
+                      }
+                      return null;
+                    },
+                    focus: passwordFocus,
+                  ),
+                  const SizedBox(height: 20,),
+                  TextIcon(
+                    labelText: "CONFIRM PASSWORD",
+                    icon: Icons.email_outlined,
+                    controller: confirmPasswordController,
+                    validatorFunction: (value){
+                      if(value==null || value.isEmpty){
+                        return "Please confirm password";
+                      }
+                      return null;
+                    },
+                    focus: confirmPasswordFocus,
+                  ),
+                  const SizedBox(height: 40,),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: ElevatedButton(onPressed: () async {
+                      if(_formKey.currentState!.validate()){
+                        String? fullName = fullNameController?.text??"";
+                        String? email = emailController?.text??"";
+                        String? password = passwordController?.text??"";
+                        try {
+                          await Request.signup(
+                              fullName: fullName,
+                              email: email,
+                              password: password);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text("You sign up successfully . please confirm email"),
+                                duration: Duration(seconds: 3),));
+                        }
+                        catch(e){
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(e.toString()),
+                                duration: Duration(seconds: 3),));
+                        }
+                      }
+                      else{
+                        if(fullNameController?.text==null || fullNameController?.text==""){
+                          fullNameFocus.requestFocus();
+                        }
+                        else if(emailController?.text==null || emailController?.text==""){
+                          emailFocus.requestFocus();
+                        }
+                        else if(passwordController?.text==null || passwordController?.text==""){
+                          passwordFocus.requestFocus();
+                        }
+                        else if(confirmPasswordController?.text==null || confirmPasswordController?.text==""){
+                          confirmPasswordFocus.requestFocus();
+                        }
+                      }
+                    },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColor.main,
+                        fixedSize: Size(180, 60),
+                      ),
+                      child:const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CustomText(
+                            text: "SIGN UP",
+                            size: 20,
+                            textColor: AppColor.background,
+                            weight: FontWeight.bold,
+                          ),
+                          SizedBox(width: 20,),
+                          Icon(Icons.arrow_forward , size: 30 ,color: AppColor.background,)
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 60,),
-                Row(children: [
-                  const CustomText(
-                      text: "Already have an account?",
-                      size: 20,
-                      textColor: AppColor.loginText2,
-                      weight: FontWeight.normal),
-                  const SizedBox(width: 5,),
-                  TextButton(onPressed: (){
-                  }, child: const CustomText(
-                      text: "Sign in",
-                      size: 20,
-                      textColor: AppColor.loginText1,
-                      weight: FontWeight.normal),)
-                ],)
-              ],
+                  const SizedBox(height: 60,),
+                  Row(children: [
+                    const CustomText(
+                        text: "Already have an account?",
+                        size: 20,
+                        textColor: AppColor.loginText2,
+                        weight: FontWeight.normal),
+                    const SizedBox(width: 5,),
+                    TextButton(onPressed: (){
+                    }, child: const CustomText(
+                        text: "Sign in",
+                        size: 20,
+                        textColor: AppColor.loginText1,
+                        weight: FontWeight.normal),)
+                  ],)
+                ],
+              ),
             ),
           ),
         ),
