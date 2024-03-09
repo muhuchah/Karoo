@@ -28,4 +28,23 @@ class Request{
     }
     throw Exception(error);
   }
+
+  static Future<String> login({required String email,
+    required String password}) async{
+    String error = "unable to signup";
+    final response = await http.post(Uri.parse(_baseUrl+_loginUrl),
+        headers: <String , String>{"Content-Type": "application/json"},
+        body:jsonEncode(<String , String>{
+          "password": password,
+          "email": email}
+        ));
+
+    if(response.statusCode == 201){
+      return "Please confirm email";
+    }
+    else if(response.statusCode == 401){
+      error = jsonDecode(response.body)["non_field_errors"][0];
+    }
+    throw Exception(error);
+  }
 }

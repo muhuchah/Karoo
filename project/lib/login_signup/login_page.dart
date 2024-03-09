@@ -17,6 +17,14 @@ class _LoginPage extends State<StatefulWidget>{
   FocusNode emailFocus = FocusNode();
   FocusNode passwordFocus = FocusNode();
 
+
+  @override
+  void initState() {
+    super.initState();
+    emailController?.dispose();
+    passwordController?.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
