@@ -7,17 +7,21 @@ class TextIcon extends StatelessWidget {
   final double size;
   final double fontSize;
   final Color borderColor;
+  final Color hintColor;
+  final String? Function(String? value)? validatorFunction;
   final TextEditingController? controller;
   const TextIcon({super.key , required this.labelText,
     required this.icon , this.size = 30 ,
     this.fontSize = 16 , this.borderColor = AppColor.text1,
-    required this.controller});
+    required this.controller , this.hintColor = AppColor.hint,
+    this.validatorFunction});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 70,
-      child: TextField(
+      child: TextFormField(
+        validator: validatorFunction,
         style: TextStyle(fontSize: fontSize),
         textAlign: TextAlign.left,
         textAlignVertical: TextAlignVertical.center,
@@ -26,7 +30,7 @@ class TextIcon extends StatelessWidget {
           labelStyle: TextStyle(
             fontSize: fontSize ,
             fontWeight: FontWeight.w600,
-            color: AppColor.hint
+            color: hintColor
           ),
           prefixIcon: SizedBox(
             width: 50,

@@ -1,19 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:project/login_signup/request.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/big_text.dart';
 import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/text_icon_widget.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
+
+  @override
+  State<StatefulWidget> createState() => _SignUpPage();
+}
+
+class _SignUpPage extends State<StatefulWidget> {
   TextEditingController? fullNameController = TextEditingController();
   TextEditingController? emailController = TextEditingController();
   TextEditingController? passwordController = TextEditingController();
   TextEditingController? confirmPasswordController = TextEditingController();
-  SignUpPage({super.key});
+
+
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     var screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -46,6 +56,7 @@ class SignUpPage extends StatelessWidget {
                   labelText: "FULL NAME",
                   icon: Icons.person_outline,
                   controller: fullNameController,
+
                 ),
                 const SizedBox(height: 20,),
                 TextIcon(
@@ -68,8 +79,20 @@ class SignUpPage extends StatelessWidget {
                 const SizedBox(height: 40,),
                 Align(
                   alignment: Alignment.centerRight,
-                  child: ElevatedButton(onPressed: (){
-
+                  child: ElevatedButton(onPressed: () async {
+                    String? fullName = fullNameController?.text??"";
+                    String? email = emailController?.text??"";
+                    String? password = passwordController?.text??"";
+                    try {
+                      var _futureUser = await Request.signup(
+                          fullName: "Hamid Mehranfar",
+                          email: "hamidmehranfar2@gmail.com",
+                          password: "12345678");
+                      print("you signup successfully");
+                    }
+                    catch(e){
+                      print(e.toString());
+                    }
                   },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColor.main,
