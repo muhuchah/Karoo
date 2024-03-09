@@ -4,10 +4,18 @@ import 'package:project/widgets/big_text.dart';
 import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/text_icon_widget.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  LoginPage({super.key});
+
+  @override
+  State<StatefulWidget> createState() => _LoginPage();
+}
+
+class _LoginPage extends State<StatefulWidget>{
   TextEditingController? emailController = TextEditingController();
   TextEditingController? passwordController = TextEditingController();
-  LoginPage({super.key});
+  FocusNode emailFocus = FocusNode();
+  FocusNode passwordFocus = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -41,10 +49,10 @@ class LoginPage extends StatelessWidget {
                 const BigText(text: "Login"),
                 const SizedBox(height: 10,),
                 const CustomText(
-                  text: "Please sign in to continue.",
-                  size: 20,
-                  textColor: AppColor.text1,
-                  weight: FontWeight.normal),
+                    text: "Please sign in to continue.",
+                    size: 20,
+                    textColor: AppColor.text1,
+                    weight: FontWeight.normal),
                 const SizedBox(height: 50,),
                 TextIcon(
                   labelText: "EMAIL",
@@ -88,18 +96,18 @@ class LoginPage extends StatelessWidget {
                 },
                   style: TextButton.styleFrom(padding: EdgeInsets.all(0)),
                   child: const CustomText(
-                    text: "Forgot Password?",
-                    size: 20,
-                    textColor: AppColor.loginText1,
-                    weight: FontWeight.normal),
-                  ),
+                      text: "Forgot Password?",
+                      size: 20,
+                      textColor: AppColor.loginText1,
+                      weight: FontWeight.normal),
+                ),
                 const SizedBox(height: 15,),
                 Row(children: [
                   const CustomText(
-                    text: "Don't have an account?",
-                    size: 20,
-                    textColor: AppColor.loginText2,
-                    weight: FontWeight.normal),
+                      text: "Don't have an account?",
+                      size: 20,
+                      textColor: AppColor.loginText2,
+                      weight: FontWeight.normal),
                   const SizedBox(width: 5,),
                   TextButton(onPressed: (){
                   }, child: const CustomText(
