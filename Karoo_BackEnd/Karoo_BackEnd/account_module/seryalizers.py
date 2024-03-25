@@ -3,7 +3,6 @@ from abc import ABC
 from django.contrib.auth.hashers import make_password
 
 from django.contrib.auth import get_user_model, authenticate
-from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import serializers
 from .models import Address, DiscountCode
 from account_module.utils.email_service import send_activation_email
@@ -97,3 +96,4 @@ class DiscountCodeSerializer(serializers.ModelSerializer):
     class Meta:
         model = DiscountCode
         fields = ['discount_percent', 'is_valid']
+

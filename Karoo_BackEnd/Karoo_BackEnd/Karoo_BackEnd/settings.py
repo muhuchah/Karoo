@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # internal apps
     'account_module',
-
+    'category_module',
+    'job_module',
     # external apps
     'rest_framework',
     'rest_framework_simplejwt',
