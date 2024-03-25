@@ -59,7 +59,7 @@ class UserSettingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['avatar', 'full_name', 'phone_number']
+        fields = ['avatar', 'full_name', 'phone_number', 'email']
 
 
 class UserAddressSerializer(serializers.ModelSerializer):

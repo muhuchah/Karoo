@@ -110,8 +110,18 @@ class UserSettingAPIView(generics.RetrieveUpdateAPIView):
 
     def update(self, request, *args, **kwargs):
         user = self.get_object()
+        original_email = user.email
+
         serializer = self.get_serializer(user, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
+
+        # Validate the email
+        new_email = serializer.validated_data.get('email')
+        if new_email and not validate_email(new_email):  # Assuming you have a validate_email function
+            response_data = {
+                'message': 'Email does not valid or exist!! please enter correct email.'
+            }
+            return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
 
         # Get the image file from the request data
         image_file = request.data.get('avatar')
@@ -122,6 +132,23 @@ class UserSettingAPIView(generics.RetrieveUpdateAPIView):
             serializer.save(avatar=image_name)
         else:
             serializer.save()
+
+        if new_email and original_email != new_email:
+            user.email = new_email
+            user.is_active = False  # Set user inactive until email is validated
+            user.save()
+
+            # Generate activation code and send email
+            subject = 'Account Registration'
+            template_name = 'email/activate_account.html'
+            send_activation_email(user, template_name, subject)
+
+            response_data = {
+                'message': 'Your new email address has been set, but it needs to be activated.'
+                           ' Please check your inbox for an activation email.',
+                **serializer.data  # Unpack serializer data into the dictionary
+            }
+            return Response(response_data, status=status.HTTP_200_OK)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
