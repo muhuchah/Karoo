@@ -28,7 +28,7 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('users/', include('account_module.urls')),
     path('category/', include('category_module.urls')),
-    path('job/', include('job_module.urls'))
+    path('job/', include('job_module.urls')),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
-
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
