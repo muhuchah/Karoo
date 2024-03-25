@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="db" uuid="c268230e-2753-4c38-bd69-b1946c13eaf9">
+    <data-source source="LOCAL" name="db [2]" uuid="4e6194d7-401d-412d-a715-6933f20aa00d">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:F:\karoo_project\Karoo\Karoo_BackEnd\Karoo_BackEnd\db.sqlite3</jdbc-url>
+      <jdbc-url>jdbc:sqlite:F:\karoo_project\Karoo_BackEnd\Karoo_BackEnd\db.sqlite3</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
       <libraries>
         <library>
