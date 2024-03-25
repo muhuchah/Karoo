@@ -27,5 +27,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('users/', include('account_module.urls')),
+    path('category/', include('category_module.urls')),
+    path('job/', include('job_module.urls'))
+
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
