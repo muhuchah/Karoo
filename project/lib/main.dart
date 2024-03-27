@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/login_signup/signup_page.dart';
+import 'package:project/profile/edit_profile_page.dart';
 import 'package:project/profile/profile_page.dart';
 import 'home/home_page.dart';
 import 'login_signup/login_page.dart';
@@ -21,10 +22,11 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       initialRoute: "/profile",
       routes: {
-        "/profile": (context) => ProfilePage(),
         "/home" : (context) => HomePage(),
         "/login" : (context) => LoginPage(),
         "/signup" : (context) => SignUpPage(),
+        "/profile" : (context) => ProfilePage(),
+        "/edit_profile" : (context) => EditProfilePage(),
       },
     );
   }

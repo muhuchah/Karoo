@@ -13,14 +13,38 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       appBar: ProfilePageAppBar(),
       body: SingleChildScrollView(
         child: Column(children: [
-          ProfileListTile(title: "Profile",icon: Icons.person_outline,),
-          ProfileListTile(title: "Orders",icon: Icons.ad_units_outlined,),
-          ProfileListTile(title: "Bookmarks",icon: Icons.bookmark_border,),
-          ProfileListTile(title: "Chats",icon: Icons.chat,),
+          ProfileListTile(
+            title: "Profile",
+            icon: Icons.person_outline,
+            onPressed:(){
+              Navigator.of(context).pushReplacementNamed("/edit_profile");
+            },
+          ),
+          ProfileListTile(
+            title: "Orders",
+            icon: Icons.ad_units_outlined,
+            onPressed:(){
+
+            },
+          ),
+          ProfileListTile(
+            title: "Bookmarks",
+            icon: Icons.bookmark_border,
+            onPressed:(){
+
+            },
+          ),
+          ProfileListTile(
+            title: "Chats",
+            icon: Icons.chat,
+            onPressed:(){
+
+            },
+          ),
           SizedBox(height: 40,),
           ProfileListText(text: "Help"),
           ProfileListText(text: "Support"),
