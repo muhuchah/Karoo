@@ -58,8 +58,8 @@ class ActivateAccountAPIView(View):
 
     def get(self, request, active_code):
         user: User = User.objects.filter(email_active_code__iexact=active_code).first()
-        if not expiretime_validator(user):
-            if user is not None:
+        if user is not None:
+            if not expiretime_validator(user):
                 if not user.is_active:
                     user.is_active = True
                     generate_activate_code(user)
@@ -71,13 +71,15 @@ class ActivateAccountAPIView(View):
                     return JsonResponse(message
                                         , status=status.HTTP_200_OK)
             else:
-                message = {'message': 'Your account was not activated'}
+                message = {'message': 'Your active code is expired please resend it'}
                 return JsonResponse(message
-                                    , status=status.HTTP_404_NOT_FOUND)
+                                    , status=status.HTTP_400_BAD_REQUEST)
+
         else:
-            message = {'message': 'Your active code is expired please resend it'}
+            message = {'message': 'Your account could not be found, the code may not be correct.'}
             return JsonResponse(message
-                                , status=status.HTTP_400_BAD_REQUEST)
+                                , status=status.HTTP_404_NOT_FOUND)
+
 
 
 class LoginAPIView(views.APIView):
