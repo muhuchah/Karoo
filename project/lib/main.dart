@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/login_signup/signup_page.dart';
+import 'package:project/profile/profile_page.dart';
 import 'home/home_page.dart';
 import 'login_signup/login_page.dart';
 
@@ -18,8 +19,9 @@ class MyApp extends StatelessWidget {
         fontFamily: "Inter"
       ),
       title: 'Flutter Demo',
-      initialRoute: "/home",
+      initialRoute: "/profile",
       routes: {
+        "/profile": (context) => ProfilePage(),
         "/home" : (context) => HomePage(),
         "/login" : (context) => LoginPage(),
         "/signup" : (context) => SignUpPage(),

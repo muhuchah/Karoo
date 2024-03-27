@@ -8,4 +8,5 @@ class AppColor{
   static const Color loginText1 = Color(0xff8C33FF);
   static const Color loginText2 = Color(0xffC8C7C7);
   static const Color hint = Color(0xffB0AEAE);
+  static const Color divider = Color(0xffC8C7C7);
 }
