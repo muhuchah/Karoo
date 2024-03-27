@@ -14,7 +14,7 @@ class ProfileListTile extends StatelessWidget {
     return Column(
       children: [
         Container(
-          margin: EdgeInsets.only(top: 20,left: 20,right: 5),
+          margin: EdgeInsets.only(top: 15,left: 15,right: 5),
           child: Column(children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -25,11 +25,11 @@ class ProfileListTile extends StatelessWidget {
                     CustomText(text: label, size: 16,
                         textColor: Colors.black, weight:FontWeight.normal),
                     SizedBox(height: 20,),
-                    CustomText(text: text, size: 16,
+                    CustomText(text: getValues(), size: 16,
                         textColor: AppColor.hint, weight:FontWeight.normal)
                 ],),
                 IconButton(onPressed: (){
-
+                  _showDialog(context, label);
                 }, icon: Icon(Icons.arrow_forward_ios,)),
             ],),
           ],),
@@ -39,5 +39,37 @@ class ProfileListTile extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 10),)
       ],
     );
+  }
+
+  String getValues(){
+    if(isPassword){
+      String temp = "";
+      for(int i=0;i<text.length;i++){
+        temp+="*";
+      }
+      return temp;
+    }
+    return text;
+  }
+
+  void _showDialog(context , label){
+    showDialog(context: context, builder: (context){
+      TextEditingController controller = TextEditingController();
+      return AlertDialog(
+        title: Text("Enter $label :"),
+        content: TextField(
+          controller: controller,
+
+        ),
+        actions: [
+          TextButton(onPressed: (){
+            Navigator.of(context).pop();
+          }, child: Text("Cancel")),
+          TextButton(onPressed: (){
+            Navigator.of(context).pop();
+          }, child: Text("Save")),
+        ],
+      );
+    });
   }
 }

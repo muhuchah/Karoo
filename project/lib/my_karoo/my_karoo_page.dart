@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project/my_karoo/my_karoo_appbar.dart';
 import 'package:project/my_karoo/my_karoo_list_tile.dart';
+import 'package:project/utils/app_color.dart';
 
 import 'my_karoo_list_text.dart';
 
@@ -15,6 +16,7 @@ class _MyKarooPageState extends State<MyKarooPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColor.background,
       appBar: const MyKarooAppBar(),
       body: SingleChildScrollView(
         child: Column(children: [

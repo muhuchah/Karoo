@@ -9,6 +9,7 @@ class MyKarooAppBar extends StatelessWidget implements PreferredSizeWidget{
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      backgroundColor: AppColor.background,
       title: const BigText(text: "Karoo"),
       actions: [
         IconButton(onPressed: (){
