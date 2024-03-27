@@ -15,14 +15,14 @@ class _MyKarooPageState extends State<MyKarooPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyKarooAppBar(),
+      appBar: const MyKarooAppBar(),
       body: SingleChildScrollView(
         child: Column(children: [
           MyKarooListTile(
             title: "Profile",
             icon: Icons.person_outline,
             onPressed:(){
-              Navigator.of(context).pushReplacementNamed("/edit_profile");
+              Navigator.of(context).pushNamed("/edit_profile");
             },
           ),
           MyKarooListTile(

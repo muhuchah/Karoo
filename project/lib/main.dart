@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project/login_signup/signup_page.dart';
-
+import 'package:project/my_karoo/my_karoo_page.dart';
+import 'package:project/profile/profile_page.dart';
 import 'home/home_page.dart';
 import 'login_signup/login_page.dart';
 
@@ -24,8 +25,8 @@ class MyApp extends StatelessWidget {
         "/home" : (context) => HomePage(),
         "/login" : (context) => LoginPage(),
         "/signup" : (context) => SignUpPage(),
-        // "/profile" : (context) => ProfilePage(),
-        // "/edit_profile" : (context) => EditProfilePage(),
+        "/profile" : (context) => MyKarooPage(),
+        "/edit_profile" : (context) => ProfilePage(),
       },
     );
   }

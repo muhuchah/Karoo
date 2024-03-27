@@ -9,22 +9,22 @@ class MyKarooAppBar extends StatelessWidget implements PreferredSizeWidget{
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: BigText(text: "Karoo"),
+      title: const BigText(text: "Karoo"),
       actions: [
         IconButton(onPressed: (){
 
-        }, icon: Icon(Icons.add_alert_rounded),
+        }, icon: const Icon(Icons.add_alert_rounded),
           style: IconButton.styleFrom(iconSize: 32),
         ),
         IconButton(onPressed: (){
 
-        }, icon: Icon(Icons.settings),
+        }, icon: const Icon(Icons.settings),
           style: IconButton.styleFrom(iconSize: 32),
         ),
-        SizedBox(width: 10,)
+        const SizedBox(width: 10,)
       ],
       bottom: PreferredSize(
-        preferredSize: Size.fromHeight(1),
+        preferredSize: const Size.fromHeight(1),
         child: Container(color: AppColor.divider,height: 1,),
       ),
     );

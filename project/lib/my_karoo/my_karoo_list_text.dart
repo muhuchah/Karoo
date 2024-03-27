@@ -8,14 +8,16 @@ class MyKarooListText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(right: 10,left: 10,top: 20),
+      margin: const EdgeInsets.only(right: 10,left: 10,top: 20),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 10.0),
-            child: Text(text , style: TextStyle(fontSize: 20),),
+            child: TextButton(onPressed: (){
+
+            },child: Text(text , style: const TextStyle(fontSize: 20),),),
           ),
-          SizedBox(height: 10,),
+          const SizedBox(height: 10,),
           Container(height: 1,color: AppColor.divider,)
       ],),
     );
