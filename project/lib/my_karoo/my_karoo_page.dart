@@ -1,44 +1,45 @@
 import 'package:flutter/material.dart';
-import 'package:project/profile/profile_appbar.dart';
-import 'package:project/profile/profile_list_text.dart';
-import 'package:project/profile/profile_list_tile.dart';
+import 'package:project/my_karoo/my_karoo_appbar.dart';
+import 'package:project/my_karoo/my_karoo_list_tile.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+import 'my_karoo_list_text.dart';
+
+class MyKarooPage extends StatefulWidget {
+  const MyKarooPage({super.key});
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  State<MyKarooPage> createState() => _MyKarooPageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _MyKarooPageState extends State<MyKarooPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ProfilePageAppBar(),
+      appBar: MyKarooAppBar(),
       body: SingleChildScrollView(
         child: Column(children: [
-          ProfileListTile(
+          MyKarooListTile(
             title: "Profile",
             icon: Icons.person_outline,
             onPressed:(){
               Navigator.of(context).pushReplacementNamed("/edit_profile");
             },
           ),
-          ProfileListTile(
+          MyKarooListTile(
             title: "Orders",
             icon: Icons.ad_units_outlined,
             onPressed:(){
 
             },
           ),
-          ProfileListTile(
+          MyKarooListTile(
             title: "Bookmarks",
             icon: Icons.bookmark_border,
             onPressed:(){
 
             },
           ),
-          ProfileListTile(
+          MyKarooListTile(
             title: "Chats",
             icon: Icons.chat,
             onPressed:(){
@@ -46,11 +47,11 @@ class _ProfilePageState extends State<ProfilePage> {
             },
           ),
           SizedBox(height: 40,),
-          ProfileListText(text: "Help"),
-          ProfileListText(text: "Support"),
-          ProfileListText(text: "Karoo FAQ"),
-          ProfileListText(text: "About Karoo"),
-          ProfileListText(text: "Contact us"),
+          MyKarooListText(text: "Help"),
+          MyKarooListText(text: "Support"),
+          MyKarooListText(text: "Karoo FAQ"),
+          MyKarooListText(text: "About Karoo"),
+          MyKarooListText(text: "Contact us"),
         ],),
       ),
     );

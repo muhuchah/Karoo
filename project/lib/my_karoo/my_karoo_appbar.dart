@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../utils/app_color.dart';
 import '../widgets/big_text.dart';
 
-class ProfilePageAppBar extends StatelessWidget implements PreferredSizeWidget{
-  const ProfilePageAppBar({super.key});
+class MyKarooAppBar extends StatelessWidget implements PreferredSizeWidget{
+  const MyKarooAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {

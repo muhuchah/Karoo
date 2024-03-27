@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:project/utils/app_color.dart';
 
-class ProfileListTile extends StatelessWidget {
+class MyKarooListTile extends StatelessWidget {
   final String title;
   final IconData icon;
   final double textSize;
   final void Function() onPressed;
-  const ProfileListTile({super.key ,
+  const MyKarooListTile({super.key ,
     required this.title, required this.icon ,
     required this.onPressed ,this.textSize = 20});
 

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:project/utils/app_color.dart';
 
-class ProfileListText extends StatelessWidget {
+class MyKarooListText extends StatelessWidget {
   final String text;
-  const ProfileListText({super.key , required this.text});
+  const MyKarooListText({super.key , required this.text});
 
   @override
   Widget build(BuildContext context) {
