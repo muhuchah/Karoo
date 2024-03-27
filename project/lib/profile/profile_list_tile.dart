@@ -11,7 +11,7 @@ class ProfileListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(10),
+      margin: EdgeInsets.only(right: 10 , left: 10 , top: 10),
       child: Column(children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
