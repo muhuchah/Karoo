@@ -11,6 +11,7 @@ urlpatterns = [
     path('resetpassword/<active_code>', views.ResetPasswordView.as_view(), name='account-reset-password'),
     path('login/', views.LoginAPIView.as_view(), name='login-url'),
     path('login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('logout/', views.LogoutAPIView.as_view(), name='logout'),
     path('settings/personal-info/', views.UserSettingAPIView.as_view(), name='user-personal-info-url'),
     path('settings/address-list/', views.UserAddressRetrieveAPIView.as_view(), name='user-address-list-url'),
     path('settings/address-edit/<int:pk>', views.UserAddressUpdateDestroyAPIView.as_view(), name='user-address-edit-url'),

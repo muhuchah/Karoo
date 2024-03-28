@@ -149,4 +149,31 @@ If user changes his email, an activation link will be sent to activate his email
     "email": "new@gmail.com"
 }
 ```
+## Logout
+> URL http://127.0.0.1:8000/users/logout/
 
+```json
+{
+    "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcxNDI0MDk3MSwiaWF0IjoxNzExNjQ4OTcxLCJqdGkiOiI3ODQ2ZDA2NTNhZDY0NDFiOGE0MGI3MDA0ZGIxYWIwMiIsInVzZXJfaWQiOjF9.z9bwBv_2Ehp7i1O2Ayi0ONHoaAKYsLyBdD-D3qXwXvg"
+}
+```
+### Responses
+#### If refresh token is not provided
+```json
+{ 
+    "error": "Missing refresh token"
+}
+```
+#### If logout was successful
+```json
+{
+    "message": "You have been successfully logged out."
+}
+```
+
+#### If it wasn't successful
+```json
+{
+    "message": "An error occurred during logout."
+}
+```
