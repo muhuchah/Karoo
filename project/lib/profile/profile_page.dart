@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/profile/profile_list_tile.dart';
+import 'package:project/profile/user_info.dart';
 import 'package:project/request.dart';
 import 'package:project/user/user_file.dart';
 import 'package:project/utils/app_color.dart';
@@ -59,11 +60,16 @@ class ProfilePage extends StatelessWidget {
           Container(height: 1,color: AppColor.divider,
             margin: const EdgeInsets.symmetric(horizontal: 10),
           ),
-          ProfileListTile(label: "Full Name", text: user.fullName!),
-          ProfileListTile(label: "Email", text: user.email!),
-          ProfileListTile(label: "Phone Number", text: user.phoneNumber!),
-          ProfileListTile(label: "Address", text: user.address!),
-          ProfileListTile(label: "Password", text: user.password! , isPassword: true,),
+          ProfileListTile(userInfo:UserInfo.fullName ,
+              label: "Full Name", text: user.fullName!),
+          ProfileListTile(userInfo: UserInfo.email,
+          label: "Email", text: user.email!),
+          ProfileListTile(userInfo: UserInfo.phoneNumber,
+              label: "Phone Number", text: user.phoneNumber!),
+          ProfileListTile(userInfo: UserInfo.address,
+              label: "Address", text: user.address!),
+          ProfileListTile(userInfo: UserInfo.password,
+            label: "Password", text: user.password! , isPassword: true,),
           SizedBox(height: 20,),
           Padding(
             padding: const EdgeInsets.all(20.0),

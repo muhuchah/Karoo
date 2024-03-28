@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:project/profile/user_info.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/custom_text.dart';
 
 class ProfileListTile extends StatelessWidget {
+  final UserInfo userInfo;
   final String label;
   final String text;
   final bool isPassword;
-  const ProfileListTile({super.key , required this.label,
-    required this.text , this.isPassword = false});
+  const ProfileListTile({super.key , required this.userInfo ,
+    required this.label, required this.text , this.isPassword = false});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class ProfileListTile extends StatelessWidget {
                     CustomText(text: label, size: 16,
                         textColor: Colors.black, weight:FontWeight.normal),
                     SizedBox(height: 20,),
-                    CustomText(text: getValues(), size: 16,
+                    CustomText(text: getText(), size: 16,
                         textColor: AppColor.hint, weight:FontWeight.normal)
                 ],),
                 IconButton(onPressed: (){
@@ -41,7 +43,7 @@ class ProfileListTile extends StatelessWidget {
     );
   }
 
-  String getValues(){
+  String getText(){
     if(isPassword){
       String temp = "";
       for(int i=0;i<text.length;i++){
@@ -50,6 +52,24 @@ class ProfileListTile extends StatelessWidget {
       return temp;
     }
     return text;
+  }
+
+  String getBodyParam(){
+    if(userInfo == UserInfo.fullName){
+      return "full_name";
+    }
+    else if(userInfo == UserInfo.email){
+      return "email";
+    }
+    else if(userInfo == UserInfo.phoneNumber){
+      return "phone_number";
+    }
+    else if(userInfo == UserInfo.address){
+      return "address";
+    }
+    else{
+      return "password";
+    }
   }
 
   void _showDialog(context , label){
