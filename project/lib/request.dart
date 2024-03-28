@@ -58,30 +58,33 @@ class Request{
         });
 
     if(response.statusCode==200){
-      dynamic body = jsonDecode(response.body);
-      user.fullName = body["full_name"];
-      user.phoneNumber = "09904503067";
-      user.email = body["email"];
-      user.address = "Isfahan,Isfahan";
-      user.password = "12345678";
+      _setInfo(jsonDecode(response.body), user);
       return "Success";
     }
     throw Exception("Unable to load information");
   }
 
-  static Future<String> changeInfo(String bodyParam , String bodyValue) async {
+  static void _setInfo(dynamic body , User user){
+    user.fullName = body["full_name"];
+    user.phoneNumber = "09904503067";
+    user.email = body["email"];
+    user.address = "Isfahan,Isfahan";
+    user.password = "12345678";
+  }
+
+  static Future<void> changeInfo(String bodyParam , String bodyValue) async {
     User user = User();
-    final response = await http.post(Uri.parse(_baseUrl+_personalInfo),
-        headers: <String , String> {"Content-Type": "application/json",
-          "Authorization": "Bearer ${user.token!}"},
+    final response = await http.put(Uri.parse(_baseUrl+_personalInfo),
+        headers: <String , String> {
+            "Authorization": "Bearer ${user.token!}"},
         body: <String , String>{
           bodyParam : bodyValue
         }
     );
 
     if(response.statusCode == 200){
-      print(response.body);
-      return "Success";
+      _setInfo(jsonDecode(response.body), user);
+      return;
     }
 
     throw Exception("Unable to change info");

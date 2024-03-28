@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/profile/user_info.dart';
+import 'package:project/request.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/custom_text.dart';
 
@@ -79,14 +80,27 @@ class ProfileListTile extends StatelessWidget {
         title: Text("Enter $label :"),
         content: TextField(
           controller: controller,
-
         ),
         actions: [
           TextButton(onPressed: (){
             Navigator.of(context).pop();
           }, child: Text("Cancel")),
-          TextButton(onPressed: (){
+          TextButton(onPressed: () async {
+            try{
+              await Request.changeInfo(getBodyParam(),
+                  controller.text);
+              ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text("Success"),
+                    duration: Duration(seconds: 3),));
+            }
+            catch(e){
+              ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(e.toString()),
+                    duration: Duration(seconds: 3),));
+            }
             Navigator.of(context).pop();
+            Navigator.of(context).pop();
+            Navigator.of(context).pushNamed("/profile");
           }, child: Text("Save")),
         ],
       );
