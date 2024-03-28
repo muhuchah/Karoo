@@ -16,4 +16,4 @@ class job_pictures(models.Model):
     image = models.ImageField(upload_to='images/job_images', null=True, blank=True)
 
     def __str__(self):
-        return self.job
+        return f'job title:{self.job.title}, user:{self.job.user.email}'
