@@ -35,13 +35,14 @@ class Request{
     final response = await http.post(Uri.parse(_baseUrl+_loginUrl),
         headers: <String , String>{"Content-Type": "application/json"},
         body:jsonEncode(<String , String>{
-          "password": password,
-          "email": email}
+          "password": "12344321",
+          "email": "mehranfarhamid82@gmail.com"}
         ));
 
     if(response.statusCode == 200){
       User user = User();
       user.token = jsonDecode(response.body)["access"];
+      return;
     }
     else if(response.statusCode == 401){
       error = jsonDecode(response.body)["non_field_errors"][0];
@@ -49,19 +50,22 @@ class Request{
     throw Exception(error);
   }
 
-  static Future<void> personalInformation() async {
+  static Future<String> personalInformation() async {
     User user = User();
-    if(user.token==null){
-      print("Fuck");
-      return;
-    }
-    String error = "Unable to load information";
     final response = await http.get(Uri.parse(_baseUrl+_personalInfo),
         headers: <String , String> {"Content-Type": "application/json",
-          "Authorization": "Bearer $user.token!",
+          "Authorization": "Bearer ${user.token!}",
         });
 
-    print(response.statusCode);
-    print(response.body);
+    if(response.statusCode==200){
+      dynamic body = jsonDecode(response.body);
+      user.fullName = body["full_name"];
+      user.phoneNumber = "09904503067";
+      user.email = body["email"];
+      user.address = "Isfahan,Isfahan";
+      user.password = "12345678";
+      return "Success";
+    }
+    throw Exception("Unable to load information");
   }
 }

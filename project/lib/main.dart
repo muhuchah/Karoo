@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         fontFamily: "Inter"
       ),
       title: 'Flutter Demo',
-      initialRoute: "/myKaroo",
+      initialRoute: "/login",
       routes: {
         "/home" : (context) => HomePage(),
         "/login" : (context) => LoginPage(),

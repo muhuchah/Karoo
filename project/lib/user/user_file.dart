@@ -4,6 +4,7 @@ class User{
   String? _token;
   String? _fullName;
   String? _email;
+  String? _address;
   String? _password;
   String? _phoneNumber;
 
@@ -27,6 +28,10 @@ class User{
     _phoneNumber = number;
   }
 
+  set address(String? address){
+    _address = address;
+  }
+
   set password(String? password){
     _password = password;
   }
@@ -40,6 +45,8 @@ class User{
   String? get email{return _email;}
 
   String? get phoneNumber{return _phoneNumber;}
+
+  String? get address{return _address;}
 
   String? get password{return _password;}
 
