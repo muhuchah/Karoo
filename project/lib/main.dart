@@ -20,13 +20,13 @@ class MyApp extends StatelessWidget {
         fontFamily: "Inter"
       ),
       title: 'Flutter Demo',
-      initialRoute: "/profile",
+      initialRoute: "/myKaroo",
       routes: {
         "/home" : (context) => HomePage(),
         "/login" : (context) => LoginPage(),
         "/signup" : (context) => SignUpPage(),
-        "/profile" : (context) => MyKarooPage(),
-        "/edit_profile" : (context) => ProfilePage(),
+        "/myKaroo" : (context) => MyKarooPage(),
+        "/profile" : (context) => ProfilePage(),
       },
     );
   }

@@ -24,7 +24,7 @@ class _MyKarooPageState extends State<MyKarooPage> {
             title: "Profile",
             icon: Icons.person_outline,
             onPressed:(){
-              Navigator.of(context).pushNamed("/edit_profile");
+              Navigator.of(context).pushNamed("/profile");
             },
           ),
           MyKarooListTile(

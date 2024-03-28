@@ -98,14 +98,14 @@ class _LoginPage extends State<StatefulWidget>{
                         String? email = emailController?.text??"";
                         String? password = passwordController?.text??"";
                         try {
-                          var response = await Request.login(
+                          await Request.login(
                               email: email,
                               password: password);
                           ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text("You login successfully ."),
                                 duration: Duration(seconds: 3),))
                               .closed.then((value){
-                            print("access token : $response");
+                                Navigator.of(context).pushReplacementNamed("/myKaroo");
                           });
                         }
                         catch(e){
