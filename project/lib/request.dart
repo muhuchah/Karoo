@@ -69,7 +69,21 @@ class Request{
     throw Exception("Unable to load information");
   }
 
-  // static Future<String> changeInfo(String bodyParam , String bodyValue){
-  //
-  // }
+  static Future<String> changeInfo(String bodyParam , String bodyValue) async {
+    User user = User();
+    final response = await http.post(Uri.parse(_baseUrl+_personalInfo),
+        headers: <String , String> {"Content-Type": "application/json",
+          "Authorization": "Bearer ${user.token!}"},
+        body: <String , String>{
+          bodyParam : bodyValue
+        }
+    );
+
+    if(response.statusCode == 200){
+      print(response.body);
+      return "Success";
+    }
+
+    throw Exception("Unable to change info");
+  }
 }
