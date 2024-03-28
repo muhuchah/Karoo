@@ -1,6 +1,5 @@
 import 'dart:convert';
-
-import '../user/user_file.dart';
+import 'user/user_file.dart';
 import 'package:http/http.dart' as http;
 
 class Request{
