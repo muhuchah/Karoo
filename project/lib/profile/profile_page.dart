@@ -7,7 +7,8 @@ import 'package:project/widgets/big_text.dart';
 import 'package:project/widgets/custom_text.dart';
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+  User user = User();
+  ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class ProfilePage extends StatelessWidget {
           child: Container(height: 1,color: AppColor.divider,),
         ),
       ),
-      body: Center(child: FutureBuilder<String>(
+      body: Center(child: user.fullName==null ? FutureBuilder<String>(
           future: Request.personalInformation(),
           builder: (context , snapshot){
             if(snapshot.hasData){
@@ -36,13 +37,12 @@ class ProfilePage extends StatelessWidget {
             }
             return const CircularProgressIndicator();
           },
-        )
+        ) : getWidgets()
       ),
     );
   }
 
   Widget getWidgets(){
-    User user = User();
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

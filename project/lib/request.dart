@@ -68,4 +68,8 @@ class Request{
     }
     throw Exception("Unable to load information");
   }
+
+  // static Future<String> changeInfo(){
+  //
+  // }
 }
