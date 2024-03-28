@@ -74,33 +74,40 @@ class ProfileListTile extends StatelessWidget {
   }
 
   void _showDialog(context , label){
+    FocusNode focusNode = FocusNode();
     showDialog(context: context, builder: (context){
       TextEditingController controller = TextEditingController();
       return AlertDialog(
         title: Text("Enter $label :"),
         content: TextField(
           controller: controller,
+          focusNode: focusNode,
         ),
         actions: [
           TextButton(onPressed: (){
             Navigator.of(context).pop();
           }, child: Text("Cancel")),
           TextButton(onPressed: () async {
-            try{
-              await Request.changeInfo(getBodyParam(),
-                  controller.text);
-              ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text("Success"),
-                    duration: Duration(seconds: 3),));
+            if (controller.text == "") {
+              focusNode.requestFocus();
             }
-            catch(e){
-              ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(e.toString()),
-                    duration: Duration(seconds: 3),));
+            else {
+              try {
+                await Request.changeInfo(getBodyParam(),
+                    controller.text);
+                ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("Success"),
+                      duration: Duration(seconds: 3),));
+              }
+              catch (e) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(e.toString()),
+                      duration: Duration(seconds: 3),));
+              }
+              Navigator.of(context).pop();
+              Navigator.of(context).pop();
+              Navigator.of(context).pushNamed("/profile");
             }
-            Navigator.of(context).pop();
-            Navigator.of(context).pop();
-            Navigator.of(context).pushNamed("/profile");
           }, child: Text("Save")),
         ],
       );
