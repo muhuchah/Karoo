@@ -14,6 +14,7 @@ from .utils.generate_active_code import generate_activate_code
 from validate_email_address import validate_email
 from .utils.email_service import send_activation_email, expiretime_validator
 from django.contrib.auth.hashers import make_password
+from rest_framework_simplejwt.tokens import RefreshToken
 
 # Create your views here.
 
@@ -256,3 +257,20 @@ class DiscountCodeAPIView(generics.RetrieveAPIView):
         user_discount = self.get_object()
         serializer = self.get_serializer(user_discount)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class LogoutAPIView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request):
+        try:
+            refresh_token = request.data["refresh_token"]
+            if not refresh_token:
+                return Response({'error': 'Missing refresh token'}, status=status.HTTP_400_BAD_REQUEST)
+
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+
+            return Response({'message': 'You have been successfully logged out.'}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'message': 'An error occurred during logout.'}, status=status.HTTP_400_BAD_REQUEST)
