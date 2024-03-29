@@ -5,5 +5,5 @@ router = DefaultRouter()
 router.register('', views.jobAPIView, basename='job')
 
 urlpatterns = [
-    path('', include(router.urls))
+    path('user/', include(router.urls))
 ]
