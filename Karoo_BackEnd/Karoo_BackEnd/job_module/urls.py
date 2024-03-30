@@ -1,9 +1,13 @@
 from django.urls import path, include
 from . import views
 from rest_framework.routers import DefaultRouter
-router = DefaultRouter()
-router.register('', views.jobAPIView, basename='job')
+
+job_user_router= DefaultRouter()
+job_user_router.register('info', views.jobAPIView, basename='jobs')
+job_user_router.register('pictures', views.jobPicturesAPIView, basename='job_pictures')
+
 
 urlpatterns = [
-    path('user/', include(router.urls))
+    path('user/', include(job_user_router.urls)),
+    path('user/', include(job_user_router.urls)),
 ]
