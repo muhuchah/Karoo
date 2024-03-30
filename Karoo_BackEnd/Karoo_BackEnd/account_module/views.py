@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import Address, DiscountCode
 from .seryalizers import (UserSerialaizer, LoginSerializer, UserSettingSerializer, UserAddressSerializer
-, ForgotPasswordLinkSerializer, DiscountCodeSerializer)
+, ForgotPasswordLinkSerializer, DiscountCodeSerializer, UserDeactivateSerializer)
 from rest_framework import generics, status, views
 from django.contrib.auth import get_user_model
 from account_module.utils.jwt_token_generator import get_token_for_user
@@ -15,6 +15,7 @@ from validate_email_address import validate_email
 from .utils.email_service import send_activation_email, expiretime_validator
 from django.contrib.auth.hashers import make_password
 from rest_framework_simplejwt.tokens import RefreshToken
+from .utils.user_deactivation import deactivate_account
 
 # Create your views here.
 
@@ -274,3 +275,31 @@ class LogoutAPIView(APIView):
             return Response({'message': 'You have been successfully logged out.'}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'message': 'An error occurred during logout.'}, status=status.HTTP_400_BAD_REQUEST)
+        
+
+class DeactivateAccountAPIView(generics.UpdateAPIView):
+    serializer_class = UserDeactivateSerializer
+    permission_classes = [IsAuthenticated]
+
+    def update(self, request, *args, **kwargs):
+        user = request.user
+        serializer = self.serializer_class(data=request.data)
+
+        if serializer.is_valid():
+            deactivate_account(user, re_register_after_day=1)
+
+            # Blacklist access token
+            # authorization_header = request.META.get('HTTP_AUTHORIZATION')
+            # prefix, token = authorization_header.split(' ')
+            # BlacklistedToken.objects.create(token=token)
+
+            # Blacklist refresh token
+            refresh_token = RefreshToken.for_user(user)
+            if refresh_token:
+                refresh_token.blacklist()
+                print('refresh token is blacklisted')
+
+
+            return Response({'message': 'You Account Has Been Deleted Successfully.'} ,status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
