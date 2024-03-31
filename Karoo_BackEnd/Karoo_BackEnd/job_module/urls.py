@@ -1,13 +1,16 @@
-from django.urls import path, include
+from django.urls import path, include, re_path
 from . import views
 from rest_framework.routers import DefaultRouter
 
-job_user_router= DefaultRouter()
-job_user_router.register('info', views.jobAPIView, basename='jobs')
-job_user_router.register('pictures', views.jobPicturesAPIView, basename='job_pictures')
+job_user_router = DefaultRouter()
+job_user_router.register('info', views.jobUserAPIView, basename='job-info')
+job_user_router.register('pictures', views.jobPicturesAPIView, basename='job-pictures')
 
 
 urlpatterns = [
     path('user/', include(job_user_router.urls)),
     path('user/', include(job_user_router.urls)),
+    path('list/', views.jobListAPIView.as_view(), name='job-list'),
+    path('search/', views.jobSearchAPIView.as_view(), name='job-search')
+
 ]

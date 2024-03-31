@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 from django.utils.crypto import get_random_string
 from django.core.validators import MaxValueValidator, MinValueValidator
 
+
 # Create your models here.
 
 class MyUserManager(BaseUserManager):
@@ -65,7 +66,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['full_name']
 
     class Meta:
-        verbose_name= 'User table'
+        verbose_name = 'User table'
 
     def save(self, *args, **kwargs):
         self.email = self.email.lower()  # Convert email to lowercase
@@ -80,13 +81,13 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class DiscountCode(models.Model):
-    code = models.CharField(max_length=5, unique=True, blank=True , null=True)
+    code = models.CharField(max_length=5, unique=True, blank=True, null=True)
     discount_percent = models.PositiveIntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
     is_valid = models.BooleanField(default=True)
     user = models.ManyToManyField(User, related_name="DiscoountCodes")
 
     class Meta:
-        verbose_name= 'Discount Code table'
+        verbose_name = 'Discount Code table'
 
     def __str__(self):
         return f'discount code is : {self.discount_percent}'
@@ -101,12 +102,10 @@ class Address(models.Model):
     street = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
     state = models.CharField(max_length=100)
-    zip_code = models.CharField(max_length=20)
+    zip_code = models.CharField(max_length=20, null=True)
 
     class Meta:
-        verbose_name= 'Address table'
-
+        verbose_name = 'Address table'
 
     def __str__(self):
         return f'User: {self.user}, Street: {self.street} '
-

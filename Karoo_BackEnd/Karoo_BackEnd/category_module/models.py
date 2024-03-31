@@ -1,9 +1,9 @@
 from django.db import models
 
+
 # Create your models here.
 
 class MainCategory(models.Model):
-
     title = models.CharField(max_length=50)
     description = models.TextField(null=True, blank=True)
     image = models.ImageField(upload_to='images/categories_images', null=False, blank=False)
@@ -11,8 +11,8 @@ class MainCategory(models.Model):
     def __str__(self):
         return self.title
 
-class SubCategory(models.Model):
 
+class SubCategory(models.Model):
     title = models.CharField(max_length=50, null=False, blank=False)
     description = models.TextField(null=True, blank=True)
     image = models.ImageField(upload_to='images/subcategories_images', null=False, blank=False)

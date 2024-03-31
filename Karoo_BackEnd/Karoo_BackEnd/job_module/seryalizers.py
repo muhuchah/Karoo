@@ -14,3 +14,9 @@ class jobSerializer(serializers.ModelSerializer):
     class Meta:
         model = job
         fields = '__all__'
+
+
+class joblistSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = job
+        fields = '__all__'
