@@ -1,3 +1,4 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from .models import MainCategory, SubCategory
 from rest_framework import generics
 from .seryalizers import MainCategorySerializer, SubCategorySerializer
@@ -10,10 +11,9 @@ class MainCategoryListAPIView(generics.ListAPIView):
 
 
 # Reverse List of SubCategories by getting there MainCategory ID.
-class SubCategoryListAPIView(generics.RetrieveAPIView):
+class SubCategoryListAPIView(generics.ListAPIView):
     serializer_class = SubCategorySerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['MainCategory__title']
+    queryset = SubCategory.objects.all()
 
-    def get_queryset(self):
-        maincategory_id = self.kwargs["pk"]
-        queryset = SubCategory.objects.filter(MainCategory_id=maincategory_id)
-        return queryset

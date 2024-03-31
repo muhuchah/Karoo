@@ -28,7 +28,7 @@ class jobPicturesAPIView(viewsets.ModelViewSet):
 class jobListAPIView(generics.ListAPIView):
     serializer_class = joblistSerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['SubCategory__id', 'SubCategory__MainCategory__id', 'user__addresses__city']
+    filterset_fields = ['SubCategory__title', 'SubCategory__MainCategory__title', 'user__addresses__city']
     queryset = job.objects.all()
 
 
