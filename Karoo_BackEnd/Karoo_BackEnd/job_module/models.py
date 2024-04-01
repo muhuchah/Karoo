@@ -27,6 +27,7 @@ class job_pictures(models.Model):
     def __str__(self):
         return f'job title:{self.job.title}, user:{self.job.user.email}'
 
+
 # Set first picture as main picture for job model(if user saved any picture!!)
 @receiver(post_save, sender=job_pictures)
 def set_main_picture(sender, instance, created, **kwargs):
@@ -34,3 +35,12 @@ def set_main_picture(sender, instance, created, **kwargs):
         instance.job.main_picture = instance
         instance.job.save()
 
+
+class job_comments(models.Model):
+    title = models.CharField(max_length=300)
+    comment = models.TextField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
+    job = models.ForeignKey(job, on_delete=models.CASCADE, related_name='comments')
+
+    def __str__(self):
+        return f'{self.title}, user:{self.user}, job:{self.job}'

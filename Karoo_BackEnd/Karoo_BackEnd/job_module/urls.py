@@ -11,6 +11,8 @@ urlpatterns = [
     path('user/', include(job_user_router.urls)),
     path('user/', include(job_user_router.urls)),
     path('list/', views.jobListAPIView.as_view(), name='job-list'),
-    path('detail/<int:pk>', views.jobRetrieveAPIView.as_view(), name='job-detail')
+    path('detail/<int:pk>', views.jobRetrieveAPIView.as_view(), name='job-detail'),
+    path('comment/create/', views.jobCommentsCreateAPIView.as_view(), name='job-comments-create'),
+    path('comment/edit/<int:pk>', views.jobCommentsEditAPIView.as_view(), name='job-comments-edit')
 
 ]

@@ -1,9 +1,8 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import viewsets, generics, filters, permissions, status
+from rest_framework import viewsets, generics, filters, permissions
 from rest_framework.exceptions import PermissionDenied
-
-from .models import job, job_pictures
-from .seryalizers import jobSerializer, job_picturesSerializer, joblistSerializer
+from .models import job, job_pictures, job_comments
+from .seryalizers import jobSerializer, job_picturesSerializer, joblistSerializer, job_commentsSerializer
 from rest_framework.response import Response
 
 
@@ -87,6 +86,9 @@ class jobListAPIView(generics.ListAPIView):
         for item in data:
             if 'pictures' in item:
                 item.pop('pictures')
+        for item in data:
+            if 'comments' in item:
+                item.pop('comments')
 
         return Response(data)
 
@@ -105,3 +107,22 @@ class jobRetrieveAPIView(generics.RetrieveAPIView):
         data['description'] = instance.description
 
         return Response(data)
+
+
+# Create comments on jobs
+class jobCommentsCreateAPIView(generics.CreateAPIView):
+    serializer_class = job_commentsSerializer
+    queryset = job_comments.objects.all()
+
+
+class IsCommentOwner(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        # Check if the user is the owner of the comment
+        return obj.user == request.user
+
+
+# Edite comments on jobs
+class jobCommentsEditAPIView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = job_commentsSerializer
+    queryset = job_comments.objects.all()
+    permission_classes = [IsCommentOwner]
