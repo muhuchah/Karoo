@@ -35,6 +35,16 @@ class jobUserAPIView(viewsets.ModelViewSet):
     serializer_class = jobSerializer
     permission_classes = [IsOwnerOrReadOnly]
 
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        data = serializer.data
+
+        # Include the description field in the response
+        data['description'] = instance.description
+
+        return Response(data)
+
     def get_queryset(self):
         queryset = job.objects.filter(user=self.request.user)
         return queryset
@@ -60,18 +70,38 @@ class jobPicturesAPIView(viewsets.ModelViewSet):
             raise PermissionDenied("You can only create job_pictures for your own jobs.")
 
 
-# Return filters of city or categories for user
+# Return filters of city or categories for user and Return search of jobs for user
 class jobListAPIView(generics.ListAPIView):
     serializer_class = joblistSerializer
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ['SubCategory__title', 'SubCategory__MainCategory__title', 'user__addresses__city']
-    queryset = job.objects.all()
-
-
-# Return search of jobs for user
-class jobSearchAPIView(generics.ListAPIView):
-    serializer_class = joblistSerializer
-    filter_backends = [filters.SearchFilter]
     search_fields = [
         'title', 'user__full_name', 'SubCategory__title', 'SubCategory__MainCategory__title', '=user__addresses__city']
     queryset = job.objects.all()
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+        serializer = self.get_serializer(queryset, many=True)
+        data = serializer.data
+
+        for item in data:
+            if 'pictures' in item:
+                item.pop('pictures')
+
+        return Response(data)
+
+
+# Retrieve job details for user.
+class jobRetrieveAPIView(generics.RetrieveAPIView):
+    serializer_class = joblistSerializer
+    queryset = job.objects.all()
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        data = serializer.data
+
+        # Include the description field in the response
+        data['description'] = instance.description
+
+        return Response(data)

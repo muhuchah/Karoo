@@ -1,4 +1,7 @@
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 from category_module.models import SubCategory
 from account_module.models import User
 
@@ -10,7 +13,9 @@ class job(models.Model):
     description = models.TextField(null=True, blank=True)
     SubCategory = models.ForeignKey(SubCategory, on_delete=models.SET_NULL, null=True, blank=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
-    main_picture = models.OneToOneField('job_pictures', on_delete=models.SET_NULL, null=True, blank=True)
+    main_picture = models.OneToOneField('job_pictures', on_delete=models.SET_NULL, null=True, blank=True,
+                                        related_name='main_picture_of')
+
     def __str__(self):
         return self.title
 
@@ -21,3 +26,11 @@ class job_pictures(models.Model):
 
     def __str__(self):
         return f'job title:{self.job.title}, user:{self.job.user.email}'
+
+# Set first picture as main picture for job model(if user saved any picture!!)
+@receiver(post_save, sender=job_pictures)
+def set_main_picture(sender, instance, created, **kwargs):
+    if created and not instance.job.main_picture and instance.job.pictures.filter(pk=instance.pk).exists():
+        instance.job.main_picture = instance
+        instance.job.save()
+

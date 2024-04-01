@@ -11,6 +11,6 @@ urlpatterns = [
     path('user/', include(job_user_router.urls)),
     path('user/', include(job_user_router.urls)),
     path('list/', views.jobListAPIView.as_view(), name='job-list'),
-    path('search/', views.jobSearchAPIView.as_view(), name='job-search')
+    path('detail/<int:pk>', views.jobRetrieveAPIView.as_view(), name='job-detail')
 
 ]
