@@ -10,14 +10,14 @@ class job(models.Model):
     description = models.TextField(null=True, blank=True)
     SubCategory = models.ForeignKey(SubCategory, on_delete=models.SET_NULL, null=True, blank=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
-
+    main_picture = models.OneToOneField('job_pictures', on_delete=models.SET_NULL, null=True, blank=True)
     def __str__(self):
         return self.title
 
 
 class job_pictures(models.Model):
-    job = models.ForeignKey(job, related_name='pictures', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='images/job_images', null=True, blank=True)
+    job = models.ForeignKey(job, on_delete=models.CASCADE, related_name='pictures')
+    image = models.ImageField(upload_to='images/job_images', null=False, blank=False)
 
     def __str__(self):
         return f'job title:{self.job.title}, user:{self.job.user.email}'
