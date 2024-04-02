@@ -98,7 +98,7 @@ class DiscountCode(models.Model):
 
 
 class Address(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='addresses', blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='addresses', blank=True)
     street = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
     state = models.CharField(max_length=100)

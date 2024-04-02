@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import job, job_pictures, job_comments
+from account_module.models import Address
 
 
 class job_commentsSerializer(serializers.ModelSerializer):
@@ -69,11 +70,12 @@ class joblistSerializer(serializers.ModelSerializer):
     user_email = serializers.SerializerMethodField()
     user_avatar_url = serializers.SerializerMethodField()
     main_picture_url = serializers.SerializerMethodField()
+    user_addresses_city = serializers.SerializerMethodField()
 
     class Meta:
         model = job
         fields = [
-            'id', 'title', 'Sub_category_title', 'user_full_name', 'user_email',
+            'id', 'title', 'Sub_category_title', 'user_full_name', 'user_email', 'user_addresses_city',
             'user_avatar_url', 'main_picture', 'main_picture_url', 'pictures', 'comments']
 
     def get_user_full_name(self, obj):
@@ -98,3 +100,10 @@ class joblistSerializer(serializers.ModelSerializer):
 
     def get_Sub_category_title(self, obj):
         return obj.SubCategory.title
+
+    def get_user_addresses_city(self, obj):
+        try:
+            address = Address.objects.get(user=obj.user)
+            return address.city
+        except Address.DoesNotExist:
+            return None

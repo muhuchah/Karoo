@@ -82,7 +82,6 @@ class ActivateAccountAPIView(View):
                                 , status=status.HTTP_404_NOT_FOUND)
 
 
-
 class LoginAPIView(views.APIView):
     authentication_classes = []
     permission_classes = []
@@ -200,6 +199,7 @@ class UserAddressUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
         user_address.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
 class ForgotPasswordAPIView(APIView):
     authentication_classes = []
     permission_classes = []
@@ -222,6 +222,7 @@ class ForgotPasswordAPIView(APIView):
 class ResetPasswordView(View):
     authentication_classes = []
     permission_classes = []
+
     def get(self, request, active_code):
 
         return render(request, 'account_module/reset_password.html', {'active_code': active_code})
