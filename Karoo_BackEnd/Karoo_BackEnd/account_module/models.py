@@ -58,8 +58,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     activation_code_expiration = models.DateTimeField(null=True, blank=True)
     full_name = models.CharField(max_length=150, null=False, blank=False, verbose_name='full name')
     is_active = models.BooleanField(default=False, verbose_name='is user active?')
-    can_re_register = models.BooleanField(default=False, null=False, blank=False)
-    re_register_at = models.DateTimeField(null=True, blank=True)
     is_staff = models.BooleanField(default=False, verbose_name='is user staff?')
     avatar = models.ImageField(upload_to='images/profile_images', verbose_name='profile avatar', null=True, blank=True)
     phone_number = models.CharField(max_length=13, null=True, blank=True)

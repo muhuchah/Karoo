@@ -98,7 +98,7 @@ class DiscountCodeSerializer(serializers.ModelSerializer):
         fields = ['discount_percent', 'is_valid']
 
 
-class UserDeactivateSerializer(serializers.ModelSerializer):
+class UserDeleteAccountSerializer(serializers.ModelSerializer):
     email = serializers.CharField(required=True)
     password = serializers.CharField(write_only=True, required=True)
 
