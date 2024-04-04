@@ -81,16 +81,14 @@ class _ForgotPassword extends State<StatefulWidget> {
                   const SizedBox(height: 40,),
                   Container(
                     margin: EdgeInsets.only(bottom: 40 , left: 20 , right: 20),
-                    child: HomeButton(onTap:(){
+                    child: HomeButton(onTap:() async {
                       if(_formKey.currentState!.validate()){
                         String? email = emailController?.text??"";
                         try {
-                          // await Request.signup(
-                          //     fullName: fullName,
-                          //     email: email,
-                          //     password: password);
+                          var response = await Request.
+                            forgotPassword(email: email,);
                           ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text("You sign up successfully . please confirm email"),
+                              SnackBar(content: Text(response),
                                 duration: Duration(seconds: 3),))
                               .closed.then((value){
                             Navigator.of(context).pushReplacementNamed("/login");

@@ -3,10 +3,11 @@ import 'user/user_file.dart';
 import 'package:http/http.dart' as http;
 
 class Request{
-  static final String _baseUrl = "http://192.168.1.4:8000/";
-  static final String _signupUrl = "users/register/";
-  static final String _loginUrl = "users/login/";
-  static final String _personalInfo = "users/settings/personal-info/";
+  static const String _baseUrl = "http://192.168.1.4:8000/";
+  static const String _signupUrl = "users/register/";
+  static const String _loginUrl = "users/login/";
+  static const String _forgotPasswordUrl = "users/forgotpassword/";
+  static const String _personalInfo = "users/settings/personal-info/";
 
   static Future<String> signup({
     required String fullName , required String email,
@@ -46,6 +47,20 @@ class Request{
     }
     else if(response.statusCode == 401){
       error = jsonDecode(response.body)["non_field_errors"][0];
+    }
+    throw Exception(error);
+  }
+
+  static Future<String> forgotPassword({required String email}) async{
+    String error = "unable to send email";
+    final response = await http.post(Uri.parse(_baseUrl+_forgotPasswordUrl),
+        headers: <String , String>{"Content-Type": "application/json"},
+        body:jsonEncode(<String , String>{
+          "email": email}
+        ));
+
+    if(response.statusCode == 200){
+      return jsonDecode(response.body)["message"];
     }
     throw Exception(error);
   }
