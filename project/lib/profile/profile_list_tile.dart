@@ -86,7 +86,7 @@ class ProfileListTile extends StatelessWidget {
         actions: [
           TextButton(onPressed: (){
             Navigator.of(context).pop();
-          }, child: Text("Cancel")),
+          }, child: const Text("Cancel")),
           TextButton(onPressed: () async {
             if (controller.text == "") {
               focusNode.requestFocus();
@@ -108,7 +108,7 @@ class ProfileListTile extends StatelessWidget {
               Navigator.of(context).pop();
               Navigator.of(context).pushNamed("/profile");
             }
-          }, child: Text("Save")),
+          }, child: const Text("Save")),
         ],
       );
     });

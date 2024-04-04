@@ -126,7 +126,7 @@ class _LoginPage extends State<StatefulWidget>{
                     },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColor.main,
-                        fixedSize: Size(160, 60),
+                        fixedSize: const Size(160, 60),
                       ),
                       child:const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -145,9 +145,9 @@ class _LoginPage extends State<StatefulWidget>{
                   ),
                   const SizedBox(height: 60,),
                   TextButton(onPressed: (){
-
+                    Navigator.of(context).pushNamed("/forgot_password");
                   },
-                    style: TextButton.styleFrom(padding: EdgeInsets.all(0)),
+                    style: TextButton.styleFrom(padding: const EdgeInsets.all(0)),
                     child: const CustomText(
                         text: "Forgot Password?",
                         size: 20,
@@ -162,8 +162,11 @@ class _LoginPage extends State<StatefulWidget>{
                         textColor: AppColor.loginText2,
                         weight: FontWeight.normal),
                     const SizedBox(width: 5,),
-                    TextButton(onPressed: (){
-                    }, child: const CustomText(
+                    TextButton(
+                      onPressed: (){
+                        Navigator.of(context).pushReplacementNamed("/signup");
+                      },
+                      child: const CustomText(
                         text: "Sign up",
                         size: 20,
                         textColor: AppColor.loginText1,

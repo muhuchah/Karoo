@@ -189,8 +189,11 @@ class _SignUpPage extends State<StatefulWidget> {
                         textColor: AppColor.loginText2,
                         weight: FontWeight.normal),
                     const SizedBox(width: 5,),
-                    TextButton(onPressed: (){
-                    }, child: const CustomText(
+                    TextButton(
+                      onPressed: (){
+                        Navigator.of(context).pushReplacementNamed("/login");
+                      },
+                      child: const CustomText(
                         text: "Sign in",
                         size: 20,
                         textColor: AppColor.loginText1,

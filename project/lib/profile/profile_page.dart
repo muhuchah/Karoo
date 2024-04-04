@@ -70,10 +70,10 @@ class ProfilePage extends StatelessWidget {
               label: "Address", text: user.address!),
           ProfileListTile(userInfo: UserInfo.password,
             label: "Password", text: user.password! , isPassword: true,),
-          SizedBox(height: 20,),
+          const SizedBox(height: 20,),
           Padding(
             padding: const EdgeInsets.all(20.0),
-            child: Container(
+            child: SizedBox(
               width: double.infinity,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -83,17 +83,17 @@ class ProfilePage extends StatelessWidget {
                   }, child: BigText(text: "Logout",size: 20,textColor: Colors.white,),
                     style: ElevatedButton.styleFrom(
                         backgroundColor: AppColor.main,
-                        fixedSize: Size(200, 40,),
+                        fixedSize: const Size(200, 40,),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
                     ),
                   ),
-                  SizedBox(height: 20,),
+                  const SizedBox(height: 20,),
                   ElevatedButton(onPressed: (){
 
                   }, child: BigText(text: "Delete Account",size: 20,textColor: Colors.white,),
                     style: ElevatedButton.styleFrom(
                         backgroundColor: AppColor.main,
-                        fixedSize: Size(200, 40,),
+                        fixedSize: const Size(200, 40,),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
                     ),
                   ),

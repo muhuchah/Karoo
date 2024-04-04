@@ -1,0 +1,118 @@
+import 'package:flutter/material.dart';
+import 'package:project/home/home_button.dart';
+import 'package:project/request.dart';
+import 'package:project/utils/app_color.dart';
+import 'package:project/widgets/big_text.dart';
+import 'package:project/widgets/custom_text.dart';
+import 'package:project/widgets/text_icon_widget.dart';
+
+class ForgotPassword extends StatefulWidget {
+  const ForgotPassword({super.key});
+
+  @override
+  State<StatefulWidget> createState() => _ForgotPassword();
+}
+
+class _ForgotPassword extends State<StatefulWidget> {
+  TextEditingController? emailController = TextEditingController();
+  FocusNode emailFocus = FocusNode();
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    super.dispose();
+    emailController?.dispose();
+    emailFocus.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context){
+    var screenHeight = MediaQuery.of(context).size.height;
+
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: AppColor.background,
+        scrolledUnderElevation: 0,
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 10),
+          child: GestureDetector(
+            child: const Icon(Icons.arrow_back_ios , color: Colors.black,),
+            onTap: (){
+              Navigator.pop(context);
+            },
+          ),
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          color: AppColor.background,
+          height: screenHeight - kToolbarHeight,
+
+          width: double.infinity,
+          child: Form(
+            key: _formKey,
+            child: Container(
+              margin: const EdgeInsets.only(left : 20 , right: 20 ,top: 50),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const BigText(text: "Forgot Password"),
+                        const SizedBox(height: 80,),
+                        TextIcon(
+                          labelText: "EMAIL",
+                          icon: Icons.email_outlined,
+                          controller: emailController,
+                          validatorFunction: (value){
+                            if(value==null || value.isEmpty){
+                              return "Please enter email";
+                            }
+                            return null;
+                          },
+                          focus: emailFocus,
+                        ),
+                    ],),
+                  ),
+                  const SizedBox(height: 40,),
+                  Container(
+                    margin: EdgeInsets.only(bottom: 40 , left: 20 , right: 20),
+                    child: HomeButton(onTap:(){
+                      if(_formKey.currentState!.validate()){
+                        String? email = emailController?.text??"";
+                        try {
+                          // await Request.signup(
+                          //     fullName: fullName,
+                          //     email: email,
+                          //     password: password);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text("You sign up successfully . please confirm email"),
+                                duration: Duration(seconds: 3),))
+                              .closed.then((value){
+                            Navigator.of(context).pushReplacementNamed("/login");
+                          });
+                        }
+                        catch(e){
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(e.toString()),
+                                duration: Duration(seconds: 3),));
+                        }
+                      }
+                      else if(emailController?.text==null || emailController?.text==""){
+                        emailFocus.requestFocus();
+                      }
+                    }, text: "Send",color: AppColor.main,)
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

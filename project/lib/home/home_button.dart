@@ -5,15 +5,16 @@ import '../widgets/custom_text.dart';
 
 class HomeButton extends StatelessWidget {
   final String text;
+  final Color color;
   final void Function() onTap;
-  const HomeButton({super.key , required this.text,
+  const HomeButton({super.key , required this.text, required this.color,
     required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(onPressed: onTap,
       style: ElevatedButton.styleFrom(
-          backgroundColor: AppColor.button1,
+          backgroundColor: color,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
       child:
       SizedBox(

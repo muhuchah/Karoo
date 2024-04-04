@@ -36,13 +36,15 @@ class HomePage extends StatelessWidget {
                   SizedBox(height: 30,),
                   BigText(text: "an app to find people to do your work" , size: 20,weight: FontWeight.normal,),
                   SizedBox(height: 100,),
-                  HomeButton(text : "Log in",onTap: (){
-                    Navigator.of(context).pushNamed("/login");
-                  },),
+                  HomeButton(text : "Log in",color: AppColor.button1,
+                    onTap: (){
+                      Navigator.of(context).pushNamed("/login");
+                    },),
                   SizedBox(height: 15,),
-                  HomeButton(text: "Sign in" , onTap: (){
-                    Navigator.of(context).pushNamed("/signup");
-                  },)
+                  HomeButton(text: "Sign in",color: AppColor.button1,
+                    onTap: (){
+                      Navigator.of(context).pushNamed("/signup");
+                    },)
                 ],
               ),
             ),
