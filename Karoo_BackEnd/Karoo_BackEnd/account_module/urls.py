@@ -12,6 +12,7 @@ urlpatterns = [
     path('login/', views.LoginAPIView.as_view(), name='login-url'),
     path('login/refresh/', TokenRefreshView.as_view(), name='token-refresh'),
     path('logout/', views.LogoutAPIView.as_view(), name='logout'),
+    path('delete-account/', views.DeleteAccountView.as_view(), name='delete-account-url'),
     path('settings/personal-info/', views.UserSettingAPIView.as_view(), name='user-personal-info-url'),
     path('settings/address-list/', views.UserAddressRetrieveAPIView.as_view(), name='user-address-list-url'),
     path('settings/address-edit/<int:pk>', views.UserAddressUpdateDestroyAPIView.as_view(), name='user-address-edit-url'),

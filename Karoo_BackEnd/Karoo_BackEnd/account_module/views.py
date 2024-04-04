@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import Address, DiscountCode
 from .seryalizers import (UserSerialaizer, LoginSerializer, UserSettingSerializer, UserAddressSerializer
-, ForgotPasswordLinkSerializer, DiscountCodeSerializer)
+, ForgotPasswordLinkSerializer, DiscountCodeSerializer, UserDeleteAccountSerializer)
 from rest_framework import generics, status, views
 from django.contrib.auth import get_user_model
 from account_module.utils.jwt_token_generator import get_token_for_user
@@ -275,3 +275,18 @@ class LogoutAPIView(APIView):
             return Response({'message': 'You have been successfully logged out.'}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'message': 'An error occurred during logout.'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class DeleteAccountView(APIView):
+    serializer_class = UserDeleteAccountSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request):
+        user = request.user
+        serializer = self.serializer_class(data=request.data)
+
+        if serializer.is_valid():
+            user.delete()
+            return Response({'message': 'User has been successfully deleted.'}, status=status.HTTP_200_OK)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
