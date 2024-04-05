@@ -90,7 +90,7 @@ class Request{
     user.password = "12345678";
   }
 
-  static Future<void> changeInfo(String bodyParam , String bodyValue) async {
+  static Future<String> changeInfo(String bodyParam , String bodyValue) async {
     User user = User();
     final response = await http.put(Uri.parse(_baseUrl+_personalInfo),
         headers: <String , String> {
@@ -101,8 +101,12 @@ class Request{
     );
 
     if(response.statusCode == 200){
-      _setInfo(jsonDecode(response.body), user);
-      return;
+      dynamic body = jsonDecode(response.body);
+      _setInfo(body, user);
+      if(body["message"]==null){
+        return "success";
+      }
+      return body["message"];
     }
 
     throw Exception("Unable to change info");
@@ -110,7 +114,6 @@ class Request{
 
   static Future<String> logout() async {
     User user = User();
-    print("refresh : ${user.refreshToken}");
     String errorMessage = "Unable to logout";
     final response = await http.post(Uri.parse(_baseUrl+_logout),
       headers: <String , String> {

@@ -93,10 +93,10 @@ class ProfileListTile extends StatelessWidget {
             }
             else {
               try {
-                await Request.changeInfo(getBodyParam(),
+                var response = await Request.changeInfo(getBodyParam(),
                     controller.text);
                 ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("Success"),
+                    SnackBar(content: Text(response),
                       duration: Duration(seconds: 3),));
               }
               catch (e) {
@@ -104,9 +104,17 @@ class ProfileListTile extends StatelessWidget {
                     SnackBar(content: Text(e.toString()),
                       duration: Duration(seconds: 3),));
               }
-              Navigator.of(context).pop();
-              Navigator.of(context).pop();
-              Navigator.of(context).pushNamed("/profile");
+              if(userInfo == UserInfo.email){
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+                Navigator.of(context).pushReplacementNamed("/home");
+                Navigator.of(context).pushNamed("/login");
+              }
+              else{
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+                Navigator.of(context).pushNamed("/profile");
+              }
             }
           }, child: const Text("Save")),
         ],
