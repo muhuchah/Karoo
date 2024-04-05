@@ -105,14 +105,14 @@ class _LoginPage extends State<StatefulWidget>{
                               SnackBar(content: Text("You login successfully ."),
                                 duration: Duration(seconds: 3),))
                               .closed.then((value){
+                                Navigator.of(context).pop();
                                 Navigator.of(context).pushReplacementNamed("/myKaroo");
                           });
                         }
                         catch(e){
-                          print(e);
-                          // ScaffoldMessenger.of(context).showSnackBar(
-                          //     SnackBar(content: Text(e.toString()),
-                          //       duration: Duration(seconds: 3),));
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(e.toString()),
+                                duration: Duration(seconds: 3),));
                         }
                       }
                       else{

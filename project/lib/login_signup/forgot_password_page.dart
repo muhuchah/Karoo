@@ -91,7 +91,7 @@ class _ForgotPassword extends State<StatefulWidget> {
                               SnackBar(content: Text(response),
                                 duration: Duration(seconds: 3),))
                               .closed.then((value){
-                            Navigator.of(context).pushReplacementNamed("/login");
+                                Navigator.of(context).pop();
                           });
                         }
                         catch(e){
