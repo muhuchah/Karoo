@@ -149,25 +149,36 @@ If user changes his email, an activation link will be sent to activate his email
     "email": "new@gmail.com"
 }
 ```
+
 ## Logout
 > URL http://127.0.0.1:8000/users/logout/
-
+> 
+**Post** the refresh token to the URL as bellow:
 ```json
 {
-    "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcxNDI0MDk3MSwiaWF0IjoxNzExNjQ4OTcxLCJqdGkiOiI3ODQ2ZDA2NTNhZDY0NDFiOGE0MGI3MDA0ZGIxYWIwMiIsInVzZXJfaWQiOjF9.z9bwBv_2Ehp7i1O2Ayi0ONHoaAKYsLyBdD-D3qXwXvg"
+    "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcxNDQxMzAyOSwiaWF0IjoxNzExODIxMDI5LCJqdGkiOiJmMzRiOGE4ZWZkN2I0ODU2YTZiOTg0OWQwYWIyZDNhMSIsInVzZXJfaWQiOjF9.8ONAz358PiAE52qF0snVT-JJWSSWXMoorgsuuZann9s"
 }
 ```
+
 ### Responses
-#### If refresh token is not provided
+If Refresh Token Not Provided.
 ```json
-{ 
+{
     "error": "Missing refresh token"
 }
 ```
-#### If logout was successful
+
+If Logout Was Successful.
 ```json
 {
     "message": "You have been successfully logged out."
+}
+```
+
+If Logout Was Not Successful.
+```json
+{
+    "message": "An error occurred during logout."
 }
 ```
 
