@@ -110,8 +110,10 @@ class Request{
 
   static Future<String> logout() async {
     User user = User();
+    print("refresh : ${user.refreshToken}");
+    String errorMessage = "Unable to logout";
     final response = await http.post(Uri.parse(_baseUrl+_logout),
-      headers: <String , String> {"Content-Type": "application/json",
+      headers: <String , String> {
         "Authorization": "Bearer ${user.accessToken!}",
       },
       body: <String , String> {
@@ -119,11 +121,19 @@ class Request{
       }
     );
 
-    print(jsonDecode(response.body));
+    dynamic body = jsonDecode(response.body);
 
     if(response.statusCode == 200){
-      return jsonDecode(response.body)["message"];
+      return body["message"];
     }
-    throw Exception("Unable to logout");
+    else{
+      if(body["error"] != null){
+        errorMessage = body["error"];
+      }
+      else if(body["message"]!= null){
+        errorMessage = body["message"];
+      }
+    }
+    throw Exception(errorMessage);
   }
 }

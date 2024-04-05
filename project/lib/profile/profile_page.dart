@@ -34,16 +34,16 @@ class ProfilePage extends StatelessWidget {
           future: Request.personalInformation(),
           builder: (context , snapshot){
             if(snapshot.hasData){
-              return getWidgets();
+              return getWidgets(context);
             }
             return const CircularProgressIndicator();
           },
-        ) : getWidgets()
+        ) : getWidgets(context)
       ),
     );
   }
 
-  Widget getWidgets(){
+  Widget getWidgets(BuildContext context){
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,9 +78,28 @@ class ProfilePage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  ElevatedButton(onPressed: (){
+                  ElevatedButton(onPressed: () async {
+                    try {
+                      var response = await Request.logout();
 
-                  }, child: BigText(text: "Logout",size: 20,textColor: Colors.white,),
+                      ScaffoldMessenger
+                          .of(context)
+                          .showSnackBar(
+                          SnackBar(content: Text(response),
+                            duration: Duration(seconds: 3),))
+                          .closed
+                          .then((value) {
+                        Navigator.of(context).pop();
+                        Navigator.of(context).pushReplacementNamed("/home");
+                      });
+                    }
+                    catch(e){
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(e.toString()),
+                            duration: Duration(seconds: 3),));
+                    }
+                  },
+                    child: BigText(text: "Logout",size: 20,textColor: Colors.white,),
                     style: ElevatedButton.styleFrom(
                         backgroundColor: AppColor.main,
                         fixedSize: const Size(200, 40,),
