@@ -8,6 +8,7 @@ class Request{
   static const String _loginUrl = "users/login/";
   static const String _forgotPasswordUrl = "users/forgotpassword/";
   static const String _personalInfo = "users/settings/personal-info/";
+  static const String _logout = "users/logout/";
 
   static Future<String> signup({
     required String fullName , required String email,
@@ -107,7 +108,22 @@ class Request{
     throw Exception("Unable to change info");
   }
 
-  // static Future<String> logout(){
-  //
-  // }
+  static Future<String> logout() async {
+    User user = User();
+    final response = await http.post(Uri.parse(_baseUrl+_logout),
+      headers: <String , String> {"Content-Type": "application/json",
+        "Authorization": "Bearer ${user.accessToken!}",
+      },
+      body: <String , String> {
+        "refresh_token" : user.refreshToken!
+      }
+    );
+
+    print(jsonDecode(response.body));
+
+    if(response.statusCode == 200){
+      return jsonDecode(response.body)["message"];
+    }
+    throw Exception("Unable to logout");
+  }
 }
