@@ -8,7 +8,7 @@ import 'package:project/widgets/big_text.dart';
 import 'package:project/widgets/custom_text.dart';
 
 class ProfilePage extends StatelessWidget {
-  User user = User();
+  final User user = User();
   ProfilePage({super.key});
 
   @override

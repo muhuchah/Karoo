@@ -42,7 +42,9 @@ class Request{
 
     if(response.statusCode == 200){
       User user = User();
-      user.token = jsonDecode(response.body)["access"];
+      dynamic body = jsonDecode(response.body);
+      user.accessToken = body["access"];
+      user.refreshToken = body["refresh"];
       return;
     }
     else if(response.statusCode == 401){
@@ -69,7 +71,7 @@ class Request{
     User user = User();
     final response = await http.get(Uri.parse(_baseUrl+_personalInfo),
         headers: <String , String> {"Content-Type": "application/json",
-          "Authorization": "Bearer ${user.token!}",
+          "Authorization": "Bearer ${user.accessToken!}",
         });
 
     if(response.statusCode==200){
@@ -91,7 +93,7 @@ class Request{
     User user = User();
     final response = await http.put(Uri.parse(_baseUrl+_personalInfo),
         headers: <String , String> {
-            "Authorization": "Bearer ${user.token!}"},
+            "Authorization": "Bearer ${user.accessToken!}"},
         body: <String , String>{
           bodyParam : bodyValue
         }
@@ -104,4 +106,8 @@ class Request{
 
     throw Exception("Unable to change info");
   }
+
+  // static Future<String> logout(){
+  //
+  // }
 }

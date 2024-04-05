@@ -1,7 +1,8 @@
 import 'package:flutter/foundation.dart';
 
 class User{
-  String? _token;
+  String? _accessToken;
+  String? _refreshToken;
   String? _fullName;
   String? _email;
   String? _address;
@@ -36,8 +37,12 @@ class User{
     _password = password;
   }
 
-  set token(String? token){
-    _token = token;
+  set accessToken(String? token){
+    _accessToken = token;
+  }
+
+  set refreshToken(String? token){
+    _refreshToken = token;
   }
 
   String? get fullName{return _fullName;}
@@ -50,5 +55,7 @@ class User{
 
   String? get password{return _password;}
 
-  String? get token{return _token;}
+  String? get accessToken{return _accessToken;}
+
+  String? get refreshToken{return _refreshToken;}
 }
