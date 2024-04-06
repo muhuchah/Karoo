@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/profile/delete_account_page.dart';
 import 'package:project/profile/profile_list_tile.dart';
 import 'package:project/profile/user_info.dart';
 import 'package:project/request.dart';
@@ -107,7 +108,8 @@ class ProfilePage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 20,),
-                  ElevatedButton(onPressed: () async {
+                  ElevatedButton(onPressed: (){
+                    deleteAccountAlertDialog(context, "Password");
                   },
                     child: BigText(text: "Delete Account",size: 20,textColor: Colors.white,),
                     style: ElevatedButton.styleFrom(

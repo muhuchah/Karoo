@@ -145,14 +145,14 @@ class Request{
   static Future<String> deleteAccount({required String email,
     required String password}) async{
     User user = User();
-    final response = await http.post(Uri.parse(_baseUrl+_loginUrl),
+    final response = await http.post(Uri.parse(_baseUrl+_deleteAccount),
         headers: <String , String>{
           "Authorization": "Bearer ${user.accessToken!}",
         },
-        body:jsonEncode(<String , String>{
-          "password": user.password!,
-          "email": user.email!}
-        ));
+        body:{
+          "password": password,
+          "email": email}
+        );
 
     if(response.statusCode == 200){
       user.setNullPart();
