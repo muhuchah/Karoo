@@ -101,13 +101,12 @@ class _LoginPage extends State<StatefulWidget>{
                           await Request.login(
                               email: email,
                               password: password);
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pushReplacementNamed("/myKaroo");
                           ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text("You login successfully ."),
                                 duration: Duration(seconds: 3),))
-                              .closed.then((value){
-                                Navigator.of(context).pop();
-                                Navigator.of(context).pushReplacementNamed("/myKaroo");
-                          });
+                              .closed;
                         }
                         catch(e){
                           ScaffoldMessenger.of(context).showSnackBar(
