@@ -3,12 +3,13 @@ import 'user/user_file.dart';
 import 'package:http/http.dart' as http;
 
 class Request{
-  static const String _baseUrl = "http://192.168.1.6:8000/";
+  static const String _baseUrl = "http://192.168.137.1:8000/";
   static const String _signupUrl = "users/register/";
   static const String _loginUrl = "users/login/";
   static const String _forgotPasswordUrl = "users/forgotpassword/";
   static const String _personalInfo = "users/settings/personal-info/";
   static const String _logout = "users/logout/";
+  static const String _deleteAccount = "users/delete-account/";
 
   static Future<String> signup({
     required String fullName , required String email,
@@ -117,16 +118,17 @@ class Request{
     String errorMessage = "Unable to logout";
     final response = await http.post(Uri.parse(_baseUrl+_logout),
       headers: <String , String> {
-        "Authorization": "Bearer ${user.accessToken!}",
+        "Authorization": "Bearer ${user.accessToken!}"
       },
       body: <String , String> {
-        "refresh_token" : user.refreshToken!
+        "refresh": user.refreshToken!
       }
     );
 
     dynamic body = jsonDecode(response.body);
 
     if(response.statusCode == 200){
+      user.setNullPart();
       return body["message"];
     }
     else{
@@ -138,5 +140,25 @@ class Request{
       }
     }
     throw Exception(errorMessage);
+  }
+
+  static Future<String> deleteAccount({required String email,
+    required String password}) async{
+    User user = User();
+    final response = await http.post(Uri.parse(_baseUrl+_loginUrl),
+        headers: <String , String>{
+          "Authorization": "Bearer ${user.accessToken!}",
+        },
+        body:jsonEncode(<String , String>{
+          "password": user.password!,
+          "email": user.email!}
+        ));
+
+    if(response.statusCode == 200){
+      user.setNullPart();
+      dynamic body = jsonDecode(response.body);
+      return body["message"];
+    }
+    throw Exception("unable to delete account");
   }
 }

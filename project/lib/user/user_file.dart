@@ -58,4 +58,14 @@ class User{
   String? get accessToken{return _accessToken;}
 
   String? get refreshToken{return _refreshToken;}
+
+  void setNullPart(){
+    _fullName = null;
+    _address = null;
+    _phoneNumber = null;
+    _email = null;
+    _password = null;
+    _accessToken = null;
+    _refreshToken = null;
+  }
 }

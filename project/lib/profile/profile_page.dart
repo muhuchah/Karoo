@@ -107,9 +107,9 @@ class ProfilePage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 20,),
-                  ElevatedButton(onPressed: (){
-
-                  }, child: BigText(text: "Delete Account",size: 20,textColor: Colors.white,),
+                  ElevatedButton(onPressed: () async {
+                  },
+                    child: BigText(text: "Delete Account",size: 20,textColor: Colors.white,),
                     style: ElevatedButton.styleFrom(
                         backgroundColor: AppColor.main,
                         fixedSize: const Size(200, 40,),
