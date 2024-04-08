@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project/home/home_button.dart';
+import 'package:project/home/first_page_button.dart';
 import 'package:project/request.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/big_text.dart';
@@ -81,7 +81,7 @@ class _ForgotPassword extends State<StatefulWidget> {
                   const SizedBox(height: 40,),
                   Container(
                     margin: EdgeInsets.only(bottom: 40 , left: 20 , right: 20),
-                    child: HomeButton(onTap:() async {
+                    child: FirstPageButton(onTap:() async {
                       if(_formKey.currentState!.validate()){
                         String? email = emailController?.text??"";
                         try {

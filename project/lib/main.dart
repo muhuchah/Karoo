@@ -3,7 +3,7 @@ import 'package:project/login_signup/forgot_password_page.dart';
 import 'package:project/login_signup/signup_page.dart';
 import 'package:project/my_karoo/my_karoo_page.dart';
 import 'package:project/profile/profile_page.dart';
-import 'home/home_page.dart';
+import 'home/first_page.dart';
 import 'login_signup/login_page.dart';
 
 void main() {
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       initialRoute: "/home",
       routes: {
-        "/home" : (context) => HomePage(),
+        "/home" : (context) => FirstPage(),
         "/login" : (context) => LoginPage(),
         "/signup" : (context) => SignUpPage(),
         "/forgot_password" : (context) => ForgotPassword(),

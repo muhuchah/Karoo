@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:project/home/home_button.dart';
+import 'package:project/home/first_page_button.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/big_text.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class FirstPage extends StatelessWidget {
+  const FirstPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,12 +36,12 @@ class HomePage extends StatelessWidget {
                   SizedBox(height: 30,),
                   BigText(text: "an app to find people to do your work" , size: 20,weight: FontWeight.normal,),
                   SizedBox(height: 100,),
-                  HomeButton(text : "Log in",color: AppColor.button1,
+                  FirstPageButton(text : "Log in",color: AppColor.button1,
                     onTap: (){
                       Navigator.of(context).pushNamed("/login");
                     },),
                   SizedBox(height: 15,),
-                  HomeButton(text: "Sign in",color: AppColor.button1,
+                  FirstPageButton(text: "Sign in",color: AppColor.button1,
                     onTap: (){
                       Navigator.of(context).pushNamed("/signup");
                     },)

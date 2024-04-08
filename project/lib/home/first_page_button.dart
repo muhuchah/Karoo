@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import '../utils/app_color.dart';
 import '../widgets/custom_text.dart';
 
-class HomeButton extends StatelessWidget {
+class FirstPageButton extends StatelessWidget {
   final String text;
   final Color color;
   final void Function() onTap;
-  const HomeButton({super.key , required this.text, required this.color,
+  const FirstPageButton({super.key , required this.text, required this.color,
     required this.onTap});
 
   @override
