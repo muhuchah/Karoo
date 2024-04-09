@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/home/bottom_navigation_bar.dart';
 import 'package:project/my_karoo/my_karoo_page.dart';
 
 import 'home_page.dart';
@@ -22,8 +23,26 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(child : widgets[_selectedIndex]),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [],
+      bottomNavigationBar: MyBottomNavigation(currentIndex: _selectedIndex,
+        onTap: (index){
+          int current;
+          if(index == MyNavigationBarMenus.home){
+            current = 0;
+          }
+          else if(index == MyNavigationBarMenus.category){
+            current = 1;
+          }
+          else if(index == MyNavigationBarMenus.job){
+            current = 2;
+          }
+          else{
+            current = 3;
+          }
+
+          setState(() {
+            _selectedIndex = current;
+          });
+        },
       ),
     );
   }
