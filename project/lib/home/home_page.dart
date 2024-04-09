@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/home/home_list_tile.dart';
 import 'package:project/home/home_page_search.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/divider.dart';
@@ -15,13 +16,29 @@ class HomePage extends StatelessWidget {
           children: [
             HomePageSearch(),
             SizedBox(height: 10,),
-            Expanded(
-              child: Container(
-                margin: EdgeInsets.all(10),
-                child: Column(
-                  children: getCategories(),
-                ),
+            Container(
+              margin: EdgeInsets.only(top: 10 , right: 10 , left: 10),
+              child: Column(
+                children: getCategories(),
               ),
+            ),
+            ListView.builder(
+              padding: EdgeInsets.only(top: 0),
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemCount: 2,
+              itemBuilder: (context , index){
+                return Column(children: [
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: HomeListTile(),
+                  ),
+                  Container(
+                    height: 1,
+                    margin: EdgeInsets.symmetric(horizontal: 10),
+                    color: AppColor.divider,)
+                ],);
+              }
             )
           ],
         ),
