@@ -102,7 +102,7 @@ class _LoginPage extends State<StatefulWidget>{
                               email: email,
                               password: password);
                           Navigator.of(context).pop();
-                          Navigator.of(context).pushReplacementNamed("/myKaroo");
+                          Navigator.of(context).pushReplacementNamed("/home");
                           ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text("You login successfully ."),
                                 duration: Duration(seconds: 3),))
