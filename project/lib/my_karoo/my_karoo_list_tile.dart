@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/utils/app_color.dart';
+import 'package:project/widgets/divider.dart';
 
 class MyKarooListTile extends StatelessWidget {
   final String title;
@@ -29,8 +30,8 @@ class MyKarooListTile extends StatelessWidget {
                 icon: Icon(Icons.arrow_forward_ios))
           ],),
         ),
-        SizedBox(height: 10,),
-        Container(height: 1,color: AppColor.divider,)
+        const SizedBox(height: 10,),
+        const MyDivider()
       ],),
     );
   }

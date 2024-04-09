@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/utils/app_color.dart';
+import 'package:project/widgets/divider.dart';
 
 class MyKarooListText extends StatelessWidget {
   final String text;
@@ -18,7 +19,7 @@ class MyKarooListText extends StatelessWidget {
             },child: Text(text , style: const TextStyle(fontSize: 20),),),
           ),
           const SizedBox(height: 10,),
-          Container(height: 1,color: AppColor.divider,)
+          const MyDivider()
       ],),
     );
   }

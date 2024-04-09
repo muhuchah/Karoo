@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/utils/app_color.dart';
+import 'package:project/widgets/divider.dart';
 
 class MyBottomNavigation extends StatelessWidget{
   final void Function(MyNavigationBarMenus index) onTap;
@@ -14,11 +15,8 @@ class MyBottomNavigation extends StatelessWidget{
       height: 80,
       child: Column(
         children: [
-          Container(
-            height: 1,
-            color: AppColor.divider,
-          ),
-          SizedBox(height: 10,),
+          const MyDivider(),
+          const SizedBox(height: 10,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [

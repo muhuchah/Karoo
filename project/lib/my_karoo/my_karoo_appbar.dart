@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/widgets/divider.dart';
 
 import '../utils/app_color.dart';
 import '../widgets/big_text.dart';
@@ -24,9 +25,9 @@ class MyKarooAppBar extends StatelessWidget implements PreferredSizeWidget{
         ),
         const SizedBox(width: 10,)
       ],
-      bottom: PreferredSize(
-        preferredSize: const Size.fromHeight(1),
-        child: Container(color: AppColor.divider,height: 1,),
+      bottom: const PreferredSize(
+        preferredSize: Size.fromHeight(1),
+        child: MyDivider(),
       ),
     );
   }
