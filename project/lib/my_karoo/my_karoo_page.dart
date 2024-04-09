@@ -19,42 +19,45 @@ class _MyKarooPageState extends State<MyKarooPage> {
       backgroundColor: AppColor.background,
       appBar: const MyKarooAppBar(),
       body: SingleChildScrollView(
-        child: Column(children: [
-          MyKarooListTile(
-            title: "Profile",
-            icon: Icons.person_outline,
-            onPressed:(){
-              Navigator.of(context).pushNamed("/profile");
-            },
-          ),
-          MyKarooListTile(
-            title: "Orders",
-            icon: Icons.ad_units_outlined,
-            onPressed:(){
+        child: Container(
+          color: AppColor.background,
+          child: Column(children: [
+            MyKarooListTile(
+              title: "Profile",
+              icon: Icons.person_outline,
+              onPressed:(){
+                Navigator.of(context).pushNamed("/profile");
+              },
+            ),
+            MyKarooListTile(
+              title: "Orders",
+              icon: Icons.ad_units_outlined,
+              onPressed:(){
 
-            },
-          ),
-          MyKarooListTile(
-            title: "Bookmarks",
-            icon: Icons.bookmark_border,
-            onPressed:(){
+              },
+            ),
+            MyKarooListTile(
+              title: "Bookmarks",
+              icon: Icons.bookmark_border,
+              onPressed:(){
 
-            },
-          ),
-          MyKarooListTile(
-            title: "Chats",
-            icon: Icons.chat,
-            onPressed:(){
+              },
+            ),
+            MyKarooListTile(
+              title: "Chats",
+              icon: Icons.chat,
+              onPressed:(){
 
-            },
-          ),
-          SizedBox(height: 40,),
-          MyKarooListText(text: "Help"),
-          MyKarooListText(text: "Support"),
-          MyKarooListText(text: "Karoo FAQ"),
-          MyKarooListText(text: "About Karoo"),
-          MyKarooListText(text: "Contact us"),
-        ],),
+              },
+            ),
+            SizedBox(height: 40,),
+            MyKarooListText(text: "Help"),
+            MyKarooListText(text: "Support"),
+            MyKarooListText(text: "Karoo FAQ"),
+            MyKarooListText(text: "About Karoo"),
+            MyKarooListText(text: "Contact us"),
+          ],),
+        ),
       ),
     );
   }
