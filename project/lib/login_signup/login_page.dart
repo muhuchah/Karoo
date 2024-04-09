@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:project/request.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/big_text.dart';
@@ -67,7 +68,7 @@ class _LoginPage extends State<StatefulWidget>{
                   const SizedBox(height: 60,),
                   TextIcon(
                     labelText: "EMAIL",
-                    icon: Icons.email_outlined,
+                    assetPath: "asset/icons/email.svg",
                     controller: emailController,
                     validatorFunction: (value){
                       if(value==null || value.isEmpty){
@@ -80,7 +81,7 @@ class _LoginPage extends State<StatefulWidget>{
                   const SizedBox(height: 30,),
                   TextIcon(
                     labelText: "PASSWORD",
-                    icon: Icons.email_outlined,
+                    assetPath: "asset/icons/password.svg",
                     controller: passwordController,
                     validatorFunction: (value){
                       if(value==null || value.isEmpty){

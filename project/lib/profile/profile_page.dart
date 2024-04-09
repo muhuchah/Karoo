@@ -91,7 +91,7 @@ class ProfilePage extends StatelessWidget {
                           .closed
                           .then((value) {
                         Navigator.of(context).pop();
-                        Navigator.of(context).pushReplacementNamed("/home");
+                        Navigator.of(context).pushReplacementNamed("/first");
                       });
                     }
                     catch(e){

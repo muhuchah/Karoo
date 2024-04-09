@@ -29,7 +29,7 @@ void deleteAccountAlertDialog(context , label){
                   password: controller.text);
               Navigator.of(context).pop();
               Navigator.of(context).pop();
-              Navigator.of(context).pushReplacementNamed("/home");
+              Navigator.of(context).pushReplacementNamed("/first");
               ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text(response),
                     duration: Duration(seconds: 3),)).

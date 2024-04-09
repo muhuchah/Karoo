@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:project/utils/app_color.dart';
 
 class TextIcon extends StatelessWidget {
   final String labelText;
-  final IconData icon;
+  final String assetPath;
   final double size;
   final double fontSize;
   final Color borderColor;
@@ -12,7 +13,7 @@ class TextIcon extends StatelessWidget {
   final FocusNode? focus;
   final TextEditingController? controller;
   const TextIcon({super.key , required this.labelText,
-    required this.icon , this.size = 30 ,
+    required this.assetPath , this.size = 30 ,
     this.fontSize = 16 , this.borderColor = AppColor.text1,
     required this.controller , this.hintColor = AppColor.hint,
     this.validatorFunction , this.focus});
@@ -41,7 +42,7 @@ class TextIcon extends StatelessWidget {
             width: 50,
             child: Align(
               alignment: Alignment.centerLeft,
-              child: Icon(icon ,size: size,))),
+              child: SvgPicture.asset(assetPath,width: 40,height: 40,))),
           errorBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: borderColor)),
           focusedErrorBorder: UnderlineInputBorder(

@@ -107,7 +107,7 @@ class ProfileListTile extends StatelessWidget {
               if(userInfo == UserInfo.email){
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();
-                Navigator.of(context).pushReplacementNamed("/home");
+                Navigator.of(context).pushReplacementNamed("/first");
                 Navigator.of(context).pushNamed("/login");
               }
               else{

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:project/home/first_page_button.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:project/first/first_page_button.dart';
 import 'package:project/request.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/big_text.dart';
-import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/text_icon_widget.dart';
 
 class ForgotPassword extends StatefulWidget {
@@ -66,7 +66,7 @@ class _ForgotPassword extends State<StatefulWidget> {
                         const SizedBox(height: 80,),
                         TextIcon(
                           labelText: "EMAIL",
-                          icon: Icons.email_outlined,
+                          assetPath: "asset/icons/email.svg",
                           controller: emailController,
                           validatorFunction: (value){
                             if(value==null || value.isEmpty){

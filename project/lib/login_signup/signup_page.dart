@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:project/request.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/big_text.dart';
@@ -72,7 +73,7 @@ class _SignUpPage extends State<StatefulWidget> {
                   const SizedBox(height: 50,),
                   TextIcon(
                     labelText: "FULL NAME",
-                    icon: Icons.person_outline,
+                    assetPath: "asset/icons/person.svg",
                     controller: fullNameController,
                     validatorFunction: (value){
                       if(value==null || value.isEmpty){
@@ -85,7 +86,7 @@ class _SignUpPage extends State<StatefulWidget> {
                   const SizedBox(height: 20,),
                   TextIcon(
                     labelText: "EMAIL",
-                    icon: Icons.email_outlined,
+                    assetPath: "asset/icons/email.svg",
                     controller: emailController,
                     validatorFunction: (value){
                       if(value==null || value.isEmpty){
@@ -98,7 +99,7 @@ class _SignUpPage extends State<StatefulWidget> {
                   const SizedBox(height: 20,),
                   TextIcon(
                     labelText: "PASSWORD",
-                    icon: Icons.email_outlined,
+                    assetPath: "asset/icons/password.svg",
                     controller: passwordController,
                     validatorFunction: (value){
                       if(value==null || value.isEmpty){
@@ -111,7 +112,7 @@ class _SignUpPage extends State<StatefulWidget> {
                   const SizedBox(height: 20,),
                   TextIcon(
                     labelText: "CONFIRM PASSWORD",
-                    icon: Icons.email_outlined,
+                    assetPath: "asset/icons/password.svg",
                     controller: confirmPasswordController,
                     validatorFunction: (value){
                       if(value==null || value.isEmpty){
