@@ -11,11 +11,13 @@ import '../component/category.dart';
 
 class HomePage extends StatelessWidget {
   List<Category>? categories = null;
+  double? width;
   HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
+    width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Container(
         color: AppColor.background,
@@ -77,29 +79,36 @@ class HomePage extends StatelessWidget {
   List<Widget> getCategories(List<Category> values){
     categories ??= values;
     List<Widget> children = [];
-    List<Widget> rowChildren = [];
+    List<Widget> rowChildren = [SizedBox(width: 10,)];
     for(int i = 0 ; i<values.length ; i++){
       rowChildren.add(Column(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: IconButton(onPressed: (){
-
+          GestureDetector(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.network(values[i].image!,
+                width: 80,height: 80,fit: BoxFit.fill,)),
+            onTap: (){
+              print("Tap");
             },
-              icon: Image.network(values[i].image!,
-                width: 80,height: 80,fit: BoxFit.fill,))
           ),
           Text(values[i].title!)
         ],
       ));
+      rowChildren.add(SizedBox(width: 10,));
 
       if((i+1)%4 == 0){
-        children.add(Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children:rowChildren,)
+        children.add(
+          SizedBox(width: width,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children:rowChildren,),
+            ),)
         );
         children.add(SizedBox(height: 30,));
-        rowChildren = [];
+        rowChildren = [SizedBox(width: 10,)];
       }
     }
     children.add(MyDivider());
