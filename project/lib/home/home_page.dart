@@ -10,7 +10,8 @@ import 'package:project/widgets/divider.dart';
 import '../component/category.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  List<Category>? categories = null;
+  HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,27 +28,7 @@ class HomePage extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    FutureBuilder(
-                      future: CategoryRequest.mainCategory(),
-                      builder: (context , snapShot){
-                        if(snapShot.hasData){
-                          return Container(
-                            margin: EdgeInsets.only(top: 10 , right: 10 , left: 10),
-                            child: Column(
-                              children: getCategories(snapShot.data!),
-                            ),
-                          );
-                        }
-                        else if(snapShot.hasError){
-                          return Container(
-                            height: 200,
-                            child: Center(child: Text(snapShot.error.toString() ,
-                              style: TextStyle(fontSize: 20),),)
-                            ,);
-                        }
-                        return Center(child : CircularProgressIndicator());
-                      }
-                    ),
+                    getCategoryWidgets(),
                     Column(children: getTopJobs(),)
                   ],
                 ),
@@ -59,17 +40,56 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  List<Widget> getCategories(List<Category> categories){
+  Widget getCategoryWidgets(){
+    if(categories == null){
+      return FutureBuilder(
+        future: CategoryRequest.mainCategory(),
+        builder: (context , snapShot){
+          if(snapShot.hasData){
+            return Container(
+              margin: EdgeInsets.only(top: 10 , right: 10 , left: 10),
+              child: Column(
+                children: getCategories(snapShot.data!),
+              ),
+            );
+          }
+          else if(snapShot.hasError){
+            return Container(
+              height: 200,
+              child: Center(child: Text(snapShot.error.toString() ,
+                style: TextStyle(fontSize: 20),),)
+              ,);
+          }
+          return Center(child : CircularProgressIndicator());
+        }
+      );
+    }
+    else{
+      return Container(
+        margin: EdgeInsets.only(top: 10 , right: 10 , left: 10),
+        child: Column(
+          children: getCategories(categories!),
+        ),
+      );
+    }
+  }
+
+  List<Widget> getCategories(List<Category> values){
+    categories ??= values;
     List<Widget> children = [];
     List<Widget> rowChildren = [];
-    for(int i = 0 ; i<categories.length ; i++){
+    for(int i = 0 ; i<values.length ; i++){
       rowChildren.add(Column(
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
-            child: Image.network(categories[i].image!,
-              width: 80,height: 80,fit: BoxFit.fill,)),
-          Text(categories[i].title!)
+            child: IconButton(onPressed: (){
+
+            },
+              icon: Image.network(values[i].image!,
+                width: 80,height: 80,fit: BoxFit.fill,))
+          ),
+          Text(values[i].title!)
         ],
       ));
 
