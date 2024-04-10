@@ -37,6 +37,13 @@ class ProfilePage extends StatelessWidget {
             if(snapshot.hasData){
               return getWidgets(context);
             }
+            else if(snapshot.hasError){
+              return Container(
+                height: 200,
+                child: Center(child: Text(snapshot.error.toString() ,
+                  style: TextStyle(fontSize: 20),),)
+                ,);
+            }
             return const CircularProgressIndicator();
           },
         ) : getWidgets(context)

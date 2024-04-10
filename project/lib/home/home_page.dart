@@ -1,9 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:project/home/home_list_tile.dart';
 import 'package:project/home/home_page_search.dart';
+import 'package:project/request/category_request.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/divider.dart';
+
+import '../component/category.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -11,7 +15,6 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    print(height);
     return Scaffold(
       body: Container(
         color: AppColor.background,
@@ -24,11 +27,26 @@ class HomePage extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Container(
-                      margin: EdgeInsets.only(top: 10 , right: 10 , left: 10),
-                      child: Column(
-                        children: getCategories(),
-                      ),
+                    FutureBuilder(
+                      future: CategoryRequest.mainCategory(),
+                      builder: (context , snapShot){
+                        if(snapShot.hasData){
+                          return Container(
+                            margin: EdgeInsets.only(top: 10 , right: 10 , left: 10),
+                            child: Column(
+                              children: getCategories(snapShot.data!),
+                            ),
+                          );
+                        }
+                        else if(snapShot.hasError){
+                          return Container(
+                            height: 200,
+                            child: Center(child: Text(snapShot.error.toString() ,
+                              style: TextStyle(fontSize: 20),),)
+                            ,);
+                        }
+                        return Center(child : CircularProgressIndicator());
+                      }
                     ),
                     Column(children: getTopJobs(),)
                   ],
@@ -41,25 +59,21 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  List<Widget> getCategories(){
+  List<Widget> getCategories(List<Category> categories){
     List<Widget> children = [];
     List<Widget> rowChildren = [];
-    for(int i = 1 ; i<=8 ; i++){
+    for(int i = 0 ; i<categories.length ; i++){
       rowChildren.add(Column(
         children: [
-          Container(
-            width: 80,
-            height: 80,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              color: Colors.white,
-            ),
-            child: Image.asset("asset/car.jpg"),),
-          Text("Coloring")
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Image.network(categories[i].image!,
+              width: 80,height: 80,fit: BoxFit.fill,)),
+          Text(categories[i].title!)
         ],
       ));
 
-      if(i%4 == 0){
+      if((i+1)%4 == 0){
         children.add(Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children:rowChildren,)
