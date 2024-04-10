@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project/home/home_list_tile.dart';
 import 'package:project/home/home_page_search.dart';
@@ -9,6 +10,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    print(height);
     return Scaffold(
       body: Container(
         color: AppColor.background,
@@ -17,29 +20,21 @@ class HomePage extends StatelessWidget {
             HomePageSearch(),
             SizedBox(height: 10,),
             Container(
-              margin: EdgeInsets.only(top: 10 , right: 10 , left: 10),
-              child: Column(
-                children: getCategories(),
+              height: height-210,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(top: 10 , right: 10 , left: 10),
+                      child: Column(
+                        children: getCategories(),
+                      ),
+                    ),
+                    Column(children: getTopJobs(),)
+                  ],
+                ),
               ),
             ),
-            ListView.builder(
-              padding: EdgeInsets.only(top: 0),
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemCount: 2,
-              itemBuilder: (context , index){
-                return Column(children: [
-                  Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: HomeListTile(),
-                  ),
-                  Container(
-                    height: 1,
-                    margin: EdgeInsets.symmetric(horizontal: 10),
-                    color: AppColor.divider,)
-                ],);
-              }
-            )
           ],
         ),
       ),
@@ -74,6 +69,26 @@ class HomePage extends StatelessWidget {
       }
     }
     children.add(MyDivider());
+    return children;
+  }
+
+  List<Widget> getTopJobs(){
+    List<Widget> children = [];
+    for(int i = 0 ; i<2 ; i++){
+      children.add(
+        Column(children: [
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: HomeListTile(),
+          ),
+          Container(
+            height: 1,
+            margin: EdgeInsets.symmetric(horizontal: 10),
+            color: AppColor.divider,)
+          ],
+        ),
+      );
+    }
     return children;
   }
 }
