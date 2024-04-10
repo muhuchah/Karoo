@@ -1,8 +1,8 @@
 import 'dart:convert';
-import 'user/user_file.dart';
+import '../component/user_file.dart';
 import 'package:http/http.dart' as http;
 
-class Request{
+class UserRequest{
   static const String _baseUrl = "http://192.168.1.6:8000/";
   static const String _signupUrl = "users/register/";
   static const String _loginUrl = "users/login/";

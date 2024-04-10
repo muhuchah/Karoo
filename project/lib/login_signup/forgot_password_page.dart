@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/first/first_page_button.dart';
-import 'package:project/request.dart';
+import 'package:project/request/user_requests.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/big_text.dart';
 import 'package:project/widgets/text_icon_widget.dart';
@@ -84,7 +84,7 @@ class _ForgotPassword extends State<StatefulWidget> {
                       if(_formKey.currentState!.validate()){
                         String? email = emailController?.text??"";
                         try {
-                          var response = await Request.
+                          var response = await UserRequest.
                             forgotPassword(email: email,);
                           ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text(response),

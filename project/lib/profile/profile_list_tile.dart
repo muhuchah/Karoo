@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/profile/user_info.dart';
-import 'package:project/request.dart';
+import 'package:project/request/user_requests.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/custom_text.dart';
 
@@ -93,7 +93,7 @@ class ProfileListTile extends StatelessWidget {
             }
             else {
               try {
-                var response = await Request.changeInfo(getBodyParam(),
+                var response = await UserRequest.changeInfo(getBodyParam(),
                     controller.text);
                 ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text(response),

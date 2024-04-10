@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:project/profile/delete_account_page.dart';
 import 'package:project/profile/profile_list_tile.dart';
 import 'package:project/profile/user_info.dart';
-import 'package:project/request.dart';
-import 'package:project/user/user_file.dart';
+import 'package:project/request/user_requests.dart';
+import 'package:project/component/user_file.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/big_text.dart';
 import 'package:project/widgets/custom_text.dart';
@@ -32,7 +32,7 @@ class ProfilePage extends StatelessWidget {
         ),
       ),
       body: Center(child: user.fullName==null ? FutureBuilder<String>(
-          future: Request.personalInformation(),
+          future: UserRequest.personalInformation(),
           builder: (context , snapshot){
             if(snapshot.hasData){
               return getWidgets(context);
@@ -81,7 +81,7 @@ class ProfilePage extends StatelessWidget {
                 children: [
                   ElevatedButton(onPressed: () async {
                     try {
-                      var response = await Request.logout();
+                      var response = await UserRequest.logout();
 
                       ScaffoldMessenger
                           .of(context)

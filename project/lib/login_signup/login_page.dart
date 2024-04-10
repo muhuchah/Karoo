@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project/request.dart';
+import 'package:project/request/user_requests.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/big_text.dart';
 import 'package:project/widgets/custom_text.dart';
@@ -98,7 +98,7 @@ class _LoginPage extends State<StatefulWidget>{
                         String? email = emailController?.text??"";
                         String? password = passwordController?.text??"";
                         try {
-                          await Request.login(
+                          await UserRequest.login(
                               email: email,
                               password: password);
                           Navigator.of(context).pop();

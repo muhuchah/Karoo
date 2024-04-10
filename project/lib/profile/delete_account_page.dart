@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:project/user/user_file.dart';
+import 'package:project/component/user_file.dart';
 
-import '../request.dart';
+import '../request/user_requests.dart';
 
 void deleteAccountAlertDialog(context , label){
   FocusNode focusNode = FocusNode();
@@ -24,7 +24,7 @@ void deleteAccountAlertDialog(context , label){
           else {
             try {
               User user = User();
-              var response = await Request.deleteAccount(
+              var response = await UserRequest.deleteAccount(
                   email: user.email!,
                   password: controller.text);
               Navigator.of(context).pop();
