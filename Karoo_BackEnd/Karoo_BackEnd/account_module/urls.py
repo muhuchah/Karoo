@@ -20,4 +20,6 @@ urlpatterns = [
 
     # Address
     path('provinces/', views.ProvinceListView.as_view(), name='province_list'),
+    path('cities/', views.CityListView.as_view(), name='city_list'),
+
 ]

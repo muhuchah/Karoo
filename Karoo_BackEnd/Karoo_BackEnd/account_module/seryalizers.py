@@ -4,7 +4,7 @@ from django.contrib.auth.hashers import make_password
 
 from django.contrib.auth import get_user_model, authenticate
 from rest_framework import serializers
-from .models import Address, DiscountCode, Province
+from .models import Address, DiscountCode, Province, City
 from account_module.utils.email_service import send_activation_email
 
 User = get_user_model()
@@ -118,4 +118,10 @@ class UserDeleteAccountSerializer(serializers.ModelSerializer):
 class ProvinceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Province
+        fields = '__all__'
+
+
+class CitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = City
         fields = '__all__'

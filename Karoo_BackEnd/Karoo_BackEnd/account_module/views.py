@@ -4,9 +4,10 @@ from django.http import JsonResponse, HttpResponse
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import Address, DiscountCode, Province
+from .models import Address, DiscountCode, Province, City
 from .seryalizers import (UserSerialaizer, LoginSerializer, UserSettingSerializer, UserAddressSerializer
-, ForgotPasswordLinkSerializer, DiscountCodeSerializer, UserDeleteAccountSerializer, ProvinceSerializer)
+, ForgotPasswordLinkSerializer, DiscountCodeSerializer, UserDeleteAccountSerializer, ProvinceSerializer,
+CitySerializer)
 from rest_framework import generics, status, views
 from django.contrib.auth import get_user_model
 from account_module.utils.jwt_token_generator import get_token_for_user
@@ -169,10 +170,26 @@ class UserAddressRetrieveAPIView(generics.ListCreateAPIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save(user=self.request.user)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        user = self.request.user
+        province_name = request.data.get('province')
+        city_name = request.data.get('city')
+
+        try:
+            province = Province.objects.get(name=province_name)
+            city = City.objects.get(name=city_name)
+        except (Province.DoesNotExist, City.DoesNotExist) as e:
+            if isinstance(e, Province.DoesNotExist):
+                message = 'Province does not exist.'
+            else:
+                message = 'City does not exist'
+            return Response({'message': message}, status=status.HTTP_404_NOT_FOUND)
+
+        try:
+            address = Address.objects.create(user=user, province=province, city=city)
+            serializer = UserAddressSerializer(address)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({'message': f'Error creating address: {e}'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class UserAddressUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
@@ -296,3 +313,22 @@ class ProvinceListView(generics.ListAPIView):
     queryset = Province.objects.all()
     serializer_class = ProvinceSerializer
     ordering = ['name']
+
+
+class CityListView(APIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = CitySerializer
+
+    def get(self, request):
+        province_name = request.data['province']
+        if province_name:
+            try:
+                province = Province.objects.get(name=province_name)
+                cities = City.objects.filter(province=province)
+            except Province.DoesNotExist:
+                return Response({'error': 'Province not found'}, status=status.HTTP_404_NOT_FOUND)
+        else:
+            cities = City.objects.all()
+
+        serializer = self.serializer_class(cities, many=True)
+        return Response(serializer.data)
