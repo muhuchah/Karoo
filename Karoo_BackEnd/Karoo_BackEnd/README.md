@@ -188,3 +188,222 @@ If Logout Was Not Successful.
     "message": "An error occurred during logout."
 }
 ```
+
+
+## Address
+### Generate data of provinces and cities
+In back-end run this command:
+> python manage.py generate_city
+Then Iran provinces and cities is added to database.
+
+### Retrieving All Provinces
+To get all the provinces, send a **GET** request to the following url.
+
+#### Endpoint
+> URL http://127.0.0.1:8000/users/provinces/      
+
+#### Method
+> GET
+
+#### Example Response
+You then get a response like this:
+```json
+[
+    {
+        "id": 1,
+        "name": "آذربایجان شرقی"
+    },
+    {
+        "id": 2,
+        "name": "آذربایجان غربی"
+    },
+    {
+        "id": 3,
+        "name": "اردبیل"
+    }
+]
+```
+
+### Retrieving All Cities
+
+You can retrieve a list of all available cities in the system using a GET request.
+
+#### Endpoint
+> URL http://127.0.0.1:8000/users/cities/
+
+#### Method
+> GET
+
+#### Request Parameters
+```json
+{
+    "province": "اصفهان"
+}
+```
+If you want to get all the cities leave the province field empty.
+
+#### Example Response
+```json
+[
+    {
+        "id": 571,
+        "name": "ادیمی",
+        "province": 16
+    },
+    {
+        "id": 572,
+        "name": "اسپكه",
+        "province": 16
+    },
+    {
+        "id": 573,
+        "name": "ایرانشهر",
+        "province": 16
+    }
+]
+```
+
+### Address CRUD
+#### Endpoint
+> URL http://127.0.0.1:8000/users/settings/address-list/
+
+#### Method: GET
+###### Response
+Returns a list of user addresses.
+
+```json
+[
+    {
+        "id": 2,
+        "user": 1,
+        "province_name": "اصفهان",
+        "city_name": "اصفهان"
+    }
+]
+```
+
+#### Method: POST
+You can create a new address for user.
+You just need to post following fields.
+
+```json
+{
+    "province": "اصفهان",
+    "city": "اصفهان"
+}
+```
+##### Responses
+If 'province' not found or doesn't exist, you get HTTP_404_NOT_FOUND error:
+```json
+{
+  "message": "Province does not exist."
+}
+```
+
+If 'city' not found or doesn't exist, you get HTTP_404_NOT_FOUND error:
+```json
+{
+  "message": "City does not exist."
+}
+```
+
+If creating new address was successful, you get HTTP_201_CREATED:
+```json
+{
+    "id": 4,
+    "user": 1,
+    "province_name": "اصفهان",
+    "city_name": "اصفهان"
+}
+```
+
+If any other exception occurs, you get HTTP_400_BAD_REQUEST:
+```json
+{
+    "message": "Error creating address: {e}"
+}
+```
+
+#### Endpoint
+> URL http://127.0.0.1:8000/users/settings/address-edit/id
+
+You need to add the id of that specific address in the url.
+
+##### Method: GET
+To get a specific address.
+
+###### Response
+If an address with that id doesn't exist:
+```json
+[
+    "Not found!"
+]
+```
+
+Otherwise:
+```json
+{
+    "id": 2,
+    "user": 1,
+    "province_name": "اصفهان",
+    "city_name": "اصفهان"
+}
+```
+
+##### Method: PUT
+If you want to edit a specific address.
+You need to add all or some of the following fields to your body.
+
+```json
+{
+    "province": "تهران",
+    "city": "تهران"
+}
+```
+
+###### Response
+If it was successful, you get the updated data:
+```json
+{
+    "id": 2,
+    "user": 1,
+    "province_name": "تهران",
+    "city_name": "تهران"
+}
+```
+
+If the province or city that was sent didn't exist,
+that specific field won't be updated. you'll get same data.
+
+for example if PUT something like this:
+```json
+{
+    "province": "fake city name",
+    "city": "تهران"
+}
+```
+you'll get:
+```json
+{
+    "id": 2,
+    "user": 1,
+    "province_name": "تهران",
+    "city_name": "تهران"
+}
+```
+because "province": "fake city name" is not a province name.
+
+#### Method: DELETE
+If you want to delete a specific address.
+
+###### Response
+If an address with that id doesn't exist, you get a HTTP_404_NOT_FOUND error:
+```json
+{
+    "message": "Address does not exist"
+}
+```
+
+If delete was successful:
+It would return null (means data is deleted) and
+it's status is HTTP_204_NO_CONTENT.
