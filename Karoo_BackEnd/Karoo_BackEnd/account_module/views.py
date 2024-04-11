@@ -231,7 +231,12 @@ class UserAddressUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
 
     def destroy(self, request, *args, **kwargs):
         user_address = self.get_object()
-        user_address.delete()
+
+        try:
+            user_address.delete()
+        except:
+            return Response({'message': 'Address does not exist'}, status=status.HTTP_404_NOT_FOUND)
+
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
