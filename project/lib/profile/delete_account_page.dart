@@ -32,7 +32,7 @@ void deleteAccountAlertDialog(context , label){
               Navigator.of(context).pushReplacementNamed("/first");
               ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text(response),
-                    duration: Duration(seconds: 3),)).
+                    duration: Duration(seconds: 1),)).
                     closed.then((value){
               });
             }
@@ -40,7 +40,7 @@ void deleteAccountAlertDialog(context , label){
               Navigator.of(context).pop();
               ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text(e.toString()),
-                    duration: Duration(seconds: 3),));
+                    duration: Duration(seconds: 1),));
             }
           }
         }, child: const Text("Delete")),

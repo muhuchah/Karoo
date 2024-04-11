@@ -88,7 +88,7 @@ class _ForgotPassword extends State<StatefulWidget> {
                             forgotPassword(email: email,);
                           ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text(response),
-                                duration: Duration(seconds: 3),))
+                                duration: Duration(seconds: 2),))
                               .closed.then((value){
                                 Navigator.of(context).pop();
                           });
@@ -96,7 +96,7 @@ class _ForgotPassword extends State<StatefulWidget> {
                         catch(e){
                           ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text(e.toString()),
-                                duration: Duration(seconds: 3),));
+                                duration: Duration(seconds: 2),));
                         }
                       }
                       else if(emailController?.text==null || emailController?.text==""){

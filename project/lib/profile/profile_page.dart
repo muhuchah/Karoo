@@ -31,23 +31,7 @@ class ProfilePage extends StatelessWidget {
           child: Container(height: 1,color: AppColor.divider,),
         ),
       ),
-      body: Center(child: user.fullName==null ? FutureBuilder<String>(
-          future: UserRequest.personalInformation(),
-          builder: (context , snapshot){
-            if(snapshot.hasData){
-              return getWidgets(context);
-            }
-            else if(snapshot.hasError){
-              return Container(
-                height: 200,
-                child: Center(child: Text(snapshot.error.toString() ,
-                  style: TextStyle(fontSize: 20),),)
-                ,);
-            }
-            return const CircularProgressIndicator();
-          },
-        ) : getWidgets(context)
-      ),
+      body: getWidgets(context),
     );
   }
 
@@ -76,8 +60,8 @@ class ProfilePage extends StatelessWidget {
               label: "Phone Number", text: user.phoneNumber!),
           ProfileListTile(userInfo: UserInfo.address,
               label: "Address", text: user.address!),
-          ProfileListTile(userInfo: UserInfo.password,
-            label: "Password", text: user.password! , isPassword: true,),
+          const ProfileListTile(userInfo: UserInfo.password,
+            label: "Password", text: "********"),
           const SizedBox(height: 20,),
           Padding(
             padding: const EdgeInsets.all(20.0),
@@ -94,7 +78,7 @@ class ProfilePage extends StatelessWidget {
                           .of(context)
                           .showSnackBar(
                           SnackBar(content: Text(response),
-                            duration: Duration(seconds: 3),))
+                            duration: Duration(seconds: 1),))
                           .closed
                           .then((value) {
                         Navigator.of(context).pop();
@@ -104,7 +88,7 @@ class ProfilePage extends StatelessWidget {
                     catch(e){
                       ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text(e.toString()),
-                            duration: Duration(seconds: 3),));
+                            duration: Duration(seconds: 1),));
                     }
                   },
                     child: BigText(text: "Logout",size: 20,textColor: Colors.white,),

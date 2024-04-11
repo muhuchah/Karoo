@@ -4,7 +4,6 @@ class User{
   String? _fullName;
   String? _email;
   String? _address;
-  String? _password;
   String? _phoneNumber;
 
   static final User _user = User._internal();
@@ -31,10 +30,6 @@ class User{
     _address = address;
   }
 
-  set password(String? password){
-    _password = password;
-  }
-
   set accessToken(String? token){
     _accessToken = token;
   }
@@ -51,8 +46,6 @@ class User{
 
   String? get address{return _address;}
 
-  String? get password{return _password;}
-
   String? get accessToken{return _accessToken;}
 
   String? get refreshToken{return _refreshToken;}
@@ -62,7 +55,6 @@ class User{
     _address = null;
     _phoneNumber = null;
     _email = null;
-    _password = null;
     _accessToken = null;
     _refreshToken = null;
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/component/user_file.dart';
 import 'package:project/request/user_requests.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/big_text.dart';
@@ -101,17 +102,16 @@ class _LoginPage extends State<StatefulWidget>{
                           await UserRequest.login(
                               email: email,
                               password: password);
-                          Navigator.of(context).pop();
-                          Navigator.of(context).pushReplacementNamed("/home");
+                          successLogin(context);
                           ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text("You login successfully ."),
-                                duration: Duration(seconds: 3),))
+                                duration: Duration(seconds: 1),))
                               .closed;
                         }
                         catch(e){
                           ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text(e.toString()),
-                                duration: Duration(seconds: 3),));
+                                duration: Duration(seconds: 2),));
                         }
                       }
                       else{
@@ -178,5 +178,24 @@ class _LoginPage extends State<StatefulWidget>{
         ),
       ),
     );
+  }
+
+  void successLogin(context) async{
+    User user = User();
+    try{
+      await UserRequest.personalInformation();
+      if(user.phoneNumber == null){
+        Navigator.of(context).pop();
+        Navigator.of(context).pushReplacementNamed("/phone_city");
+      }
+      else{
+        Navigator.of(context).pop();
+        Navigator.of(context).pushReplacementNamed("/home");
+      }
+    }
+    catch(e){
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(e.toString()) , duration: Duration(seconds: 2),));
+    }
   }
 }

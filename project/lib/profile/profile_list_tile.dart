@@ -8,9 +8,8 @@ class ProfileListTile extends StatelessWidget {
   final UserInfo userInfo;
   final String label;
   final String text;
-  final bool isPassword;
   const ProfileListTile({super.key , required this.userInfo ,
-    required this.label, required this.text , this.isPassword = false});
+    required this.label, required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +27,7 @@ class ProfileListTile extends StatelessWidget {
                     CustomText(text: label, size: 16,
                         textColor: Colors.black, weight:FontWeight.normal),
                     SizedBox(height: 20,),
-                    CustomText(text: getText(), size: 16,
+                    CustomText(text: text, size: 16,
                         textColor: AppColor.hint, weight:FontWeight.normal)
                 ],),
                 IconButton(onPressed: (){
@@ -42,17 +41,6 @@ class ProfileListTile extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 10),)
       ],
     );
-  }
-
-  String getText(){
-    if(isPassword){
-      String temp = "";
-      for(int i=0;i<text.length;i++){
-        temp+="*";
-      }
-      return temp;
-    }
-    return text;
   }
 
   String getBodyParam(){
@@ -97,12 +85,12 @@ class ProfileListTile extends StatelessWidget {
                     controller.text);
                 ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text(response),
-                      duration: Duration(seconds: 3),));
+                      duration: Duration(seconds: 1),));
               }
               catch (e) {
                 ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text(e.toString()),
-                      duration: Duration(seconds: 3),));
+                      duration: Duration(seconds: 1),));
               }
               if(userInfo == UserInfo.email){
                 Navigator.of(context).pop();

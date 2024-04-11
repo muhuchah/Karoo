@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project/home/home.dart';
 import 'package:project/login_signup/forgot_password_page.dart';
+import 'package:project/login_signup/phone_city_page.dart';
 import 'package:project/login_signup/signup_page.dart';
 import 'package:project/my_karoo/my_karoo_page.dart';
 import 'package:project/profile/profile_page.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         "/login" : (context) => LoginPage(),
         "/signup" : (context) => SignUpPage(),
         "/forgot_password" : (context) => ForgotPassword(),
+        "/phone_city" : (context) => PhoneCityPage(),
         "/home" : (context) => Home(),
         "/myKaroo" : (context) => MyKarooPage(),
         "/profile" : (context) => ProfilePage(),

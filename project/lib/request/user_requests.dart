@@ -77,18 +77,19 @@ class UserRequest{
         });
 
     if(response.statusCode==200){
-      _setInfo(jsonDecode(response.body), user);
+      _setInfo(jsonDecode(response.body));
       return "Success";
     }
     throw Exception("Unable to load information");
   }
 
-  static void _setInfo(dynamic body , User user){
+  static void _setInfo(dynamic body){
+    User user = User();
+    print(body["phone_number"]);
     user.fullName = body["full_name"];
-    user.phoneNumber = "09904503067";
     user.email = body["email"];
-    user.address = "Isfahan,Isfahan";
-    user.password = "12345678";
+    user.phoneNumber = body["phone_number"];
+    user.address = body["address"];
   }
 
   static Future<String> changeInfo(String bodyParam , String bodyValue) async {
@@ -103,7 +104,7 @@ class UserRequest{
 
     if(response.statusCode == 200){
       dynamic body = jsonDecode(response.body);
-      _setInfo(body, user);
+      _setInfo(body);
       if(body["message"]==null){
         return "success";
       }
