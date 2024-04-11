@@ -16,6 +16,8 @@ urlpatterns = [
     path('settings/personal-info/', views.UserSettingAPIView.as_view(), name='user-personal-info-url'),
     path('settings/address-list/', views.UserAddressRetrieveAPIView.as_view(), name='user-address-list-url'),
     path('settings/address-edit/<int:pk>', views.UserAddressUpdateDestroyAPIView.as_view(), name='user-address-edit-url'),
-    path('discountcode/validator/<code>', views.DiscountCodeAPIView.as_view(), name='discount-code-validator')
+    path('discountcode/validator/<code>', views.DiscountCodeAPIView.as_view(), name='discount-code-validator'),
 
+    # Address
+    path('provinces/', views.ProvinceListView.as_view(), name='province_list'),
 ]

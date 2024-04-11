@@ -4,9 +4,9 @@ from django.http import JsonResponse, HttpResponse
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import Address, DiscountCode
+from .models import Address, DiscountCode, Province
 from .seryalizers import (UserSerialaizer, LoginSerializer, UserSettingSerializer, UserAddressSerializer
-, ForgotPasswordLinkSerializer, DiscountCodeSerializer, UserDeleteAccountSerializer)
+, ForgotPasswordLinkSerializer, DiscountCodeSerializer, UserDeleteAccountSerializer, ProvinceSerializer)
 from rest_framework import generics, status, views
 from django.contrib.auth import get_user_model
 from account_module.utils.jwt_token_generator import get_token_for_user
@@ -290,3 +290,9 @@ class DeleteAccountView(APIView):
             return Response({'message': 'User has been successfully deleted.'}, status=status.HTTP_200_OK)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ProvinceListView(generics.ListAPIView):
+    queryset = Province.objects.all()
+    serializer_class = ProvinceSerializer
+    ordering = ['name']
