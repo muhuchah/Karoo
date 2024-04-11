@@ -62,9 +62,27 @@ class UserSettingSerializer(serializers.ModelSerializer):
 
 
 class UserAddressSerializer(serializers.ModelSerializer):
+    province_name = serializers.SerializerMethodField()
+    city_name = serializers.SerializerMethodField()
+
+    def get_province_name(self, obj):
+        try:
+            if obj.province:
+                return obj.province.name
+            return None
+        except:
+            raise serializers.ValidationError('Not found!')
+
+    def get_city_name(self, obj):
+        try:
+            if obj.city:
+                return obj.city.name
+            return None
+        except:
+            raise serializers.ValidationError('Not found!')
     class Meta:
         model = Address
-        fields = '__all__'
+        fields = ('id', 'user', 'province_name', 'city_name')
 
 
 class ForgotPasswordLinkSerializer(serializers.ModelSerializer):
