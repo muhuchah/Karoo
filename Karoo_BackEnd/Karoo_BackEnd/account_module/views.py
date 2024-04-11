@@ -197,7 +197,12 @@ class UserAddressUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_object(self):
         user = self.request.user
-        return Address.objects.get(pk=self.kwargs['pk'], user=user)
+        try:
+            address_obj = Address.objects.get(pk=self.kwargs['pk'], user=user)
+        except Address.DoesNotExist:
+            return Response({'message': 'Address does not exist'}, status=status.HTTP_404_NOT_FOUND)
+
+        return address_obj
 
     def retrieve(self, request, *args, **kwargs):
         user_addresses = self.get_object()
