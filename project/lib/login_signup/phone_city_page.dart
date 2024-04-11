@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:project/login_signup/drop_down_button.dart';
+import 'package:project/widgets/custom_text.dart';
+import 'package:project/widgets/long_button.dart';
 
 import '../utils/app_color.dart';
 import '../widgets/big_text.dart';
@@ -15,6 +18,10 @@ class PhoneCityPage extends StatefulWidget {
 class _PhoneCityPageState extends State<PhoneCityPage> {
   TextEditingController? phoneController = TextEditingController();
   FocusNode phoneFocus = FocusNode();
+  final _formKey = GlobalKey<FormState>();
+  List<String> items = [
+    'one',
+    'two'];
 
   @override
   void dispose() {
@@ -35,29 +42,53 @@ class _PhoneCityPageState extends State<PhoneCityPage> {
           child: MyDivider(),
         ),
       ),
-      body: SingleChildScrollView(
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height - kToolbarHeight,
-          child: Container(
-            margin: const EdgeInsets.only(left : 20 , right: 20 ,top: 100),
-            child: Column(
-              children: [
-                TextIcon(
-                  labelText: "PHONE",
-                  assetPath: "asset/icons/phone.svg",
-                  controller: phoneController,
-                  validatorFunction: (value){
-                    if(value==null || value.isEmpty){
-                      return "Please enter email";
-                    }
-                    return null;
-                  },
-                  focus: phoneFocus,
-                ),
-              ],
-            ),
+      body: Form(
+        key: _formKey,
+        child: SingleChildScrollView(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height - kToolbarHeight,
+            child: Container(
+              margin: const EdgeInsets.only(left : 20 , right: 20 ,top: 100),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    child: Column(children: [
+                      TextIcon(
+                        labelText: "PHONE",
+                        assetPath: "asset/icons/phone.svg",
+                        controller: phoneController,
+                        validatorFunction: (value){
+                          if(value==null || value.isEmpty){
+                            return "Please enter email";
+                          }
+                          return null;
+                        },
+                        focus: phoneFocus,
+                      ),
+                      const SizedBox(height: 60,),
+                      MyDropButton(items : items , label : "Province"),
+                      const SizedBox(height: 20,),
+                      MyDropButton(items : items , label : "City"),
+                    ],),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 35.0),
+                    child: LongButton(onTap: (){
+                      if(!_formKey.currentState!.validate()){
+                        if(phoneController?.text==null || phoneController?.text==""){
+                          phoneFocus.requestFocus();
+                        }
+
+                      }
+                    },text: "Next",),
+                  )
+                ],
+              ),
+            )
           )
-        )
+        ),
       ),
     );
   }
