@@ -211,6 +211,19 @@ class UserAddressUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
 
     def update(self, request, *args, **kwargs):
         user_address = self.get_object()
+
+        try:
+            user_address.province = Province.objects.get(name=request.data['province'])
+        except:
+            print('Province does not exist')
+
+        try:
+            user_address.city = City.objects.get(name=request.data['city'])
+        except:
+            print('City does not exist')
+
+        user_address.save()
+
         serializer = self.get_serializer(user_address, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
