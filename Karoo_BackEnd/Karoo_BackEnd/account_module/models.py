@@ -97,15 +97,43 @@ class DiscountCode(models.Model):
         super().save(*args, **kwargs)
 
 
-class Address(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='addresses', blank=True)
-    street = models.CharField(max_length=100)
-    city = models.CharField(max_length=100)
-    state = models.CharField(max_length=100)
-    zip_code = models.CharField(max_length=20, null=True)
-
-    class Meta:
-        verbose_name = 'Address table'
+class Province(models.Model):
+    name = models.CharField(max_length=225, default='Name')
 
     def __str__(self):
-        return f'User: {self.user}, Street: {self.street} '
+        return self.name
+
+    class Meta:
+        verbose_name = 'Province'
+        verbose_name_plural = 'Provinces'
+        ordering = ['name']
+
+
+class City(models.Model):
+    province = models.ForeignKey(
+        Province,
+        verbose_name = 'province',
+        related_name = 'cities',
+        on_delete = models.CASCADE
+    )
+    name = models.CharField(max_length=255, default='Name')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'City'
+        verbose_name_plural = 'Cities'
+
+
+class Address(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='addresses', blank=True)
+    province = models.ForeignKey(Province, on_delete=models.CASCADE, null=True)
+    city = models.ForeignKey(City, on_delete=models.CASCADE, null=True)
+
+    class Meta:
+        verbose_name= 'Address table'
+
+
+    def __str__(self):
+        return f'User: {self.user}, City: {self.City}'
