@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import Address, DiscountCode, Province, City
-from .seryalizers import (UserSerialaizer, LoginSerializer, UserSettingSerializer, UserAddressSerializer
+from .seryalizers import (UserPublicInfoSerializer, UserSerialaizer, LoginSerializer, UserSettingSerializer, UserAddressSerializer
 , ForgotPasswordLinkSerializer, DiscountCodeSerializer, UserDeleteAccountSerializer, ProvinceSerializer,
 CitySerializer)
 from rest_framework import generics, status, views
@@ -355,3 +355,20 @@ class CityListView(APIView):
 
         serializer = self.serializer_class(cities, many=True)
         return Response(serializer.data)
+
+
+class SearchUserAPIView(APIView):   
+    serializer_class = UserSettingSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format=None):
+        
+        email = request.data.get('email', None)
+        if not email:
+            return Response({'error': 'Email is required'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        users = User.objects.filter(email=email)
+        
+        user_data = UserPublicInfoSerializer(users, many=True).data
+        
+        return Response(user_data, status=status.HTTP_200_OK)
