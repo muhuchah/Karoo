@@ -10,6 +10,8 @@ class UserRequest{
   static const String _personalInfo = "users/settings/personal-info/";
   static const String _logout = "users/logout/";
   static const String _deleteAccount = "users/delete-account/";
+  static const String _provinces = "users/provinces/";
+  static const String _cities = "users/cities/";
 
   static Future<String> signup({
     required String fullName , required String email,
@@ -159,6 +161,49 @@ class UserRequest{
       user.setNullPart();
       dynamic body = jsonDecode(response.body);
       return body["message"];
+    }
+    throw Exception("unable to delete account");
+  }
+
+  static Future<List<String>> getProvinces() async{
+    User user = User();
+    final response = await http.get(Uri.parse(_baseUrl+_provinces),
+        headers: <String , String>{
+          "Authorization": "Bearer ${user.accessToken!}",
+        },
+    );
+
+    if(response.statusCode == 200){
+      List<String> province = [];
+      List<dynamic> values = jsonDecode(response.body);
+
+      for(int i = 0;i<values.length ; i++){
+        province.add(values[i]["name"]);
+      }
+      return province;
+    }
+    throw Exception("unable to delete account");
+  }
+
+  static Future<List<String>> getCities(String province) async{
+    User user = User();
+    final response = await http.post(Uri.parse(_baseUrl+_cities),
+      headers: <String , String>{
+        "Authorization": "Bearer ${user.accessToken!}",
+      },
+      body: <String , String>{
+        "province": province
+      }
+    );
+
+    if(response.statusCode == 200){
+      List<String> cities = [];
+      List<dynamic> values = jsonDecode(response.body);
+
+      for(int i = 0;i<values.length ; i++){
+        cities.add(values[i]["name"]);
+      }
+      return cities;
     }
     throw Exception("unable to delete account");
   }

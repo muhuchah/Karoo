@@ -16,7 +16,7 @@ class LongButton extends StatelessWidget {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
       child:
       SizedBox(
-        height: 60,
+        height: 40,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
