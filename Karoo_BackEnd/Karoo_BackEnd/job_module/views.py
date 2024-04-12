@@ -4,7 +4,9 @@ from rest_framework.exceptions import PermissionDenied
 from .models import job, job_pictures, job_comments
 from .seryalizers import jobSerializer, job_picturesSerializer, joblistSerializer, job_commentsSerializer
 from rest_framework.response import Response
-
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.views import APIView
+from rest_framework.status import *
 
 class IsOwnerOrReadOnly(permissions.BasePermission):
     def has_permission(self, request, view):
@@ -126,3 +128,24 @@ class jobCommentsEditAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = job_commentsSerializer
     queryset = job_comments.objects.all()
     permission_classes = [IsCommentOwner]
+
+
+class jobInfoAPIView(generics.CreateAPIView):
+
+    def post(self, request, pk):
+        try: 
+            curr_job = job.objects.get(id=pk)
+            # Check if the logged-in user is the owner of the job
+            if request.user == curr_job.user:
+                curr_job.experiences = request.data.get('experiences')
+                curr_job.approximation_cph = request.data.get('approximation_cph')
+                curr_job.initial_cost = request.data.get('initial_cost')
+                curr_job.skills.set(request.data.get('skills'))
+                curr_job.save()
+            else:
+                return Response({'message': 'You are not allowed to change this job'}, status=HTTP_403_FORBIDDEN)
+            
+            return Response({'message': 'Job information updated successfully'}, status=HTTP_200_OK)
+        
+        except curr_job.DoesNotExist:
+            return Response({'error': 'Job does not exist'}, status=HTTP_404_NOT_FOUND)

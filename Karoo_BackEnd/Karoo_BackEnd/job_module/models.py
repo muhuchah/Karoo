@@ -16,6 +16,11 @@ class job(models.Model):
     main_picture = models.OneToOneField('job_pictures', on_delete=models.SET_NULL, null=True, blank=True,
                                         related_name='main_picture_of')
 
+    skills = models.ManyToManyField('skill', related_name='jobs', blank=True)
+    experiences = models.TextField(max_length=1000, null=True, blank=True)
+    approximation_cph = models.CharField(max_length=100, null=True, blank=True)
+    initial_cost = models.CharField(max_length=100, null=True, blank=True)
+
     def __str__(self):
         return self.title
 
@@ -44,3 +49,10 @@ class job_comments(models.Model):
 
     def __str__(self):
         return f'{self.title}, user:{self.user}, job:{self.job}'
+
+class skill(models.Model):
+    title = models.CharField(max_length=200, null=False, blank=False)
+    
+    def __str__(self):
+        return self.title
+    
