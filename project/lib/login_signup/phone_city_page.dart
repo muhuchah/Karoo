@@ -19,7 +19,11 @@ class PhoneCityPage extends StatefulWidget {
 class _PhoneCityPageState extends State<PhoneCityPage> {
   TextEditingController? phoneController = TextEditingController();
   FocusNode phoneFocus = FocusNode();
+  FocusNode provinceFocus = FocusNode();
+  FocusNode cityFocus = FocusNode();
   final _formKey = GlobalKey<FormState>();
+
+
   List<String> province = ["-----"];
   String? selectedProvince = "-----";
   String? selectedCity = "-----";
@@ -101,7 +105,8 @@ class _PhoneCityPageState extends State<PhoneCityPage> {
       builder: (context , snapShot){
         if(snapShot.hasData){
           province = snapShot.data!;
-          return MyDropButton(items : province ,selectedItem: selectedProvince ,
+          return MyDropButton(items : province ,
+            selectedItem: selectedProvince , focus: provinceFocus,
             label : "Province" , rebuild: (value){
               setState(() {
                 selectedProvince = value;
@@ -110,7 +115,8 @@ class _PhoneCityPageState extends State<PhoneCityPage> {
           );
         }
         else if(snapShot.hasError){
-          return MyDropButton(items : province,selectedItem: selectedProvince ,
+          return MyDropButton(items : province,
+            selectedItem: selectedProvince ,focus: provinceFocus,
             label : "Province" , rebuild: (value){
               setState(() {});
             },
@@ -121,7 +127,8 @@ class _PhoneCityPageState extends State<PhoneCityPage> {
         }
       }
     ) :
-    MyDropButton(items : province , selectedItem: selectedProvince,
+    MyDropButton(items : province ,
+      selectedItem: selectedProvince,focus: provinceFocus,
       label : "Province" , rebuild: (value){
         setState(() {
           selectedProvince = value;
@@ -135,12 +142,14 @@ class _PhoneCityPageState extends State<PhoneCityPage> {
     FutureBuilder(future: UserRequest.getCities(selectedProvince!),
         builder: (context , snapShot){
           if(snapShot.hasData){
-            return MyDropButton(items : snapShot.data! ,selectedItem: selectedCity ,
+            return MyDropButton(items : snapShot.data! ,
+              selectedItem: selectedCity , focus: cityFocus,
               label : "Cities" , rebuild: (value){},
             );
           }
           else if(snapShot.hasError){
-            return MyDropButton(items : const ["-----"],selectedItem: selectedCity ,
+            return MyDropButton(items : const ["-----"],
+              selectedItem: selectedCity ,focus: cityFocus,
               label : "Province" , rebuild: (value){},
             );
           }
@@ -149,7 +158,8 @@ class _PhoneCityPageState extends State<PhoneCityPage> {
           }
         }
     ) :
-    MyDropButton(items : const ["-----"] , selectedItem: selectedCity,
+    MyDropButton(items : const ["-----"] ,
+        selectedItem: selectedCity,focus: cityFocus,
         label : "Cities" , rebuild: (value){}
     );
   }

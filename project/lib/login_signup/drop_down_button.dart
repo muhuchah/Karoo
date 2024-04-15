@@ -7,9 +7,10 @@ class MyDropButton extends StatefulWidget {
   List<String> items;
   String? selectedItem;
   String label;
+  FocusNode focus;
   void Function(String? value) rebuild;
   MyDropButton({super.key , required this.items , required this.label ,
-    required this.rebuild , required this.selectedItem});
+    required this.rebuild , required this.selectedItem , required this.focus});
 
   @override
   _MyDropButton createState() => _MyDropButton();
@@ -39,6 +40,7 @@ class _MyDropButton extends State<MyDropButton> {
             child: DropdownButton<String>(
               value: widget.selectedItem,
               isExpanded: true,
+              focusNode: widget.focus,
               onChanged: (String? newValue) {
                 setState(() {
                   widget.selectedItem = newValue!;
