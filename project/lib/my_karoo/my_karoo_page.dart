@@ -17,7 +17,19 @@ class _MyKarooPageState extends State<MyKarooPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.background,
-      appBar: MainAppBar(text: "Karoo"),
+      appBar: MainAppBar(text: "Karoo",actions: [
+        IconButton(onPressed: (){
+
+        }, icon: const Icon(Icons.add_alert_rounded),
+          style: IconButton.styleFrom(iconSize: 32),
+        ),
+        IconButton(onPressed: (){
+
+        }, icon: const Icon(Icons.settings),
+          style: IconButton.styleFrom(iconSize: 32),
+        ),
+        const SizedBox(width: 10,)
+      ],),
       body: SingleChildScrollView(
         child: Container(
           color: AppColor.background,

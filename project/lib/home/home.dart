@@ -15,7 +15,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   List<Widget> widgets = [
     HomePage(),
-    MainCategoriesPage(),
+    DisplayCategories(),
     Center(child: Text("Job Page"),),
     MyKarooPage(),
   ];

@@ -33,8 +33,7 @@ class MyApp extends StatelessWidget {
         "/forgot_password" : (context) => ForgotPassword(),
         "/phone_city" : (context) => PhoneCityPage(),
         "/home" : (context) => Home(),
-        "/main_category" : (context) => MainCategoriesPage(),
-
+        "/main_category" : (context) => DisplayCategories(),
         "/myKaroo" : (context) => MyKarooPage(),
         "/profile" : (context) => ProfilePage(),
       },

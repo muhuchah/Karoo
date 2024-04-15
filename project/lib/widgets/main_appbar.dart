@@ -6,26 +6,15 @@ import 'big_text.dart';
 
 class MainAppBar extends StatelessWidget implements PreferredSizeWidget{
   String text;
-  MainAppBar({super.key , required this.text});
+  final List<Widget> actions;
+  MainAppBar({super.key , required this.text , this.actions = const []});
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: AppColor.background,
       title: BigText(text: text),
-      actions: [
-        IconButton(onPressed: (){
-
-        }, icon: const Icon(Icons.add_alert_rounded),
-          style: IconButton.styleFrom(iconSize: 32),
-        ),
-        IconButton(onPressed: (){
-
-        }, icon: const Icon(Icons.settings),
-          style: IconButton.styleFrom(iconSize: 32),
-        ),
-        const SizedBox(width: 10,)
-      ],
+      actions: actions,
       bottom: const PreferredSize(
         preferredSize: Size.fromHeight(1),
         child: MyDivider(),
