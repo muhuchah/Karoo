@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:project/component/user_file.dart';
 
 class CategoryRequest{
-  static const String _base = "http://172.19.51.84:8000/";
+  static const String _base = "http://192.168.137.1:8000/";
   static const String _mainCategory = "categories/maincategories/list/";
   
   static Future<List<Category>> mainCategory() async {

@@ -3,7 +3,7 @@ import '../component/user_file.dart';
 import 'package:http/http.dart' as http;
 
 class UserRequest{
-  static const String _baseUrl = "http://172.19.51.84:8000/";
+  static const String _baseUrl = "http://192.168.137.1:8000/";
   static const String _signupUrl = "users/register/";
   static const String _loginUrl = "users/login/";
   static const String _forgotPasswordUrl = "users/forgotpassword/";
@@ -12,6 +12,7 @@ class UserRequest{
   static const String _deleteAccount = "users/delete-account/";
   static const String _provinces = "users/provinces/";
   static const String _cities = "users/cities/";
+  static const String _address = "users/settings/address-list/";
 
   static Future<String> signup({
     required String fullName , required String email,
@@ -90,7 +91,6 @@ class UserRequest{
     user.fullName = body["full_name"];
     user.email = body["email"];
     user.phoneNumber = body["phone_number"];
-    user.address = body["address"];
   }
 
   static Future<String> changeInfo(String bodyParam , String bodyValue) async {
@@ -205,5 +205,30 @@ class UserRequest{
       return cities;
     }
     throw Exception("unable to load cities");
+  }
+
+  static Future<void> setAddress(String province , String city) async {
+    User user = User();
+    final response = await http.post(Uri.parse(_baseUrl+_address),
+        headers: <String , String> {
+          "Authorization": "Bearer ${user.accessToken!}"},
+        body: <String , String>{
+          "province":province,
+          "city":city
+        }
+    );
+
+    print(response.statusCode);
+
+    if(response.statusCode == 201){
+      dynamic body = jsonDecode(response.body);
+      user.address = body["province_name"]+","+body["city_name"];
+    }
+    else if(response.statusCode == 404 || response.statusCode == 400){
+      throw Exception(jsonDecode(response.body)["message"]);
+    }
+    else {
+      throw Exception("Unable to add address");
+    }
   }
 }
