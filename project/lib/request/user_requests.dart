@@ -3,7 +3,7 @@ import '../component/user_file.dart';
 import 'package:http/http.dart' as http;
 
 class UserRequest{
-  static const String _baseUrl = "http://192.168.1.6:8000/";
+  static const String _baseUrl = "http://172.19.51.84:8000/";
   static const String _signupUrl = "users/register/";
   static const String _loginUrl = "users/login/";
   static const String _forgotPasswordUrl = "users/forgotpassword/";
@@ -87,7 +87,6 @@ class UserRequest{
 
   static void _setInfo(dynamic body){
     User user = User();
-    print(body["phone_number"]);
     user.fullName = body["full_name"];
     user.email = body["email"];
     user.phoneNumber = body["phone_number"];
@@ -174,7 +173,7 @@ class UserRequest{
     );
 
     if(response.statusCode == 200){
-      List<String> province = [];
+      List<String> province = ["-----"];
       List<dynamic> values = jsonDecode(response.body);
 
       for(int i = 0;i<values.length ; i++){
@@ -182,7 +181,7 @@ class UserRequest{
       }
       return province;
     }
-    throw Exception("unable to delete account");
+    throw Exception("unable to load provinces");
   }
 
   static Future<List<String>> getCities(String province) async{
@@ -192,12 +191,12 @@ class UserRequest{
         "Authorization": "Bearer ${user.accessToken!}",
       },
       body: <String , String>{
-        "province": province
+        "province" : province
       }
     );
 
     if(response.statusCode == 200){
-      List<String> cities = [];
+      List<String> cities = ["-----"];
       List<dynamic> values = jsonDecode(response.body);
 
       for(int i = 0;i<values.length ; i++){
@@ -205,6 +204,6 @@ class UserRequest{
       }
       return cities;
     }
-    throw Exception("unable to delete account");
+    throw Exception("unable to load cities");
   }
 }

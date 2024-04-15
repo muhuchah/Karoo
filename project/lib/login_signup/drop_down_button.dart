@@ -7,9 +7,9 @@ class MyDropButton extends StatefulWidget {
   List<String> items;
   String? selectedItem;
   String label;
-  MyDropButton({super.key , required this.items , required this.label}){
-    selectedItem = items.first;
-  }
+  void Function(String? value) rebuild;
+  MyDropButton({super.key , required this.items , required this.label ,
+    required this.rebuild , required this.selectedItem});
 
   @override
   _MyDropButton createState() => _MyDropButton();
@@ -37,9 +37,12 @@ class _MyDropButton extends State<MyDropButton> {
           ),
           child: DropdownButtonHideUnderline(
             child: DropdownButton<String>(
+              value: widget.selectedItem,
+              isExpanded: true,
               onChanged: (String? newValue) {
                 setState(() {
                   widget.selectedItem = newValue!;
+                  widget.rebuild(newValue);
                 });
               },
               icon: Icon(Icons.keyboard_arrow_down),

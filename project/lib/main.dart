@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         fontFamily: "Inter"
       ),
       title: 'Flutter Demo',
-      initialRoute: "/phone_city",
+      initialRoute: "/first",
       routes: {
         "/first" : (context) => FirstPage(),
         "/login" : (context) => LoginPage(),

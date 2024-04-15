@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/login_signup/drop_down_button.dart';
+import 'package:project/request/user_requests.dart';
 import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/long_button.dart';
 
@@ -19,13 +20,14 @@ class _PhoneCityPageState extends State<PhoneCityPage> {
   TextEditingController? phoneController = TextEditingController();
   FocusNode phoneFocus = FocusNode();
   final _formKey = GlobalKey<FormState>();
-  List<String> items = [
-    'one',
-    'two'];
+  List<String> province = ["-----"];
+  String? selectedProvince = "-----";
+  String? selectedCity = "-----";
 
   @override
   void dispose() {
     super.dispose();
+
     phoneController?.dispose();
     phoneFocus.dispose();
   }
@@ -68,9 +70,9 @@ class _PhoneCityPageState extends State<PhoneCityPage> {
                         focus: phoneFocus,
                       ),
                       const SizedBox(height: 60,),
-                      MyDropButton(items : items , label : "Province"),
+                      getProvinces(),
                       const SizedBox(height: 20,),
-                      MyDropButton(items : items , label : "City"),
+                      getCities(),
                     ],),
                   ),
                   Padding(
@@ -90,6 +92,65 @@ class _PhoneCityPageState extends State<PhoneCityPage> {
           )
         ),
       ),
+    );
+  }
+
+  Widget getProvinces(){
+    return province.length == 1 ?
+    FutureBuilder(future: UserRequest.getProvinces(),
+      builder: (context , snapShot){
+        if(snapShot.hasData){
+          province = snapShot.data!;
+          return MyDropButton(items : province ,selectedItem: selectedProvince ,
+            label : "Province" , rebuild: (value){
+              setState(() {
+                selectedProvince = value;
+              });
+            },
+          );
+        }
+        else if(snapShot.hasError){
+          return MyDropButton(items : province,selectedItem: selectedProvince ,
+            label : "Province" , rebuild: (value){
+              setState(() {});
+            },
+          );
+        }
+        else{
+          return const CircularProgressIndicator();
+        }
+      }
+    ) :
+    MyDropButton(items : province , selectedItem: selectedProvince,
+      label : "Province" , rebuild: (value){
+        setState(() {
+          selectedProvince = value;
+        });
+      }
+    );
+  }
+
+  Widget getCities(){
+    return selectedProvince != "-----" ?
+    FutureBuilder(future: UserRequest.getCities(selectedProvince!),
+        builder: (context , snapShot){
+          if(snapShot.hasData){
+            return MyDropButton(items : snapShot.data! ,selectedItem: selectedCity ,
+              label : "Cities" , rebuild: (value){},
+            );
+          }
+          else if(snapShot.hasError){
+            return MyDropButton(items : const ["-----"],selectedItem: selectedCity ,
+              label : "Province" , rebuild: (value){},
+            );
+          }
+          else{
+            return const CircularProgressIndicator();
+          }
+        }
+    ) :
+    MyDropButton(items : const ["-----"] , selectedItem: selectedCity,
+        label : "Cities" , rebuild: (value){}
     );
   }
 }
