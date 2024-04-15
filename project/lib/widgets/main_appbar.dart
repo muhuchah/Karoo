@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:project/widgets/divider.dart';
 
 import '../utils/app_color.dart';
-import '../widgets/big_text.dart';
+import 'big_text.dart';
 
-class MyKarooAppBar extends StatelessWidget implements PreferredSizeWidget{
-  const MyKarooAppBar({super.key});
+class MainAppBar extends StatelessWidget implements PreferredSizeWidget{
+  String text;
+  MainAppBar({super.key , required this.text});
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: AppColor.background,
-      title: const BigText(text: "Karoo"),
+      title: BigText(text: text),
       actions: [
         IconButton(onPressed: (){
 

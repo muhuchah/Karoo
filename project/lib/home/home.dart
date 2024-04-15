@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/category/categories_display.dart';
 import 'package:project/home/bottom_navigation_bar.dart';
 import 'package:project/my_karoo/my_karoo_page.dart';
 
@@ -14,7 +15,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   List<Widget> widgets = [
     HomePage(),
-    Center(child: Text("Category Page"),),
+    MainCategoriesPage(),
     Center(child: Text("Job Page"),),
     MyKarooPage(),
   ];

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/login_signup/drop_down_button.dart';
 import 'package:project/request/user_requests.dart';
-import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/long_button.dart';
 
 import '../utils/app_color.dart';

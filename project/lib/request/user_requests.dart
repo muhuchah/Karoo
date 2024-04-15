@@ -91,6 +91,7 @@ class UserRequest{
     user.fullName = body["full_name"];
     user.email = body["email"];
     user.phoneNumber = body["phone_number"];
+    user.address = body["address"];
   }
 
   static Future<String> changeInfo(String bodyParam , String bodyValue) async {
