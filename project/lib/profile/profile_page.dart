@@ -7,6 +7,7 @@ import 'package:project/component/user_file.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/big_text.dart';
 import 'package:project/widgets/custom_text.dart';
+import 'package:project/widgets/my_appbars.dart';
 
 class ProfilePage extends StatelessWidget {
   final User user = User();
@@ -16,21 +17,9 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.background,
-      appBar: AppBar(
-        backgroundColor: AppColor.background,
-        title: const BigText(text: "Profile",),
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 20.0),
-          child: IconButton(onPressed: (){
-            Navigator.of(context).pop();
-          }, icon: const Icon(Icons.arrow_back_ios , size: 32,)),
-        ),
-        toolbarHeight: 70,
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(1),
-          child: Container(height: 1,color: AppColor.divider,),
-        ),
-      ),
+      appBar: SubAppBar(text: "Profile",leading: (){
+        Navigator.of(context).pop();
+      },),
       body: getWidgets(context),
     );
   }

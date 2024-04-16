@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project/category/categories_display.dart';
+import 'package:project/category/main_category.dart';
 import 'package:project/home/home.dart';
-import 'package:project/login_signup/drop_down_button.dart';
 import 'package:project/login_signup/forgot_password_page.dart';
 import 'package:project/login_signup/phone_city_page.dart';
 import 'package:project/login_signup/signup_page.dart';
@@ -33,7 +33,6 @@ class MyApp extends StatelessWidget {
         "/forgot_password" : (context) => ForgotPassword(),
         "/phone_city" : (context) => PhoneCityPage(),
         "/home" : (context) => Home(),
-        "/main_category" : (context) => DisplayCategories(),
         "/myKaroo" : (context) => MyKarooPage(),
         "/profile" : (context) => ProfilePage(),
       },

@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:project/category/sub_category.dart';
+import 'package:project/home/bottom_navigation_bar.dart';
 
 import '../component/category.dart';
 import '../request/category_request.dart';
 import '../utils/app_color.dart';
-import '../widgets/main_appbar.dart';
+import '../widgets/my_appbars.dart';
 import 'category_text_icon.dart';
 
 class MainCategoriesPage extends StatelessWidget {
-  MainCategoriesPage({super.key});
+  Function(String value)? onTap;
+  MainCategoriesPage({super.key , this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -49,11 +51,12 @@ class MainCategoriesPage extends StatelessWidget {
   List<Widget> getCategories(List<Category> categories , context){
     List<Widget> children = [];
     for(Category c in categories){
-      children.add(CategoryTextIcon(text: c.title!, onTap:() {
-        Navigator.of(context).push(MaterialPageRoute(
-            builder:(context) => SubCategoryPage(mainCategory: c.title!)
-        ));
-      }));
+      children.add(CategoryTextIcon(
+        text: c.title!,
+        onTap: (){
+          onTap!(c.title!);
+        }),
+      );
     }
     return children;
   }

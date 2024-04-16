@@ -1,36 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:project/category/categories_display.dart';
+import 'package:project/category/main_category.dart';
+import 'package:project/category/sub_category.dart';
 import 'package:project/home/bottom_navigation_bar.dart';
 import 'package:project/my_karoo/my_karoo_page.dart';
 
 import 'home_page.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key});
+  MainCategoriesPage? mainPage;
+  List<Widget> widgets = [
+    HomePage(),
+    Center(child: Text("Job Page"),),
+    MyKarooPage(),
+  ];
+  int selectedIndex = 0;
+
+  Home({super.key});
 
   @override
   State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  List<Widget> widgets = [
-    HomePage(),
-    DisplayCategories(),
-    Center(child: Text("Job Page"),),
-    MyKarooPage(),
-  ];
-  int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child : widgets[_selectedIndex]),
-      bottomNavigationBar: MyBottomNavigation(currentIndex: _selectedIndex,
+      body: Center(
+          child : widget.widgets[widget.selectedIndex]),
+      bottomNavigationBar: MyBottomNavigation(
+        currentIndex: widget.selectedIndex,
         onTap: (index){
           int current;
           if(index == MyNavigationBarMenus.home){
             current = 0;
           }
           else if(index == MyNavigationBarMenus.category){
+            checkCategories();
             current = 1;
           }
           else if(index == MyNavigationBarMenus.job){
@@ -41,10 +46,41 @@ class _HomeState extends State<Home> {
           }
 
           setState(() {
-            _selectedIndex = current;
+            widget.selectedIndex= current;
           });
         },
       ),
     );
+  }
+
+  void checkCategories(){
+    if(widget.widgets.length==3){
+      widget.mainPage = MainCategoriesPage(
+        onTap:(mainCategory){
+          mainCategoryOnTap(mainCategory);
+        },);
+      setState(() {
+        widget.widgets.insert(1,widget.mainPage!);
+      });
+    }
+  }
+
+  void mainCategoryOnTap(mainCategory){
+    setState(() {
+      widget.widgets[1] = SubCategoryPage(mainCategory: mainCategory,
+        leading: subCategoryLeading , onTap: (subCategory){
+          subCategoryOnTap(subCategory);
+        },);
+    });
+  }
+
+  void subCategoryLeading(){
+    setState(() {
+      widget.widgets[1] = widget.mainPage!;
+    });
+  }
+
+  void subCategoryOnTap(subCategory){
+
   }
 }
