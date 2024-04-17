@@ -42,11 +42,3 @@ class Job{
 
   int? get id => _id;
 }
-
-
-
-// class JobRequest{
-//   static const String _base = "http://192.168.137.1:8000/";
-//   static const String _jobList = "jobs/list/";
-//
-// }

@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:project/category/main_category.dart';
 import 'package:project/category/sub_category.dart';
 import 'package:project/home/bottom_navigation_bar.dart';
+import 'package:project/job/display_job.dart';
 import 'package:project/my_karoo/my_karoo_page.dart';
 
 import 'home_page.dart';
 
 class Home extends StatefulWidget {
   MainCategoriesPage? mainPage;
+  String? selectedCategory;
   List<Widget> widgets = [
     HomePage(),
     Center(child: Text("Job Page"),),
@@ -67,6 +69,7 @@ class _HomeState extends State<Home> {
 
   void mainCategoryOnTap(mainCategory){
     setState(() {
+      widget.selectedCategory = mainCategory;
       widget.widgets[1] = SubCategoryPage(mainCategory: mainCategory,
         leading: subCategoryLeading , onTap: (subCategory){
           subCategoryOnTap(subCategory);
@@ -81,6 +84,21 @@ class _HomeState extends State<Home> {
   }
 
   void subCategoryOnTap(subCategory){
+    setState(() {
+      widget.widgets[1] = DisplayJobPage(title: subCategory,
+        subCategory: subCategory, leadingOnTap: (){
+          jobLeading();
+        }
+      );
+    });
+  }
 
+  void jobLeading(){
+    setState(() {
+      widget.widgets[1] = SubCategoryPage(mainCategory: widget.selectedCategory!,
+        leading: subCategoryLeading , onTap: (subCategory){
+          subCategoryOnTap(subCategory);
+        },);
+    });
   }
 }
