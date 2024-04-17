@@ -29,12 +29,12 @@ class RegisterAPIView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerialaizer
 
-    def perform_create(self, serializer):
+    def perform_create(self, serializer, host, scheme):
         user = serializer.save()
         # Generate activation code and send email
         subject = 'Account Registration'
         template_name = 'email/activate_account.html'
-        send_activation_email(user, template_name, subject)
+        send_activation_email(user, template_name, subject, host, scheme)
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -47,7 +47,10 @@ class RegisterAPIView(generics.CreateAPIView):
             }
             return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
 
-        self.perform_create(serializer)
+        host = request.META.get('HTTP_HOST')
+        scheme = 'https' if request.is_secure() else 'http'
+
+        self.perform_create(serializer, host, scheme)
 
         # Custom response
         response_data = {
@@ -88,7 +91,13 @@ class LoginAPIView(views.APIView):
     permission_classes = []
 
     def post(self, request):
-        serializer = LoginSerializer(data=request.data)
+        host = request.META.get('HTTP_HOST')
+        scheme = 'https' if request.is_secure() else 'http'
+        context = {
+            'host': host,
+            'scheme': scheme
+        }
+        serializer = LoginSerializer(data=request.data, context=context)
 
         if serializer.is_valid():
             user = serializer.validated_data
@@ -142,9 +151,11 @@ class UserSettingAPIView(generics.RetrieveUpdateAPIView):
             user.save()
 
             # Generate activation code and send email
+            host = request.META.get('HTTP_HOST')
+            scheme = 'https' if request.is_secure() else 'http'
             subject = 'Account Registration'
             template_name = 'email/activate_account.html'
-            send_activation_email(user, template_name, subject)
+            send_activation_email(user, template_name, subject, host, scheme)
 
             response_data = {
                 'message': 'Your new email address has been set, but it needs to be activated.'
@@ -245,7 +256,13 @@ class ForgotPasswordAPIView(APIView):
     permission_classes = []
 
     def post(self, request):
-        serializer = ForgotPasswordLinkSerializer(data=request.data)  # Using the correct serializer
+        host = request.META.get('HTTP_HOST')
+        scheme = 'https' if request.is_secure() else 'http'
+        context = {
+            'host': host,
+            'scheme': scheme
+        }
+        serializer = ForgotPasswordLinkSerializer(data=request.data, context=context)  # Using the correct serializer
 
         if serializer.is_valid():
             serializer.save()  # This calls the save method on the serializer, where the email is sent

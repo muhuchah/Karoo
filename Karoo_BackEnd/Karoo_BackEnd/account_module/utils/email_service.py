@@ -26,11 +26,15 @@ def send_email(to_email, template_name, context, subject):
 
 
 
-def send_activation_email(user, template_name, subject):
+def send_activation_email(user, template_name, subject, host, scheme):
     user = user
     user_active_code = generate_activate_code(user)
 
-    context = {'user_active_code': user_active_code}
+    context = {
+        'user_active_code': user_active_code,
+        'host': host,
+        'scheme': scheme
+    }
     to_email = user.email
     send_email(to_email, template_name, context, subject)
 

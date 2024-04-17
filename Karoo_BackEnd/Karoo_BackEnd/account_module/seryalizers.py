@@ -31,9 +31,11 @@ class LoginSerializer(serializers.Serializer):
 
         if user is not None:
             if not user.is_active:
+                host = self.context['host']
+                scheme = self.context['scheme']
                 subject = 'Account Registration'
                 template_name = 'email/activate_account.html'
-                send_activation_email(user, template_name, subject)
+                send_activation_email(user, template_name, subject, host, scheme)
                 raise serializers.ValidationError(
                     'Your account is not active. Please check your email for the confirmation link.'
                     'We sent new link for you.')
@@ -99,10 +101,12 @@ class ForgotPasswordLinkSerializer(serializers.ModelSerializer):
 
     def save(self):
         user = self.context['user']
+        host = self.context['host']
+        scheme = self.context['scheme']
         subject = 'Account Forgot Password'
         template_name = 'email/forgot_password.html'
         # The `save` method is where you should invoke the email sending
-        send_activation_email(user, template_name, subject)
+        send_activation_email(user, template_name, subject, host, scheme)
         # You should not raise a ValidationError here unless there is an actual error.
         return user
 
