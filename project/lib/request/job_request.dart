@@ -16,7 +16,10 @@ class JobRequest{
         }
     );
 
-    print(response.statusCode);
+    if(response.statusCode == 200){
+      return [];
+    }
+
     throw Exception("Unable to send jobs");
   }
 }

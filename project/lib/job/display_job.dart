@@ -4,6 +4,7 @@ import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/my_appbars.dart';
 
 import '../component/job_file.dart';
+import '../widgets/job_list_tile.dart';
 
 class DisplayJobPage extends StatelessWidget {
   String title;
@@ -43,12 +44,18 @@ class DisplayJobPage extends StatelessWidget {
     int length = getCount(data);
     return ListView.builder(
       itemBuilder: (context , index){
-        if(index == length){
-          return Text("End");
-        }
-        else{
-
-        }
+        return Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: JobListTile(),
+            ),
+            Container(
+              height: 1,
+              margin: EdgeInsets.symmetric(horizontal: 10),
+              color: AppColor.divider,)
+          ],
+        );
       },
       itemCount: length+1,
     );
