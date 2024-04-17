@@ -122,7 +122,7 @@ class HomePage extends StatelessWidget {
         Column(children: [
           Padding(
             padding: const EdgeInsets.all(20),
-            child: Text("Hamie"),
+            child: JobListTile(),
           ),
           Container(
             height: 1,

@@ -3,10 +3,10 @@ import '../component/user_file.dart';
 import 'package:http/http.dart' as http;
 
 class UserRequest{
-  static const String _baseUrl = "http://192.168.137.1:8000/";
-  static const String _signupUrl = "users/register/";
-  static const String _loginUrl = "users/login/";
-  static const String _forgotPasswordUrl = "users/forgotpassword/";
+  static const String _base = "http://192.168.137.1:8000/";
+  static const String _signup = "users/register/";
+  static const String _login = "users/login/";
+  static const String _forgotPassword = "users/forgotpassword/";
   static const String _personalInfo = "users/settings/personal-info/";
   static const String _logout = "users/logout/";
   static const String _deleteAccount = "users/delete-account/";
@@ -18,7 +18,7 @@ class UserRequest{
     required String fullName , required String email,
     required String password}) async{
     String error = "unable to signup";
-    final response = await http.post(Uri.parse(_baseUrl+_signupUrl),
+    final response = await http.post(Uri.parse(_base+_signup),
       headers: <String , String>{"Content-Type": "application/json"},
       body:jsonEncode(<String , String>{
         "password": password,
@@ -38,7 +38,7 @@ class UserRequest{
   static Future<void> login({required String email,
     required String password}) async{
     String error = "unable to login";
-    final response = await http.post(Uri.parse(_baseUrl+_loginUrl),
+    final response = await http.post(Uri.parse(_base+_login),
         headers: <String , String>{"Content-Type": "application/json"},
         body:jsonEncode(<String , String>{
           "password": "12344321",
@@ -60,7 +60,7 @@ class UserRequest{
 
   static Future<String> forgotPassword({required String email}) async{
     String error = "unable to send email";
-    final response = await http.post(Uri.parse(_baseUrl+_forgotPasswordUrl),
+    final response = await http.post(Uri.parse(_base+_forgotPassword),
         headers: <String , String>{"Content-Type": "application/json"},
         body:jsonEncode(<String , String>{
           "email": email}
@@ -74,7 +74,7 @@ class UserRequest{
 
   static Future<String> personalInformation() async {
     User user = User();
-    final response = await http.get(Uri.parse(_baseUrl+_personalInfo),
+    final response = await http.get(Uri.parse(_base+_personalInfo),
         headers: <String , String> {"Content-Type": "application/json",
           "Authorization": "Bearer ${user.accessToken!}",
         });
@@ -97,7 +97,7 @@ class UserRequest{
 
   static Future<String> changeInfo(String bodyParam , String bodyValue) async {
     User user = User();
-    final response = await http.put(Uri.parse(_baseUrl+_personalInfo),
+    final response = await http.put(Uri.parse(_base+_personalInfo),
         headers: <String , String> {
             "Authorization": "Bearer ${user.accessToken!}"},
         body: <String , String>{
@@ -120,7 +120,7 @@ class UserRequest{
   static Future<String> logout() async {
     User user = User();
     String errorMessage = "Unable to logout";
-    final response = await http.post(Uri.parse(_baseUrl+_logout),
+    final response = await http.post(Uri.parse(_base+_logout),
       headers: <String , String> {
         "Authorization": "Bearer ${user.accessToken!}"
       },
@@ -149,7 +149,7 @@ class UserRequest{
   static Future<String> deleteAccount({required String email,
     required String password}) async{
     User user = User();
-    final response = await http.post(Uri.parse(_baseUrl+_deleteAccount),
+    final response = await http.post(Uri.parse(_base+_deleteAccount),
         headers: <String , String>{
           "Authorization": "Bearer ${user.accessToken!}",
         },
@@ -168,7 +168,7 @@ class UserRequest{
 
   static Future<List<String>> getProvinces() async{
     User user = User();
-    final response = await http.get(Uri.parse(_baseUrl+_provinces),
+    final response = await http.get(Uri.parse(_base+_provinces),
         headers: <String , String>{
           "Authorization": "Bearer ${user.accessToken!}",
         },
@@ -188,7 +188,7 @@ class UserRequest{
 
   static Future<List<String>> getCities(String province) async{
     User user = User();
-    final response = await http.post(Uri.parse(_baseUrl+_cities),
+    final response = await http.post(Uri.parse(_base+_cities),
       headers: <String , String>{
         "Authorization": "Bearer ${user.accessToken!}",
       },
@@ -211,7 +211,7 @@ class UserRequest{
 
   static Future<void> setAddress(String province , String city) async {
     User user = User();
-    final response = await http.post(Uri.parse(_baseUrl+_address),
+    final response = await http.post(Uri.parse(_base+_address),
         headers: <String , String> {
           "Authorization": "Bearer ${user.accessToken!}"},
         body: <String , String>{
