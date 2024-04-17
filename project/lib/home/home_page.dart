@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:project/home/home_list_tile.dart';
+import 'package:project/widgets/job_list_tile.dart';
 import 'package:project/home/home_page_search.dart';
 import 'package:project/request/category_request.dart';
 import 'package:project/utils/app_color.dart';
@@ -122,7 +122,7 @@ class HomePage extends StatelessWidget {
         Column(children: [
           Padding(
             padding: const EdgeInsets.all(20),
-            child: HomeListTile(),
+            child: Text("Hamie"),
           ),
           Container(
             height: 1,
