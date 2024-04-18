@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'django_filters',
     'corsheaders',
+    'dbbackup',
+    'django_crontab',
 ]
 
 MIDDLEWARE = [
@@ -89,6 +91,13 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'database', 'db.sqlite3')
     }
 }
+
+DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
+DBBACKUP_STORAGE_OPTIONS = {'location': os.path.join(BASE_DIR, 'database/backup')}
+
+CRONJOBS = [
+    ('*/1 * * * *', 'utils.cron.db_backup')
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -145,7 +154,7 @@ REST_FRAMEWORK = {
 }
 # Setting for Simple JWT (Access token time , refresh token time)
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+    'ACCESS_TOKEN_LIFETIME': timedelta(seconds=120),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=30),
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': False,

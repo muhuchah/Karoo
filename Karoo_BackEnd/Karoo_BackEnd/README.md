@@ -407,3 +407,6 @@ If an address with that id doesn't exist, you get a HTTP_404_NOT_FOUND error:
 If delete was successful:
 It would return null (means data is deleted) and
 it's status is HTTP_204_NO_CONTENT.
+
+## Restore database
+> python manage.py dbrestore
