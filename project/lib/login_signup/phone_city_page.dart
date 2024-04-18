@@ -100,8 +100,8 @@ class _PhoneCityPageState extends State<PhoneCityPage> {
                         try{
                           await UserRequest.changeInfo("phone_number",
                               phoneController!.text);
-                          await UserRequest.setAddress(selectedProvince!,
-                              selectedCity! );
+                          // await UserRequest.setAddress(selectedProvince!,
+                          //     selectedCity! );
 
                           Navigator.of(context).pushReplacementNamed("/home");
                         }

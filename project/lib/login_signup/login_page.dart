@@ -90,6 +90,7 @@ class _LoginPage extends State<StatefulWidget>{
                       return null;
                     },
                     focus: passwordFocus,
+                    obscure: true,
                   ),
                   const SizedBox(height: 40,),
                   Align(

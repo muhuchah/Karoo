@@ -107,6 +107,7 @@ class _SignUpPage extends State<StatefulWidget> {
                       return null;
                     },
                     focus: passwordFocus,
+                    obscure: true,
                   ),
                   const SizedBox(height: 20,),
                   TextIcon(
@@ -120,6 +121,7 @@ class _SignUpPage extends State<StatefulWidget> {
                       return null;
                     },
                     focus: confirmPasswordFocus,
+                    obscure: true,
                   ),
                   const SizedBox(height: 40,),
                   Align(

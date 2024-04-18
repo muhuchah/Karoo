@@ -3,7 +3,7 @@ import '../component/user_file.dart';
 import 'package:http/http.dart' as http;
 
 class UserRequest{
-  static const String _base = "http://192.168.137.1:8000/";
+  static const String _base = "https://karoo.liara.run/";
   static const String _signup = "users/register/";
   static const String _login = "users/login/";
   static const String _forgotPassword = "users/forgotpassword/";
@@ -41,8 +41,8 @@ class UserRequest{
     final response = await http.post(Uri.parse(_base+_login),
         headers: <String , String>{"Content-Type": "application/json"},
         body:jsonEncode(<String , String>{
-          "password": "12344321",
-          "email": "mehranfarhamid82@gmail.com"}
+          "password": password,
+          "email": email}
         ));
 
     if(response.statusCode == 200){
@@ -196,6 +196,8 @@ class UserRequest{
         "province" : province
       }
     );
+
+    print("response : ${response.statusCode}");
 
     if(response.statusCode == 200){
       List<String> cities = ["-----"];

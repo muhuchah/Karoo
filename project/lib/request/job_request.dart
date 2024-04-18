@@ -4,7 +4,7 @@ import '../component/user_file.dart';
 import 'package:http/http.dart' as http;
 
 class JobRequest{
-  static const String _base = "http://192.168.137.1:8000/";
+  static const String _base = "https://karoo.liara.run/";
   static const String _jobList = "jobs/list/";
 
   static Future<List<Job>> getJobsBySubCategory(String subCategory) async {

@@ -9,6 +9,7 @@ class TextIcon extends StatelessWidget {
   final double fontSize;
   final Color borderColor;
   final Color hintColor;
+  final bool obscure;
   final String? Function(String? value)? validatorFunction;
   final FocusNode? focus;
   final TextEditingController? controller;
@@ -16,13 +17,14 @@ class TextIcon extends StatelessWidget {
     required this.assetPath , this.size = 30 ,
     this.fontSize = 16 , this.borderColor = AppColor.text1,
     required this.controller , this.hintColor = AppColor.hint,
-    this.validatorFunction , this.focus});
+    this.validatorFunction , this.focus , this.obscure = false});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 80,
       child: TextFormField(
+        obscureText: obscure,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         focusNode: focus,
         validator: validatorFunction,
