@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:project/request/job_request.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/my_appbars.dart';
@@ -8,17 +10,20 @@ import '../widgets/job_list_tile.dart';
 
 class DisplayJobPage extends StatelessWidget {
   String title;
-  String subCategory;
-  Function() leadingOnTap;
+  String? subCategory;
+  Function()? leadingOnTap;
+  Widget? floatingActionButton;
   DisplayJobPage({super.key , required this.title ,
-    required this.subCategory , required this.leadingOnTap});
+    required this.subCategory , required this.leadingOnTap , this.floatingActionButton});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.background,
-      appBar: SubAppBar(text: title,leading: leadingOnTap,),
-      body: FutureBuilder(future: JobRequest.getJobsBySubCategory(subCategory),
+      appBar: getAppBar(),
+      body: FutureBuilder(future: subCategory == null ?
+        JobRequest.getJobsBySubCategory("Building") :
+        JobRequest.getJobsBySubCategory(subCategory!),
         builder: (context , snapShot){
           if(snapShot.hasData){
             return getJobs(snapShot.data! , context);
@@ -37,7 +42,15 @@ class DisplayJobPage extends StatelessWidget {
           }
         },
       ),
+      floatingActionButton: floatingActionButton,
     );
+  }
+
+  PreferredSizeWidget getAppBar(){
+    if(leadingOnTap == null){
+      return MainAppBar(text: title);
+    }
+    return SubAppBar(text: title, leading: leadingOnTap!);
   }
 
   Widget getJobs(List<Job> data , context){
