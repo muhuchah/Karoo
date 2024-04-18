@@ -226,23 +226,22 @@ You then get a response like this:
 
 ### Retrieving All Cities
 
-You can retrieve a list of all available cities in the system using a GET request.
+You can retrieve a list of all available cities in the system using a GET or POST request.
 
 #### Endpoint
 > URL http://127.0.0.1:8000/users/cities/
 
-#### Method
-> GET
+#### Method POST
+If you want the cities of a specific province.
 
-#### Request Parameters
+###### Request Parameters
 ```json
 {
     "province": "اصفهان"
 }
 ```
-If you want to get all the cities leave the province field empty.
 
-#### Example Response
+###### Example Response
 ```json
 [
     {
@@ -262,6 +261,16 @@ If you want to get all the cities leave the province field empty.
     }
 ]
 ```
+
+If province not found you get this error:
+````json
+{
+    "error": "Province not found"
+}
+````
+
+#### Method GET
+If you want the list of all cities.
 
 ### Address CRUD
 #### Endpoint

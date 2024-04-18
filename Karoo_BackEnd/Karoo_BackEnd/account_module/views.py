@@ -359,16 +359,24 @@ class CityListView(APIView):
     permission_classes = [IsAuthenticated]
     serializer_class = CitySerializer
 
-    def get(self, request):
-        province_name = request.data['province']
-        if province_name:
-            try:
-                province = Province.objects.get(name=province_name)
-                cities = City.objects.filter(province=province)
-            except Province.DoesNotExist:
+    def post(self, request):
+        try:
+            province_name = request.data['province']
+            if province_name:
+                try:
+                    province = Province.objects.get(name=province_name)
+                    cities = City.objects.filter(province=province)
+                except Province.DoesNotExist:
+                    return Response({'error': 'Province not found'}, status=status.HTTP_404_NOT_FOUND)
+            else:
                 return Response({'error': 'Province not found'}, status=status.HTTP_404_NOT_FOUND)
-        else:
-            cities = City.objects.all()
+        except:
+            return Response({'error': 'Province not found'}, status=status.HTTP_404_NOT_FOUND)
 
         serializer = self.serializer_class(cities, many=True)
         return Response(serializer.data)
+
+    def get(self, request):
+        cities = City.objects.all()
+        serializer = self.serializer_class(cities, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
