@@ -96,7 +96,7 @@ DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
 DBBACKUP_STORAGE_OPTIONS = {'location': os.path.join(BASE_DIR, 'database/backup')}
 
 CRONJOBS = [
-    ('*/1 * * * *', 'utils.cron.db_backup')
+    ('0 0 1 * *', 'scripts.cron.db_backup')
 ]
 
 # Password validation
