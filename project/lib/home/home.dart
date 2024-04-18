@@ -12,11 +12,9 @@ import 'home_page.dart';
 class Home extends StatefulWidget {
   MainCategoriesPage? mainPage;
   DisplayJobPage? jobPage;
+  HomePage? homePage;
   String? selectedCategory;
-  List<Widget> widgets = [
-    HomePage(),
-    MyKarooPage(),
-  ];
+  List<Widget> widgets = [const MyKarooPage()];
   int selectedIndex = 0;
 
   Home({super.key});
@@ -28,6 +26,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
+    checkHomePage();
     checkCategories();
     checkJob();
     return Scaffold(
@@ -59,11 +58,22 @@ class _HomeState extends State<Home> {
     );
   }
 
+  void checkHomePage() {
+    if(widget.homePage == null){
+      widget.homePage = HomePage(onTap: (mainCategory){
+        mainCategoryOnTap(mainCategory , 0);
+      });
+      setState(() {
+        widget.widgets.insert(0,widget.homePage!);
+      });
+    }
+  }
+
   void checkCategories(){
     if(widget.mainPage == null){
       widget.mainPage = MainCategoriesPage(
         onTap:(mainCategory){
-          mainCategoryOnTap(mainCategory);
+          mainCategoryOnTap(mainCategory , 1);
         },);
       setState(() {
         widget.widgets.insert(1,widget.mainPage!);
@@ -103,38 +113,51 @@ class _HomeState extends State<Home> {
     }
   }
 
-  void mainCategoryOnTap(mainCategory){
+  void mainCategoryOnTap(mainCategory , index){
     setState(() {
       widget.selectedCategory = mainCategory;
-      widget.widgets[1] = SubCategoryPage(mainCategory: mainCategory,
-        leading: subCategoryLeading , onTap: (subCategory){
-          subCategoryOnTap(subCategory);
-        },);
+      widget.widgets[index] = SubCategoryPage(mainCategory: mainCategory,
+        leading: (){
+          subCategoryLeading(index);
+        },
+        onTap: (subCategory){
+          subCategoryOnTap(subCategory , index);
+        },
+      );
     });
   }
 
-  void subCategoryLeading(){
+  void subCategoryLeading(index){
     setState(() {
-      widget.widgets[1] = widget.mainPage!;
+      if(index == 0){
+        widget.widgets[index] = widget.homePage!;
+      }
+      else if(index==1){
+        widget.widgets[index] = widget.mainPage!;
+      }
     });
   }
 
-  void subCategoryOnTap(subCategory){
+  void subCategoryOnTap(subCategory , index){
     setState(() {
-      widget.widgets[1] = DisplayJobPage(title: subCategory,
+      widget.widgets[index] = DisplayJobPage(title: subCategory,
         subCategory: subCategory, leadingOnTap: (){
-          jobLeading();
+          jobLeading(index);
         }
       );
     });
   }
 
-  void jobLeading(){
+  void jobLeading(index){
     setState(() {
-      widget.widgets[1] = SubCategoryPage(mainCategory: widget.selectedCategory!,
-        leading: subCategoryLeading , onTap: (subCategory){
-          subCategoryOnTap(subCategory);
-        },);
+      widget.widgets[index] = SubCategoryPage(mainCategory: widget.selectedCategory!,
+        leading:(){
+          subCategoryLeading(index);
+        } ,
+        onTap: (subCategory){
+          subCategoryOnTap(subCategory , index);
+        },
+      );
     });
   }
 }

@@ -12,7 +12,8 @@ import '../component/category.dart';
 class HomePage extends StatelessWidget {
   List<Category>? categories = null;
   double? width;
-  HomePage({super.key});
+  final Function(String mainCategory) onTap;
+  HomePage({super.key , required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +90,7 @@ class HomePage extends StatelessWidget {
               child: Image.network(values[i].image!,
                 width: 80,height: 80,fit: BoxFit.fill,)),
             onTap: (){
-              print("Tap");
+              onTap(values[i].title!);
             },
           ),
           Text(values[i].title!)
