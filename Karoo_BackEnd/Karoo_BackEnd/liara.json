@@ -9,5 +9,8 @@
             "mountTo": "media"
         }
     ],
-    "app": "karoo"
+    "app": "karoo",
+    "build": {
+        "location": "germany"
+    }
 }
