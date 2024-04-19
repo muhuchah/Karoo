@@ -54,7 +54,7 @@ Sent emails have an expiration date of 2 minutes. If this time is over, the link
 It is enough for the user to request login. If his account is not active, the server will automatically send him an email.
 
 ## Login
-> URL = http://127.0.0.1:8000/users/register/
+> URL = http://127.0.0.1:8000/users/login/
 
 You must **post** this values:
 ```json
@@ -103,6 +103,27 @@ How to place the new header in the rest of the requests is as follows:
 | Key           | Value               |
 |---------------|---------------------|
 | Authorization | Bearer  accesstoken |
+
+## Refresh Token
+#### Endpoint
+> URL http://127.0.0.1:8000/users/login/refresh/
+
+#### Method
+> POST
+
+#### Parameters
+```json
+{
+    "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsIV4cCI6MTcxNDk5Mjg5NywiaWF0IjoxNzEyNDAwODk3LCJqdGkiOiI1ZmI0NmNhMDNiMDA0YjJiOGY0MDQzMDk4YzgxNmM2OSIsInVzZXJfaWQiOjF9.U8sSTMyj1zR9Bm-GQ4f_BgR3dBMkYuH0hH1Rrunuxpk"
+}
+```
+
+#### Response
+```json
+{
+    "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoYWNjZXNzIiwiZXhwIjoxNzEzNTkzMjg3LCJpYXQiOjE3MTI0MDA4OTcsImp0aSI6ImZhOTYxNThhYWE5NTQ3M2VhMDc1OTE4ZmU0ZjUwMDI4IiwidXNlcl9pZCI6MX0.qQEUvNbv8bpoLjKiySQ5_XzCv_OaeUJiTnYcG74P-cQ"
+}
+```
 
 ## Setting
 ### Personal information
