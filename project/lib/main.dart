@@ -6,6 +6,7 @@ import 'package:project/login_signup/signup_page.dart';
 import 'package:project/my_karoo/my_karoo_page.dart';
 import 'package:project/profile/profile_page.dart';
 import 'first/first_page.dart';
+import 'first/first_page_checker.dart';
 import 'login_signup/login_page.dart';
 
 void main() {
@@ -23,9 +24,9 @@ class MyApp extends StatelessWidget {
         fontFamily: "Inter"
       ),
       title: 'Flutter Demo',
-      initialRoute: "/first",
+      initialRoute: "/check_token",
       routes: {
-        "check_token" : (context) => FirstPageChecker(),
+        "/check_token" : (context) => FirstPageChecker(),
         "/first" : (context) => FirstPage(),
         "/login" : (context) => LoginPage(),
         "/signup" : (context) => SignUpPage(),

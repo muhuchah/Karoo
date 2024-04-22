@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:project/profile/delete_account_page.dart';
 import 'package:project/profile/profile_list_tile.dart';
 import 'package:project/profile/user_info.dart';
@@ -62,14 +65,13 @@ class ProfilePage extends StatelessWidget {
                   ElevatedButton(onPressed: () async {
                     try {
                       var response = await UserRequest.logout();
+                      _writeBlank();
 
                       ScaffoldMessenger
                           .of(context)
-                          .showSnackBar(
-                          SnackBar(content: Text(response),
+                          .showSnackBar(SnackBar(content: Text(response),
                             duration: Duration(seconds: 1),))
-                          .closed
-                          .then((value) {
+                          .closed.then((value) {
                         Navigator.of(context).pop();
                         Navigator.of(context).pushReplacementNamed("/first");
                       });
@@ -89,7 +91,7 @@ class ProfilePage extends StatelessWidget {
                   ),
                   const SizedBox(height: 20,),
                   ElevatedButton(onPressed: (){
-                    deleteAccountAlertDialog(context, "Password");
+                    deleteAccountAlertDialog(context, "Password",_writeBlank());
                   },
                     child: BigText(text: "Delete Account",size: 20,textColor: Colors.white,),
                     style: ElevatedButton.styleFrom(
@@ -105,5 +107,11 @@ class ProfilePage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<void> _writeBlank() async {
+    final Directory directory = await getApplicationDocumentsDirectory();
+    final File file = File('${directory.path}/my_file.txt');
+    await file.writeAsString("");
   }
 }

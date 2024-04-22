@@ -38,7 +38,7 @@ class JobInfoPage extends StatelessWidget {
                         onPressed:(){
 
                         },
-                        icon: Icon(Icons.bookmark_border , size: 24,),
+                        icon: const Icon(Icons.bookmark_border , size: 24,),
                       ),
                       IconButton(
                         onPressed:(){
@@ -52,7 +52,7 @@ class JobInfoPage extends StatelessWidget {
               ),
               const SizedBox(height: 30,),
               Padding(
-                padding:EdgeInsets.symmetric(horizontal: 10),
+                padding:const EdgeInsets.symmetric(horizontal: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -63,14 +63,14 @@ class JobInfoPage extends StatelessWidget {
                     const MyDivider(),
                     const SizedBox(height: 20,),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      padding:const EdgeInsets.symmetric(horizontal: 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             children: [
                               IconText(
-                                icon: Icon(Icons.person_outlined),
+                                icon: const Icon(Icons.person_outlined),
                                 text: "Name",
                                 info: ""
                               ),
@@ -91,7 +91,7 @@ class JobInfoPage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: IconText(
-                        icon: Icon(Icons.diamond_outlined),
+                        icon: const Icon(Icons.diamond_outlined),
                         text: "Experience",
                         info: "2 Year"
                       ),
@@ -102,7 +102,7 @@ class JobInfoPage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: IconText(
-                          icon: Icon(Icons.wallet_outlined),
+                          icon: const Icon(Icons.wallet_outlined),
                           text: "Initial cost",
                           info: "10 \$"
                       ),
@@ -113,7 +113,7 @@ class JobInfoPage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: IconText(
-                          icon: Icon(Icons.wallet_outlined),
+                          icon: const Icon(Icons.wallet_outlined),
                           text: "Approximate cost per hour",
                           info: "20 \$"
                       ),
@@ -124,7 +124,7 @@ class JobInfoPage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: IconTextButton(
-                        icon: Icon(Icons.access_time_outlined),
+                        icon: const Icon(Icons.access_time_outlined),
                         text: "Time Table",
                         textButton:TextButton(
                           onPressed: () {
@@ -142,7 +142,7 @@ class JobInfoPage extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          CustomText(text: "Description", size: 16,
+                          const CustomText(text: "Description", size: 16,
                               textColor: Colors.black, weight: FontWeight.w500),
                           const SizedBox(height: 10,),
                           CustomText(text: "Description\n-------\n-------\n-------"
@@ -164,7 +164,7 @@ class JobInfoPage extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: IconTextButton(
                         text: "Comments",
-                        icon: Icon(Icons.comment),
+                        icon: const Icon(Icons.comment),
                         textButton: TextButton(
                           onPressed: (){
 

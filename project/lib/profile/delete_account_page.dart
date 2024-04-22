@@ -3,7 +3,7 @@ import 'package:project/component/user_file.dart';
 
 import '../request/user_requests.dart';
 
-void deleteAccountAlertDialog(context , label){
+void deleteAccountAlertDialog(context , label , writeBlank){
   FocusNode focusNode = FocusNode();
   showDialog(context: context, builder: (context){
     TextEditingController controller = TextEditingController();
@@ -11,6 +11,7 @@ void deleteAccountAlertDialog(context , label){
       title: Text("Enter $label :"),
       content: TextField(
         controller: controller,
+        obscureText: true,
         focusNode: focusNode,
       ),
       actions: [
@@ -27,6 +28,7 @@ void deleteAccountAlertDialog(context , label){
               var response = await UserRequest.deleteAccount(
                   email: user.email!,
                   password: controller.text);
+              writeBlank;
               Navigator.of(context).pop();
               Navigator.of(context).pop();
               Navigator.of(context).pushReplacementNamed("/first");
