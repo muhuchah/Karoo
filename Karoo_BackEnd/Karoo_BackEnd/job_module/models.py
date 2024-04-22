@@ -3,7 +3,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 from category_module.models import SubCategory
-from account_module.models import User
+from account_module.models import User, Province, City
 
 
 # Create your models here.
@@ -20,6 +20,9 @@ class job(models.Model):
     experiences = models.TextField(max_length=1000, null=True, blank=True)
     approximation_cph = models.CharField(max_length=100, null=True, blank=True)
     initial_cost = models.CharField(max_length=100, null=True, blank=True)
+
+    province = models.ForeignKey(Province, on_delete=models.CASCADE, null=False, blank=False)
+    city = models.ForeignKey(City, on_delete=models.CASCADE, null=False, blank=False)
 
     def __str__(self):
         return self.title

@@ -32,7 +32,7 @@ class skillSerializer(serializers.ModelSerializer):
 
 class jobSerializer(serializers.ModelSerializer):
     pictures = job_picturesSerializer(many=True, read_only=True)
-    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    user_email = serializers.HiddenField(default=serializers.CurrentUserDefault())
     Sub_category_title = serializers.SerializerMethodField()
     main_picture_url = serializers.SerializerMethodField()
     comments = job_commentsSerializer(many=True, read_only=True)
@@ -44,8 +44,9 @@ class jobSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = job
-        fields = ['id', 'title', 'SubCategory', 'Sub_category_title', 'user', 'main_picture', 'main_picture_url',
-                  'pictures', 'description', 'comments', 'skills', 'experiences', 'approximation_cph', 'initial_cost']
+        fields = ['id', 'title', 'SubCategory', 'Sub_category_title', 'user_email', 'main_picture', 'main_picture_url',
+                  'pictures', 'description', 'comments', 'skills', 'experiences', 'approximation_cph', 'initial_cost',
+                  'initial_cost', 'experiences', 'approximation_cph', 'skills', 'province', 'city']
 
     def update(self, instance, validated_data):
         validated_data.pop('description', None)
@@ -83,6 +84,8 @@ class jobSerializer(serializers.ModelSerializer):
     def get_skills(self, obj):
         return obj.skills
 
+    def get_user_email(self, obj):
+        return obj.user.email
 
 class joblistSerializer(serializers.ModelSerializer):
     average_rating = serializers.SerializerMethodField()
