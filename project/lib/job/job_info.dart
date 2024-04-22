@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:project/component/comment_file.dart';
 import 'package:project/first/first_page_button.dart';
 import 'package:project/job/icon_text_button_widget.dart';
 import 'package:project/job/icon_text_job_widget.dart';
-import 'package:project/job/job_appbar.dart';
+import 'package:project/job/job_widgets.dart';
 import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/divider.dart';
 
@@ -15,13 +16,13 @@ class JobInfoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.background,
-      appBar: JobAppBar(),
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              JobAppBar(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -55,40 +56,11 @@ class JobInfoPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              CustomText(text: "plumber", size: 20,
-                                  textColor: Colors.black, weight: FontWeight.bold),
-                              const SizedBox(height: 5,),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text("Isfahan , Shahreza" , style: TextStyle(color: AppColor.loginText1,
-                                      fontSize: 14 , fontWeight: FontWeight.normal ,
-                                      fontStyle: FontStyle.italic),
-                                  ),
-                                  Row(
-                                    children: [
-                                      CustomText(text: "4.4", size: 12,
-                                          textColor: AppColor.loginText1, weight: FontWeight.normal),
-                                      Icon(Icons.star , color: AppColor.loginText1,size: 16,),
-                                    ],
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                    JobUserName(title: "plumber",
+                      address: "Isfahan , Shahreza",
+                      rating: 4.4,),
                     const SizedBox(height: 15,),
-                    MyDivider(),
+                    const MyDivider(),
                     const SizedBox(height: 20,),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 10),
@@ -97,10 +69,11 @@ class JobInfoPage extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              Icon(Icons.person_outline,size: 24,),
-                              const SizedBox(width: 5,),
-                              CustomText(text: "Name", size: 16,
-                                  textColor: Colors.black, weight: FontWeight.w500),
+                              IconText(
+                                icon: Icon(Icons.person_outlined),
+                                text: "Name",
+                                info: ""
+                              ),
                             ],
                           ),
                           const SizedBox(height: 15,),
@@ -113,7 +86,7 @@ class JobInfoPage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 20,),
-                    MyDivider(),
+                    const MyDivider(),
                     const SizedBox(height: 20,),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -124,7 +97,7 @@ class JobInfoPage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 20,),
-                    MyDivider(),
+                    const MyDivider(),
                     const SizedBox(height: 20,),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -135,7 +108,7 @@ class JobInfoPage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 20,),
-                    MyDivider(),
+                    const MyDivider(),
                     const SizedBox(height: 20,),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -146,7 +119,7 @@ class JobInfoPage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 20,),
-                    MyDivider(),
+                    const MyDivider(),
                     const SizedBox(height: 10,),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -162,7 +135,7 @@ class JobInfoPage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 20,),
-                    MyDivider(),
+                    const MyDivider(),
                     const SizedBox(height: 20,),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -178,38 +151,14 @@ class JobInfoPage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 20,),
-                    MyDivider(),
-                    const SizedBox(height: 10,),
+                    const MyDivider(),
+                    const SizedBox(height: 15,),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CustomText(text: "Skill", size: 16,
-                              textColor: Colors.black, weight: FontWeight.w500),
-                          const SizedBox(height: 10,),
-                          Row(
-                            children: [
-                              Icon(Icons.arrow_drop_down),
-                              const SizedBox(width: 5,),
-                              CustomText(text: "Skill 1", size: 16,
-                                  textColor: Colors.black, weight: FontWeight.normal),
-                            ],
-                          ),
-                          const SizedBox(height: 10,),
-                          Row(
-                            children: [
-                              Icon(Icons.arrow_drop_down),
-                              const SizedBox(width: 5,),
-                              CustomText(text: "Skill 2", size: 16,
-                                  textColor: Colors.black, weight: FontWeight.normal),
-                            ],
-                          ),
-                        ],
-                      ),
+                      child: JobSkills(skills: ["skill 1" , "skill 2"]),
                     ),
                     const SizedBox(height: 20,),
-                    MyDivider(),
+                    const MyDivider(),
                     const SizedBox(height: 10,),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -225,54 +174,22 @@ class JobInfoPage extends StatelessWidget {
                       )
                     ),
                     const SizedBox(height: 10,),
-                    MyDivider(),
+                    const MyDivider(),
                     const SizedBox(height: 20,),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              CustomText(text: "Good Plumber", size: 16,
-                                  textColor: Colors.black, weight: FontWeight.normal),
-                              const SizedBox(height: 10,),
-                              CustomText(text: "10 days ago", size: 12,
-                                  textColor: Colors.black, weight: FontWeight.normal),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: 20,),
-                        MyDivider(),
-                        const SizedBox(height: 20,),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              CustomText(text: "Bad Plumber", size: 16,
-                                  textColor: Colors.black, weight: FontWeight.normal),
-                              const SizedBox(height: 10,),
-                              CustomText(text: "20 days ago", size: 12,
-                                  textColor: Colors.black, weight: FontWeight.normal),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                    JobComments(comments: [Comment("Good Plumber", "10 days ago"),
+                      Comment("Bad Plumber", "1 days ago")]),
                     const SizedBox(height: 20,),
-                    MyDivider(),
+                    const MyDivider(),
                     const SizedBox(height: 30,),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
+                          const Row(
                             children: [
                               Icon(Icons.phone_outlined,size: 24,),
-                              const SizedBox(width: 5,),
+                              SizedBox(width: 5,),
                               CustomText(text: "Phone Number", size: 16,
                                   textColor: Colors.black, weight: FontWeight.w500),
                             ],
@@ -297,7 +214,7 @@ class JobInfoPage extends StatelessWidget {
                         }
                       ),
                     ),
-                    SizedBox(height: 20,)
+                    const SizedBox(height: 20,)
                   ],
                 ),
               ),
