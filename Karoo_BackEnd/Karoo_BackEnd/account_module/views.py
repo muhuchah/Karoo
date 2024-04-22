@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 from .models import Address, DiscountCode, Province, City
 from .seryalizers import (UserSerialaizer, LoginSerializer, UserSettingSerializer, UserAddressSerializer
 , ForgotPasswordLinkSerializer, DiscountCodeSerializer, UserDeleteAccountSerializer, ProvinceSerializer,
-CitySerializer)
+CitySerializer, UserPublicInfoSerializer)
 from rest_framework import generics, status, views
 from django.contrib.auth import get_user_model
 from account_module.utils.jwt_token_generator import get_token_for_user
@@ -380,3 +380,19 @@ class CityListView(APIView):
         cities = City.objects.all()
         serializer = self.serializer_class(cities, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class SearchUserAPIView(APIView):
+    serializer_class = UserSettingSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format=None):
+        email = request.data.get('email', None)
+        if not email:
+            return Response({'error': 'Email is required'}, status=status.HTTP_400_BAD_REQUEST)
+
+        users = User.objects.filter(email=email)
+
+        user_data = UserPublicInfoSerializer(users, many=True).data
+
+        return Response(user_data, status=status.HTTP_200_OK)
