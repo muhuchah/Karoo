@@ -32,21 +32,18 @@ class skillSerializer(serializers.ModelSerializer):
 
 class jobSerializer(serializers.ModelSerializer):
     pictures = job_picturesSerializer(many=True, read_only=True)
-    user_email = serializers.SerializerMethodField()
-    Sub_category_title = serializers.SerializerMethodField()
-    main_picture_url = serializers.SerializerMethodField()
     comments = job_commentsSerializer(many=True, read_only=True)
-
+    Sub_category_title = serializers.SerializerMethodField()
+    user_email = serializers.SerializerMethodField()
     skills = skillSerializer(many=True, read_only=True)
-    experiences = serializers.SerializerMethodField()
-    approximation_cph = serializers.SerializerMethodField()
-    initial_cost = serializers.SerializerMethodField()
+    main_picture_url = serializers.SerializerMethodField()
+
 
     class Meta:
         model = job
         fields = ['id', 'title', 'SubCategory', 'Sub_category_title', 'user_email', 'main_picture', 'main_picture_url',
                   'pictures', 'description', 'comments', 'skills', 'experiences', 'approximation_cph', 'initial_cost',
-                  'initial_cost', 'experiences', 'approximation_cph', 'skills', 'province', 'city']
+                  'province', 'city']
 
     def update(self, instance, validated_data):
         validated_data.pop('description', None)
@@ -61,28 +58,6 @@ class jobSerializer(serializers.ModelSerializer):
 
     def get_Sub_category_title(self, obj):
         return obj.SubCategory.title
-
-    def to_representation(self, instance):
-        data = super().to_representation(instance)
-        if self.context['view'].action == 'retrieve':
-            data['pictures'] = job_picturesSerializer(instance.pictures.all(), many=True).data
-            data['comments'] = job_commentsSerializer(instance.comments.all(), many=True).data
-        else:
-            data.pop('pictures', None)
-            data.pop('comments', None)
-        return data
-
-    def get_experiences(self, obj):
-        return obj.experiences
-    
-    def get_approximation_cph(self, obj):
-        return obj.approximation_cph
-    
-    def get_initial_cost(self, obj):
-        return obj.initial_cost
-    
-    def get_skills(self, obj):
-        return obj.skills
 
     def get_user_email(self, obj):
         return obj.user.email

@@ -97,18 +97,8 @@ class jobListAPIView(generics.ListAPIView):
 
 # Retrieve job details for user.
 class jobRetrieveAPIView(generics.RetrieveAPIView):
-    serializer_class = joblistSerializer
+    serializer_class = jobSerializer
     queryset = job.objects.all()
-
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-        serializer = self.get_serializer(instance)
-        data = serializer.data
-
-        # Include the description field in the response
-        data['description'] = instance.description
-
-        return Response(data)
 
 
 # Create comments on jobs
