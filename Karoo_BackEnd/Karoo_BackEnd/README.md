@@ -456,10 +456,12 @@ it's status is HTTP_204_NO_CONTENT.
 [
     {
         "id": 1,
-        "title": "Job1",
+        "title": "Cry",
         "description": "",
-        "average_rating": 2.0,
-        "main_picture": null
+        "average_rating": 0.0,
+        "main_picture": null,
+        "province": 1,
+        "city": 1
     }
 ]
 ```
