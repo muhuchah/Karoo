@@ -44,8 +44,9 @@ def set_main_picture(sender, instance, created, **kwargs):
 class job_comments(models.Model):
     title = models.CharField(max_length=300)
     comment = models.TextField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=False, blank=False)
     job = models.ForeignKey(job, on_delete=models.CASCADE, related_name='comments')
+    rating = models.PositiveSmallIntegerField(choices=((1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5')), default=1)
 
     def __str__(self):
         return f'{self.title}, user:{self.user}, job:{self.job}'

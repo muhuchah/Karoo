@@ -440,3 +440,26 @@ it's status is HTTP_204_NO_CONTENT.
 
 ## Restore database
 > python manage.py dbrestore
+
+## Job
+
+### Job List
+
+##### Endpoint
+> URL  http://127.0.0.1:8000/jobs/list/
+
+##### Method
+> GET
+
+##### Response
+```json
+[
+    {
+        "id": 1,
+        "title": "Job1",
+        "description": "",
+        "average_rating": 2.0,
+        "main_picture": null
+    }
+]
+```
