@@ -32,7 +32,7 @@ class skillSerializer(serializers.ModelSerializer):
 
 class jobSerializer(serializers.ModelSerializer):
     pictures = job_picturesSerializer(many=True, read_only=True)
-    user_email = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    user_email = serializers.SerializerMethodField()
     Sub_category_title = serializers.SerializerMethodField()
     main_picture_url = serializers.SerializerMethodField()
     comments = job_commentsSerializer(many=True, read_only=True)
