@@ -8,6 +8,7 @@ import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/divider.dart';
 
 import '../component/category.dart';
+import '../job/job_info.dart';
 
 class HomePage extends StatelessWidget {
   List<Category>? categories = null;
@@ -32,7 +33,7 @@ class HomePage extends StatelessWidget {
                 child: Column(
                   children: [
                     getCategoryWidgets(),
-                    Column(children: getTopJobs(),)
+                    Column(children: getTopJobs(context),)
                   ],
                 ),
               ),
@@ -116,14 +117,23 @@ class HomePage extends StatelessWidget {
     return children;
   }
 
-  List<Widget> getTopJobs(){
+  List<Widget> getTopJobs(context){
     List<Widget> children = [];
     for(int i = 0 ; i<2 ; i++){
       children.add(
         Column(children: [
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: JobListTile(),
+          GestureDetector(
+            onTap: (){
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context){
+                  return JobInfoPage();
+                }),
+              );
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: JobListTile(),
+            ),
           ),
           Container(
             height: 1,

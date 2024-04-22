@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project/first/first_page_button.dart';
 import 'package:project/job/icon_text_button_widget.dart';
 import 'package:project/job/icon_text_job_widget.dart';
+import 'package:project/job/job_appbar.dart';
 import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/divider.dart';
 
@@ -13,13 +14,14 @@ class JobInfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColor.background,
+      appBar: JobAppBar(),
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.asset("asset/plumber.jpg",height: 240,width: double.infinity,fit: BoxFit.fill,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

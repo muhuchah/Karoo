@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       initialRoute: "/first",
       routes: {
+        "check_token" : (context) => FirstPageChecker(),
         "/first" : (context) => FirstPage(),
         "/login" : (context) => LoginPage(),
         "/signup" : (context) => SignUpPage(),

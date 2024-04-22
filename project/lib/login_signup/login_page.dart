@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:project/component/user_file.dart';
 import 'package:project/request/user_requests.dart';
 import 'package:project/utils/app_color.dart';
@@ -184,6 +187,7 @@ class _LoginPage extends State<StatefulWidget>{
   void successLogin(context) async{
     User user = User();
     try{
+      await _write("${user.refreshToken}\n${user.accessToken}");
       await UserRequest.personalInformation();
       if(user.phoneNumber == null){
         Navigator.of(context).pop();
@@ -198,5 +202,11 @@ class _LoginPage extends State<StatefulWidget>{
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(e.toString()) , duration: Duration(seconds: 2),));
     }
+  }
+
+  Future<void> _write(String text) async {
+    final Directory directory = await getApplicationDocumentsDirectory();
+    final File file = File('${directory.path}/my_file.txt');
+    await file.writeAsString(text);
   }
 }
