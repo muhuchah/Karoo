@@ -1,5 +1,5 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import viewsets, generics, filters, permissions
+from rest_framework import viewsets, generics, filters, permissions, status
 from rest_framework.exceptions import PermissionDenied
 from .models import job, job_pictures, job_comments
 from .seryalizers import jobSerializer, job_picturesSerializer, joblistSerializer, job_commentsSerializer
@@ -7,6 +7,8 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.status import *
+from account_module.models import Province, City
+
 
 class IsOwnerOrReadOnly(permissions.BasePermission):
     def has_permission(self, request, view):

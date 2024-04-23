@@ -30,6 +30,7 @@ class skillSerializer(serializers.ModelSerializer):
         model = skill
         fields = '__all__'
 
+
 class jobSerializer(serializers.ModelSerializer):
     pictures = job_picturesSerializer(many=True, read_only=True)
     comments = job_commentsSerializer(many=True, read_only=True)
@@ -39,16 +40,18 @@ class jobSerializer(serializers.ModelSerializer):
     skills = skillSerializer(many=True, read_only=True)
     main_picture_url = serializers.SerializerMethodField()
     average_rating = serializers.SerializerMethodField()
-
+    province_name = serializers.SerializerMethodField()
+    city_name = serializers.SerializerMethodField()
 
     class Meta:
         model = job
-        fields = ['id', 'title', 'SubCategory', 'Sub_category_title', 'Main_category_title', 'user_email', 'main_picture', 'main_picture_url',
+        fields = ['id', 'title', 'SubCategory', 'Sub_category_title', 'Main_category_title', 'user_email',
+                  'main_picture', 'main_picture_url',
                   'pictures', 'description', 'comments', 'skills', 'experiences', 'approximation_cph', 'initial_cost',
-                  'province', 'city', 'average_rating']
+                  'province_name', 'city_name', 'average_rating']
 
     def update(self, instance, validated_data):
-        validated_data.pop('description', None)
+        # validated_data.pop('description', None)
         return super().update(instance, validated_data)
 
     def get_main_picture_url(self, obj):
@@ -72,6 +75,12 @@ class jobSerializer(serializers.ModelSerializer):
         if average_rating is None:
             return 0.0
         return average_rating
+
+    def get_province_name(self, obj):
+        return obj.province.name
+
+    def get_city_name(self, obj):
+        return obj.city.name
 
 class joblistSerializer(serializers.ModelSerializer):
     average_rating = serializers.SerializerMethodField()
