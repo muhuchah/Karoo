@@ -53,6 +53,7 @@ class HomePage extends StatelessWidget {
             return Container(
               margin: EdgeInsets.only(top: 10 , right: 10 , left: 10),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: getCategories(snapShot.data!),
               ),
             );
@@ -72,6 +73,7 @@ class HomePage extends StatelessWidget {
       return Container(
         margin: EdgeInsets.only(top: 10 , right: 10 , left: 10),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: getCategories(categories!),
         ),
       );
@@ -85,16 +87,20 @@ class HomePage extends StatelessWidget {
     for(int i = 0 ; i<values.length ; i++){
       rowChildren.add(Column(
         children: [
-          GestureDetector(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Image.network(values[i].image!,
-                width: 80,height: 80,fit: BoxFit.fill,)),
-            onTap: (){
-              onTap(values[i].title!);
-            },
+          SizedBox(
+            width: 80,
+            height: 80,
+            child: GestureDetector(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.network(values[i].image!,
+                  width: 80,height: 80,fit: BoxFit.fill,)),
+              onTap: (){
+                onTap(values[i].title!);
+              },
+            ),
           ),
-          Text(values[i].title!)
+          Text(values[i].title!),
         ],
       ));
       rowChildren.add(SizedBox(width: 10,));
@@ -105,6 +111,7 @@ class HomePage extends StatelessWidget {
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children:rowChildren,),
             ),

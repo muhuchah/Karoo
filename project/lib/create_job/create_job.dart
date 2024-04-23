@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project/category/main_category.dart';
 import 'package:project/create_job/create_job_picture.dart';
+import 'package:project/create_job/job_info_part.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/big_text.dart';
 import 'package:project/widgets/custom_text.dart';
@@ -13,7 +14,7 @@ import '../category/sub_category.dart';
 class CreateJob extends StatefulWidget {
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
-  String category = "Plumber";
+  String category = "";
   CreateJob({super.key});
 
   @override
@@ -107,7 +108,9 @@ class _CreateJobState extends State<CreateJob> {
                 child: Align(
                   alignment: Alignment.topRight,
                   child: ElevatedButton(onPressed: (){
-
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                      return JobInfoPage();
+                    }));
                   },
                     child: const BigText(text: "Next",size: 20,textColor: Colors.white,),
                     style: ElevatedButton.styleFrom(
