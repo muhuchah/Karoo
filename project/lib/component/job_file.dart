@@ -1,21 +1,38 @@
+import 'dart:math';
+
+import 'package:project/component/comment_file.dart';
+
 class Job{
   int? _id;
   String? _title;
+  String? _mainCategory;
   String? _subCategory;
   String? _picture;
   String? _description;
   String? _userEmail;
   String? _address;
-  int? _experience;
-  double? _initialCost;
-  double? _costPerHour;
+  String? _experience;
+  String? _initialCost;
+  String? _costPerHour;
   double? _rating;
   List<String>? _skills;
-  List<String>? _comments;
+  List<Comment>? _comments;
 
   Job.infoJson(Map<dynamic , dynamic> json){
-    _subCategory = json["Sub_category_title"];
+    _id = json["id"];
+    _title = json["title"];
+    _picture = json["main_picture_url"];
     _description = json["description"];
+    _rating = json["average_rating"];
+    _address = "Isfahan , Shahreza";
+    // _comments = json["comments"];
+    // _skills = json["skills"];
+    _experience = json["experiences"];
+    _costPerHour = json["approximation_cph"];
+    _initialCost = json["initial_cost"];
+    _address = "${json["province_name"]} , ${json["city_name"]}";
+    _mainCategory = json["Main_category_title"];
+    _subCategory = json["Sub_category_title"];
   }
 
   Job.listJson(Map<dynamic , dynamic> json){
@@ -63,9 +80,15 @@ class Job{
     _address = value;
   }
 
-  int? get experience => _experience;
+  String? get mainCategory => _mainCategory;
 
-  set experience(int? value) {
+  set mainCategory(String? value) {
+    _mainCategory = value;
+  }
+
+  String? get experience => _experience;
+
+  set experience(String? value) {
     _experience = value;
   }
 
@@ -81,15 +104,15 @@ class Job{
 
   String? get userEmail => _userEmail;
 
-  double? get initialCost => _initialCost;
+  String? get initialCost => _initialCost;
 
-  set initialCost(double? value) {
+  set initialCost(String? value) {
     _initialCost = value;
   }
 
-  double? get costPerHour => _costPerHour;
+  String? get costPerHour => _costPerHour;
 
-  set costPerHour(double? value) {
+  set costPerHour(String? value) {
     _costPerHour = value;
   }
 
@@ -99,9 +122,9 @@ class Job{
     _skills = value;
   }
 
-  List<String>? get comments => _comments;
+  List<Comment>? get comments => _comments;
 
-  set comments(List<String>? value) {
+  set comments(List<Comment>? value) {
     _comments = value;
   }
 }

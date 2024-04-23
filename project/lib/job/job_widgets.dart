@@ -6,14 +6,15 @@ import '../widgets/custom_text.dart';
 import '../widgets/divider.dart';
 
 class JobAppBar extends StatelessWidget{
-  const JobAppBar({super.key});
+  String? imageUrl;
+  JobAppBar({super.key , required this.imageUrl});
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       alignment: Alignment.topLeft,
       children: [
-        Image.asset("asset/plumber.jpg",height: 240,width: double.infinity,fit: BoxFit.fill,),
+        getImage(),
         Padding(
           padding: const EdgeInsets.only(left: 8.0 , top: 8),
           child: IconButton(
@@ -25,6 +26,15 @@ class JobAppBar extends StatelessWidget{
         ),
       ],
     );
+  }
+
+  Widget getImage(){
+    if(imageUrl == null){
+      return Image.asset("asset/plumber.jpg",
+        height: 240,width: double.infinity,fit: BoxFit.fill,);
+    }
+    return Image.network(imageUrl!,
+      height: 240,width: double.infinity,fit: BoxFit.fill,);
   }
 }
 

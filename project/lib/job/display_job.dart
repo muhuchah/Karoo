@@ -32,9 +32,10 @@ class DisplayJobPage extends StatelessWidget {
           else if(snapShot.hasError){
             return SizedBox(
               height: 200,
-              child: Center(child: Text(snapShot.error.toString() ,
-                style: TextStyle(fontSize: 20),
-              ),
+              child: Center(
+                child: Text(snapShot.error.toString() ,
+                  style: TextStyle(fontSize: 20),
+                ),
               ),
             );
           }
