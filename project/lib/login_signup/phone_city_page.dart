@@ -84,18 +84,18 @@ class _PhoneCityPageState extends State<PhoneCityPage> {
                           phoneFocus.requestFocus();
                         }
                       }
-                      else if(selectedProvince=="-----"){
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text("choose a province"),
-                              duration: Duration(seconds: 2),)
-                        );
-                      }
-                      else if(selectedCity=="-----"){
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text("choose a city"),
-                              duration: Duration(seconds: 2),)
-                        );
-                      }
+                      // else if(selectedProvince=="-----"){
+                      //   ScaffoldMessenger.of(context).showSnackBar(
+                      //       SnackBar(content: Text("choose a province"),
+                      //         duration: Duration(seconds: 2),)
+                      //   );
+                      // }
+                      // else if(selectedCity=="-----"){
+                      //   ScaffoldMessenger.of(context).showSnackBar(
+                      //       SnackBar(content: Text("choose a city"),
+                      //         duration: Duration(seconds: 2),)
+                      //   );
+                      // }
                       else{
                         try{
                           await UserRequest.changeInfo("phone_number",

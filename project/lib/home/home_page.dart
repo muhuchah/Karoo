@@ -107,7 +107,8 @@ class HomePage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children:rowChildren,),
-            ),)
+            ),
+          )
         );
         children.add(SizedBox(height: 30,));
         rowChildren = [SizedBox(width: 10,)];
