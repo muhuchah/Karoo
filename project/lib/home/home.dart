@@ -8,6 +8,7 @@ import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/floating_action_button.dart';
 
+import '../widgets/my_appbars.dart';
 import 'home_page.dart';
 
 class Home extends StatefulWidget {
@@ -75,7 +76,9 @@ class _HomeState extends State<Home> {
       widget.mainPage = MainCategoriesPage(
         onTap:(mainCategory){
           mainCategoryOnTap(mainCategory , 1);
-        },);
+        },
+        appBar: MainAppBar(text: "Category",),
+      );
       setState(() {
         widget.widgets.insert(1,widget.mainPage!);
       });

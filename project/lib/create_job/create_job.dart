@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:project/category/main_category.dart';
 import 'package:project/create_job/create_job_picture.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/big_text.dart';
@@ -7,9 +8,12 @@ import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/divider.dart';
 import 'package:project/widgets/my_appbars.dart';
 
+import '../category/sub_category.dart';
+
 class CreateJob extends StatefulWidget {
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
+  String category = "Plumber";
   CreateJob({super.key});
 
   @override
@@ -22,7 +26,7 @@ class _CreateJobState extends State<CreateJob> {
     return Scaffold(
       backgroundColor: AppColor.background,
       appBar: SubAppBar(text: "New Job",leading: (){
-
+        Navigator.of(context).pop();
       },),
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
@@ -37,13 +41,7 @@ class _CreateJobState extends State<CreateJob> {
                   children: [
                     const CustomText(text: "Category", size: 16,
                         textColor: Colors.black, weight: FontWeight.normal),
-                    TextButton(
-                      onPressed: (){
-
-                      },
-                      child:const CustomText(text: "Choose", size: 16,
-                          textColor: AppColor.hint, weight: FontWeight.normal),
-                    )
+                    getCategoryName(),
                   ],
                 ),
               ),
@@ -125,6 +123,72 @@ class _CreateJobState extends State<CreateJob> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget getCategoryName(){
+    if(widget.category == ""){
+      return TextButton(
+        onPressed: (){
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => MainCategoriesPage(
+              onTap: (mainCategory){
+                mainCategoryOnTap(context, mainCategory);
+              },
+              appBar: SubAppBar(text: "Category", leading: () {
+                Navigator.of(context).pop();
+              },),
+            ),)
+          );
+        },
+        child:const CustomText(text: "Choose", size: 16,
+            textColor: AppColor.hint, weight: FontWeight.normal),
+      );
+    }
+    else{
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          CustomText(text: widget.category, size: 16,
+              textColor: AppColor.loginText1, weight: FontWeight.normal),
+          TextButton(
+            onPressed: (){
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => MainCategoriesPage(
+                  onTap: (mainCategory){
+                    mainCategoryOnTap(context, mainCategory);
+                  },
+                  appBar: SubAppBar(text: "Category", leading: () {
+                    Navigator.of(context).pop();
+                  },),
+                ),)
+              );
+            },
+            child:const CustomText(text: "Choose", size: 16,
+                textColor: AppColor.hint, weight: FontWeight.normal),
+          )
+        ],
+      );
+    }
+  }
+
+  void mainCategoryOnTap(context , mainCategory){
+    Navigator.of(context).push(
+      MaterialPageRoute(builder : (context) =>
+        SubCategoryPage(mainCategory: mainCategory,
+          leading: (){
+            Navigator.of(context).pop();
+          },
+          onTap: (subCategory){
+            Navigator.of(context).pop();
+            Navigator.of(context).pop();
+            setState(() {
+              widget.category = subCategory;
+            });
+          }
+        )
+      )
     );
   }
 }
