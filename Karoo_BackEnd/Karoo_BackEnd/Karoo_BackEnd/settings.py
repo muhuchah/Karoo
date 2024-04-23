@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'dbbackup',
     'django_crontab',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
@@ -192,3 +193,14 @@ CORS_ALLOW_CREDENTIALS = True
 # Settings for medias Root
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL ='/media/'
+
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'api_key': {
+            'type': 'apiKey',
+            'in': 'header',
+            'name': 'Authorization'
+        }
+    }
+}
