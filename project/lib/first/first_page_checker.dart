@@ -18,16 +18,26 @@ class FirstPageChecker extends StatelessWidget{
           future: _read(),
           builder: (context , snapShot){
             if(snapShot.hasData){
-              String data = snapShot.data!;
-              if(data == ""){
+              String refreshToken = snapShot.data!;
+              if(refreshToken == ""){
                 return FirstPage();
               }
               else {
-                List<String> tokens = data.split("\n");
-                User user = User();
-                user.refreshToken = tokens[0];
-                user.accessToken = tokens[1];
-                successLogin(context);
+                return FutureBuilder(
+                  future: UserRequest.checkRefresh(refreshToken),
+                  builder: (context , snapshot){
+                    if(snapshot.hasData){
+                      User user = User();
+                      user.refreshToken = refreshToken;
+                      user.accessToken = snapshot.data;
+                      successLogin(context);
+                    }
+                    else if(snapshot.hasError){
+                      return FirstPage();
+                    }
+                    return CircularProgressIndicator();
+                  }
+                );
               }
             }
             else if(snapShot.hasError){

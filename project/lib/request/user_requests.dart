@@ -6,6 +6,7 @@ class UserRequest{
   static const String _base = "https://karoo.liara.run/";
   static const String _signup = "users/register/";
   static const String _login = "users/login/";
+  static const String _refresh = "users/login/refresh/";
   static const String _forgotPassword = "users/forgotpassword/";
   static const String _personalInfo = "users/settings/personal-info/";
   static const String _logout = "users/logout/";
@@ -234,5 +235,20 @@ class UserRequest{
     else {
       throw Exception("Unable to add address");
     }
+  }
+
+  static Future<String> checkRefresh(String refresh) async {
+    final response = await http.post(Uri.parse(_base+_refresh),
+        body: <String , String>{
+          "refresh" : refresh
+        }
+    );
+
+    print(response.body);
+
+    if(response.statusCode == 200){
+      return jsonDecode(response.body)["access"];
+    }
+    throw Exception("Unable get access");
   }
 }
