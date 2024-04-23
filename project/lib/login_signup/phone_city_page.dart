@@ -133,6 +133,7 @@ class _PhoneCityPageState extends State<PhoneCityPage> {
             label : "Province" , rebuild: (value){
               setState(() {
                 selectedProvince = value;
+                selectedCity = "-----";
               });
             },
           );
@@ -153,6 +154,7 @@ class _PhoneCityPageState extends State<PhoneCityPage> {
       label : "Province" , rebuild: (value){
         setState(() {
           selectedProvince = value;
+          selectedCity = "-----";
         });
       }
     );
