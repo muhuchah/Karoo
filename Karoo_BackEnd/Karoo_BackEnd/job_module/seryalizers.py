@@ -67,7 +67,8 @@ class joblistSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = job
-        fields = ['id', 'title', 'description', 'average_rating', 'main_picture']
+        fields = ['id', 'title', 'description', 'average_rating', 'main_picture',
+                  'province', 'city']
 
     def get_average_rating(self, obj):
         average_rating = obj.comments.aggregate(Avg('rating'))['rating__avg']
