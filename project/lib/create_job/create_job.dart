@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:project/create_job/create_job_picture.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/divider.dart';
 import 'package:project/widgets/my_appbars.dart';
 
-class CreateJob extends StatelessWidget {
+class CreateJob extends StatefulWidget {
   const CreateJob({super.key});
 
+  @override
+  State<CreateJob> createState() => _CreateJobState();
+}
+
+class _CreateJobState extends State<CreateJob> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,9 +24,10 @@ class CreateJob extends StatelessWidget {
         height: MediaQuery.of(context).size.height,
         child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20 , vertical: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 20 , vertical: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -37,6 +44,10 @@ class CreateJob extends StatelessWidget {
                 ),
               ),
               const MyDivider(margin: 10,),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20 , vertical: 20),
+                child: CreateJobPicture(images: [],),
+              )
             ],
           ),
         ),
