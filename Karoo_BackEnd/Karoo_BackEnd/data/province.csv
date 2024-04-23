@@ -1,5 +1,32 @@
 id,name
-1,Isfahan
-2,Tehran
-3,Shiraz
-4,Mashhad
+1,East Azerbaijan
+2,West Azerbaijan
+3,Ardabil
+4,Isfahan
+5,Alborz
+6,Ilam
+7,Bushehr
+8,Tehran
+9,Chaharmahal and Bakhtiari
+10,South Khorasan
+11,Razavi Khorasan
+12,North Khorasan
+13,Khuzestan
+14,Zanjan
+15,Semnan
+16,Sistan and Baluchestan
+17,Fars
+18,Qazvin
+19,Qom
+20,Kurdistan
+21,Kerman
+22,Kermanshah
+23,Kohgiluyeh and Boyer-Ahmad
+24,Golestan
+25,Gilan
+26,Lorestan
+27,Mazandaran
+28,Markazi
+29,Hormozgan
+30,Hamadan
+31,Yazd
