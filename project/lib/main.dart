@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/create_job/create_job.dart';
 import 'package:project/home/home.dart';
 import 'package:project/login_signup/forgot_password_page.dart';
 import 'package:project/login_signup/phone_city_page.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         "/forgot_password" : (context) => ForgotPassword(),
         "/phone_city" : (context) => PhoneCityPage(),
         "/home" : (context) => Home(),
+        "/create_job" : (context) => CreateJob(),
         "/myKaroo" : (context) => MyKarooPage(),
         "/profile" : (context) => ProfilePage(),
       },

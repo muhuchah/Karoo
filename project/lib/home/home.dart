@@ -87,7 +87,7 @@ class _HomeState extends State<Home> {
       widget.jobPage = DisplayJobPage(title: "My Jobs", subCategory: null ,
           leadingOnTap:null ,
           floatingActionButton: MyFloatingActionButton(onTap: (){
-
+            Navigator.of(context).pushNamed("/create_job");
           },));
       setState(() {
         widget.widgets.insert(2,widget.jobPage!);
