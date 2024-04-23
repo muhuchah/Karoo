@@ -74,7 +74,7 @@ class CreateJobPicture extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         color: AppColor.hint
       ),
-      child: add ? Center(child: Icon(Icons.add,color: Colors.white,size: 40,),)
+      child: add ? const Center(child: Icon(Icons.add,color: Colors.white,size: 40,),)
           : null,
     );
   }
