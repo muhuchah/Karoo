@@ -109,7 +109,7 @@ class _CreateJobState extends State<CreateJob> {
                   alignment: Alignment.topRight,
                   child: ElevatedButton(onPressed: (){
                     Navigator.of(context).push(MaterialPageRoute(builder: (context){
-                      return JobInfoPage();
+                      return CreateJobInfoPage();
                     }));
                   },
                     child: const BigText(text: "Next",size: 20,textColor: Colors.white,),

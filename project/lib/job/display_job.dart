@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:project/job/job_info.dart';
 import 'package:project/request/job_request.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/my_appbars.dart';
@@ -59,9 +60,18 @@ class DisplayJobPage extends StatelessWidget {
       itemBuilder: (context , index){
         return Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: JobListTile(),
+            GestureDetector(
+              onTap: (){
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context){
+                    return JobInfoPage(id : data[index].id!);
+                  }),
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: JobListTile(job : data[index]),
+              ),
             ),
             Container(
               height: 1,
@@ -70,7 +80,7 @@ class DisplayJobPage extends StatelessWidget {
           ],
         );
       },
-      itemCount: length+1,
+      itemCount: length,
     );
   }
 

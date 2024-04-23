@@ -4,19 +4,30 @@ import 'package:project/first/first_page_button.dart';
 import 'package:project/job/icon_text_button_widget.dart';
 import 'package:project/job/icon_text_job_widget.dart';
 import 'package:project/job/job_widgets.dart';
+import 'package:project/request/job_request.dart';
 import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/divider.dart';
 
 import '../utils/app_color.dart';
 
 class JobInfoPage extends StatelessWidget {
-  const JobInfoPage({super.key});
+  int? id;
+  JobInfoPage({super.key , required this.id});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.background,
-      body: SizedBox(
+      body: FutureBuilder(future: JobRequest.getJobs(),
+        builder: (context,snapShot) {
+          return CircularProgressIndicator();
+        },)
+    );
+  }
+}
+/*
+
+SizedBox(
         height: MediaQuery.of(context).size.height,
         child: SingleChildScrollView(
           child: Column(
@@ -222,6 +233,4 @@ class JobInfoPage extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
+ */

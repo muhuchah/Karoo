@@ -1,17 +1,19 @@
 class Job{
   int? _id;
   String? _title;
-  int? _subCategoryId;
   String? _subCategory;
   String? _picture;
   String? _description;
-  String? _userFullName;
-  String? _userAddress;
   String? _userEmail;
-  String? _userPicture;
+  String? _address;
+  int? _experience;
+  double? _initialCost;
+  double? _costPerHour;
+  double? _rating;
+  List<String>? _skills;
+  List<String>? _comments;
 
   Job.infoJson(Map<dynamic , dynamic> json){
-    _subCategoryId = json["SubCategory"];
     _subCategory = json["Sub_category_title"];
     _description = json["description"];
   }
@@ -20,9 +22,9 @@ class Job{
     _id = json["id"];
     _title = json["title"];
     _picture = json["main_picture_url"];
-    _userFullName = json["user_full_name"];
-    _userAddress = json["user_addresses_city"];
     _description = json["description"];
+    _rating = json["average_rating"];
+    _address = "Isfahan , Shahreza";
   }
 
   set id(int? value) {
@@ -41,31 +43,31 @@ class Job{
     _subCategory = value;
   }
 
-  set subCategoryId(int? value) {
-    _subCategoryId = value;
-  }
-
   set title(String? value) {
     _title = value;
-  }
-
-  set userFullName(String? value) {
-    _userFullName = value;
   }
 
   set userEmail(String? value) {
     _userEmail = value;
   }
 
-  set userPicture(String? value) {
-    _userPicture = value;
+  double? get rating => _rating;
+
+  set rating(double? value) {
+    _rating = value;
   }
 
-  set userAddress(String? value) {
-    _userAddress = value;
+  String? get address => _address;
+
+  set address(String? value) {
+    _address = value;
   }
 
-  int? get subCategoryId => _subCategoryId;
+  int? get experience => _experience;
+
+  set experience(int? value) {
+    _experience = value;
+  }
 
   String? get subCategory => _subCategory;
 
@@ -77,11 +79,29 @@ class Job{
 
   int? get id => _id;
 
-  String? get userPicture => _userPicture;
-
   String? get userEmail => _userEmail;
 
-  String? get userFullName => _userFullName;
+  double? get initialCost => _initialCost;
 
-  String? get userAddress => _userAddress;
+  set initialCost(double? value) {
+    _initialCost = value;
+  }
+
+  double? get costPerHour => _costPerHour;
+
+  set costPerHour(double? value) {
+    _costPerHour = value;
+  }
+
+  List<String>? get skills => _skills;
+
+  set skills(List<String>? value) {
+    _skills = value;
+  }
+
+  List<String>? get comments => _comments;
+
+  set comments(List<String>? value) {
+    _comments = value;
+  }
 }

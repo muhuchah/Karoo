@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:project/component/job_file.dart';
+import 'package:project/request/job_request.dart';
 import 'package:project/widgets/job_list_tile.dart';
 import 'package:project/home/home_page_search.dart';
 import 'package:project/request/category_request.dart';
@@ -33,7 +35,7 @@ class HomePage extends StatelessWidget {
                 child: Column(
                   children: [
                     getCategoryWidgets(),
-                    Column(children: getTopJobs(context),)
+                    getTopJobsWidget(context),
                   ],
                 ),
               ),
@@ -125,22 +127,44 @@ class HomePage extends StatelessWidget {
     return children;
   }
 
-  List<Widget> getTopJobs(context){
+  Widget getTopJobsWidget(context){
+    return FutureBuilder(
+        future: JobRequest.getJobs(),
+        builder: (context , snapShot){
+          if(snapShot.hasData){
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: getTopJobs(context , snapShot.data!),
+            );
+          }
+          else if(snapShot.hasError){
+            return Container(
+              height: 200,
+              child: Center(child: Text(snapShot.error.toString() ,
+                style: TextStyle(fontSize: 20),),)
+              ,);
+          }
+          return Center(child : CircularProgressIndicator());
+        }
+    );
+  }
+
+  List<Widget> getTopJobs(context ,List<Job> data){
     List<Widget> children = [];
-    for(int i = 0 ; i<2 ; i++){
+    for(int i = 0 ; i<data.length ; i++){
       children.add(
         Column(children: [
           GestureDetector(
             onTap: (){
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context){
-                  return JobInfoPage();
+                  return JobInfoPage(id : data[i].id!);
                 }),
               );
             },
             child: Padding(
               padding: const EdgeInsets.all(20),
-              child: JobListTile(),
+              child: JobListTile(job : data[i]),
             ),
           ),
           Container(
