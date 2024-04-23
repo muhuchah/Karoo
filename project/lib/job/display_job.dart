@@ -23,7 +23,7 @@ class DisplayJobPage extends StatelessWidget {
       backgroundColor: AppColor.background,
       appBar: getAppBar(),
       body: FutureBuilder(future: subCategory == null ?
-        JobRequest.getJobsBySubCategory("Building") :
+        JobRequest.getUserJobs() :
         JobRequest.getJobsBySubCategory(subCategory!),
         builder: (context , snapShot){
           if(snapShot.hasData){
