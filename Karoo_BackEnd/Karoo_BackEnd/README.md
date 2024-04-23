@@ -443,6 +443,80 @@ it's status is HTTP_204_NO_CONTENT.
 
 ## Job
 
+### Job User
+
+#### Endpoint
+> URL http://127.0.0.1:8000/jobs/user/info/
+
+#### Method GET
+###### Response
+```json
+[
+    {
+        "id": 1,
+        "title": "Job1",
+        "SubCategory": 1,
+        "Sub_category_title": "Sub category",
+        "Main_category_title": "Main category",
+        "user_email": "el.chahkandi@gmail.com",
+        "main_picture": null,
+        "main_picture_url": null,
+        "pictures": [],
+        "description": "This is Job1.",
+        "comments": [],
+        "skills": [],
+        "experiences": "",
+        "approximation_cph": null,
+        "initial_cost": null,
+        "province_name": "Isfahan",
+        "city_name": "Isfahan",
+        "average_rating": 0.0
+    }
+]
+```
+
+#### Method POST
+###### Parameters
+```json
+{
+    "title" : "Job1",
+    "province": "Tehran",
+    "city": "Tehran",
+    "SubCategory": 1,
+    "description": "This is Job1.",
+    "experiences": "experiences",
+    "approximation_cph": "approximation_cph",
+    "initial_cost": "initial_cost"
+}
+```
+
+###### Response
+```json
+{
+    "id": 14,
+    "title": "Job1",
+    "SubCategory": 1,
+    "Sub_category_title": "fadf",
+    "Main_category_title": "dfa",
+    "user_email": "el.chahkandi@gmail.com",
+    "main_picture": null,
+    "main_picture_url": null,
+    "pictures": [],
+    "description": "This is Job1.",
+    "comments": [],
+    "skills": [],
+    "experiences": "experiences",
+    "approximation_cph": "approximation_cph",
+    "initial_cost": "initial_cost",
+    "province_name": "Tehran",
+    "city_name": "Tehran",
+    "average_rating": 0.0
+}
+```
+
+#### Method PUT
+######
+
 ### Job List
 
 ##### Endpoint
