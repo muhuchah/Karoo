@@ -38,13 +38,14 @@ class jobSerializer(serializers.ModelSerializer):
     user_email = serializers.SerializerMethodField()
     skills = skillSerializer(many=True, read_only=True)
     main_picture_url = serializers.SerializerMethodField()
+    average_rating = serializers.SerializerMethodField()
 
 
     class Meta:
         model = job
         fields = ['id', 'title', 'SubCategory', 'Sub_category_title', 'Main_category_title', 'user_email', 'main_picture', 'main_picture_url',
                   'pictures', 'description', 'comments', 'skills', 'experiences', 'approximation_cph', 'initial_cost',
-                  'province', 'city']
+                  'province', 'city', 'average_rating']
 
     def update(self, instance, validated_data):
         validated_data.pop('description', None)
@@ -65,6 +66,12 @@ class jobSerializer(serializers.ModelSerializer):
 
     def get_user_email(self, obj):
         return obj.user.email
+
+    def get_average_rating(self, obj):
+        average_rating = obj.comments.aggregate(Avg('rating'))['rating__avg']
+        if average_rating is None:
+            return 0.0
+        return average_rating
 
 class joblistSerializer(serializers.ModelSerializer):
     average_rating = serializers.SerializerMethodField()
