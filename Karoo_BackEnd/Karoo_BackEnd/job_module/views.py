@@ -36,7 +36,17 @@ class jobUserAPIView(viewsets.ModelViewSet):
     serializer_class = jobSerializer
     permission_classes = [IsOwnerOrReadOnly]
 
+    def get_object(self):
+        user = self.request.user
+        try:
+            job_obj = job.objects.get(pk=self.kwargs['pk'], user=user)
+        except job.DoesNotExist:
+            return Response({'message': 'Job does not exist'}, status=status.HTTP_404_NOT_FOUND)
+
+        return job_obj
+
     def retrieve(self, request, *args, **kwargs):
+        print(1)
         instance = self.get_object()
         serializer = self.get_serializer(instance)
         data = serializer.data
@@ -47,8 +57,51 @@ class jobUserAPIView(viewsets.ModelViewSet):
         return Response(data)
 
     def get_queryset(self):
+        print(2)
         queryset = job.objects.filter(user=self.request.user)
         return queryset
+
+    def update(self, request, *args, **kwargs):
+        user_job = self.get_object()
+
+        try:
+            user_job.province = Province.objects.get(name=request.data['province'])
+        except:
+            print('Province does not exist')
+
+        try:
+            user_job.city = City.objects.get(name=request.data['city'])
+        except:
+            print('City does not exist')
+        print(request.data)
+
+        serializer = self.get_serializer(user_job, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
+        # return super().update(request, *args, **kwargs)
+
+    def create(self, request, *args, **kwargs):
+        user = self.request.user
+        province_name = request.data.get('province')
+        city_name = request.data.get('city')
+
+        try:
+            province = Province.objects.get(name=province_name)
+            city = City.objects.get(name=city_name)
+        except (Province.DoesNotExist, City.DoesNotExist) as e:
+            if isinstance(e, Province.DoesNotExist):
+                message = 'Province does not exist.'
+            else:
+                message = 'City does not exist'
+            return Response({'message': message}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.validated_data['province'] = province
+        serializer.validated_data['city'] = city
+        self.perform_create(serializer)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
