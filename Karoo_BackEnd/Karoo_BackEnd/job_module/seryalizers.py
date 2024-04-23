@@ -34,6 +34,7 @@ class jobSerializer(serializers.ModelSerializer):
     pictures = job_picturesSerializer(many=True, read_only=True)
     comments = job_commentsSerializer(many=True, read_only=True)
     Sub_category_title = serializers.SerializerMethodField()
+    Main_category_title = serializers.SerializerMethodField()
     user_email = serializers.SerializerMethodField()
     skills = skillSerializer(many=True, read_only=True)
     main_picture_url = serializers.SerializerMethodField()
@@ -41,7 +42,7 @@ class jobSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = job
-        fields = ['id', 'title', 'SubCategory', 'Sub_category_title', 'user_email', 'main_picture', 'main_picture_url',
+        fields = ['id', 'title', 'SubCategory', 'Sub_category_title', 'Main_category_title', 'user_email', 'main_picture', 'main_picture_url',
                   'pictures', 'description', 'comments', 'skills', 'experiences', 'approximation_cph', 'initial_cost',
                   'province', 'city']
 
@@ -58,6 +59,9 @@ class jobSerializer(serializers.ModelSerializer):
 
     def get_Sub_category_title(self, obj):
         return obj.SubCategory.title
+
+    def get_Main_category_title(self, obj):
+        return obj.SubCategory.MainCategory.title
 
     def get_user_email(self, obj):
         return obj.user.email
