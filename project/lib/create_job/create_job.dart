@@ -131,22 +131,7 @@ class _CreateJobState extends State<CreateJob> {
 
   Widget getCategoryName(){
     if(widget.category == ""){
-      return TextButton(
-        onPressed: (){
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => MainCategoriesPage(
-              onTap: (mainCategory){
-                mainCategoryOnTap(context, mainCategory);
-              },
-              appBar: SubAppBar(text: "Category", leading: () {
-                Navigator.of(context).pop();
-              },),
-            ),)
-          );
-        },
-        child:const CustomText(text: "Choose", size: 16,
-            textColor: AppColor.hint, weight: FontWeight.normal),
-      );
+      return _getChooseText();
     }
     else{
       return Column(
@@ -155,25 +140,29 @@ class _CreateJobState extends State<CreateJob> {
         children: [
           CustomText(text: widget.category, size: 16,
               textColor: AppColor.loginText1, weight: FontWeight.normal),
-          TextButton(
-            onPressed: (){
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => MainCategoriesPage(
-                  onTap: (mainCategory){
-                    mainCategoryOnTap(context, mainCategory);
-                  },
-                  appBar: SubAppBar(text: "Category", leading: () {
-                    Navigator.of(context).pop();
-                  },),
-                ),)
-              );
-            },
-            child:const CustomText(text: "Choose", size: 16,
-                textColor: AppColor.hint, weight: FontWeight.normal),
-          )
+          _getChooseText()
         ],
       );
     }
+  }
+
+  Widget _getChooseText(){
+    return TextButton(
+      onPressed: (){
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => MainCategoriesPage(
+            onTap: (mainCategory){
+              mainCategoryOnTap(context, mainCategory);
+            },
+            appBar: SubAppBar(text: "Category", leading: () {
+              Navigator.of(context).pop();
+            },),
+          ),)
+        );
+      },
+      child:const CustomText(text: "Choose", size: 16,
+          textColor: AppColor.hint, weight: FontWeight.normal),
+    );
   }
 
   void mainCategoryOnTap(context , mainCategory){
