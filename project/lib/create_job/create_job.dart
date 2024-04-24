@@ -49,7 +49,7 @@ class _CreateJobState extends State<CreateJob> {
               const MyDivider(margin: 10,),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20 , vertical: 20),
-                child: CreateJobPicture(images: [],),
+                child: CreateJobPicture(),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),

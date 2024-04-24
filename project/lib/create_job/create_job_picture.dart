@@ -1,11 +1,19 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/custom_text.dart';
 
-class CreateJobPicture extends StatelessWidget {
-  List<String> images;
-  CreateJobPicture({super.key , required this.images});
+class CreateJobPicture extends StatefulWidget {
+  List<File> images = [];
+  CreateJobPicture({super.key});
 
+  @override
+  State<CreateJobPicture> createState() => _CreateJobPictureState();
+}
+
+class _CreateJobPictureState extends State<CreateJobPicture> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -20,9 +28,9 @@ class CreateJobPicture extends StatelessWidget {
       const SizedBox(height: 20,)];
 
     List<Widget> rowChildren = [];
-    for(int i=0;i<images.length;i++){
+    for(int i=0;i<widget.images.length;i++){
       rowChildren.add(
-        getJobImage(images[i]),
+        getJobImage(widget.images[i] , i),
       );
 
       if((i+1)%3 == 0){
@@ -37,7 +45,7 @@ class CreateJobPicture extends StatelessWidget {
 
     bool add = true;
 
-    for(int i=images.length;i<6;i++){
+    for(int i=widget.images.length;i<6;i++){
       rowChildren.add(
         getBlankImage(add)
       );
@@ -59,23 +67,40 @@ class CreateJobPicture extends StatelessWidget {
     return children;
   }
 
-  Widget getJobImage(imageUrl){
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(10),
-      child: Image.network(imageUrl,width: 80,height: 80,fit: BoxFit.fill,),
+  Widget getJobImage(image , index){
+    return GestureDetector(
+      onTap: (){
+        setState(() {
+          widget.images.removeAt(index);
+        });
+      },
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: Image.file(image,width: 80,height: 80,fit: BoxFit.fill,),
+      ),
     );
   }
 
   Widget getBlankImage(bool add){
-    return Container(
-      width: 80,
-      height: 80,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: AppColor.hint
+    return GestureDetector(
+      onTap: add ? pictureOnTap : null,
+      child: Container(
+        width: 80,
+        height: 80,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: AppColor.hint
+        ),
+        child: add ? const Center(child: Icon(Icons.add,color: Colors.white,size: 40,),)
+            : null,
       ),
-      child: add ? const Center(child: Icon(Icons.add,color: Colors.white,size: 40,),)
-          : null,
     );
+  }
+
+  Future<void> pictureOnTap() async {
+    final image =await ImagePicker().pickImage(source: ImageSource.gallery);
+    setState(() {
+      widget.images.add(File(image!.path));
+    });
   }
 }
