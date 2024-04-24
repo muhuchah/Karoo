@@ -106,7 +106,7 @@ class JobSkills extends StatelessWidget{
       children.add(
         Row(
           children: [
-            const Icon(Icons.arrow_drop_down),
+            Image.asset("asset/icons/arrow_drop_forward.png"),
             const SizedBox(width: 5,),
             CustomText(text: skills[i], size: 16,
                 textColor: Colors.black, weight: FontWeight.normal),

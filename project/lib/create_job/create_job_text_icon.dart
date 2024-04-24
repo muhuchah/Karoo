@@ -1,14 +1,18 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/custom_text.dart';
 
 class CreateJobTextIcon extends StatelessWidget {
-  Icon icon;
+  Icon? icon;
+  String? assetPath;
   String text;
-  String onTapString;
+  String? onTapAssetPath;
+  String? onTapString;
   Function() onTap;
-  CreateJobTextIcon({super.key , required this.icon , required this.text,
-      required this.onTapString , required this.onTap});
+  CreateJobTextIcon({super.key , this.icon , required this.text, this.onTapAssetPath,
+    this.onTapString , required this.onTap , this.assetPath});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +21,7 @@ class CreateJobTextIcon extends StatelessWidget {
       children: [
         Row(
           children: [
-            icon,
+            assetPath == null ? icon! : Image.asset(assetPath!),
             const SizedBox(width: 10,),
             SizedBox(
               width: 100,
@@ -26,14 +30,14 @@ class CreateJobTextIcon extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(
+        onTapAssetPath==null ? SizedBox(
           width: 60,
           child: Align(
             alignment: Alignment.center,
-            child: CustomText(text: onTapString, size: 16,
+            child: CustomText(text: onTapString!, size: 16,
                 textColor: AppColor.hint, weight: FontWeight.normal),
           ),
-        ),
+        ) : SvgPicture.asset(onTapAssetPath! , width: 24 , height: 24,),
       ],
     );
   }
