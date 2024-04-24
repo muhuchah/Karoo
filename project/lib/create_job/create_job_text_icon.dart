@@ -21,23 +21,29 @@ class CreateJobTextIcon extends StatelessWidget {
       children: [
         Row(
           children: [
-            assetPath == null ? icon! : Image.asset(assetPath!),
+            assetPath == null ? icon! : Image.asset(assetPath! , width: 15,height: 15,),
             const SizedBox(width: 10,),
             SizedBox(
-              width: 100,
+              width: onTapAssetPath == null ? 100 : 150,
               child: CustomText(text: text, size: 16,
                   textColor: Colors.black, weight: FontWeight.normal),
             ),
           ],
         ),
-        onTapAssetPath==null ? SizedBox(
+        SizedBox(
           width: 60,
           child: Align(
             alignment: Alignment.center,
-            child: CustomText(text: onTapString!, size: 16,
-                textColor: AppColor.hint, weight: FontWeight.normal),
+            child: onTapAssetPath == null ? TextButton(
+              onPressed: onTap,
+              child: CustomText(text: onTapString!, size: 16,
+                textColor: AppColor.hint, weight: FontWeight.normal)) :
+            GestureDetector(
+              onTap: onTap,
+              child: SvgPicture.asset(onTapAssetPath! , width: 15 , height: 15,)
+            ),
           ),
-        ) : SvgPicture.asset(onTapAssetPath! , width: 24 , height: 24,),
+        )
       ],
     );
   }

@@ -93,19 +93,23 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                         children: [
                           const CustomText(text: "Skills", size: 20,
                               textColor: AppColor.loginText1, weight: FontWeight.bold),
-                          IconButton(
-                            onPressed: (){
-
-                            },
-                            icon: const Icon(Icons.add , size: 24 , color: AppColor.loginText1,)
-                          ),
+                          SizedBox(
+                            width: 60,
+                            child: Align(
+                              alignment: Alignment.center,
+                              child:IconButton(
+                                onPressed: _skillOnTap,
+                                icon: const Icon(Icons.add , size: 24 , color: AppColor.loginText1,)
+                              ),
+                            ),
+                          )
                         ],
                       )
                     ],
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(10),
+                  padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                   child: Column(
                     children: _getSkills(),
                   ),
@@ -131,7 +135,35 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
           }
         )
       );
+      children.add(const SizedBox(height: 10,));
     }
     return children;
+  }
+
+  void _skillOnTap(){
+    FocusNode focusNode = FocusNode();
+    showDialog(context: context, builder: (context){
+      TextEditingController controller = TextEditingController();
+      return AlertDialog(
+        title: const Text("Enter Skill :"),
+        content: TextField(
+          controller: controller,
+          focusNode: focusNode,
+        ),
+        actions: [
+        TextButton(onPressed: (){
+          Navigator.of(context).pop();
+        },
+        child: const Text("Cancel")),
+        TextButton(onPressed: () async {
+          if (controller.text == "") {
+            focusNode.requestFocus();
+          }
+          widget.skills.add(controller.text);
+          Navigator.of(context).pop();
+        }, child: const Text("Save")),
+        ],
+      );
+    });
   }
 }
