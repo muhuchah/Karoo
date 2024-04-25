@@ -84,10 +84,12 @@ class jobSerializer(serializers.ModelSerializer):
 
 class joblistSerializer(serializers.ModelSerializer):
     average_rating = serializers.SerializerMethodField()
+    main_picture_url = serializers.SerializerMethodField()
+
 
     class Meta:
         model = job
-        fields = ['id', 'title', 'description', 'average_rating', 'main_picture',
+        fields = ['id', 'title', 'description', 'average_rating', 'main_picture_url',
                   'province', 'city']
 
     def get_average_rating(self, obj):
@@ -95,3 +97,10 @@ class joblistSerializer(serializers.ModelSerializer):
         if average_rating is None:
             return 0.0
         return average_rating
+
+    def get_main_picture_url(self, obj):
+        if obj.main_picture and obj.main_picture.image:
+            request = self.context.get('request')
+            if request is not None:
+                return request.build_absolute_uri(obj.main_picture.image.url)
+        return None
