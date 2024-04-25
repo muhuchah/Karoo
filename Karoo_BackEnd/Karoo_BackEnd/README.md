@@ -530,12 +530,12 @@ it's status is HTTP_204_NO_CONTENT.
 [
     {
         "id": 1,
-        "title": "Cry",
-        "description": "",
+        "title": "Job1",
+        "description": "This is Job1.",
         "average_rating": 0.0,
-        "main_picture": null,
-        "province": 1,
-        "city": 1
+        "main_picture_url": "http://127.0.0.1:8000/media/images/job_images/KingHamid.jpeg",
+        "province_name": "Tehran",
+        "city_name": "Tehran"
     }
 ]
 ```
