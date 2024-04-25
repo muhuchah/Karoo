@@ -198,8 +198,6 @@ class UserRequest{
       }
     );
 
-    print("response : ${response.statusCode}");
-
     if(response.statusCode == 200){
       List<String> cities = ["-----"];
       List<dynamic> values = jsonDecode(response.body);

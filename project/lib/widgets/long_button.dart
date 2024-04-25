@@ -14,8 +14,7 @@ class LongButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
           backgroundColor: AppColor.main,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-      child:
-      SizedBox(
+      child: SizedBox(
         height: 40,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

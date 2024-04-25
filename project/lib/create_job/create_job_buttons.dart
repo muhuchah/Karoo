@@ -21,21 +21,3 @@ class ShortButton extends StatelessWidget {
   }
 }
 
-class LongButton extends StatelessWidget {
-  String text;
-  Function() onTap;
-  LongButton({super.key , required this.onTap , required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(onPressed: onTap,
-      style: ElevatedButton.styleFrom(
-          backgroundColor: AppColor.main,
-          fixedSize: const Size(double.infinity, 40,),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
-      ),
-      child: BigText(text: text,size: 20,textColor: Colors.white,),
-    );
-  }
-}
-

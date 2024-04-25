@@ -15,8 +15,9 @@ class CreateJobTextIcon extends StatelessWidget {
   Color? onTapColor;
   double? onTapStringSize;
   Function() onTap;
-  CreateJobTextIcon({super.key , this.icon , required this.text, this.onTapAssetPath,
-    this.onTapString , required this.onTap , this.assetPath , this.onTapStringSize = 80});
+  CreateJobTextIcon({super.key , this.icon , required this.text,
+    this.onTapAssetPath, this.onTapString , required this.onTap ,
+    this.assetPath , this.onTapStringSize = 80 , this.onTapColor});
 
   @override
   Widget build(BuildContext context) {

@@ -9,6 +9,9 @@ import 'create_job_buttons.dart';
 import 'create_job_text_icon.dart';
 
 class CreateJobInfoPage extends StatefulWidget {
+  String province = "";
+  String city = "";
+  Color? locationColor;
   List<String> skills = [];
   CreateJobInfoPage({super.key});
 
@@ -36,13 +39,21 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                   child: CreateJobTextIcon(
                     icon: const Icon(Icons.location_on_outlined , size: 24,),
                     text: "Location",
-                    onTapString: "Choose",
+                    onTapString: getLocationText(),
+                    onTapColor: widget.locationColor,
                     onTap: (){
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context){
-                            return CreateJobLocationPage();
+                            return CreateJobLocationPage(
+                              onTap: (province , city) {
+                                setState(() {
+                                  widget.province = province;
+                                  widget.city = city;
+                                });
+                              },
+                            );
                           }
-                      )
+                        )
                       );
                     },
                   ),
@@ -138,6 +149,14 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
         ),
       ),
     );
+  }
+
+  String getLocationText(){
+    if(widget.province == ""){
+      return "Choose";
+    }
+    widget.locationColor = AppColor.loginText1;
+    return widget.city;
   }
 
   List<Widget> _getSkills(){
