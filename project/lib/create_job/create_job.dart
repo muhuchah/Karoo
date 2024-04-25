@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project/category/main_category.dart';
+import 'package:project/create_job/create_job_buttons.dart';
 import 'package:project/create_job/create_job_picture.dart';
 import 'package:project/create_job/job_info_part.dart';
 import 'package:project/utils/app_color.dart';
@@ -107,18 +108,11 @@ class _CreateJobState extends State<CreateJob> {
                 padding: const EdgeInsets.only(right: 20 , top: 30),
                 child: Align(
                   alignment: Alignment.topRight,
-                  child: ElevatedButton(onPressed: (){
+                  child: ShortButton(text:"Next",onTap: (){
                     Navigator.of(context).push(MaterialPageRoute(builder: (context){
                       return CreateJobInfoPage();
                     }));
-                  },
-                    child: const BigText(text: "Next",size: 20,textColor: Colors.white,),
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColor.main,
-                        fixedSize: const Size(200, 40,),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
-                    ),
-                  ),
+                  },)
                 ),
               ),
               const SizedBox(height: 20,)

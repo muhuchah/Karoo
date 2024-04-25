@@ -5,6 +5,7 @@ import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/divider.dart';
 import 'package:project/widgets/my_appbars.dart';
 
+import 'create_job_buttons.dart';
 import 'create_job_text_icon.dart';
 
 class CreateJobInfoPage extends StatefulWidget {
@@ -26,7 +27,7 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: SizedBox(
-          height: MediaQuery.of(context).size.height,
+          height: MediaQuery.of(context).size.height - 100,
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -41,7 +42,7 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                           builder: (context){
                             return CreateJobLocationPage();
                           }
-                        )
+                      )
                       );
                     },
                   ),
@@ -105,8 +106,8 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                             child: Align(
                               alignment: Alignment.center,
                               child:IconButton(
-                                onPressed: _skillOnTap,
-                                icon: const Icon(Icons.add , size: 24 , color: AppColor.loginText1,)
+                                  onPressed: _skillOnTap,
+                                  icon: const Icon(Icons.add , size: 24 , color: AppColor.loginText1,)
                               ),
                             ),
                           )
@@ -120,7 +121,17 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                   child: Column(
                     children: _getSkills(),
                   ),
-                )
+                ),
+                const SizedBox(height: 50,),
+                Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: ShortButton(text:"Next",onTap: (){
+
+                    },)
+                  ),
+                ),
               ],
             ),
           ),
