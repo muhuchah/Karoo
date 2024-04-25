@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project/login_signup/drop_down_button.dart';
+import 'package:project/widgets/drop_down_button.dart';
 import 'package:project/request/user_requests.dart';
 import 'package:project/widgets/long_button.dart';
 
@@ -166,14 +166,14 @@ class _PhoneCityPageState extends State<PhoneCityPage> {
         builder: (context , snapShot){
           if(snapShot.hasData){
             return MyDropButton(items : snapShot.data! , selectedItem: selectedCity ,
-              label : "Cities" , rebuild: (value){
+              label : "City" , rebuild: (value){
                 selectedCity = value;
               },
             );
           }
           else if(snapShot.hasError){
             return MyDropButton(items : const ["-----"], selectedItem: selectedCity ,
-              label : "Province" , rebuild: (value){},
+              label : "City" , rebuild: (value){},
             );
           }
           else{
@@ -182,7 +182,7 @@ class _PhoneCityPageState extends State<PhoneCityPage> {
         }
     ) :
     MyDropButton(items : const ["-----"] , selectedItem: selectedCity,
-        label : "Cities" , rebuild: (value){
+        label : "City" , rebuild: (value){
           selectedCity = value;
         }
     );

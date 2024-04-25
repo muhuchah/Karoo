@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/create_job/create_job_location.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/divider.dart';
@@ -36,6 +37,12 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                     text: "Location",
                     onTapString: "Choose",
                     onTap: (){
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context){
+                            return CreateJobLocationPage();
+                          }
+                        )
+                      );
                     },
                   ),
                 ),
