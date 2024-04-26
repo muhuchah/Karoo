@@ -41,8 +41,9 @@ class CreateJobTextIcon extends StatelessWidget {
             alignment: Alignment.center,
             child: onTapAssetPath == null ? TextButton(
               onPressed: onTap,
-              child:Text(onTapString!,maxLines: 1, style: TextStyle(fontSize: 16,
-                color: getColor(), fontWeight: FontWeight.normal),)) :
+              child:Text(onTapString!,maxLines: 1, overflow: TextOverflow.ellipsis,
+                style: TextStyle(fontSize: 16,
+                    color: getColor(), fontWeight: FontWeight.normal),)) :
             GestureDetector(
               onTap: onTap,
               child: SvgPicture.asset(onTapAssetPath! , width: 15 , height: 15,)
