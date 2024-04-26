@@ -94,4 +94,23 @@ class JobRequest{
 
     throw Exception("Unable to send jobs");
   }
+
+  static Future<List<String>> getSkills(subCategory) async {
+    User user = User();
+    var response = await http.get(
+        Uri.parse("$_base$_userJobs"),
+        headers: <String , String>{
+          "Authorization": "Bearer ${user.accessToken!}"
+        }
+    );
+
+    List<dynamic> body = jsonDecode(response.body);
+
+    if(response.statusCode == 200){
+      List<String> skills = ["Plumber Skill 1","Plumber Skill 2","Plumber Skill 3"];
+      return skills;
+    }
+
+    throw Exception("Unable to send Skills");
+  }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/create_job/create_job_location.dart';
+import 'package:project/create_job/create_job_skill.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/divider.dart';
@@ -43,17 +44,16 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                     onTapColor: widget.locationColor,
                     onTap: (){
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context){
-                            return CreateJobLocationPage(
-                              onTap: (province , city) {
-                                setState(() {
-                                  widget.province = province;
-                                  widget.city = city;
-                                });
-                              },
-                            );
-                          }
-                        )
+                        builder: (context){
+                          return CreateJobLocationPage(
+                            onTap: (province , city) {
+                              setState(() {
+                                widget.province = province;
+                                widget.city = city;
+                              });
+                            },
+                          );
+                        })
                       );
                     },
                   ),
@@ -117,8 +117,19 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                             child: Align(
                               alignment: Alignment.center,
                               child:IconButton(
-                                  onPressed: _skillOnTap,
-                                  icon: const Icon(Icons.add , size: 24 , color: AppColor.loginText1,)
+                                onPressed: (){
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(builder: (context){
+                                      return CreateJobSkillPage(
+                                        subCategory: "Plumber",
+                                        onTap: (){
+
+                                        },
+                                      );
+                                    })
+                                  );
+                                },
+                                icon: const Icon(Icons.add , size: 24 , color: AppColor.loginText1,)
                               ),
                             ),
                           )
