@@ -5,7 +5,6 @@ import 'package:project/create_job/create_job_buttons.dart';
 import 'package:project/create_job/create_job_picture.dart';
 import 'package:project/create_job/job_info_part.dart';
 import 'package:project/utils/app_color.dart';
-import 'package:project/widgets/big_text.dart';
 import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/divider.dart';
 import 'package:project/widgets/my_appbars.dart';
@@ -28,6 +27,7 @@ class _CreateJobState extends State<CreateJob> {
     return Scaffold(
       backgroundColor: AppColor.background,
       appBar: SubAppBar(text: "New Job",leading: (){
+        JobData.init();
         Navigator.of(context).pop();
       },),
       body: SizedBox(

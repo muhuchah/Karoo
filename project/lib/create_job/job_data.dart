@@ -11,6 +11,7 @@ class JobData{
   static String initialCost = "";
   static String costPerHour = "";
   static List<String> skills = [];
+  static Function()? createOnTap;
 
   static void init(){
     JobData.subCategory = "";
@@ -23,5 +24,6 @@ class JobData{
     JobData.initialCost = "";
     JobData.costPerHour = "";
     JobData.skills = [];
+    JobData.createOnTap = null;
   }
 }

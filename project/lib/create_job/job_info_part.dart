@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:project/component/job_file.dart';
 import 'package:project/create_job/create_job_location.dart';
 import 'package:project/create_job/create_job_skill.dart';
+import 'package:project/request/job_request.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/divider.dart';
@@ -175,8 +177,19 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                   padding: const EdgeInsets.only(right: 20),
                   child: Align(
                     alignment: Alignment.topRight,
-                    child: ShortButton(text:"Next",onTap: (){
-
+                    child: ShortButton(text:"Next",onTap: () async {
+                      try {
+                        Job job = await JobRequest.createJob();
+                        Navigator.of(context).pop();
+                        Navigator.of(context).pop();
+                        JobData.createOnTap;
+                        print("Yessss");
+                      }
+                      catch(e){
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(e.toString()),
+                              duration: const Duration(seconds: 2),));
+                      }
                     },)
                   ),
                 ),

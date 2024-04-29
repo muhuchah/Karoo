@@ -85,8 +85,8 @@ class HomePage extends StatelessWidget {
   List<Widget> getCategories(List<Category> values){
     categories ??= values;
     List<Widget> children = [];
-    List<Widget> rowChildren = [SizedBox(width: 10,)];
-    for(int i = 0 ; i<values.length ; i++){
+    List<Widget> rowChildren = [const SizedBox(width: 10,)];
+    for(int i = 0 ; i< values.length; i++){
       rowChildren.add(Column(
         children: [
           SizedBox(
@@ -102,7 +102,10 @@ class HomePage extends StatelessWidget {
               },
             ),
           ),
-          Text(values[i].title!),
+          SizedBox(
+            width: 80,
+            child: Text(values[i].title! , maxLines: 1, overflow: TextOverflow.ellipsis,)
+          ),
         ],
       ));
       rowChildren.add(SizedBox(width: 10,));
@@ -178,3 +181,73 @@ class HomePage extends StatelessWidget {
     return children;
   }
 }
+
+// if(i == length){
+//   if(values.length%4==0){
+//     break;
+//   }
+//   children.add(
+//     Expanded(
+//       child: ListView.separated(
+//         scrollDirection: Axis.horizontal,
+//         separatorBuilder: (context , index){
+//           return const SizedBox(width: 10,);
+//         },
+//         itemCount: values.length%4,
+//         itemBuilder: (context , index){
+//           return Column(
+//             children: [
+//               SizedBox(
+//                 width: 80,
+//                 height: 80,
+//                 child: GestureDetector(
+//                   child: ClipRRect(
+//                     borderRadius: BorderRadius.circular(10),
+//                     child: Image.network(values[(i*4)+index].image!,
+//                       width: 80,height: 80,fit: BoxFit.fill,)),
+//                   onTap: (){
+//                     onTap(values[i].title!);
+//                   },
+//                 ),
+//               ),
+//               Text(values[i].title!),
+//             ],
+//           );
+//         }
+//       ),
+//     )
+//   );
+// }
+// else{
+//   children.add(
+//     Expanded(
+//       child: ListView.separated(
+//         scrollDirection: Axis.horizontal,
+//         separatorBuilder: (context , index){
+//           return const SizedBox(width: 10,);
+//         },
+//         itemCount: 4,
+//         itemBuilder: (context , index){
+//           return Column(
+//             children: [
+//               SizedBox(
+//                 width: 80,
+//                 height: 80,
+//                 child: GestureDetector(
+//                   child: ClipRRect(
+//                     borderRadius: BorderRadius.circular(10),
+//                     child: Image.network(values[(i*4)+index].image!,
+//                       width: 80,height: 80,fit: BoxFit.fill,)),
+//                   onTap: (){
+//                     onTap(values[i].title!);
+//                   },
+//                 ),
+//               ),
+//               Text(values[i].title!),
+//             ],
+//           );
+//         }
+//       ),
+//     )
+//   );
+// }

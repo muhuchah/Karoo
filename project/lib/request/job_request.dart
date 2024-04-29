@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:project/component/job_file.dart';
+import 'package:project/create_job/job_data.dart';
 
 import '../component/user_file.dart';
 import 'package:http/http.dart' as http;
@@ -112,5 +113,35 @@ class JobRequest{
     }
 
     throw Exception("Unable to send Skills");
+  }
+
+  static Future<Job> createJob() async {
+    User user = User();
+    var response = await http.post(
+        Uri.parse("$_base$_userJobs"),
+        headers: <String , String>{
+          "Authorization": "Bearer ${user.accessToken!}"
+        },
+      body: <String , String>{
+        "title" : JobData.title,
+        "SubCategory" : JobData.subCategory,
+        "description" : JobData.description,
+        "experiences" : JobData.experience,
+        "approximation_cph" : JobData.costPerHour,
+        "initial_cost" : JobData.initialCost,
+        "Province" : JobData.province,
+      }
+    );
+
+    print(JobData.province);
+    print(response.body);
+
+    if(response.statusCode == 201){
+      print(response.body);
+      Job newJob = Job.listJson(jsonDecode(response.body));
+      return newJob;
+    }
+
+    throw Exception("Unable to create job");
   }
 }

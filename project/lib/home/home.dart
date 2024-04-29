@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project/category/main_category.dart';
 import 'package:project/category/sub_category.dart';
+import 'package:project/create_job/job_data.dart';
 import 'package:project/home/bottom_navigation_bar.dart';
 import 'package:project/job/display_job.dart';
 import 'package:project/my_karoo/my_karoo_page.dart';
@@ -90,6 +91,9 @@ class _HomeState extends State<Home> {
       widget.jobPage = DisplayJobPage(title: "My Jobs", subCategory: null ,
           leadingOnTap:null ,
           floatingActionButton: MyFloatingActionButton(onTap: (){
+            JobData.createOnTap = (){
+              setState(() {});
+            };
             Navigator.of(context).pushNamed("/create_job");
           },));
       setState(() {
