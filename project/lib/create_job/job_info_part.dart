@@ -8,21 +8,16 @@ import 'package:project/widgets/my_appbars.dart';
 
 import 'create_job_buttons.dart';
 import 'create_job_text_icon.dart';
+import 'job_data.dart';
 
 enum _InfoValue{
   location , experience , initCost , costPerHour
 }
 
 class CreateJobInfoPage extends StatefulWidget {
-  String province = "";
-  String city = "";
   Color? locationColor;
-  List<String> skills = ["Plumber Skill 1"];
-  String experience = "";
   Color? experienceColor;
-  String initialCost = "";
   Color? initialCostColor;
-  String hourCost = "";
   Color? hourCostColor;
   CreateJobInfoPage({super.key});
 
@@ -58,8 +53,8 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                           return CreateJobLocationPage(
                             onTap: (province , city) {
                               setState(() {
-                                widget.province = province;
-                                widget.city = city;
+                                JobData.province = province;
+                                JobData.city = city;
                               });
                             },
                           );
@@ -90,7 +85,7 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                     onTap: (){
                       _showDialog("Experience", (value){
                         setState(() {
-                          widget.experience = value;
+                          JobData.experience = value;
                         });
                       });
                     },
@@ -107,7 +102,7 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                     onTap: (){
                       _showDialog("initial cost", (value){
                         setState(() {
-                          widget.initialCost = value;
+                          JobData.initialCost = value;
                         });
                       });
                     },
@@ -124,7 +119,7 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                     onTap: (){
                       _showDialog("approximate cost per hour", (value){
                         setState(() {
-                          widget.hourCost = value;
+                          JobData.costPerHour = value;
                         });
                       });
                     },
@@ -150,10 +145,10 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                                     MaterialPageRoute(builder: (context){
                                       return CreateJobSkillPage(
                                         subCategory: "Plumber",
-                                        preSkills : widget.skills,
+                                        preSkills : JobData.skills,
                                         onTap: (skills){
                                           setState(() {
-                                            widget.skills = skills;
+                                            JobData.skills = skills;
                                           });
                                         },
                                       );
@@ -195,48 +190,48 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
 
   String getValue(infoValue){
     if(infoValue == _InfoValue.location) {
-      if (widget.province == "") {
+      if (JobData.province == "") {
         return "Choose";
       }
       widget.locationColor = AppColor.loginText1;
-      return widget.city;
+      return JobData.city;
     }
 
     else if(infoValue == _InfoValue.experience) {
-      if (widget.experience == "") {
+      if (JobData.experience == "") {
         return "Set";
       }
       widget.experienceColor = AppColor.loginText1;
-      return widget.experience;
+      return JobData.experience;
     }
 
     else if(infoValue == _InfoValue.initCost) {
-      if (widget.initialCost == "") {
+      if (JobData.initialCost == "") {
         return "Set";
       }
       widget.initialCostColor = AppColor.loginText1;
-      return "${widget.initialCost} \$";
+      return "${JobData.initialCost} \$";
     }
 
     if(infoValue == _InfoValue.costPerHour) {
-      if (widget.hourCost == "") {
+      if (JobData.costPerHour == "") {
         return "Set";
       }
       widget.hourCostColor = AppColor.loginText1;
-      return "${widget.hourCost} \$";
+      return "${JobData.costPerHour} \$";
     }
     return "";
   }
 
   List<Widget> _getSkills(){
     List<Widget> children = [];
-    for(int i=0;i<widget.skills.length;i++){
+    for(int i=0;i<JobData.skills.length;i++){
       children.add(
         CreateJobTextIcon(icon: null,
-          assetPath: "asset/icons/arrow_drop_forward.png", text: widget.skills[i],
+          assetPath: "asset/icons/arrow_drop_forward.png", text: JobData.skills[i],
           onTapAssetPath: "asset/icons/multiply.svg", onTap: (){
             setState(() {
-              widget.skills.removeAt(i);
+              JobData.skills.removeAt(i);
             });
           }
         )

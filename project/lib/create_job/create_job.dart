@@ -11,11 +11,11 @@ import 'package:project/widgets/divider.dart';
 import 'package:project/widgets/my_appbars.dart';
 
 import '../category/sub_category.dart';
+import 'job_data.dart';
 
 class CreateJob extends StatefulWidget {
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
-  String category = "";
   CreateJob({super.key});
 
   @override
@@ -61,16 +61,17 @@ class _CreateJobState extends State<CreateJob> {
                         textColor: Colors.black, weight: FontWeight.normal),
                     const SizedBox(height: 10,),
                     TextField(
-                      decoration: const InputDecoration(hintText: "Job Title" ,
-                          hintStyle: TextStyle(color: AppColor.hint,fontSize: 16),
-                          border: UnderlineInputBorder()
+                      decoration: InputDecoration(hintText: "Job Title" ,
+                          labelText: JobData.title == "" ? null : JobData.title,
+                          hintStyle:const  TextStyle(color: AppColor.hint,fontSize: 16),
+                          border: const UnderlineInputBorder()
                       ),
                       controller: widget.titleController,
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: 40,),
+              const SizedBox(height: 40,),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
@@ -89,12 +90,13 @@ class _CreateJobState extends State<CreateJob> {
                       child: TextField(
                         keyboardType: TextInputType.multiline,
                         maxLines: 4,
-                        decoration: const InputDecoration(hintText: "Description" ,
-                          hintStyle: TextStyle(color: AppColor.hint,fontSize: 16),
-                          enabledBorder: OutlineInputBorder(
+                        decoration: InputDecoration(hintText: "Description" ,
+                          labelText: JobData.description == "" ? null : JobData.description,
+                          hintStyle: const TextStyle(color: AppColor.hint,fontSize: 16),
+                          enabledBorder: const OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.white)
                           ),
-                          focusedBorder: OutlineInputBorder(
+                          focusedBorder: const OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.white)
                           ),
                         ),
@@ -124,23 +126,6 @@ class _CreateJobState extends State<CreateJob> {
   }
 
   Widget getCategoryName(){
-    if(widget.category == ""){
-      return _getChooseText();
-    }
-    else{
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          CustomText(text: widget.category, size: 16,
-              textColor: AppColor.loginText1, weight: FontWeight.normal),
-          _getChooseText()
-        ],
-      );
-    }
-  }
-
-  Widget _getChooseText(){
     return TextButton(
       onPressed: (){
         Navigator.of(context).push(MaterialPageRoute(
@@ -154,8 +139,14 @@ class _CreateJobState extends State<CreateJob> {
           ),)
         );
       },
-      child:const CustomText(text: "Choose", size: 16,
-          textColor: AppColor.hint, weight: FontWeight.normal),
+      child:Text(JobData.subCategory == "" ? "Choose" : JobData.subCategory,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        style: TextStyle(fontSize: 16 ,
+          color: JobData.subCategory == "" ? AppColor.hint : AppColor.loginText1,
+          fontWeight: FontWeight.normal,
+        ),
+      ),
     );
   }
 
@@ -170,7 +161,7 @@ class _CreateJobState extends State<CreateJob> {
             Navigator.of(context).pop();
             Navigator.of(context).pop();
             setState(() {
-              widget.category = subCategory;
+              JobData.subCategory = subCategory;
             });
           }
         )

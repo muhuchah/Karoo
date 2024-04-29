@@ -2,11 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:project/create_job/job_data.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/custom_text.dart';
 
 class CreateJobPicture extends StatefulWidget {
-  List<File> images = [];
   CreateJobPicture({super.key});
 
   @override
@@ -28,9 +28,9 @@ class _CreateJobPictureState extends State<CreateJobPicture> {
       const SizedBox(height: 20,)];
 
     List<Widget> rowChildren = [];
-    for(int i=0;i<widget.images.length;i++){
+    for(int i=0;i<JobData.images.length;i++){
       rowChildren.add(
-        getJobImage(widget.images[i] , i),
+        getJobImage(JobData.images[i] , i),
       );
 
       if((i+1)%3 == 0){
@@ -45,7 +45,7 @@ class _CreateJobPictureState extends State<CreateJobPicture> {
 
     bool add = true;
 
-    for(int i=widget.images.length;i<6;i++){
+    for(int i=JobData.images.length;i<6;i++){
       rowChildren.add(
         getBlankImage(add)
       );
@@ -71,7 +71,7 @@ class _CreateJobPictureState extends State<CreateJobPicture> {
     return GestureDetector(
       onTap: (){
         setState(() {
-          widget.images.removeAt(index);
+          JobData.images.removeAt(index);
         });
       },
       child: ClipRRect(
@@ -100,7 +100,7 @@ class _CreateJobPictureState extends State<CreateJobPicture> {
   Future<void> pictureOnTap() async {
     final image =await ImagePicker().pickImage(source: ImageSource.gallery);
     setState(() {
-      widget.images.add(File(image!.path));
+      JobData.images.add(File(image!.path));
     });
   }
 }
