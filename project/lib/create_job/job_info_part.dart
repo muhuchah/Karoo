@@ -9,11 +9,21 @@ import 'package:project/widgets/my_appbars.dart';
 import 'create_job_buttons.dart';
 import 'create_job_text_icon.dart';
 
+enum _InfoValue{
+  location , experience , initCost , costPerHour
+}
+
 class CreateJobInfoPage extends StatefulWidget {
   String province = "";
   String city = "";
   Color? locationColor;
-  List<String> skills = [];
+  List<String> skills = ["Plumber Skill 1"];
+  String experience = "";
+  Color? experienceColor;
+  String initialCost = "";
+  Color? initialCostColor;
+  String hourCost = "";
+  Color? hourCostColor;
   CreateJobInfoPage({super.key});
 
   @override
@@ -40,7 +50,7 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                   child: CreateJobTextIcon(
                     icon: const Icon(Icons.location_on_outlined , size: 24,),
                     text: "Location",
-                    onTapString: getLocationText(),
+                    onTapString: getValue(_InfoValue.location),
                     onTapColor: widget.locationColor,
                     onTap: (){
                       Navigator.of(context).push(MaterialPageRoute(
@@ -74,9 +84,15 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                   padding: const EdgeInsets.all(20),
                   child: CreateJobTextIcon(
                     icon: const Icon(Icons.diamond_outlined , size: 24,),
+                    onTapColor: widget.experienceColor,
                     text: "Experience",
-                    onTapString: "Set",
+                    onTapString: getValue(_InfoValue.experience),
                     onTap: (){
+                      _showDialog("Experience", (value){
+                        setState(() {
+                          widget.experience = value;
+                        });
+                      });
                     },
                   ),
                 ),
@@ -85,9 +101,15 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                   padding: const EdgeInsets.all(20),
                   child: CreateJobTextIcon(
                     icon: const Icon(Icons.wallet_outlined , size: 24,),
+                    onTapColor: widget.initialCostColor,
                     text: "Initial cost",
-                    onTapString: "Set",
+                    onTapString: getValue(_InfoValue.initCost),
                     onTap: (){
+                      _showDialog("initial cost", (value){
+                        setState(() {
+                          widget.initialCost = value;
+                        });
+                      });
                     },
                   ),
                 ),
@@ -96,9 +118,15 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                   padding: const EdgeInsets.all(20),
                   child: CreateJobTextIcon(
                     icon: const Icon(Icons.wallet_outlined , size: 24,),
+                    onTapColor: widget.hourCostColor,
                     text: "Approximate cost per hour",
-                    onTapString: "Set",
+                    onTapString: getValue(_InfoValue.costPerHour),
                     onTap: (){
+                      _showDialog("approximate cost per hour", (value){
+                        setState(() {
+                          widget.hourCost = value;
+                        });
+                      });
                     },
                   ),
                 ),
@@ -113,7 +141,7 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                           const CustomText(text: "Skills", size: 20,
                               textColor: AppColor.loginText1, weight: FontWeight.bold),
                           SizedBox(
-                            width: 60,
+                            width: 80,
                             child: Align(
                               alignment: Alignment.center,
                               child:IconButton(
@@ -122,8 +150,11 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                                     MaterialPageRoute(builder: (context){
                                       return CreateJobSkillPage(
                                         subCategory: "Plumber",
-                                        onTap: (){
-
+                                        preSkills : widget.skills,
+                                        onTap: (skills){
+                                          setState(() {
+                                            widget.skills = skills;
+                                          });
                                         },
                                       );
                                     })
@@ -162,12 +193,39 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
     );
   }
 
-  String getLocationText(){
-    if(widget.province == ""){
-      return "Choose";
+  String getValue(infoValue){
+    if(infoValue == _InfoValue.location) {
+      if (widget.province == "") {
+        return "Choose";
+      }
+      widget.locationColor = AppColor.loginText1;
+      return widget.city;
     }
-    widget.locationColor = AppColor.loginText1;
-    return widget.city;
+
+    else if(infoValue == _InfoValue.experience) {
+      if (widget.experience == "") {
+        return "Set";
+      }
+      widget.experienceColor = AppColor.loginText1;
+      return widget.experience;
+    }
+
+    else if(infoValue == _InfoValue.initCost) {
+      if (widget.initialCost == "") {
+        return "Set";
+      }
+      widget.initialCostColor = AppColor.loginText1;
+      return "${widget.initialCost} \$";
+    }
+
+    if(infoValue == _InfoValue.costPerHour) {
+      if (widget.hourCost == "") {
+        return "Set";
+      }
+      widget.hourCostColor = AppColor.loginText1;
+      return "${widget.hourCost} \$";
+    }
+    return "";
   }
 
   List<Widget> _getSkills(){
@@ -188,15 +246,16 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
     return children;
   }
 
-  void _skillOnTap(){
+  void _showDialog(text , Function(String value) onTap){
     FocusNode focusNode = FocusNode();
     showDialog(context: context, builder: (context){
       TextEditingController controller = TextEditingController();
       return AlertDialog(
-        title: const Text("Enter Skill :"),
+        title: Text("Enter $text :"),
         content: TextField(
           controller: controller,
           focusNode: focusNode,
+          keyboardType: TextInputType.number,
         ),
         actions: [
         TextButton(onPressed: (){
@@ -207,7 +266,7 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
           if (controller.text == "") {
             focusNode.requestFocus();
           }
-          widget.skills.add(controller.text);
+          onTap(controller.text);
           Navigator.of(context).pop();
         }, child: const Text("Save")),
         ],

@@ -10,9 +10,11 @@ import '../widgets/long_button.dart';
 class CreateJobSkillPage extends StatefulWidget {
   String subCategory;
   List<String>? skills;
+  List<String> preSkills;
   List<bool>? selectedSkills;
-  Function() onTap;
-  CreateJobSkillPage({super.key , required this.subCategory , required this.onTap});
+  Function(List<String> skills) onTap;
+  CreateJobSkillPage({super.key , required this.subCategory ,
+    required this.preSkills , required this.onTap});
 
   @override
   State<CreateJobSkillPage> createState() => _CreateJobSkillPageState();
@@ -90,7 +92,10 @@ class _CreateJobSkillPageState extends State<CreateJobSkillPage> {
             child: Padding(
               padding: const EdgeInsets.only(left: 20 , right: 20 , top: 20 , bottom: 10),
               child: LongButton(
-                onTap: widget.onTap,
+                onTap:(){
+                  widget.onTap(_getSkills());
+                  Navigator.of(context).pop();
+                },
                 text: "Save"
               ),
             ),
@@ -99,12 +104,27 @@ class _CreateJobSkillPageState extends State<CreateJobSkillPage> {
       )
     );
   }
+
+  List<String> _getSkills(){
+    List<String> skills = [];
+    for(int i = 0;i<widget.selectedSkills!.length;i++){
+      if(widget.selectedSkills![i]){
+        skills.add(widget.skills![i]);
+      }
+    }
+    return skills;
+  }
   
   void initializeSelected(){
     if(widget.selectedSkills == null) {
       widget.selectedSkills = [];
       for (int i = 0; i < widget.skills!.length; i++) {
-        widget.selectedSkills!.add(false);
+        if(widget.preSkills.contains(widget.skills![i])){
+          widget.selectedSkills!.add(true);
+        }
+        else {
+          widget.selectedSkills!.add(false);
+        }
       }
     }
   }
