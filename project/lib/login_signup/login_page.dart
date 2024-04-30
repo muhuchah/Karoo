@@ -52,7 +52,6 @@ class _LoginPage extends State<StatefulWidget>{
         child: Container(
           color: AppColor.background,
           height: screenHeight - kToolbarHeight,
-
           width: double.infinity,
           child: Form(
             key: _formKey,

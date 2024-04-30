@@ -115,6 +115,29 @@ class JobRequest{
     throw Exception("Unable to send Skills");
   }
 
+  static Map<String , String> getJobJson(){
+    Map<String , String> values = {
+      "title" : JobData.title,
+      "SubCategory" : JobData.subCategory,
+      "province" : JobData.province,
+      "city" : JobData.city
+    };
+
+    if(JobData.description!= ""){
+      values["description"] = JobData.description;
+    }
+    if(JobData.experience!= ""){
+      values["experiences"] = JobData.experience;
+    }
+    if(JobData.costPerHour!= ""){
+      values["approximation_cph"] = JobData.costPerHour;
+    }
+    if(JobData.initialCost!= ""){
+      values["initial_cost"] = JobData.initialCost;
+    }
+    return values;
+  }
+
   static Future<Job> createJob() async {
     User user = User();
     var response = await http.post(
@@ -122,18 +145,19 @@ class JobRequest{
         headers: <String , String>{
           "Authorization": "Bearer ${user.accessToken!}"
         },
-      body: <String , String>{
-        "title" : JobData.title,
-        "SubCategory" : JobData.subCategory,
-        "description" : JobData.description,
-        "experiences" : JobData.experience,
-        "approximation_cph" : JobData.costPerHour,
-        "initial_cost" : JobData.initialCost,
-        "Province" : JobData.province,
-      }
+      body:getJobJson()
+      // <String , String>{
+      //   "title" : JobData.title,
+      //   "SubCategory" : JobData.subCategory,
+      //   "description" : JobData.description,
+      //   "experiences" : JobData.experience,
+      //   "approximation_cph" : JobData.costPerHour,
+      //   "initial_cost" : JobData.initialCost,
+      //   "province" : JobData.province,
+      //   "city" : JobData.city
+      // }
     );
 
-    print(JobData.province);
     print(response.body);
 
     if(response.statusCode == 201){
