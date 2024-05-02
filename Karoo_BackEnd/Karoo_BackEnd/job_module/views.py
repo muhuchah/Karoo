@@ -110,7 +110,12 @@ class jobUserAPIView(viewsets.ModelViewSet):
         new_job = serializer.save(user=self.request.user)
 
         for skill_tmp in skills:
-            skill_obj = skill.objects.get(title=skill_tmp['title'])
+            try:
+                skill_obj = skill.objects.get(title=skill_tmp['title'])
+            except skill.DoesNotExist:
+                message = 'Skill does not exist'
+                return Response({'message': message}, status=status.HTTP_404_NOT_FOUND)
+
             new_job.skills.add(skill_obj)
 
         serializer = jobSerializer(new_job)
