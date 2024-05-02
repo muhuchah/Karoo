@@ -65,6 +65,7 @@ class jobUserAPIView(viewsets.ModelViewSet):
 
     def update(self, request, *args, **kwargs):
         user_job = self.get_object()
+        skills = request.data.get('skills', [])
 
         try:
             user_job.province = Province.objects.get(name=request.data['province'])
@@ -75,13 +76,23 @@ class jobUserAPIView(viewsets.ModelViewSet):
             user_job.city = City.objects.get(name=request.data['city'])
         except:
             print('City does not exist')
-        print(request.data)
 
         serializer = self.get_serializer(user_job, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
+        updated_job = serializer.save()
+
+        for skill_tmp in skills:
+            try:
+                skill_obj = skill.objects.get(title=skill_tmp['title'])
+            except skill.DoesNotExist:
+                message = 'Skill does not exist'
+                return Response({'message': message}, status=status.HTTP_404_NOT_FOUND)
+
+            updated_job.skills.add(skill_obj)
+
+        serializer = jobSerializer(updated_job)
+
         return Response(serializer.data, status=status.HTTP_200_OK)
-        # return super().update(request, *args, **kwargs)
 
     def create(self, request, *args, **kwargs):
         user = self.request.user
