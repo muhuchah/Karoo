@@ -50,7 +50,7 @@ class JobInfoPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            JobAppBar(imageUrl : job.picture!),
+            JobAppBar(imageUrl : job.picture),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -121,7 +121,7 @@ class JobInfoPage extends StatelessWidget {
                     child: IconText(
                         icon: const Icon(Icons.diamond_outlined),
                         text: "Experience",
-                        info: "${job.experience!} Year"
+                        info: JobStrings.getExperience(job)
                     ),
                   ),
                   const SizedBox(height: 20,),
@@ -132,7 +132,7 @@ class JobInfoPage extends StatelessWidget {
                     child: IconText(
                         icon: const Icon(Icons.wallet_outlined),
                         text: "Initial cost",
-                        info: "${job.initialCost} \$"
+                        info: JobStrings.getInitCost(job)
                     ),
                   ),
                   const SizedBox(height: 20,),
@@ -143,7 +143,7 @@ class JobInfoPage extends StatelessWidget {
                     child: IconText(
                         icon: const Icon(Icons.wallet_outlined),
                         text: "Approximate cost per hour",
-                        info: "${job.costPerHour} \$"
+                        info: JobStrings.getCostPerHour(job)
                     ),
                   ),
                   const SizedBox(height: 20,),

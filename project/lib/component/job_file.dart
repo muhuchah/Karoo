@@ -31,7 +31,7 @@ class Job{
     _province = json["province_name"];
     _city = json["city_name"];
     _setComments(json);
-    _skills = json["skills"];
+    _setSkills(json);
     _experience = json["experiences"];
     _costPerHour = json["approximation_cph"];
     _initialCost = json["initial_cost"];

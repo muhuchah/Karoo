@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project/component/comment_file.dart';
 
+import '../component/job_file.dart';
 import '../utils/app_color.dart';
 import '../widgets/custom_text.dart';
 import '../widgets/divider.dart';
@@ -164,6 +165,29 @@ class JobComments extends StatelessWidget {
       }
     }
     return children;
+  }
+}
+
+class JobStrings{
+  static String getExperience(Job job){
+    if(job.experience == null || job.experience == ""){
+      return "---";
+    }
+    return "${job.experience!} Year";
+  }
+
+  static String getInitCost(Job job){
+    if(job.initialCost == null || job.initialCost == ""){
+      return "---";
+    }
+    return "${job.initialCost} \$";
+  }
+
+  static String getCostPerHour(Job job){
+    if(job.costPerHour == null || job.costPerHour == ""){
+      return "---";
+    }
+    return "${job.costPerHour} \$";
   }
 }
 
