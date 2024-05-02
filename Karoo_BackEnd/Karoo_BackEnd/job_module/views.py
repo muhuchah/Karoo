@@ -1,7 +1,7 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, generics, filters, permissions, status
 from rest_framework.exceptions import PermissionDenied
-from .models import job, job_pictures, job_comments
+from .models import job, job_pictures, job_comments, skill
 from .seryalizers import jobSerializer, job_picturesSerializer, joblistSerializer, job_commentsSerializer
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
@@ -85,8 +85,11 @@ class jobUserAPIView(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         user = self.request.user
-        province_name = request.data.get('province')
-        city_name = request.data.get('city')
+        data = request.data
+
+        province_name = data.get('province')
+        city_name = data.get('city')
+        skills = data.get('skills', [])
 
         try:
             province = Province.objects.get(name=province_name)
@@ -100,9 +103,18 @@ class jobUserAPIView(viewsets.ModelViewSet):
 
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
+
         serializer.validated_data['province'] = province
         serializer.validated_data['city'] = city
-        self.perform_create(serializer)
+
+        new_job = serializer.save(user=self.request.user)
+
+        for skill_tmp in skills:
+            skill_obj = skill.objects.get(title=skill_tmp['title'])
+            new_job.skills.add(skill_obj)
+
+        serializer = jobSerializer(new_job)
+
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def perform_create(self, serializer):
