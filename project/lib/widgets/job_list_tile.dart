@@ -21,10 +21,10 @@ class JobListTile extends StatelessWidget {
               CustomText(text: job.title!, size: 20,
                   textColor: Colors.black, weight: FontWeight.bold),
               const SizedBox(height: 20,),
-              Text(job.description! ,maxLines: 2, style: const TextStyle(fontSize: 14,
+              Text(getDescription() ,maxLines: 2, style: const TextStyle(fontSize: 14,
                   color: Colors.black , fontWeight: FontWeight.normal),),
               const SizedBox(height: 20,),
-              Text(job.address! , style: const TextStyle(color: AppColor.loginText1,
+              Text("${job.province} , ${job.city}" , style: const TextStyle(color: AppColor.loginText1,
                   fontSize: 14 , fontWeight: FontWeight.normal ,
                   fontStyle: FontStyle.italic),
               ),
@@ -53,9 +53,16 @@ class JobListTile extends StatelessWidget {
     );
   }
 
+  String getDescription(){
+    if(job.description == null){
+      return "";
+    }
+    return job.description!;
+  }
+
   Widget getImage(){
     if(job.picture == null){
-      return Image.asset("asset/plumber.jpg",
+      return Image.asset("asset/placeHolder.jpg",
         fit: BoxFit.fitHeight,width: 150,height: 100,);
     }
     return Image.network(job.picture!,

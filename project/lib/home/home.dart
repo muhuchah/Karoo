@@ -109,7 +109,7 @@ class _HomeState extends State<Home> {
         leading: (){
           subCategoryLeading(index);
         },
-        onTap: (subCategory){
+        onTap: (subCategory , id){
           subCategoryOnTap(subCategory , index);
         },
       );
@@ -143,7 +143,7 @@ class _HomeState extends State<Home> {
         leading:(){
           subCategoryLeading(index);
         } ,
-        onTap: (subCategory){
+        onTap: (subCategory , id){
           subCategoryOnTap(subCategory , index);
         },
       );

@@ -16,7 +16,6 @@ class CreateJob extends StatefulWidget {
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   FocusNode titleFocus = FocusNode();
-  FocusNode categoryFocus = FocusNode();
   final _formKey = GlobalKey<FormState>();
   CreateJob({super.key});
 
@@ -48,7 +47,7 @@ class _CreateJobState extends State<CreateJob> {
                     children: [
                       const CustomText(text: "Category", size: 16,
                           textColor: Colors.black, weight: FontWeight.normal),
-                      getCategoryName(widget.categoryFocus),
+                      getCategoryName(),
                     ],
                   ),
                 ),
@@ -124,17 +123,17 @@ class _CreateJobState extends State<CreateJob> {
                   child: Align(
                     alignment: Alignment.topRight,
                     child: ShortButton(text:"Next",onTap: (){
-                      if(widget._formKey.currentState!.validate()){
+                      if(JobData.subCategory == ""){
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text("Please choose category"),
+                              duration: Duration(seconds: 1),)
+                        );
+                      }
+                      else if(widget._formKey.currentState!.validate()){
+                        JobData.title = widget.titleController.text;
                         Navigator.of(context).push(MaterialPageRoute(builder: (context){
                           return CreateJobInfoPage();
                         }));
-                      }
-                      else if(JobData.subCategory == ""){
-                        widget.categoryFocus.requestFocus();
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("Choose category"),
-                            duration: Duration(seconds: 1),)
-                        );
                       }
                       else if(JobData.title == ""){
                         widget.titleFocus.requestFocus();
@@ -151,9 +150,8 @@ class _CreateJobState extends State<CreateJob> {
     );
   }
 
-  Widget getCategoryName(focus){
+  Widget getCategoryName(){
     return TextButton(
-      focusNode: focus,
       onPressed: (){
         Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => MainCategoriesPage(
@@ -184,11 +182,12 @@ class _CreateJobState extends State<CreateJob> {
           leading: (){
             Navigator.of(context).pop();
           },
-          onTap: (subCategory){
+          onTap: (subCategory , id){
             Navigator.of(context).pop();
             Navigator.of(context).pop();
             setState(() {
               JobData.subCategory = subCategory;
+              JobData.subCategoryId = id;
             });
           }
         )

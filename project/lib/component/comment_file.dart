@@ -1,18 +1,7 @@
 class Comment{
-  String? _comment;
-  String? _time;
+  int? id;
+  String? comment;
+  String? title;
 
-  Comment(this._comment, this._time);
-
-  String? get time => _time;
-
-  set time(String? value) {
-    _time = value;
-  }
-
-  String? get comment => _comment;
-
-  set comment(String? value) {
-    _comment = value;
-  }
+  Comment(this.id, this.comment, this.title);
 }

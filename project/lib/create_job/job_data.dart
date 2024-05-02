@@ -2,6 +2,7 @@ import 'dart:io';
 
 class JobData{
   static String subCategory = "";
+  static int subCategoryId = -1;
   static List<File> images = [];
   static String title = "";
   static String description = "";
@@ -15,6 +16,7 @@ class JobData{
 
   static void init(){
     JobData.subCategory = "";
+    JobData.subCategoryId = -1;
     JobData.images = [];
     JobData.title = "";
     JobData.description = "";

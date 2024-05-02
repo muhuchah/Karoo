@@ -85,7 +85,7 @@ class JobInfoPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   JobUserName(title: job.title!,
-                    address: job.address!,
+                    address: "${job.province} , ${job.city}",
                     rating: 4.4,),
                   const SizedBox(height: 15,),
                   const MyDivider(),

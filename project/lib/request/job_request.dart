@@ -53,7 +53,7 @@ class JobRequest{
       return jobs;
     }
 
-    throw Exception("Unable to send jobs");
+    throw Exception("Unable to get jobs");
   }
 
   static Future<Job> getJobDetail(int id) async {
@@ -65,13 +65,15 @@ class JobRequest{
         }
     );
 
+    print(response.body);
+
     if(response.statusCode == 200){
       print(response.body);
       Job job = Job.infoJson(jsonDecode(response.body));
       return job;
     }
 
-    throw Exception("Unable to send jobs");
+    throw Exception("Unable to load job");
   }
 
   static Future<List<Job>> getUserJobs() async {
@@ -93,7 +95,7 @@ class JobRequest{
       return jobs;
     }
 
-    throw Exception("Unable to send jobs");
+    throw Exception("Unable to get jobs");
   }
 
   static Future<List<String>> getSkills(subCategory) async {
@@ -112,16 +114,15 @@ class JobRequest{
       return skills;
     }
 
-    throw Exception("Unable to send Skills");
+    throw Exception("Unable to load Skills");
   }
 
-  static Map<String , String> getJobJson(){
-    Map<String , String> values = {
-      "title" : JobData.title,
-      "SubCategory" : JobData.subCategory,
-      "province" : JobData.province,
-      "city" : JobData.city
-    };
+  static Map getJobJson(){
+    Map values = {};
+    values["title"] = JobData.title;
+    values["SubCategory"] = JobData.subCategoryId;
+    values["province"] = JobData.province;
+    values["city"] = JobData.city;
 
     if(JobData.description!= ""){
       values["description"] = JobData.description;
@@ -145,17 +146,7 @@ class JobRequest{
         headers: <String , String>{
           "Authorization": "Bearer ${user.accessToken!}"
         },
-      body:getJobJson()
-      // <String , String>{
-      //   "title" : JobData.title,
-      //   "SubCategory" : JobData.subCategory,
-      //   "description" : JobData.description,
-      //   "experiences" : JobData.experience,
-      //   "approximation_cph" : JobData.costPerHour,
-      //   "initial_cost" : JobData.initialCost,
-      //   "province" : JobData.province,
-      //   "city" : JobData.city
-      // }
+      body:jsonEncode(getJobJson())
     );
 
     print(response.body);

@@ -1,36 +1,40 @@
 import 'dart:math';
 
 import 'package:project/component/comment_file.dart';
+import 'package:project/component/skill_file.dart';
 
 class Job{
   int? _id;
   String? _title;
   String? _mainCategory;
   String? _subCategory;
-  String? _picture;
+  String? _mainPicture;
+  List<String>? _pictures = [];
   String? _description;
   String? _userEmail;
-  String? _address;
+  String? _province;
+  String? _city;
   String? _experience;
   String? _initialCost;
   String? _costPerHour;
   double? _rating;
-  List<String>? _skills;
-  List<Comment>? _comments;
+  List<Skill>? _skills = [];
+  List<Comment>? _comments = [];
 
   Job.infoJson(Map<dynamic , dynamic> json){
     _id = json["id"];
     _title = json["title"];
-    _picture = json["main_picture_url"];
+    _mainPicture = json["main_picture_url"];
+    _setPictures(json);
     _description = json["description"];
     _rating = json["average_rating"];
-    _address = "Isfahan , Shahreza";
-    // _comments = json["comments"];
-    // _skills = json["skills"];
+    _province = json["province_name"];
+    _city = json["city_name"];
+    _setComments(json);
+    _skills = json["skills"];
     _experience = json["experiences"];
     _costPerHour = json["approximation_cph"];
     _initialCost = json["initial_cost"];
-    _address = "${json["province_name"]} , ${json["city_name"]}";
     _mainCategory = json["Main_category_title"];
     _subCategory = json["Sub_category_title"];
   }
@@ -38,10 +42,32 @@ class Job{
   Job.listJson(Map<dynamic , dynamic> json){
     _id = json["id"];
     _title = json["title"];
-    _picture = json["main_picture_url"];
+    _mainPicture = json["main_picture_url"];
     _description = json["description"];
     _rating = json["average_rating"];
-    _address = "Isfahan , Shahreza";
+    _province = json["province_name"];
+    _city = json["city_name"];
+  }
+
+  void _setPictures(Map<dynamic , dynamic> json){
+    var pictures = json["pictures"];
+    for(int i = 0;i<pictures.length;i++){
+      _pictures!.add(pictures[i]["image"]);
+    }
+  }
+
+  void _setComments(Map<dynamic , dynamic> json){
+    var comments = json["comments"];
+    for(int i=0;i<comments.length;i++){
+      _comments!.add(Comment(comments[i]["id"],comments[i]["comment"],comments[i]["title"]));
+    }
+  }
+
+  void _setSkills(Map<dynamic , dynamic> json){
+    var skills = json["skills"];
+    for(int i=0;i<skills.length;i++){
+      _skills!.add(Skill(id: skills[i]["id"], title: skills[i]["title"]));
+    }
   }
 
   set id(int? value) {
@@ -53,7 +79,7 @@ class Job{
   }
 
   set picture(String? value) {
-    _picture = value;
+    _mainPicture = value;
   }
 
   set subCategory(String? value) {
@@ -74,10 +100,10 @@ class Job{
     _rating = value;
   }
 
-  String? get address => _address;
+  String? get mainPicture => _mainPicture;
 
-  set address(String? value) {
-    _address = value;
+  set mainPicture(String? value) {
+    _mainPicture = value;
   }
 
   String? get mainCategory => _mainCategory;
@@ -94,7 +120,7 @@ class Job{
 
   String? get subCategory => _subCategory;
 
-  String? get picture => _picture;
+  String? get picture => _mainPicture;
 
   String? get title => _title;
 
@@ -116,9 +142,9 @@ class Job{
     _costPerHour = value;
   }
 
-  List<String>? get skills => _skills;
+  List<Skill>? get skills => _skills;
 
-  set skills(List<String>? value) {
+  set skills(List<Skill>? value) {
     _skills = value;
   }
 
@@ -126,5 +152,23 @@ class Job{
 
   set comments(List<Comment>? value) {
     _comments = value;
+  }
+
+  List<String>? get pictures => _pictures;
+
+  set pictures(List<String>? value) {
+    _pictures = value;
+  }
+
+  String? get province => _province;
+
+  set province(String? value) {
+    _province = value;
+  }
+
+  String? get city => _city;
+
+  set city(String? value) {
+    _city = value;
   }
 }

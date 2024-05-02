@@ -30,7 +30,7 @@ class JobAppBar extends StatelessWidget{
 
   Widget getImage(){
     if(imageUrl == null){
-      return Image.asset("asset/plumber.jpg",
+      return Image.asset("asset/placeHolder.jpg",
         height: 240,width: double.infinity,fit: BoxFit.fill,);
     }
     return Image.network(imageUrl!,
@@ -151,8 +151,8 @@ class JobComments extends StatelessWidget {
               CustomText(text: comments[i].comment!, size: 16,
                   textColor: Colors.black, weight: FontWeight.normal),
               const SizedBox(height: 10,),
-              CustomText(text: comments[i].time!, size: 12,
-                  textColor: Colors.black, weight: FontWeight.normal),
+              // CustomText(text: comments[i].time!, size: 12,
+              //     textColor: Colors.black, weight: FontWeight.normal),
             ],
           ),
         ),

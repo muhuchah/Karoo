@@ -9,7 +9,7 @@ import 'category_text_icon.dart';
 
 class SubCategoryPage extends StatelessWidget {
   String mainCategory;
-  Function(String value)? onTap;
+  Function(String value , int id)? onTap;
   Function() leading;
   SubCategoryPage({super.key ,
     required this.mainCategory ,required this.leading , required this.onTap});
@@ -55,7 +55,7 @@ class SubCategoryPage extends StatelessWidget {
     for(Category c in values){
       children.add(CategoryTextIcon(text: c.title!,
         onTap:(){
-          onTap!(c.title!);
+          onTap!(c.title!,c.id!);
         })
       );
     }

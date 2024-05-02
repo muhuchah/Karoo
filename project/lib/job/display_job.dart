@@ -30,6 +30,7 @@ class DisplayJobPage extends StatelessWidget {
             return getJobs(snapShot.data! , context);
           }
           else if(snapShot.hasError){
+            print(snapShot.error);
             return SizedBox(
               height: 200,
               child: Center(

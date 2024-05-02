@@ -178,17 +178,25 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                   child: Align(
                     alignment: Alignment.topRight,
                     child: ShortButton(text:"Next",onTap: () async {
-                      try {
-                        Job job = await JobRequest.createJob();
-                        Navigator.of(context).pop();
-                        Navigator.of(context).pop();
-                        JobData.createOnTap;
-                        print("Yessss");
-                      }
-                      catch(e){
+                      if(JobData.province == ""){
                         ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(e.toString()),
-                              duration: const Duration(seconds: 2),));
+                            const SnackBar(content: Text("Please choose province"),
+                              duration: Duration(seconds: 1),)
+                        );
+                      }
+                      else{
+                        try {
+                          Job job = await JobRequest.createJob();
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pop();
+                          JobData.createOnTap;
+                          print("Yessss");
+                        }
+                        catch(e){
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(e.toString()),
+                                duration: const Duration(seconds: 2),));
+                        }
                       }
                     },)
                   ),
