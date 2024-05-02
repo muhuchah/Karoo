@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:project/component/comment_file.dart';
 
@@ -7,15 +8,23 @@ import '../widgets/custom_text.dart';
 import '../widgets/divider.dart';
 
 class JobAppBar extends StatelessWidget{
-  String? imageUrl;
-  JobAppBar({super.key , required this.imageUrl});
+  List<String>? images;
+  JobAppBar({super.key , required this.images});
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       alignment: Alignment.topLeft,
       children: [
-        getImage(),
+        CarouselSlider(
+          items: getImages(),
+          options: CarouselOptions(
+            enableInfiniteScroll: false,
+            viewportFraction: 0.8,
+            enlargeCenterPage: true,
+            initialPage: 0
+          )
+        ),
         Padding(
           padding: const EdgeInsets.only(left: 8.0 , top: 8),
           child: IconButton(
@@ -29,13 +38,19 @@ class JobAppBar extends StatelessWidget{
     );
   }
 
-  Widget getImage(){
-    if(imageUrl == null){
-      return Image.asset("asset/placeHolder.jpg",
-        height: 240,width: double.infinity,fit: BoxFit.fill,);
+  List<Widget> getImages(){
+    List<Widget> items = [];
+    if(images!.isEmpty){
+      items.add(Image.asset("asset/placeHolder.jpg",
+        height: 240,width: double.infinity,fit: BoxFit.fill,));
     }
-    return Image.network(imageUrl!,
-      height: 240,width: double.infinity,fit: BoxFit.fill,);
+    else{
+      for(int i = 0;i<images!.length;i++){
+        items.add(Image.network(images![i],height: 240,width: double.infinity,
+          fit: BoxFit.fill,));
+      }
+    }
+    return items;
   }
 }
 

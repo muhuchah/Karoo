@@ -50,7 +50,7 @@ class JobInfoPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            JobAppBar(imageUrl : job.picture),
+            JobAppBar(images : job.pictures),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
