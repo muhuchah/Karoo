@@ -667,8 +667,55 @@ If Job Doesn't Exist.
 }
 ```
 
+### All Job List
 
+#### Endpoint
+> URL http://127.0.0.1:8000/jobs/list/
+> Method GET
 
+###### Response
+```json
+[
+    {
+        "id": 3,
+        "title": "Job1",
+        "description": null,
+        "average_rating": 0.0,
+        "main_picture_url": null,
+        "province_name": "Tehran",
+        "city_name": "Tehran"
+    },
+    {
+        "id": 4,
+        "title": "Job1",
+        "description": "this is job1",
+        "average_rating": 0.0,
+        "main_picture_url": null,
+        "province_name": "Tehran",
+        "city_name": "Tehran"
+    }
+]
+```
 
+### Job Picture
+Add a picture for a job.
+> URL http://127.0.0.1:8000/jobs/user/pictures/
+> Method POST
 
+###### Parameters
+```json
+{
+    "image": "Put the job file here",
+    "job": 5
+}
+```
+
+###### Response
+```json
+{
+    "id": 3,
+    "image": "http://127.0.0.1:8000/media/images/job_images/wp7579146-badlands-halsey-wallpapers_ZVKx14a.png",
+    "job": 5
+}
+```
 
