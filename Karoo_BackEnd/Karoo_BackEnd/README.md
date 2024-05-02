@@ -3,6 +3,7 @@ In the name of ALLAH
 # Back-End Document
 Django REST Framework
 
+
 ## Register
 > URL = http://127.0.0.1:8000/users/register/
 
@@ -52,6 +53,7 @@ Sent emails have an expiration date of 2 minutes. If this time is over, the link
 
 ### How can the user get the activation link again?
 It is enough for the user to request login. If his account is not active, the server will automatically send him an email.
+
 
 ## Login
 > URL = http://127.0.0.1:8000/users/login/
@@ -104,6 +106,7 @@ How to place the new header in the rest of the requests is as follows:
 |---------------|---------------------|
 | Authorization | Bearer  accesstoken |
 
+
 ## Refresh Token
 #### Endpoint
 > URL http://127.0.0.1:8000/users/login/refresh/
@@ -124,6 +127,7 @@ How to place the new header in the rest of the requests is as follows:
     "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoYWNjZXNzIiwiZXhwIjoxNzEzNTkzMjg3LCJpYXQiOjE3MTI0MDA4OTcsImp0aSI6ImZhOTYxNThhYWE5NTQ3M2VhMDc1OTE4ZmU0ZjUwMDI4IiwidXNlcl9pZCI6MX0.qQEUvNbv8bpoLjKiySQ5_XzCv_OaeUJiTnYcG74P-cQ"
 }
 ```
+
 
 ## Setting
 ### Personal information
@@ -170,6 +174,7 @@ If user changes his email, an activation link will be sent to activate his email
     "email": "new@gmail.com"
 }
 ```
+
 
 ## Logout
 > URL http://127.0.0.1:8000/users/logout/
@@ -438,17 +443,26 @@ If delete was successful:
 It would return null (means data is deleted) and
 it's status is HTTP_204_NO_CONTENT.
 
+***
+***
+***  
+
+
 ## Restore database
-> python manage.py dbrestore
+> python manage.py dbrestore          
+
+***
+***
+***    
+
 
 ## Job
 
-### Job User
-
+### Get User Job List
 #### Endpoint
-> URL http://127.0.0.1:8000/jobs/user/info/
+> URL http://127.0.0.1:8000/jobs/user/info/        
+> Method GET
 
-#### Method GET
 ###### Response
 ```json
 [
@@ -475,36 +489,114 @@ it's status is HTTP_204_NO_CONTENT.
 ]
 ```
 
-#### Method POST
+### Get One User Job With id
+#### Endpoint
+> URL http://127.0.0.1:8000/jobs/user/info/{id}/        
+> Method GET
+
+###### Response
+If Job Exists.
+```json
+{
+    "id": 12,
+    "title": "Job5",
+    "SubCategory": 1,
+    "Sub_category_title": "Subcat1",
+    "Main_category_title": "Cat1",
+    "user_email": "el.chahkandi@gmail.com",
+    "main_picture": 1,
+    "main_picture_url": "http://127.0.0.1:8000/media/images/job_images/%D8%A8%D8%B1%D9%86%D8%A7%D9%85%D9%87.png",
+    "pictures": [
+        {
+            "id": 1,
+            "image": "http://127.0.0.1:8000/media/images/job_images/%D8%A8%D8%B1%D9%86%D8%A7%D9%85%D9%87.png",
+            "job": 12
+        }
+    ],
+    "description": "this is job5",
+    "comments": [
+        {
+            "id": 1,
+            "user_full_name": "lashv",
+            "user_email": "el.chahkandi@gmail.com",
+            "title": "Comment 1",
+            "comment": "This is a comment.",
+            "rating": 2,
+            "job": 12
+        }
+    ],
+    "skills": [
+        {
+            "id": 1,
+            "title": "Skill1"
+        },
+        {
+            "id": 2,
+            "title": "Skill2"
+        }
+    ],
+    "experiences": "experiences",
+    "approximation_cph": "approximation_cph",
+    "initial_cost": "initial_cost",
+    "province_name": "Tehran",
+    "city_name": "Tehran",
+    "average_rating": 2.0
+}
+```
+
+If Job Doesn't Exist.
+```json
+{
+    "detail": "You do not have permission to perform this action."
+}
+```
+
+### Create a New Job For User
+> URL http://127.0.0.1:8000/jobs/user/info/         
+> Method POST
+
 ###### Parameters
 ```json
 {
-    "title" : "Job1",
+    "title": "Job5",
+    "SubCategory": 1,
     "province": "Tehran",
     "city": "Tehran",
-    "SubCategory": 1,
-    "description": "This is Job1.",
+
+    "description": "this is job1",
     "experiences": "experiences",
     "approximation_cph": "approximation_cph",
-    "initial_cost": "initial_cost"
+    "initial_cost": "initial_cost",
+
+    "skills": [
+        {
+            "title": "Skill1"
+        }
+    ]
 }
 ```
+First four are **required**.
 
 ###### Response
 ```json
 {
-    "id": 14,
-    "title": "Job1",
+    "id": 13,
+    "title": "Job5",
     "SubCategory": 1,
-    "Sub_category_title": "fadf",
-    "Main_category_title": "dfa",
+    "Sub_category_title": "Subcat1",
+    "Main_category_title": "Cat1",
     "user_email": "el.chahkandi@gmail.com",
     "main_picture": null,
     "main_picture_url": null,
     "pictures": [],
-    "description": "This is Job1.",
+    "description": "this is job1",
     "comments": [],
-    "skills": [],
+    "skills": [
+        {
+            "id": 1,
+            "title": "Skill1"
+        }
+    ],
     "experiences": "experiences",
     "approximation_cph": "approximation_cph",
     "initial_cost": "initial_cost",
@@ -514,28 +606,69 @@ it's status is HTTP_204_NO_CONTENT.
 }
 ```
 
-#### Method PUT
-######
+### Edit a User Job With id
+> URL http://127.0.0.1:8000/jobs/user/info/{id}/           
+> Method PUT
 
-### Job List
-
-##### Endpoint
-> URL  http://127.0.0.1:8000/jobs/list/
-
-##### Method
-> GET
-
-##### Response
+###### Parameters
 ```json
-[
-    {
-        "id": 1,
-        "title": "Job1",
-        "description": "This is Job1.",
-        "average_rating": 0.0,
-        "main_picture_url": "http://127.0.0.1:8000/media/images/job_images/KingHamid.jpeg",
-        "province_name": "Tehran",
-        "city_name": "Tehran"
-    }
-]
+{
+    "title": "Job5",
+    "SubCategory": 1,
+    "province": "Tehran",
+    "city": "Tehran",
+
+    "description": "this is job1",
+    "experiences": "experiences",
+    "approximation_cph": "approximation_cph",
+    "initial_cost": "initial_cost",
+
+    "skills": [
+        {
+            "title": "Skill1"
+        }
+    ]
+}
 ```
+
+###### Response
+If Job Exists.
+```json
+{
+    "id": 13,
+    "title": "Job5",
+    "SubCategory": 1,
+    "Sub_category_title": "Subcat1",
+    "Main_category_title": "Cat1",
+    "user_email": "el.chahkandi@gmail.com",
+    "main_picture": null,
+    "main_picture_url": null,
+    "pictures": [],
+    "description": "this is job1",
+    "comments": [],
+    "skills": [
+        {
+            "id": 1,
+            "title": "Skill1"
+        }
+    ],
+    "experiences": "experiences",
+    "approximation_cph": "approximation_cph",
+    "initial_cost": "initial_cost",
+    "province_name": "Tehran",
+    "city_name": "Tehran",
+    "average_rating": 0.0
+}
+```
+If Job Doesn't Exist.
+```json
+{
+    "detail": "You do not have permission to perform this action."
+}
+```
+
+
+
+
+
+
