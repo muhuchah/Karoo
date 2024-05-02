@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:project/component/job_file.dart';
 import 'package:project/create_job/job_data.dart';
@@ -11,6 +12,7 @@ class JobRequest{
   static const String _jobList = "jobs/list/";
   static const String _jobDetail = "jobs/detail/";
   static const String _userJobs = "jobs/user/info/";
+  static const String _userPictures = "jobs/user/pictures/";
 
   static Future<List<Job>> getJobs() async {
     User user = User();
@@ -65,10 +67,7 @@ class JobRequest{
         }
     );
 
-    print(response.body);
-
     if(response.statusCode == 200){
-      print(response.body);
       Job job = Job.infoJson(jsonDecode(response.body));
       return job;
     }
@@ -144,19 +143,30 @@ class JobRequest{
     var response = await http.post(
         Uri.parse("$_base$_userJobs"),
         headers: <String , String>{
+          "Content-Type": "application/json",
           "Authorization": "Bearer ${user.accessToken!}"
         },
       body:jsonEncode(getJobJson())
     );
 
-    print(response.body);
-
     if(response.statusCode == 201){
-      print(response.body);
       Job newJob = Job.listJson(jsonDecode(response.body));
       return newJob;
     }
 
     throw Exception("Unable to create job");
+  }
+
+  static Future<void> createJobPicture(File image , id) async {
+    User user = User();
+    var request = http.MultipartRequest("POST", Uri.parse(_base+_userPictures));
+    request.headers["Authorization"] = "Bearer ${user.accessToken!}";
+    request.fields["job"] = "$id";
+    request.files.add(await http.MultipartFile.fromPath("image",image.path));
+    var response = await request.send();
+
+    if(response.statusCode != 201){
+      throw Exception("Unable to create image");
+    }
   }
 }

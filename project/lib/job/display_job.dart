@@ -7,24 +7,31 @@ import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/my_appbars.dart';
 
 import '../component/job_file.dart';
+import '../create_job/job_data.dart';
+import '../widgets/floating_action_button.dart';
 import '../widgets/job_list_tile.dart';
 
-class DisplayJobPage extends StatelessWidget {
+class DisplayJobPage extends StatefulWidget {
   String title;
   String? subCategory;
   Function()? leadingOnTap;
-  Widget? floatingActionButton;
-  DisplayJobPage({super.key , required this.title ,
-    required this.subCategory , required this.leadingOnTap , this.floatingActionButton});
+  bool floatingActionButton;
+  DisplayJobPage({super.key , required this.title , required this.subCategory ,
+    required this.leadingOnTap , required this.floatingActionButton});
 
+  @override
+  State<DisplayJobPage> createState() => _DisplayJobPageState();
+}
+
+class _DisplayJobPageState extends State<DisplayJobPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.background,
       appBar: getAppBar(),
-      body: FutureBuilder(future: subCategory == null ?
+      body: FutureBuilder(future: widget.subCategory == null ?
         JobRequest.getUserJobs() :
-        JobRequest.getJobsBySubCategory(subCategory!),
+        JobRequest.getJobsBySubCategory(widget.subCategory!),
         builder: (context , snapShot){
           if(snapShot.hasData){
             return getJobs(snapShot.data! , context);
@@ -45,15 +52,22 @@ class DisplayJobPage extends StatelessWidget {
           }
         },
       ),
-      floatingActionButton: floatingActionButton,
+      floatingActionButton: widget.floatingActionButton ? MyFloatingActionButton(onTap: (){
+        JobData.createOnTap = (){
+          setState(() {
+            JobData.init();
+          });
+        };
+        Navigator.of(context).pushNamed("/create_job");
+      },) : null
     );
   }
 
   PreferredSizeWidget getAppBar(){
-    if(leadingOnTap == null){
-      return MainAppBar(text: title);
+    if(widget.leadingOnTap == null){
+      return MainAppBar(text: widget.title);
     }
-    return SubAppBar(text: title, leading: leadingOnTap!);
+    return SubAppBar(text: widget.title, leading: widget.leadingOnTap!);
   }
 
   Widget getJobs(List<Job> data , context){

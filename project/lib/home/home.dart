@@ -89,13 +89,7 @@ class _HomeState extends State<Home> {
   void checkJob(){
     if(widget.jobPage == null){
       widget.jobPage = DisplayJobPage(title: "My Jobs", subCategory: null ,
-          leadingOnTap:null ,
-          floatingActionButton: MyFloatingActionButton(onTap: (){
-            JobData.createOnTap = (){
-              setState(() {});
-            };
-            Navigator.of(context).pushNamed("/create_job");
-          },));
+          leadingOnTap:null ,floatingActionButton: true);
       setState(() {
         widget.widgets.insert(2,widget.jobPage!);
       });
@@ -130,6 +124,7 @@ class _HomeState extends State<Home> {
   void subCategoryOnTap(subCategory , index){
     setState(() {
       widget.widgets[index] = DisplayJobPage(title: subCategory,
+        floatingActionButton: false,
         subCategory: subCategory, leadingOnTap: (){
           jobLeading(index);
         }

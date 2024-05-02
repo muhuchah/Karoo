@@ -173,7 +173,7 @@ class JobInfoPage extends StatelessWidget {
                         const CustomText(text: "Description", size: 16,
                             textColor: Colors.black, weight: FontWeight.w500),
                         const SizedBox(height: 10,),
-                        CustomText(text: job.description!, size: 16,
+                        CustomText(text: JobStrings.getDescription(job), size: 16,
                             textColor: Colors.black, weight: FontWeight.normal),
                       ],
                     ),

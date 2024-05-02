@@ -169,6 +169,12 @@ class JobComments extends StatelessWidget {
 }
 
 class JobStrings{
+  static String getDescription(Job job){
+    if(job.description == null || job.description == ""){
+      return "";
+    }
+    return job.description!;
+  }
   static String getExperience(Job job){
     if(job.experience == null || job.experience == ""){
       return "---";

@@ -187,10 +187,10 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                       else{
                         try {
                           Job job = await JobRequest.createJob();
+                          await sendImages(job.id!);
+                          JobData.createOnTap!();
                           Navigator.of(context).pop();
                           Navigator.of(context).pop();
-                          JobData.createOnTap;
-                          print("Yessss");
                         }
                         catch(e){
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -260,6 +260,14 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
       children.add(const SizedBox(height: 10,));
     }
     return children;
+  }
+
+  Future<void> sendImages(int id) async {
+    if(JobData.images.isNotEmpty){
+      for(int i =0;i<JobData.images.length;i++){
+        await JobRequest.createJobPicture(JobData.images[i],id);
+      }
+    }
   }
 
   void _showDialog(text , Function(String value) onTap){
