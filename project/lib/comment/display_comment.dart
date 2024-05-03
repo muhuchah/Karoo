@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/comment/comment_container.dart';
+import 'package:project/comment/comment_page.dart';
 import 'package:project/component/job_file.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/custom_text.dart';
@@ -34,7 +35,9 @@ class DisplayComments extends StatelessWidget {
               padding: const EdgeInsets.all(10.0),
               child: ElevatedButton(
                 onPressed: (){
-
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                    return CommentPage();
+                  }));
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColor.main,
