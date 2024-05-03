@@ -59,7 +59,10 @@ class Job{
   void _setComments(Map<dynamic , dynamic> json){
     var comments = json["comments"];
     for(int i=0;i<comments.length;i++){
-      _comments!.add(Comment(comments[i]["id"],comments[i]["comment"],comments[i]["title"]));
+      _comments!.add(Comment(id : comments[i]["id"],comment : comments[i]["comment"],
+          title : comments[i]["title"] , rating: comments[i]["rating"],
+          date: comments[i]["data"], userEmail: comments[i]["user_email"],
+          userFullName: comments[i]["user_full_name"]));
     }
   }
 

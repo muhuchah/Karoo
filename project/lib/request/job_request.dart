@@ -23,9 +23,8 @@ class JobRequest{
         }
     );
 
-    List<dynamic> body = jsonDecode(response.body);
-
     if(response.statusCode == 200){
+      List<dynamic> body = jsonDecode(response.body);
       List<Job> jobs = [];
       for(int i = 0;i<body.length;i++){
         jobs.add(Job.listJson(body[i]));
@@ -45,9 +44,8 @@ class JobRequest{
         }
     );
 
-    List<dynamic> body = jsonDecode(response.body);
-
     if(response.statusCode == 200){
+      List<dynamic> body = jsonDecode(response.body);
       List<Job> jobs = [];
       for(int i = 0;i<body.length;i++){
         jobs.add(Job.listJson(body[i]));
@@ -84,9 +82,10 @@ class JobRequest{
         }
     );
 
-    List<dynamic> body = jsonDecode(response.body);
+    print(user.accessToken);
 
     if(response.statusCode == 200){
+      List<dynamic> body = jsonDecode(response.body);
       List<Job> jobs = [];
       for(int i = 0;i<body.length;i++){
         jobs.add(Job.listJson(body[i]));
@@ -97,7 +96,7 @@ class JobRequest{
     throw Exception("Unable to get jobs");
   }
 
-  static Future<List<String>> getSkills(subCategory) async {
+  static Future<List<String>> getSkills() async {
     User user = User();
     var response = await http.get(
         Uri.parse("$_base$_userJobs"),
@@ -106,9 +105,8 @@ class JobRequest{
         }
     );
 
-    List<dynamic> body = jsonDecode(response.body);
-
     if(response.statusCode == 200){
+      List<dynamic> body = jsonDecode(response.body);
       List<String> skills = ["Plumber Skill 1","Plumber Skill 2","Plumber Skill 3"];
       return skills;
     }

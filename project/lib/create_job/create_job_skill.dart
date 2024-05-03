@@ -37,7 +37,7 @@ class _CreateJobSkillPageState extends State<CreateJobSkillPage> {
                 textColor: AppColor.text1, weight: FontWeight.w500),
           ),
           const MyDivider(margin: 10,),
-          FutureBuilder(future: JobRequest.getSkills(widget.subCategory),
+          FutureBuilder(future: JobRequest.getSkills(),
             builder: (context , snapShot){
               if(snapShot.hasData){
                 widget.skills = snapShot.data;
