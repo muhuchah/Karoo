@@ -456,6 +456,42 @@ it's status is HTTP_204_NO_CONTENT.
 ***    
 
 
+## Search User
+Get User Public Information With His Email.               
+> URL http://127.0.0.1:8000/users/search/           
+> Method GET             
+
+#### Parameters
+```json
+{
+    "email": "el.chahkandi@gmail.com"
+}
+```
+
+#### Response
+```json
+{
+    "avatar": null,
+    "full_name": "lashv",
+    "phone_number": null,
+    "email": "el.chahkandi@gmail.com"
+}
+```
+
+If email not send
+```json
+{
+    "error": "Email is required"
+}
+```
+
+If user not found
+```json
+{
+    "message": "User with this email not found"
+}
+```
+
 ## Job
 
 ### Get User Job List

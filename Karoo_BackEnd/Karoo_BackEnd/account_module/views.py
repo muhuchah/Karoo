@@ -383,16 +383,19 @@ class CityListView(APIView):
 
 
 class SearchUserAPIView(APIView):
-    serializer_class = UserSettingSerializer
+    serializer_class = UserPublicInfoSerializer
     permission_classes = (IsAuthenticated,)
 
-    def post(self, request, format=None):
+    def post(self, request):
         email = request.data.get('email', None)
         if not email:
             return Response({'error': 'Email is required'}, status=status.HTTP_400_BAD_REQUEST)
 
-        users = User.objects.filter(email=email)
+        try:
+            users = User.objects.get(email=email)
+        except User.DoesNotExist:
+            return Response({'message': 'User with this email not found'}, status=status.HTTP_404_NOT_FOUND)
 
-        user_data = UserPublicInfoSerializer(users, many=True).data
+        user_data = UserPublicInfoSerializer(users).data
 
         return Response(user_data, status=status.HTTP_200_OK)
