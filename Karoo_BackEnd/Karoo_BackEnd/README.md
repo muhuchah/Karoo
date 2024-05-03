@@ -558,6 +558,7 @@ If Job Exists.
             "title": "Comment 1",
             "comment": "This is a comment.",
             "rating": 2,
+            "date": "2024-05-03T08:49:59+03:30",
             "job": 12
         }
     ],
@@ -755,3 +756,63 @@ Add a picture for a job.
 }
 ```
 
+
+
+
+### Job Comments
+
+#### Create a comment
+> URL http://127.0.0.1:8000/jobs/comment/create/          
+> Method POST         
+
+##### Parameters
+```json
+{
+    "title": "Test cccc",
+    "comment": "This is a test comcccment",
+    "rating": 5,
+    "job": 1
+}
+```
+
+##### Response
+```json
+{
+    "id": 2,
+    "user_full_name": "lashv",
+    "user_email": "el.chahkandi@gmail.com",
+    "title": "Test Comment",
+    "comment": "This is a test comment",
+    "rating": 1,
+    "date": "2024-05-03T08:55:59.218925+03:30",
+    "job": 1
+}
+```
+
+#### Edit a comment
+> URL http://127.0.0.1:8000/jobs/comment/edit/{id}              
+> Method PUT              
+
+##### Parameters
+```json
+{
+    "title": "Test cccc",
+    "comment": "This is a test comcccment",
+    "rating": 5,
+    "job": 1
+}
+```
+
+##### Response
+```json
+{
+    "id": 3,
+    "user_full_name": "lashv",
+    "user_email": "el.chahkandi@gmail.com",
+    "title": "Test cccc",
+    "comment": "This is a test comcccment",
+    "rating": 5,
+    "date": "2024-05-03T09:00:57.283926+03:30",
+    "job": 1
+}
+```

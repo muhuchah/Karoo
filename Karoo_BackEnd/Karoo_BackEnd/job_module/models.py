@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils import timezone
 
 from category_module.models import SubCategory
 from account_module.models import User, Province, City
@@ -50,6 +51,10 @@ class job_comments(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=False, blank=False)
     job = models.ForeignKey(job, on_delete=models.CASCADE, related_name='comments')
     rating = models.PositiveSmallIntegerField(choices=((1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5')), default=1)
+    date = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        ordering = ['date']
 
     def __str__(self):
         return f'{self.title}, user:{self.user}, job:{self.job}'
