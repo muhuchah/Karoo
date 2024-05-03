@@ -9,6 +9,7 @@ import 'package:project/request/job_request.dart';
 import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/divider.dart';
 
+import '../comment/display_comment.dart';
 import '../utils/app_color.dart';
 
 class JobInfoPage extends StatelessWidget {
@@ -195,7 +196,9 @@ class JobInfoPage extends StatelessWidget {
                         icon: const Icon(Icons.comment),
                         textButton: TextButton(
                           onPressed: (){
-
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                              return DisplayComments(job: job,);
+                            }));
                           },
                           child: Text("Show All"),
                         ),

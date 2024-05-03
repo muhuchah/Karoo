@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:project/comment/display_comment.dart';
 import 'package:project/job/job_info.dart';
 import 'package:project/request/job_request.dart';
 import 'package:project/utils/app_color.dart';
