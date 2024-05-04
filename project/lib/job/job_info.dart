@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project/component/comment_file.dart';
 import 'package:project/component/job_file.dart';
+import 'package:project/create_job/create_job.dart';
+import 'package:project/create_job/job_data.dart';
 import 'package:project/first/first_page_button.dart';
 import 'package:project/job/icon_text_button_widget.dart';
 import 'package:project/job/icon_text_job_widget.dart';
@@ -14,7 +16,8 @@ import '../utils/app_color.dart';
 
 class JobInfoPage extends StatelessWidget {
   int id;
-  JobInfoPage({super.key , required this.id});
+  bool userJob;
+  JobInfoPage({super.key , required this.id , required this.userJob});
 
   @override
   Widget build(BuildContext context) {
@@ -44,36 +47,45 @@ class JobInfoPage extends StatelessWidget {
     );
   }
 
-  Widget infoWidget(BuildContext context , Job job){
+  Widget infoWidget(BuildContext context , Job job) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height,
+      height: MediaQuery
+          .of(context)
+          .size
+          .height,
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            JobAppBar(images : job.pictures),
+            JobAppBar(images: job.pictures),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
                   padding: const EdgeInsets.all(10),
-                  child: CustomText(text: "${job.mainCategory}/${job.subCategory}",
-                      size: 12, textColor: Colors.black, weight: FontWeight.w600),
+                  child: CustomText(
+                      text: "${job.mainCategory}/${job.subCategory}",
+                      size: 12,
+                      textColor: Colors.black,
+                      weight: FontWeight.w600),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     IconButton(
-                      onPressed:(){
+                      onPressed: () {
 
                       },
-                      icon: const Icon(Icons.bookmark_border , size: 24,),
+                      icon: const Icon(Icons.bookmark_border, size: 24,),
                     ),
                     IconButton(
-                      onPressed:(){
+                      onPressed: () {
 
                       },
-                      icon: Image.asset("asset/icons/exclamation-mark.png",width: 24,height: 24,fit: BoxFit.fill,),
+                      icon: Image.asset(
+                        "asset/icons/exclamation-mark.png", width: 24,
+                        height: 24,
+                        fit: BoxFit.fill,),
                     ),
                   ],
                 )
@@ -81,7 +93,7 @@ class JobInfoPage extends StatelessWidget {
             ),
             const SizedBox(height: 30,),
             Padding(
-              padding:const EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -92,16 +104,16 @@ class JobInfoPage extends StatelessWidget {
                   const MyDivider(),
                   const SizedBox(height: 20,),
                   Padding(
-                    padding:const EdgeInsets.symmetric(horizontal: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
                           children: [
                             IconText(
-                              icon: const Icon(Icons.person_outlined),
-                              text: "Name",
-                              info: ""
+                                icon: const Icon(Icons.person_outlined),
+                                text: "Name",
+                                info: ""
                             ),
                           ],
                         ),
@@ -109,7 +121,8 @@ class JobInfoPage extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(left: 29),
                           child: CustomText(text: "Hamid Mehranfar", size: 16,
-                              textColor: Colors.black, weight: FontWeight.normal),
+                              textColor: Colors.black, weight: FontWeight
+                                  .normal),
                         ),
                       ],
                     ),
@@ -155,7 +168,7 @@ class JobInfoPage extends StatelessWidget {
                     child: IconTextButton(
                       icon: const Icon(Icons.access_time_outlined),
                       text: "Time Table",
-                      textButton:TextButton(
+                      textButton: TextButton(
                         onPressed: () {
 
                         },
@@ -174,7 +187,8 @@ class JobInfoPage extends StatelessWidget {
                         const CustomText(text: "Description", size: 16,
                             textColor: Colors.black, weight: FontWeight.w500),
                         const SizedBox(height: 10,),
-                        CustomText(text: JobStrings.getDescription(job), size: 16,
+                        CustomText(
+                            text: JobStrings.getDescription(job), size: 16,
                             textColor: Colors.black, weight: FontWeight.normal),
                       ],
                     ),
@@ -195,10 +209,11 @@ class JobInfoPage extends StatelessWidget {
                         text: "Comments",
                         icon: const Icon(Icons.comment),
                         textButton: TextButton(
-                          onPressed: (){
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context){
-                              return DisplayComments(job: job,);
-                            }));
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) {
+                                  return DisplayComments(job: job,);
+                                }));
                           },
                           child: Text("Show All"),
                         ),
@@ -218,17 +233,20 @@ class JobInfoPage extends StatelessWidget {
                       children: [
                         const Row(
                           children: [
-                            Icon(Icons.phone_outlined,size: 24,),
+                            Icon(Icons.phone_outlined, size: 24,),
                             SizedBox(width: 5,),
-                            CustomText(text: "Phone Number", size: 16,
-                                textColor: Colors.black, weight: FontWeight.w500),
+                            CustomText(text: "Phone Number",
+                                size: 16,
+                                textColor: Colors.black,
+                                weight: FontWeight.w500),
                           ],
                         ),
                         const SizedBox(height: 15,),
                         Padding(
                           padding: const EdgeInsets.only(left: 29),
                           child: CustomText(text: "09904503067", size: 16,
-                              textColor: Colors.black, weight: FontWeight.normal),
+                              textColor: Colors.black, weight: FontWeight
+                                  .normal),
                         ),
                       ],
                     ),
@@ -236,13 +254,7 @@ class JobInfoPage extends StatelessWidget {
                   const SizedBox(height: 20,),
                   Padding(
                     padding: const EdgeInsets.all(10),
-                    child: FirstPageButton(
-                        text: "Chat",
-                        color: AppColor.main,
-                        onTap:(){
-
-                        }
-                    ),
+                    child: getButtons(job , context)
                   ),
                   const SizedBox(height: 20,)
                 ],
@@ -252,5 +264,40 @@ class JobInfoPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget getButtons(Job job , context){
+    if(userJob){
+      return Column(
+        children: [
+          FirstPageButton(
+            text: "Edit",
+            color: AppColor.main,
+            onTap: () {
+              JobData.setEditValues(job);
+              Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                return CreateJob();
+              }));
+            }
+          ),
+          const SizedBox(height: 30,),
+          FirstPageButton(
+            text: "Delete",
+            color: AppColor.main,
+            onTap: () {
+
+            }
+          ),
+        ],
+      );
+    }
+    else{
+      return FirstPageButton(
+        text: "Chat",
+        color: AppColor.main,
+        onTap: () {
+
+      });
+    }
   }
 }

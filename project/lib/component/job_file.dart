@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:project/component/comment_file.dart';
+import 'package:project/component/image.dart';
 import 'package:project/component/skill_file.dart';
 
 class Job{
@@ -9,7 +10,7 @@ class Job{
   String? _mainCategory;
   String? _subCategory;
   String? _mainPicture;
-  List<String>? _pictures = [];
+  List<ImageFile>? _pictures = [];
   String? _description;
   String? _userEmail;
   String? _province;
@@ -52,7 +53,7 @@ class Job{
   void _setPictures(Map<dynamic , dynamic> json){
     var pictures = json["pictures"];
     for(int i = 0;i<pictures.length;i++){
-      _pictures!.add(pictures[i]["image"]);
+      _pictures!.add(ImageFile(id: pictures[i]["id"], imageUrl: pictures[i]["image"]));
     }
   }
 
@@ -157,9 +158,9 @@ class Job{
     _comments = value;
   }
 
-  List<String>? get pictures => _pictures;
+  List<ImageFile>? get pictures => _pictures;
 
-  set pictures(List<String>? value) {
+  set pictures(List<ImageFile>? value) {
     _pictures = value;
   }
 

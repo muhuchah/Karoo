@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:project/component/job_file.dart';
+import 'package:project/component/skill_file.dart';
 import 'package:project/create_job/job_data.dart';
 
 import '../component/user_file.dart';
@@ -82,8 +83,6 @@ class JobRequest{
         }
     );
 
-    print(user.accessToken);
-
     if(response.statusCode == 200){
       List<dynamic> body = jsonDecode(response.body);
       List<Job> jobs = [];
@@ -96,7 +95,7 @@ class JobRequest{
     throw Exception("Unable to get jobs");
   }
 
-  static Future<List<String>> getSkills() async {
+  static Future<List<Skill>> getSkills() async {
     User user = User();
     var response = await http.get(
         Uri.parse("$_base$_userJobs"),
@@ -107,14 +106,16 @@ class JobRequest{
 
     if(response.statusCode == 200){
       List<dynamic> body = jsonDecode(response.body);
-      List<String> skills = ["Plumber Skill 1","Plumber Skill 2","Plumber Skill 3"];
+
+      List<Skill> skills = [Skill(id: 1, title: "Plumber Skill 1"),
+        Skill(id: 2, title: "Plumber Skill 2"),Skill(id: 3, title: "Plumber Skill 3")];
       return skills;
     }
 
     throw Exception("Unable to load Skills");
   }
 
-  static Map getJobJson(){
+  static Map _getJobJson(){
     Map values = {};
     values["title"] = JobData.title;
     values["SubCategory"] = JobData.subCategoryId;
@@ -133,6 +134,13 @@ class JobRequest{
     if(JobData.initialCost!= ""){
       values["initial_cost"] = JobData.initialCost;
     }
+    
+    List skills = [];
+    for(int i =0;i<JobData.skills.length;i++){
+      skills.add({"title" : JobData.skills[i].title});
+    }
+    values["skills"] = skills;
+
     return values;
   }
 
@@ -144,11 +152,11 @@ class JobRequest{
           "Content-Type": "application/json",
           "Authorization": "Bearer ${user.accessToken!}"
         },
-      body:jsonEncode(getJobJson())
+      body:jsonEncode(_getJobJson())
     );
 
     if(response.statusCode == 201){
-      Job newJob = Job.listJson(jsonDecode(response.body));
+      Job newJob = Job.infoJson(jsonDecode(response.body));
       return newJob;
     }
 
@@ -166,5 +174,60 @@ class JobRequest{
     if(response.statusCode != 201){
       throw Exception("Unable to create image");
     }
+  }
+
+  static Map _getEditBody(Job job){
+    Map values = {};
+    if(job.title != JobData.title){
+      values["title"] = JobData.title;
+    }
+    if(job.subCategory != JobData.subCategory){
+      values["SubCategory"] = JobData.subCategoryId;
+    }
+    if(job.province != JobData.province){
+      values["province"] = JobData.province;
+    }
+    if(job.city != JobData.city){
+      values["city"] = JobData.city;
+    }
+    if(job.description != JobData.description){
+      values["description"] = JobData.description;
+    }
+    if(job.experience != JobData.experience){
+      values["experiences"] = JobData.experience;
+    }
+    if(job.costPerHour != JobData.costPerHour){
+      values["approximation_cph"] = JobData.costPerHour;
+    }
+    if(job.initialCost != JobData.initialCost){
+      values["initial_cost"] = JobData.initialCost;
+    }
+
+    // List skills = [];
+    // for(int i =0;i<JobData.skills.length;i++){
+    //   skills.add({"title" : JobData.skills[i].title});
+    // }
+    // values["skills"] = skills;
+
+    return values;
+  }
+
+  static Future<Job> editJob(Job job)async {
+    User user = User();
+    var response = await http.put(
+        Uri.parse("$_base$_userJobs{${job.id}}"),
+        headers: <String , String>{
+          "Authorization": "Bearer ${user.accessToken!}"
+        },
+      body: _getEditBody(job)
+    );
+
+    print(response.body);
+
+    if(response.statusCode == 200){
+      Job newJob = Job.infoJson(jsonDecode(response.body));
+      return newJob;
+    }
+    throw Exception("Unable to update job");
   }
 }

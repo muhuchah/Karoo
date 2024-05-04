@@ -17,8 +17,9 @@ class DisplayJobPage extends StatefulWidget {
   String? subCategory;
   Function()? leadingOnTap;
   bool floatingActionButton;
+  bool userJob;
   DisplayJobPage({super.key , required this.title , required this.subCategory ,
-    required this.leadingOnTap , required this.floatingActionButton});
+    required this.leadingOnTap , required this.floatingActionButton , required this.userJob});
 
   @override
   State<DisplayJobPage> createState() => _DisplayJobPageState();
@@ -54,7 +55,7 @@ class _DisplayJobPageState extends State<DisplayJobPage> {
         },
       ),
       floatingActionButton: widget.floatingActionButton ? MyFloatingActionButton(onTap: (){
-        JobData.createOnTap = (){
+        JobData.onTap = (){
           setState(() {
             JobData.init();
           });
@@ -81,7 +82,14 @@ class _DisplayJobPageState extends State<DisplayJobPage> {
               onTap: (){
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context){
-                    return JobInfoPage(id : data[index].id!);
+                    if(widget.userJob){
+                      JobData.onTap = (){
+                        setState(() {
+                          JobData.init();
+                        });
+                      };
+                    }
+                    return JobInfoPage(id : data[index].id! , userJob: widget.userJob,);
                   }),
                 );
               },

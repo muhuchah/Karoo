@@ -7,7 +7,7 @@ import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/custom_text.dart';
 
 class CreateJobPicture extends StatefulWidget {
-  CreateJobPicture({super.key});
+  const CreateJobPicture({super.key});
 
   @override
   State<CreateJobPicture> createState() => _CreateJobPictureState();
@@ -28,9 +28,27 @@ class _CreateJobPictureState extends State<CreateJobPicture> {
       const SizedBox(height: 20,)];
 
     List<Widget> rowChildren = [];
-    for(int i=0;i<JobData.images.length;i++){
+
+    if(!JobData.isCreate){
+      for(int i=0;i<JobData.readImages.length;i++){
+        rowChildren.add(
+          getJobImage(JobData.readImages[i].imageUrl , i , true),
+        );
+
+        if((i+1)%3 == 0){
+          children.add(Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: rowChildren,
+          ));
+          children.add(const SizedBox(height: 20,));
+          rowChildren = [];
+        }
+      }
+    }
+    for(int i=JobData.readImages.length;i<JobData.readImages.length+JobData.images.length;i++){
       rowChildren.add(
-        getJobImage(JobData.images[i] , i),
+        getJobImage(JobData.images[i - JobData.readImages.length] ,
+            i - JobData.readImages.length , false),
       );
 
       if((i+1)%3 == 0){
@@ -45,7 +63,7 @@ class _CreateJobPictureState extends State<CreateJobPicture> {
 
     bool add = true;
 
-    for(int i=JobData.images.length;i<6;i++){
+    for(int i=JobData.images.length+JobData.readImages.length;i<6;i++){
       rowChildren.add(
         getBlankImage(add)
       );
@@ -67,16 +85,22 @@ class _CreateJobPictureState extends State<CreateJobPicture> {
     return children;
   }
 
-  Widget getJobImage(image , index){
+  Widget getJobImage(image , index , edit){
     return GestureDetector(
       onTap: (){
         setState(() {
-          JobData.images.removeAt(index);
+          if(edit){
+            JobData.readImages.removeAt(index);
+          }
+          else {
+            JobData.images.removeAt(index);
+          }
         });
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10),
-        child: Image.file(image,width: 80,height: 80,fit: BoxFit.fill,),
+        child: edit ? Image.network(image,width: 80,height: 80,fit: BoxFit.fill,) :
+        Image.file(image,width: 80,height: 80,fit: BoxFit.fill,),
       ),
     );
   }

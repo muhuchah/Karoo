@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project/component/job_file.dart';
 import 'package:project/create_job/create_job_location.dart';
 import 'package:project/create_job/create_job_skill.dart';
+import 'package:project/job/job_info.dart';
 import 'package:project/request/job_request.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/custom_text.dart';
@@ -186,11 +187,27 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                       }
                       else{
                         try {
-                          Job job = await JobRequest.createJob();
-                          await sendImages(job.id!);
-                          JobData.createOnTap!();
-                          Navigator.of(context).pop();
-                          Navigator.of(context).pop();
+                          Job job;
+                          if(JobData.isCreate) {
+                            job = await JobRequest.createJob();
+                            await sendImages(job.id!);
+
+                            JobData.onTap!();
+                            Navigator.of(context).pop();
+                            Navigator.of(context).pop();
+                          }
+                          else{
+                            job = await JobRequest.editJob(JobData.job!);
+
+                            JobData.onTap!();
+                            Navigator.of(context).pop();
+                            Navigator.of(context).pop();
+                            Navigator.of(context).pop();
+                          }
+
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                            return JobInfoPage(id : job.id! , userJob: true);
+                          }));
                         }
                         catch(e){
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -249,7 +266,7 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
     for(int i=0;i<JobData.skills.length;i++){
       children.add(
         CreateJobTextIcon(icon: null,
-          assetPath: "asset/icons/arrow_drop_forward.png", text: JobData.skills[i],
+          assetPath: "asset/icons/arrow_drop_forward.png", text: JobData.skills[i].title,
           onTapAssetPath: "asset/icons/multiply.svg", onTap: (){
             setState(() {
               JobData.skills.removeAt(i);

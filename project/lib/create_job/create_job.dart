@@ -13,8 +13,12 @@ import '../category/sub_category.dart';
 import 'job_data.dart';
 
 class CreateJob extends StatefulWidget {
-  TextEditingController titleController = TextEditingController();
-  TextEditingController descriptionController = TextEditingController();
+  TextEditingController titleController = TextEditingController(
+    text: JobData.title == "" ? "" : JobData.title,
+  );
+  TextEditingController descriptionController = TextEditingController(
+    text : JobData.description == "" ? null : JobData.description,
+  );
   FocusNode titleFocus = FocusNode();
   final _formKey = GlobalKey<FormState>();
   CreateJob({super.key});
@@ -52,8 +56,8 @@ class _CreateJobState extends State<CreateJob> {
                   ),
                 ),
                 const MyDivider(margin: 10,),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20 , vertical: 20),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20 , vertical: 20),
                   child: CreateJobPicture(),
                 ),
                 Padding(
@@ -65,10 +69,9 @@ class _CreateJobState extends State<CreateJob> {
                           textColor: Colors.black, weight: FontWeight.normal),
                       const SizedBox(height: 10,),
                       TextFormField(
-                        decoration: InputDecoration(hintText: "Job Title" ,
-                            labelText: JobData.title == "" ? null : JobData.title,
-                            hintStyle:const  TextStyle(color: AppColor.hint,fontSize: 16),
-                            border: const UnderlineInputBorder()
+                        decoration: const InputDecoration(hintText: "Job Title" ,
+                            hintStyle: TextStyle(color: AppColor.hint,fontSize: 16),
+                            border: UnderlineInputBorder(),
                         ),
                         controller: widget.titleController,
                         focusNode: widget.titleFocus,

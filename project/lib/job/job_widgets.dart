@@ -2,13 +2,14 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:project/component/comment_file.dart';
 
+import '../component/image.dart';
 import '../component/job_file.dart';
 import '../utils/app_color.dart';
 import '../widgets/custom_text.dart';
 import '../widgets/divider.dart';
 
 class JobAppBar extends StatelessWidget{
-  List<String>? images;
+  List<ImageFile>? images;
   JobAppBar({super.key , required this.images});
 
   @override
@@ -46,7 +47,7 @@ class JobAppBar extends StatelessWidget{
     }
     else{
       for(int i = 0;i<images!.length;i++){
-        items.add(Image.network(images![i],height: 240,width: double.infinity,
+        items.add(Image.network(images![i].imageUrl,height: 240,width: double.infinity,
           fit: BoxFit.fill,));
       }
     }

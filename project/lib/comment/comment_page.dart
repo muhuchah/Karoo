@@ -144,7 +144,7 @@ class _CommentPageState extends State<CommentPage> {
             IconButton(
               onPressed: (){
                 setState(() {
-                  widget.selectedRating = i;
+                  widget.selectedRating = 0;
                 });
               },
               icon: const Icon(Icons.star_rounded

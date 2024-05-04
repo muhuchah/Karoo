@@ -161,7 +161,7 @@ class HomePage extends StatelessWidget {
             onTap: (){
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context){
-                  return JobInfoPage(id : data[i].id!);
+                  return JobInfoPage(id : data[i].id! , userJob: false,);
                 }),
               );
             },

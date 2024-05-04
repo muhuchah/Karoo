@@ -5,14 +5,15 @@ import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/divider.dart';
 import 'package:project/widgets/my_appbars.dart';
 
+import '../component/skill_file.dart';
 import '../widgets/long_button.dart';
 
 class CreateJobSkillPage extends StatefulWidget {
   String subCategory;
-  List<String>? skills;
-  List<String> preSkills;
+  List<Skill>? skills;
+  List<Skill> preSkills;
   List<bool>? selectedSkills;
-  Function(List<String> skills) onTap;
+  Function(List<Skill> skills) onTap;
   CreateJobSkillPage({super.key , required this.subCategory ,
     required this.preSkills , required this.onTap});
 
@@ -66,7 +67,7 @@ class _CreateJobSkillPageState extends State<CreateJobSkillPage> {
                               ),
                             ),
                             const SizedBox(width: 5,),
-                            CustomText(text: widget.skills![index], size: 16,
+                            CustomText(text: widget.skills![index].title, size: 16,
                               textColor: getTextColor(widget.selectedSkills![index]),
                               weight: FontWeight.normal),
                           ],
@@ -105,8 +106,8 @@ class _CreateJobSkillPageState extends State<CreateJobSkillPage> {
     );
   }
 
-  List<String> _getSkills(){
-    List<String> skills = [];
+  List<Skill> _getSkills(){
+    List<Skill> skills = [];
     for(int i = 0;i<widget.selectedSkills!.length;i++){
       if(widget.selectedSkills![i]){
         skills.add(widget.skills![i]);
