@@ -60,7 +60,9 @@ class _DisplayJobPageState extends State<DisplayJobPage> {
             JobData.init();
 
             Navigator.of(context).push(MaterialPageRoute(builder: (context){
-              return JobInfoPage(id : job.id! , userJob: true);
+              return JobInfoPage(id : job.id! , userJob: true , deleteOnTap: (){
+                setState(() {});
+              },);
             }));
           });
         };
@@ -96,7 +98,11 @@ class _DisplayJobPageState extends State<DisplayJobPage> {
                         });
                       };
                     }
-                    return JobInfoPage(id : data[index].id! , userJob: widget.userJob,);
+                    return JobInfoPage(id : data[index].id! ,
+                      userJob: widget.userJob,deleteOnTap: (){
+                      setState(() {});
+                      },
+                    );
                   }),
                 );
               },

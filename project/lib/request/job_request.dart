@@ -241,4 +241,17 @@ class JobRequest {
       throw Exception("Unable to delete image");
     }
   }
+
+  static Future<void> deleteJob(Job job) async {
+    User user = User();
+    var response = await http.delete(Uri.parse("$_base$_userJobs${job.id}/"),
+        headers: <String, String>{
+          "Content-Type": "application/json",
+          "Authorization": "Bearer ${user.accessToken!}"
+        },);
+
+    if (response.statusCode != 204) {
+      throw Exception("Unable to update job");
+    }
+  }
 }

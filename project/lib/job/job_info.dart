@@ -17,7 +17,8 @@ import '../utils/app_color.dart';
 class JobInfoPage extends StatelessWidget {
   int id;
   bool userJob;
-  JobInfoPage({super.key , required this.id , required this.userJob});
+  Function? deleteOnTap;
+  JobInfoPage({super.key , required this.id , required this.userJob , this.deleteOnTap});
 
   @override
   Widget build(BuildContext context) {
@@ -284,8 +285,10 @@ class JobInfoPage extends StatelessWidget {
           FirstPageButton(
             text: "Delete",
             color: AppColor.main,
-            onTap: () {
-
+            onTap: () async {
+              await JobRequest.deleteJob(job);
+              Navigator.of(context).pop();
+              deleteOnTap!();
             }
           ),
         ],
