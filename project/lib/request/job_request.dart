@@ -15,6 +15,7 @@ class JobRequest {
   static const String _jobDetail = "jobs/detail/";
   static const String _userJobs = "jobs/user/info/";
   static const String _userPictures = "jobs/user/pictures/";
+  static const String _skills = "jobs/skills/";
 
   static Future<List<Job>> getJobs() async {
     User user = User();
@@ -91,19 +92,19 @@ class JobRequest {
 
   static Future<List<Skill>> getSkills() async {
     User user = User();
-    var response = await http.get(Uri.parse("$_base$_userJobs"),
+    var response = await http.get(Uri.parse("$_base$_skills"),
         headers: <String, String>{
           "Authorization": "Bearer ${user.accessToken!}"
         });
 
     if (response.statusCode == 200) {
       List<dynamic> body = jsonDecode(response.body);
+      List<Skill> skills = [];
 
-      List<Skill> skills = [
-        Skill(id: 1, title: "Plumber Skill 1"),
-        Skill(id: 2, title: "Plumber Skill 2"),
-        Skill(id: 3, title: "Plumber Skill 3")
-      ];
+      for(int i=0;i<body.length;i++){
+        skills.add(Skill(id: body[i]["id"], title: body[i]["title"]));
+      }
+
       return skills;
     }
 
