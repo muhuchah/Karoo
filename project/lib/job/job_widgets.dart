@@ -143,9 +143,15 @@ class JobComments extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: _getWidgets()
+    int size = _getSize();
+    return SizedBox(
+      height: size == 0 ? 10 : size == 1 ? 100 : 200,
+      child: ListView.builder(
+        padding: const EdgeInsets.all(0),
+        itemBuilder: (context , index){
+          return _getWidget(index, size);
+        },
+        itemCount: size),
     );
   }
 
@@ -156,32 +162,37 @@ class JobComments extends StatelessWidget {
     return 10;
   }
 
-  List<Widget> _getWidgets(){
+  Widget _getWidget(int index , int size){
     List<Widget> children = [];
-    int length = _getSize();
-    for(int i=0;i<length;i++){
-      children.add(
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CustomText(text: comments[i].comment!, size: 16,
-                  textColor: Colors.black, weight: FontWeight.normal),
-              const SizedBox(height: 10,),
-              // CustomText(text: comments[i].time!, size: 12,
-              //     textColor: Colors.black, weight: FontWeight.normal),
-            ],
-          ),
+    children.add(
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CustomText(text: comments[index].title!, size: 16,
+                textColor: Colors.black, weight: FontWeight.normal),
+            const SizedBox(height: 10,),
+            CustomText(text: comments[index].comment!, size: 16,
+                textColor: Colors.black, weight: FontWeight.normal),
+            const SizedBox(height: 10,),
+            CustomText(text: comments[index].date == null ? "" : comments[index].date!,
+                size: 12, textColor: Colors.black, weight: FontWeight.normal),
+          ],
         ),
-      );
-      if(i!=length-1){
-        children.add(const SizedBox(height: 20,));
-        children.add(const MyDivider());
-        children.add(const SizedBox(height: 20,));
-      }
+      ),
+    );
+
+    if(index!=size-1){
+      children.add(const SizedBox(height: 20,));
+      children.add(const MyDivider());
+      children.add(const SizedBox(height: 20,));
     }
-    return children;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: children,
+    );
   }
 }
 
