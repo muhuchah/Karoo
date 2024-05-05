@@ -105,13 +105,12 @@ class _CreateJobState extends State<CreateJob> {
                         child: TextField(
                           keyboardType: TextInputType.multiline,
                           maxLines: 4,
-                          decoration: InputDecoration(hintText: "Description" ,
-                            labelText: JobData.description == "" ? null : JobData.description,
-                            hintStyle: const TextStyle(color: AppColor.hint,fontSize: 16),
-                            enabledBorder: const OutlineInputBorder(
+                          decoration: const InputDecoration(hintText: "Description" ,
+                            hintStyle: TextStyle(color: AppColor.hint,fontSize: 16),
+                            enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.white)
                             ),
-                            focusedBorder: const OutlineInputBorder(
+                            focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.white)
                             ),
                           ),
@@ -134,6 +133,7 @@ class _CreateJobState extends State<CreateJob> {
                       }
                       else if(widget._formKey.currentState!.validate()){
                         JobData.title = widget.titleController.text;
+                        JobData.description = widget.descriptionController.text;
                         Navigator.of(context).push(MaterialPageRoute(builder: (context){
                           return CreateJobInfoPage();
                         }));

@@ -55,9 +55,13 @@ class _DisplayJobPageState extends State<DisplayJobPage> {
         },
       ),
       floatingActionButton: widget.floatingActionButton ? MyFloatingActionButton(onTap: (){
-        JobData.onTap = (){
+        JobData.onTap = (job , context){
           setState(() {
             JobData.init();
+
+            Navigator.of(context).push(MaterialPageRoute(builder: (context){
+              return JobInfoPage(id : job.id! , userJob: true);
+            }));
           });
         };
         Navigator.of(context).pushNamed("/create_job");
@@ -83,8 +87,11 @@ class _DisplayJobPageState extends State<DisplayJobPage> {
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context){
                     if(widget.userJob){
-                      JobData.onTap = (){
+                      JobData.onTap = (job , context){
                         setState(() {
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                            return JobInfoPage(id : job.id! , userJob: true);
+                          }));
                           JobData.init();
                         });
                       };

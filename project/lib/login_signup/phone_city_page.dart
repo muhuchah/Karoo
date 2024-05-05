@@ -84,24 +84,24 @@ class _PhoneCityPageState extends State<PhoneCityPage> {
                           phoneFocus.requestFocus();
                         }
                       }
-                      // else if(selectedProvince=="-----"){
-                      //   ScaffoldMessenger.of(context).showSnackBar(
-                      //       SnackBar(content: Text("choose a province"),
-                      //         duration: Duration(seconds: 2),)
-                      //   );
-                      // }
-                      // else if(selectedCity=="-----"){
-                      //   ScaffoldMessenger.of(context).showSnackBar(
-                      //       SnackBar(content: Text("choose a city"),
-                      //         duration: Duration(seconds: 2),)
-                      //   );
-                      // }
+                      else if(selectedProvince=="-----"){
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text("choose a province"),
+                              duration: Duration(seconds: 2),)
+                        );
+                      }
+                      else if(selectedCity=="-----"){
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text("choose a city"),
+                              duration: Duration(seconds: 2),)
+                        );
+                      }
                       else{
                         try{
                           await UserRequest.changeInfo("phone_number",
                               phoneController!.text);
-                          // await UserRequest.setAddress(selectedProvince!,
-                          //     selectedCity! );
+                          await UserRequest.setAddress(selectedProvince!,
+                              selectedCity! );
 
                           Navigator.of(context).pushReplacementNamed("/home");
                         }

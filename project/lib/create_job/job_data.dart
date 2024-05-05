@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:project/component/skill_file.dart';
 
 import '../component/image.dart';
@@ -19,7 +20,7 @@ class JobData{
   static String initialCost = "";
   static String costPerHour = "";
   static List<Skill> skills = [];
-  static Function()? onTap;
+  static Function(Job job ,BuildContext context)? onTap;
   static Job? job;
 
   static void init(){
@@ -37,7 +38,6 @@ class JobData{
     JobData.initialCost = "";
     JobData.costPerHour = "";
     JobData.skills = [];
-    JobData.onTap = null;
   }
 
   static void setEditValues(Job job){

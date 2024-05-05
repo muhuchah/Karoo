@@ -192,24 +192,22 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                             job = await JobRequest.createJob();
                             await sendImages(job.id!);
 
-                            JobData.onTap!();
                             Navigator.of(context).pop();
                             Navigator.of(context).pop();
+                            JobData.onTap!(job , context);
                           }
                           else{
                             job = await JobRequest.editJob(JobData.job!);
+                            await editImagesRequest(job);
 
-                            JobData.onTap!();
                             Navigator.of(context).pop();
                             Navigator.of(context).pop();
                             Navigator.of(context).pop();
+                            JobData.onTap!(job , context);
                           }
-
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context){
-                            return JobInfoPage(id : job.id! , userJob: true);
-                          }));
                         }
                         catch(e){
+                          print(e);
                           ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text(e.toString()),
                                 duration: const Duration(seconds: 2),));
@@ -285,6 +283,25 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
         await JobRequest.createJobPicture(JobData.images[i],id);
       }
     }
+  }
+
+  Future<void> editImagesRequest(Job job) async{
+    if(JobData.readImages.length < job.pictures!.length){
+      for(int i =0;i<job.pictures!.length;i++){
+        bool check = false;
+        for(int j =0;j<JobData.readImages.length;j++){
+          if(job.pictures![i].id == JobData.readImages[j].id){
+            check = true;
+            break;
+          }
+        }
+        if(!check){
+          await JobRequest.deleteJobPicture(job.pictures![i]);
+        }
+      }
+    }
+
+    await sendImages(job.id!);
   }
 
   void _showDialog(text , Function(String value) onTap){
