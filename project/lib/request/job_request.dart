@@ -206,11 +206,11 @@ class JobRequest {
       values["initial_cost"] = JobData.initialCost;
     }
 
-    // List<Map> skills = [];
-    // for (int i = 0; i < JobData.skills.length; i++) {
-    //   skills.add({"title": JobData.skills[i].title});
-    // }
-    // values["skills"] = skills;
+    List<Map> skills = [];
+    for (int i = 0; i < JobData.skills.length; i++) {
+      skills.add({"title": JobData.skills[i].title});
+    }
+    values["skills"] = skills;
 
     return values;
   }

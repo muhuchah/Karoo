@@ -126,7 +126,8 @@ class _CommentPageState extends State<CommentPage> {
   List<Widget> getStars() {
     List<Widget> children = [];
     for(int i = 1; i<=5 ; i++){
-      if(widget.selectedRating == 0 || i>widget.selectedRating){
+      if(widget.selectedRating == 0 ||
+          i>widget.selectedRating){
         children.add(
           IconButton(
             onPressed: (){
@@ -144,7 +145,12 @@ class _CommentPageState extends State<CommentPage> {
             IconButton(
               onPressed: (){
                 setState(() {
-                  widget.selectedRating = 0;
+                  if(i == widget.selectedRating) {
+                    widget.selectedRating = 0;
+                  }
+                  else{
+                    widget.selectedRating = i;
+                  }
                 });
               },
               icon: const Icon(Icons.star_rounded
