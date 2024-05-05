@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project/component/comment_file.dart';
 import 'package:project/component/job_file.dart';
@@ -8,6 +9,7 @@ import 'package:project/job/icon_text_button_widget.dart';
 import 'package:project/job/icon_text_job_widget.dart';
 import 'package:project/job/job_widgets.dart';
 import 'package:project/request/job_request.dart';
+import 'package:project/request/user_requests.dart';
 import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/divider.dart';
 
@@ -28,27 +30,51 @@ class JobInfoPage extends StatelessWidget {
         future: JobRequest.getJobDetail(id),
         builder: (context,snapShot) {
           if(snapShot.hasData){
-            return infoWidget(context , snapShot.data!);
+            return searchUserWidget(context , snapShot.data!);
           }
           else if(snapShot.hasError){
             return SizedBox(
               height: 200,
               child: Center(
                 child: Text(snapShot.error.toString() ,
-                  style: TextStyle(fontSize: 20),
+                  style: const TextStyle(fontSize: 20),
                 ),
               ),
             );
           }
           else{
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           }
         },
       )
     );
   }
 
-  Widget infoWidget(BuildContext context , Job job) {
+  Widget searchUserWidget(BuildContext context , Job job){
+    return FutureBuilder(
+      future: UserRequest.searchUser(job.userEmail!),
+      builder: (context,snapShot) {
+        if(snapShot.hasData){
+          return infoWidget(context , job , snapShot.data!);
+        }
+        else if(snapShot.hasError){
+          return SizedBox(
+            height: 200,
+            child: Center(
+              child: Text(snapShot.error.toString() ,
+                style: const TextStyle(fontSize: 20),
+              ),
+            ),
+          );
+        }
+        else{
+          return const CircularProgressIndicator();
+        }
+      },
+    );
+  }
+
+  Widget infoWidget(BuildContext context , Job job , List<String> userValues) {
     return SizedBox(
       height: MediaQuery
           .of(context)
@@ -121,7 +147,7 @@ class JobInfoPage extends StatelessWidget {
                         const SizedBox(height: 15,),
                         Padding(
                           padding: const EdgeInsets.only(left: 29),
-                          child: CustomText(text: "Hamid Mehranfar", size: 16,
+                          child: CustomText(text: userValues[0], size: 16,
                               textColor: Colors.black, weight: FontWeight
                                   .normal),
                         ),
@@ -173,7 +199,7 @@ class JobInfoPage extends StatelessWidget {
                         onPressed: () {
 
                         },
-                        child: Text("Show"),
+                        child: const Text("Show"),
                       ),
                     ),
                   ),
@@ -199,7 +225,7 @@ class JobInfoPage extends StatelessWidget {
                   const SizedBox(height: 15,),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: JobSkills(skills: []),
+                    child: JobSkills(skills: job.skills!),
                   ),
                   const SizedBox(height: 20,),
                   const MyDivider(),
@@ -216,19 +242,19 @@ class JobInfoPage extends StatelessWidget {
                                   return DisplayComments(job: job,);
                                 }));
                           },
-                          child: Text("Show All"),
+                          child: const Text("Show All"),
                         ),
                       )
                   ),
                   const SizedBox(height: 10,),
                   const MyDivider(),
                   const SizedBox(height: 20,),
-                  JobComments(comments: []),
+                  JobComments(comments: job.comments!),
                   const SizedBox(height: 20,),
                   const MyDivider(),
                   const SizedBox(height: 30,),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -245,7 +271,7 @@ class JobInfoPage extends StatelessWidget {
                         const SizedBox(height: 15,),
                         Padding(
                           padding: const EdgeInsets.only(left: 29),
-                          child: CustomText(text: "09904503067", size: 16,
+                          child: CustomText(text: userValues[1], size: 16,
                               textColor: Colors.black, weight: FontWeight
                                   .normal),
                         ),

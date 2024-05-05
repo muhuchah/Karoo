@@ -31,6 +31,7 @@ class Job{
     _rating = json["average_rating"];
     _province = json["province_name"];
     _city = json["city_name"];
+    _userEmail = json["user_email"];
     _setComments(json);
     _setSkills(json);
     _experience = json["experiences"];

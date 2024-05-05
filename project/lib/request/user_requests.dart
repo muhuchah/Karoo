@@ -14,6 +14,7 @@ class UserRequest{
   static const String _provinces = "users/provinces/";
   static const String _cities = "users/cities/";
   static const String _address = "users/settings/address-list/";
+  static const String _userSearch = "users/search/";
 
   static Future<String> signup({
     required String fullName , required String email,
@@ -246,5 +247,26 @@ class UserRequest{
       return jsonDecode(response.body)["access"];
     }
     throw Exception("Unable get access");
+  }
+
+  static Future<List<String>> searchUser(String email) async {
+    User user = User();
+    final response = await http.post(Uri.parse(_base+_userSearch),
+        headers: <String , String>{
+          "Authorization": "Bearer ${user.accessToken!}",
+        },
+        body: <String , String>{
+          "email" : email
+        }
+    );
+
+    if(response.statusCode == 200){
+      List<String> values = [
+        jsonDecode(response.body)["full_name"],
+        jsonDecode(response.body)["phone_number"]
+      ];
+      return values;
+    }
+    throw Exception("Unable to search user");
   }
 }

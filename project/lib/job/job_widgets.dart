@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:project/component/comment_file.dart';
+import 'package:project/component/skill_file.dart';
 
 import '../component/image.dart';
 import '../component/job_file.dart';
@@ -21,7 +22,7 @@ class JobAppBar extends StatelessWidget{
           items: getImages(),
           options: CarouselOptions(
             enableInfiniteScroll: false,
-            viewportFraction: 0.8,
+            viewportFraction: 1,
             enlargeCenterPage: true,
             initialPage: 0
           )
@@ -100,7 +101,7 @@ class JobUserName extends StatelessWidget{
 }
 
 class JobSkills extends StatelessWidget{
-  List<String> skills;
+  List<Skill> skills;
 
   JobSkills({super.key, required this.skills});
 
@@ -123,9 +124,9 @@ class JobSkills extends StatelessWidget{
       children.add(
         Row(
           children: [
-            Image.asset("asset/icons/arrow_drop_forward.png"),
+            Image.asset("asset/icons/arrow_drop_forward.png",width: 15,height: 15,),
             const SizedBox(width: 5,),
-            CustomText(text: skills[i], size: 16,
+            CustomText(text: skills[i].title, size: 16,
                 textColor: Colors.black, weight: FontWeight.normal),
           ],
         ),
