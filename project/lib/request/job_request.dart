@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:project/component/comment_file.dart';
 import 'package:project/component/image.dart';
 import 'package:project/component/job_file.dart';
 import 'package:project/component/skill_file.dart';
@@ -16,6 +17,7 @@ class JobRequest {
   static const String _userJobs = "jobs/user/info/";
   static const String _userPictures = "jobs/user/pictures/";
   static const String _skills = "jobs/skills/";
+  static const String _createComment = "jobs/comment/create/";
 
   static Future<List<Job>> getJobs() async {
     User user = User();
@@ -253,6 +255,33 @@ class JobRequest {
 
     if (response.statusCode != 204) {
       throw Exception("Unable to update job");
+    }
+  }
+
+  static Map _getCommentBody(String title , String comment
+      , int rating , int jobId){
+
+    Map values = {};
+    values["title"] = title;
+    values["comment"] = comment;
+    values["rating"] = rating;
+    values["job"] = jobId;
+
+    return values;
+  }
+
+  static Future<void> createComment(String title , String comment
+      , int rating , int jobId) async {
+    User user = User();
+    var response = await http.post(Uri.parse("$_base$_createComment"),
+        headers: <String, String>{
+          "Content-Type": "application/json",
+          "Authorization": "Bearer ${user.accessToken!}"
+        },
+        body: jsonEncode(_getCommentBody(title, comment, rating, jobId)));
+
+    if (response.statusCode != 201) {
+      throw Exception("Unable to create comment");
     }
   }
 }

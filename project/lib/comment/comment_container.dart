@@ -3,13 +3,11 @@ import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/divider.dart';
 
+import '../component/comment_file.dart';
+
 class CommentTile extends StatelessWidget {
-  String title;
-  String comment;
-  String date;
-  int rating;
-  CommentTile({super.key , required this.title , required this.date,
-      required this.comment , required this.rating});
+  Comment comment;
+  CommentTile({super.key , required this.comment});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +26,7 @@ class CommentTile extends StatelessWidget {
                     children: [
                       SizedBox(width: 40,
                         child: Row(children: [
-                          CustomText(text: rating.toString(), size: 12,
+                          CustomText(text: comment.rating.toString(), size: 12,
                               textColor: AppColor.loginText1, weight: FontWeight.normal),
                           const SizedBox(width: 2,),
                           const Icon(Icons.star,size: 15,color: AppColor.loginText1,),
@@ -36,7 +34,7 @@ class CommentTile extends StatelessWidget {
                       ),
                       SizedBox(
                         width: 200,
-                        child: Text(title , overflow: TextOverflow.ellipsis ,
+                        child: Text(comment.title! , overflow: TextOverflow.ellipsis ,
                           maxLines: 1,style: const TextStyle(fontSize: 16 ,
                             color: Colors.black , fontWeight: FontWeight.w500
                           ),
@@ -46,7 +44,6 @@ class CommentTile extends StatelessWidget {
                   ),
                   IconButton(
                     onPressed:(){
-
                     },
                     icon: Icon(Icons.more_vert , size: 24 , color: Colors.black,)
                   ),
@@ -54,7 +51,7 @@ class CommentTile extends StatelessWidget {
               ),
               Row(children: [
                 const SizedBox(width: 40,),
-                CustomText(text: date, size: 12,
+                CustomText(text: comment.date == null ? "" : comment.date!, size: 12,
                     textColor: AppColor.hint, weight: FontWeight.normal)
               ],),
             ],
@@ -66,7 +63,7 @@ class CommentTile extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomText(text: comment, size: 16,
+              CustomText(text: comment.comment!, size: 16,
                   textColor: Colors.black, weight: FontWeight.normal),
               const SizedBox(height: 10,),
               Align(

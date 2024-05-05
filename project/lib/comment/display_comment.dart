@@ -24,10 +24,9 @@ class DisplayComments extends StatelessWidget {
             height: MediaQuery.of(context).size.height-180,
             child: ListView.builder(
               itemBuilder: (context , index){
-                return CommentTile(title: "Good", comment: "Good plumber",
-                    rating: 2 , date: "10 days ago",);
+                return CommentTile(comment: job.comments![index],);
               },
-              itemCount: 10),
+              itemCount: job.comments!.length),
           ),
           Align(
             alignment: Alignment.centerRight,
@@ -36,7 +35,7 @@ class DisplayComments extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: (){
                   Navigator.of(context).push(MaterialPageRoute(builder: (context){
-                    return CommentPage();
+                    return CommentPage(job : job);
                   }));
                 },
                 style: ElevatedButton.styleFrom(

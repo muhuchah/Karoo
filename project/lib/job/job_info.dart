@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:project/comment/comment_data.dart';
 import 'package:project/component/comment_file.dart';
 import 'package:project/component/job_file.dart';
 import 'package:project/create_job/create_job.dart';
@@ -16,18 +17,23 @@ import 'package:project/widgets/divider.dart';
 import '../comment/display_comment.dart';
 import '../utils/app_color.dart';
 
-class JobInfoPage extends StatelessWidget {
+class JobInfoPage extends StatefulWidget {
   int id;
   bool userJob;
   Function? deleteOnTap;
   JobInfoPage({super.key , required this.id , required this.userJob , this.deleteOnTap});
 
   @override
+  State<JobInfoPage> createState() => _JobInfoPageState();
+}
+
+class _JobInfoPageState extends State<JobInfoPage> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.background,
       body: FutureBuilder(
-        future: JobRequest.getJobDetail(id),
+        future: JobRequest.getJobDetail(widget.id),
         builder: (context,snapShot) {
           if(snapShot.hasData){
             return searchUserWidget(context , snapShot.data!);
@@ -237,10 +243,15 @@ class JobInfoPage extends StatelessWidget {
                         icon: const Icon(Icons.comment),
                         textButton: TextButton(
                           onPressed: () {
+                            CommentData.onSubmitTap = (){
+                              setState(() {});
+                            };
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) {
                                   return DisplayComments(job: job,);
-                                }));
+                                }
+                              )
+                            );
                           },
                           child: const Text("Show All"),
                         ),
@@ -294,7 +305,7 @@ class JobInfoPage extends StatelessWidget {
   }
 
   Widget getButtons(Job job , context){
-    if(userJob){
+    if(widget.userJob){
       return Column(
         children: [
           FirstPageButton(
@@ -314,7 +325,7 @@ class JobInfoPage extends StatelessWidget {
             onTap: () async {
               await JobRequest.deleteJob(job);
               Navigator.of(context).pop();
-              deleteOnTap!();
+              widget.deleteOnTap!();
             }
           ),
         ],

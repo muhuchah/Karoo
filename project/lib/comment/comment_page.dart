@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:project/comment/comment_data.dart';
+import 'package:project/request/job_request.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/divider.dart';
 import 'package:project/widgets/my_appbars.dart';
 
+import '../component/job_file.dart';
 import '../first/first_page_button.dart';
 import '../widgets/custom_text.dart';
+import 'display_comment.dart';
 
 class CommentPage extends StatefulWidget {
+  Job job;
   TextEditingController titleController = TextEditingController();
-  TextEditingController descriptionController = TextEditingController();
+  TextEditingController commentController = TextEditingController();
   FocusNode titleFocus = FocusNode();
+  FocusNode commentFocus = FocusNode();
   final _formKey = GlobalKey<FormState>();
   int selectedRating = 0;
-  CommentPage({super.key});
+  CommentPage({super.key , required this.job});
 
   @override
   State<CommentPage> createState() => _CommentPageState();
@@ -52,8 +58,8 @@ class _CommentPageState extends State<CommentPage> {
                       const SizedBox(height: 10,),
                       TextFormField(
                         decoration: const InputDecoration(hintText: "Title" ,
-                          hintStyle:const  TextStyle(color: AppColor.hint,fontSize: 16),
-                          border: const UnderlineInputBorder()
+                          hintStyle: TextStyle(color: AppColor.hint,fontSize: 16),
+                          border: UnderlineInputBorder()
                         ),
                         controller: widget.titleController,
                         focusNode: widget.titleFocus,
@@ -84,33 +90,71 @@ class _CommentPageState extends State<CommentPage> {
                           borderRadius: BorderRadius.circular(10),
                           color: Colors.white,
                         ),
-                        child: TextField(
+                        child: TextFormField(
                           keyboardType: TextInputType.multiline,
                           maxLines: 8,
                           decoration: const InputDecoration(hintText: "Comment" ,
-                            hintStyle: const TextStyle(color: AppColor.hint,fontSize: 16),
-                            enabledBorder: const OutlineInputBorder(
+                            hintStyle: TextStyle(color: AppColor.hint,fontSize: 16),
+                            enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.white)
                             ),
-                            focusedBorder: const OutlineInputBorder(
+                            focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.white)
                             ),
                           ),
-                          controller: widget.descriptionController,
+                          controller: widget.commentController,
+                          focusNode: widget.commentFocus,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          validator: (value){
+                            if(value==null || value.isEmpty){
+                              return "Please enter comment";
+                            }
+                            return null;
+                          },
                         ),
                       ),
                     ],
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Align(
                     child: FirstPageButton(
                       text: "Submit",
                       color: AppColor.main,
-                      onTap:(){
+                      onTap:() async {
+                        if(widget.selectedRating == 0){
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text("Please select rating") ,
+                                duration: Duration(seconds: 2),)
+                          );
+                        }
+                        else if(widget._formKey.currentState!.validate()){
+                          try {
+                            await JobRequest.createComment(
+                                widget.titleController.text,
+                                widget.commentController.text,
+                                widget.selectedRating,
+                                widget.job.id!);
 
+                            Navigator.of(context).pop();
+                            Navigator.of(context).pop();
+                            CommentData.onSubmitTap!();
+                          }
+                          catch(e){
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text(e.toString()) ,
+                                  duration: const Duration(seconds: 2),)
+                            );
+                          }
+                        }
+                        else if(widget.titleController.text == ""){
+                          widget.titleFocus.requestFocus();
+                        }
+                        else if(widget.commentController.text == ""){
+                          widget.commentFocus.requestFocus();
+                        }
                       }
                     ),
                   ),
