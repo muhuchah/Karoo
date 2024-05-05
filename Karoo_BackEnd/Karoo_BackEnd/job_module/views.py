@@ -2,7 +2,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, generics, filters, permissions, status
 from rest_framework.exceptions import PermissionDenied
 from .models import job, job_pictures, job_comments, skill
-from .seryalizers import jobSerializer, job_picturesSerializer, joblistSerializer, job_commentsSerializer
+from .seryalizers import jobSerializer, job_picturesSerializer, joblistSerializer, job_commentsSerializer, skillSerializer
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
@@ -222,3 +222,11 @@ class jobInfoAPIView(generics.CreateAPIView):
         
         except curr_job.DoesNotExist:
             return Response({'error': 'Job does not exist'}, status=HTTP_404_NOT_FOUND)
+
+
+class GetAllSkill(APIView):
+
+    def get(self, request):
+        skills = skill.objects.all()
+        serializer = skillSerializer(skills, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)

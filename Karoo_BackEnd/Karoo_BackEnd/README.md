@@ -816,3 +816,21 @@ Add a picture for a job.
     "job": 1
 }
 ```
+
+### Get Skills
+> URL http://127.0.0.1:8000/jobs/skills/         
+> Method GET
+
+##### Response
+```json
+[
+    {
+        "id": 1,
+        "title": "Skill_1"
+    },
+    {
+        "id": 2,
+        "title": "Skill_2"
+    }
+]
+```
