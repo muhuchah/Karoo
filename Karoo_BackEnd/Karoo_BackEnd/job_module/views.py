@@ -48,7 +48,6 @@ class jobUserAPIView(viewsets.ModelViewSet):
         return job_obj
 
     def retrieve(self, request, *args, **kwargs):
-        print(1)
         instance = self.get_object()
         serializer = self.get_serializer(instance)
         data = serializer.data
@@ -59,7 +58,6 @@ class jobUserAPIView(viewsets.ModelViewSet):
         return Response(data)
 
     def get_queryset(self):
-        print(2)
         queryset = job.objects.filter(user=self.request.user)
         return queryset
 
@@ -81,6 +79,7 @@ class jobUserAPIView(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         updated_job = serializer.save()
 
+        updated_job.skills.clear()
         for skill_tmp in skills:
             try:
                 skill_obj = skill.objects.get(title=skill_tmp['title'])
