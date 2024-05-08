@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from django.utils import timezone
 
@@ -40,9 +40,25 @@ class job_pictures(models.Model):
 # Set first picture as main picture for job model(if user saved any picture!!)
 @receiver(post_save, sender=job_pictures)
 def set_main_picture(sender, instance, created, **kwargs):
+    print('-------------------------')
+    print(instance)
+    print('-------------------------')
+
     if created and not instance.job.main_picture and instance.job.pictures.filter(pk=instance.pk).exists():
         instance.job.main_picture = instance
         instance.job.save()
+
+
+@receiver(post_delete, sender=job_pictures)
+def update_main_picture_on_deletion(sender, instance, **kwargs):
+    """
+    Updates the main picture of the Job model if the deleted picture was the main one
+    and there are other remaining pictures.
+    """
+
+    first_pic = instance.job.pictures.first()
+    instance.job.main_picture = first_pic
+    instance.job.save()
 
 
 class job_comments(models.Model):
