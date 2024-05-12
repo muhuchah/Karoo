@@ -1,5 +1,5 @@
 from django.db import models
-from jobs.models import job
+from job_module.models import job
 from account_module.models import User
 
 
