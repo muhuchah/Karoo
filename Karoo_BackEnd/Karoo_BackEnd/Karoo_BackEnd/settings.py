@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'account_module',
     'category_module',
     'job_module',
+    'support',
     # external apps
     'rest_framework',
     'rest_framework_simplejwt',
