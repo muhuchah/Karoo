@@ -5,4 +5,4 @@ from .models import SpamReport
 class SpamReportSerializer(serializers.ModelSerializer):
     class Meta:
         model = SpamReport
-        fields = '__all__'
+        fields = ['message', 'job']
