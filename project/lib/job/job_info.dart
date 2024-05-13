@@ -132,7 +132,7 @@ class _JobInfoPageState extends State<JobInfoPage> {
                 children: [
                   JobUserName(title: job.title!,
                     address: "${job.province} , ${job.city}",
-                    rating: 4.4,),
+                    rating: job.rating!,),
                   const SizedBox(height: 15,),
                   const MyDivider(),
                   const SizedBox(height: 20,),

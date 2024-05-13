@@ -13,15 +13,15 @@ import 'create_job_buttons.dart';
 import 'create_job_text_icon.dart';
 import 'job_data.dart';
 
-enum _InfoValue{
-  location , experience , initCost , costPerHour
-}
-
 class CreateJobInfoPage extends StatefulWidget {
   Color? locationColor;
   Color? experienceColor;
   Color? initialCostColor;
   Color? hourCostColor;
+  String? locationText;
+  String? experienceText;
+  String? initialCostText;
+  String? hourCostText;
   CreateJobInfoPage({super.key});
 
   @override
@@ -31,6 +31,7 @@ class CreateJobInfoPage extends StatefulWidget {
 class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
   @override
   Widget build(BuildContext context) {
+    _setValue();
     return Scaffold(
       backgroundColor: AppColor.background,
       appBar: SubAppBar(text: "Job Info",leading: (){
@@ -48,7 +49,7 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                   child: CreateJobTextIcon(
                     icon: const Icon(Icons.location_on_outlined , size: 24,),
                     text: "Location",
-                    onTapString: getValue(_InfoValue.location),
+                    onTapString: widget.locationText,
                     onTapColor: widget.locationColor,
                     onTap: (){
                       Navigator.of(context).push(MaterialPageRoute(
@@ -84,7 +85,7 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                     icon: const Icon(Icons.diamond_outlined , size: 24,),
                     onTapColor: widget.experienceColor,
                     text: "Experience",
-                    onTapString: getValue(_InfoValue.experience),
+                    onTapString: widget.experienceText,
                     onTap: (){
                       _showDialog("Experience", (value){
                         setState(() {
@@ -101,7 +102,7 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                     icon: const Icon(Icons.wallet_outlined , size: 24,),
                     onTapColor: widget.initialCostColor,
                     text: "Initial cost",
-                    onTapString: getValue(_InfoValue.initCost),
+                    onTapString: widget.initialCostText,
                     onTap: (){
                       _showDialog("initial cost", (value){
                         setState(() {
@@ -118,7 +119,7 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                     icon: const Icon(Icons.wallet_outlined , size: 24,),
                     onTapColor: widget.hourCostColor,
                     text: "Approximate cost per hour",
-                    onTapString: getValue(_InfoValue.costPerHour),
+                    onTapString: widget.hourCostText,
                     onTap: (){
                       _showDialog("approximate cost per hour", (value){
                         setState(() {
@@ -147,8 +148,7 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                                   Navigator.of(context).push(
                                     MaterialPageRoute(builder: (context){
                                       return CreateJobSkillPage(
-                                        subCategory: "Plumber",
-                                        preSkills : JobData.skills,
+                                        subCategory: JobData.subCategory,
                                         onTap: (skills){
                                           setState(() {
                                             JobData.skills = skills;
@@ -178,7 +178,7 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                   padding: const EdgeInsets.only(right: 20),
                   child: Align(
                     alignment: Alignment.topRight,
-                    child: ShortButton(text:"Next",onTap: () async {
+                    child: ShortButton(text:"Save",onTap: () async {
                       if(JobData.province == ""){
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text("Please choose province"),
@@ -223,39 +223,38 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
     );
   }
 
-  String getValue(infoValue){
-    if(infoValue == _InfoValue.location) {
-      if (JobData.province == "") {
-        return "Choose";
-      }
+  void _setValue(){
+    if (JobData.province == "") {
+      widget.locationText = "Choose";
+    }
+    else {
       widget.locationColor = AppColor.loginText1;
-      return JobData.city;
+      widget.locationText = JobData.city;
     }
 
-    else if(infoValue == _InfoValue.experience) {
-      if (JobData.experience == "") {
-        return "Set";
-      }
+    if (JobData.experience == "") {
+      widget.experienceText = "Set";
+    }
+    else {
       widget.experienceColor = AppColor.loginText1;
-      return JobData.experience;
+      widget.experienceText = "${JobData.experience} years";
     }
 
-    else if(infoValue == _InfoValue.initCost) {
-      if (JobData.initialCost == "") {
-        return "Set";
-      }
+    if (JobData.initialCost == "") {
+      widget.initialCostText = "Set";
+    }
+    else {
       widget.initialCostColor = AppColor.loginText1;
-      return "${JobData.initialCost} \$";
+      widget.initialCostText = "${JobData.initialCost} \$";
     }
 
-    if(infoValue == _InfoValue.costPerHour) {
-      if (JobData.costPerHour == "") {
-        return "Set";
-      }
-      widget.hourCostColor = AppColor.loginText1;
-      return "${JobData.costPerHour} \$";
+    if (JobData.costPerHour == "") {
+      widget.hourCostText = "Set";
     }
-    return "";
+    else {
+      widget.hourCostColor = AppColor.loginText1;
+      widget.hourCostText = "${JobData.costPerHour} \$";
+    }
   }
 
   List<Widget> _getSkills(){

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/create_job/job_data.dart';
 import 'package:project/request/job_request.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/custom_text.dart';
@@ -11,11 +12,9 @@ import '../widgets/long_button.dart';
 class CreateJobSkillPage extends StatefulWidget {
   String subCategory;
   List<Skill>? skills;
-  List<Skill> preSkills;
   List<bool>? selectedSkills;
   Function(List<Skill> skills) onTap;
-  CreateJobSkillPage({super.key , required this.subCategory ,
-    required this.preSkills , required this.onTap});
+  CreateJobSkillPage({super.key , required this.subCategory , required this.onTap});
 
   @override
   State<CreateJobSkillPage> createState() => _CreateJobSkillPageState();
@@ -120,7 +119,7 @@ class _CreateJobSkillPageState extends State<CreateJobSkillPage> {
     if(widget.selectedSkills == null) {
       widget.selectedSkills = [];
       for (int i = 0; i < widget.skills!.length; i++) {
-        if(widget.preSkills.contains(widget.skills![i])){
+        if(_checkSkillContain(widget.skills![i].id)){
           widget.selectedSkills!.add(true);
         }
         else {
@@ -128,6 +127,15 @@ class _CreateJobSkillPageState extends State<CreateJobSkillPage> {
         }
       }
     }
+  }
+
+  bool _checkSkillContain(skillId){
+    for(Skill s in JobData.skills){
+      if(s.id == skillId){
+        return true;
+      }
+    }
+    return false;
   }
 
   Color getTextColor(value){

@@ -104,7 +104,11 @@ class HomePage extends StatelessWidget {
           ),
           SizedBox(
             width: 80,
-            child: Text(values[i].title! , maxLines: 1, overflow: TextOverflow.ellipsis,)
+            child: Center(
+              child:
+                Text(values[i].title! , maxLines: 1,
+                  overflow: TextOverflow.ellipsis,),
+            )
           ),
         ],
       ));

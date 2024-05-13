@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/create_job/create_job_buttons.dart';
+import 'package:project/create_job/job_data.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/my_appbars.dart';
 
@@ -8,6 +9,10 @@ import '../widgets/drop_down_button.dart';
 import '../widgets/long_button.dart';
 
 class CreateJobLocationPage extends StatefulWidget {
+  List<String> province = ["-----"];
+  String? selectedProvince = "-----";
+  String? selectedCity = "-----";
+  bool first = false;
   Function(String province , String city) onTap;
   CreateJobLocationPage({super.key , required this.onTap});
 
@@ -16,11 +21,9 @@ class CreateJobLocationPage extends StatefulWidget {
 }
 
 class _CreateJobLocationPageState extends State<CreateJobLocationPage> {
-  List<String> province = ["-----"];
-  String? selectedProvince = "-----";
-  String? selectedCity = "-----";
   @override
   Widget build(BuildContext context) {
+    _checkJobData();
     return Scaffold(
       appBar: SubAppBar(text: "Location", leading: (){
         Navigator.of(context).pop();
@@ -42,20 +45,20 @@ class _CreateJobLocationPageState extends State<CreateJobLocationPage> {
               ),
               LongButton(
                 onTap: (){
-                  if(selectedProvince == "-----"){
+                  if(widget.selectedProvince == "-----"){
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content:  Text("choose a province"),
                         duration: Duration(seconds: 1),)
                     );
                   }
-                  else if(selectedCity == "-----"){
+                  else if(widget.selectedCity == "-----"){
                     ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content:  Text("choose a city"),
                           duration: Duration(seconds: 1),)
                     );
                   }
                   else{
-                    widget.onTap(selectedProvince! , selectedCity!);
+                    widget.onTap(widget.selectedProvince! , widget.selectedCity!);
                     Navigator.of(context).pop();
                   }
                 },
@@ -69,22 +72,22 @@ class _CreateJobLocationPageState extends State<CreateJobLocationPage> {
   }
 
   Widget getProvinces(){
-    return province.length == 1 ?
+    return widget.province.length == 1 ?
     FutureBuilder(future: UserRequest.getProvinces(),
         builder: (context , snapShot){
           if(snapShot.hasData){
-            province = snapShot.data!;
-            return MyDropButton(items : province , selectedItem: selectedProvince ,
+            widget.province = snapShot.data!;
+            return MyDropButton(items : widget.province , selectedItem: widget.selectedProvince ,
               label : "Province" , rebuild: (value){
                 setState(() {
-                  selectedProvince = value;
-                  selectedCity = "-----";
+                  widget.selectedProvince = value;
+                  widget.selectedCity = "-----";
                 });
               },
             );
           }
           else if(snapShot.hasError){
-            return MyDropButton(items : province, selectedItem: selectedProvince ,
+            return MyDropButton(items : widget.province, selectedItem: widget.selectedProvince ,
               label : "Province" , rebuild: (value){
                 setState(() {});
               },
@@ -95,29 +98,39 @@ class _CreateJobLocationPageState extends State<CreateJobLocationPage> {
           }
         }
     ) :
-    MyDropButton(items : province , selectedItem: selectedProvince,
+    MyDropButton(items : widget.province , selectedItem: widget.selectedProvince,
         label : "Province" , rebuild: (value){
           setState(() {
-            selectedProvince = value;
-            selectedCity = "-----";
+            widget.selectedProvince = value;
+            widget.selectedCity = "-----";
           });
         }
     );
   }
 
+  void _checkJobData(){
+    if(!widget.first) {
+      if (JobData.province != "") {
+        widget.selectedProvince = JobData.province;
+        widget.selectedCity = JobData.city;
+      }
+      widget.first = true;
+    }
+  }
+
   Widget getCities(){
-    return selectedProvince != "-----" ?
-    FutureBuilder(future: UserRequest.getCities(selectedProvince!),
+    return widget.selectedProvince != "-----" ?
+    FutureBuilder(future: UserRequest.getCities(widget.selectedProvince!),
         builder: (context , snapShot){
           if(snapShot.hasData){
-            return MyDropButton(items : snapShot.data! , selectedItem: selectedCity ,
+            return MyDropButton(items : snapShot.data! , selectedItem: widget.selectedCity ,
               label : "City" , rebuild: (value){
-                selectedCity = value;
+                widget.selectedCity = value;
               },
             );
           }
           else if(snapShot.hasError){
-            return MyDropButton(items : const ["-----"], selectedItem: selectedCity ,
+            return MyDropButton(items : const ["-----"], selectedItem: widget.selectedCity ,
               label : "City" , rebuild: (value){},
             );
           }
@@ -126,9 +139,9 @@ class _CreateJobLocationPageState extends State<CreateJobLocationPage> {
           }
         }
     ) :
-    MyDropButton(items : const ["-----"] , selectedItem: selectedCity,
+    MyDropButton(items : const ["-----"] , selectedItem: widget.selectedCity,
         label : "City" , rebuild: (value){
-          selectedCity = value;
+          widget.selectedCity = value;
         }
     );
   }
