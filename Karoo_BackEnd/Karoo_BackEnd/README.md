@@ -862,6 +862,30 @@ If data is valid SpamRepost is created. status = 200
 
 If data is not valid. status = 400
 
+
+### Send Message
+> URL http://127.0.0.1:8000/support/send_message/
+> Method POST
+
+##### Parameters
+```json
+{
+    "recipient_email": "m.h.chah4@gmail.com",
+    "content" : "message from postman1"
+}
+```
+
+##### Response
+```json
+{
+    "content": "message from postman1",
+    "timestamp": "2024-05-13T12:40:24.224334+03:30",
+    "sender_email": "el.chahkandi@gmail.com",
+    "recipient_email": "m.h.chah4@gmail.com"
+}
+```
+
+
 ### Chat Room
 > URL http://127.0.0.1:8000/support/chatroom/{recipient_email}/
 > Method GET
