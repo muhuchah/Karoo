@@ -834,3 +834,30 @@ Add a picture for a job.
     }
 ]
 ```
+
+
+## Support
+
+### Spam Report
+> URL http://127.0.0.1:8000/support/spam_report/
+> Method POST
+
+
+##### Parameters
+```json
+{
+    "message": "This shit is harsh",
+    "job": 1
+}
+```
+
+##### Responses
+If data is valid SpamRepost is created. status = 200
+```json
+{
+    "message": "This shit is harsh",
+    "job": 1
+}
+```
+
+If data is not valid. status = 400
