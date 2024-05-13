@@ -23,13 +23,14 @@ class SpamReportView(APIView):
 class ChatRoomView(APIView):
     permission_classes = [IsAuthenticated]
 
-    def get(self, request, recipient_pk):
+    def get(self, request, recipient_email):
         user = request.user
 
         try:
+            recipient = User.objects.get(email=recipient_email)
             messages = Message.objects.filter(
-                (Q(sender=user) & Q(recipient=recipient_pk)) |
-                (Q(sender=recipient_pk) & Q(recipient=user))
+                (Q(sender=user) & Q(recipient=recipient)) |
+                (Q(sender=recipient) & Q(recipient=user))
             )
 
             serializer = MessageSerializer(messages, many=True)

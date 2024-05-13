@@ -9,7 +9,16 @@ class SpamReportSerializer(serializers.ModelSerializer):
 
 
 class MessageSerializer(serializers.ModelSerializer):
+    sender_email = serializers.SerializerMethodField()
+    recipient_email = serializers.SerializerMethodField()
 
     class Meta:
         model = Message
-        fields = '__all__'
+        fields = ['content', 'timestamp', 'sender_email', 'recipient_email']
+
+
+    def get_sender_email(self, obj):
+        return obj.sender.email
+
+    def get_recipient_email(self, obj):
+        return obj.recipient.email
