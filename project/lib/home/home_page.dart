@@ -176,7 +176,7 @@ class HomePage extends StatelessWidget {
           ),
           Container(
             height: 1,
-            margin: EdgeInsets.symmetric(horizontal: 10),
+            margin: const EdgeInsets.symmetric(horizontal: 10),
             color: AppColor.divider,)
           ],
         ),
@@ -186,72 +186,32 @@ class HomePage extends StatelessWidget {
   }
 }
 
-// if(i == length){
-//   if(values.length%4==0){
-//     break;
-//   }
-//   children.add(
-//     Expanded(
-//       child: ListView.separated(
-//         scrollDirection: Axis.horizontal,
-//         separatorBuilder: (context , index){
-//           return const SizedBox(width: 10,);
-//         },
-//         itemCount: values.length%4,
-//         itemBuilder: (context , index){
-//           return Column(
-//             children: [
-//               SizedBox(
-//                 width: 80,
-//                 height: 80,
-//                 child: GestureDetector(
-//                   child: ClipRRect(
-//                     borderRadius: BorderRadius.circular(10),
-//                     child: Image.network(values[(i*4)+index].image!,
-//                       width: 80,height: 80,fit: BoxFit.fill,)),
-//                   onTap: (){
-//                     onTap(values[i].title!);
-//                   },
-//                 ),
+// Widget getTopJobs(context ,List<Job> data){
+//   return ListView.builder(
+//       itemCount: data.length,
+//       itemBuilder: (context , index){
+//         return Column(
+//           children: [
+//             GestureDetector(
+//               onTap: (){
+//                 Navigator.of(context).push(MaterialPageRoute(
+//                     builder: (context){
+//                       return JobInfoPage(id : data[index].id! , userJob: false,);
+//                     }),
+//                 );
+//               },
+//               child: Padding(
+//                 padding: const EdgeInsets.all(20),
+//                 child: JobListTile(job : data[index]),
 //               ),
-//               Text(values[i].title!),
-//             ],
-//           );
-//         }
-//       ),
-//     )
-//   );
-// }
-// else{
-//   children.add(
-//     Expanded(
-//       child: ListView.separated(
-//         scrollDirection: Axis.horizontal,
-//         separatorBuilder: (context , index){
-//           return const SizedBox(width: 10,);
-//         },
-//         itemCount: 4,
-//         itemBuilder: (context , index){
-//           return Column(
-//             children: [
-//               SizedBox(
-//                 width: 80,
-//                 height: 80,
-//                 child: GestureDetector(
-//                   child: ClipRRect(
-//                     borderRadius: BorderRadius.circular(10),
-//                     child: Image.network(values[(i*4)+index].image!,
-//                       width: 80,height: 80,fit: BoxFit.fill,)),
-//                   onTap: (){
-//                     onTap(values[i].title!);
-//                   },
-//                 ),
-//               ),
-//               Text(values[i].title!),
-//             ],
-//           );
-//         }
-//       ),
-//     )
+//             ),
+//             Container(
+//               height: 1,
+//               margin: const EdgeInsets.symmetric(horizontal: 10),
+//               color: AppColor.divider,
+//             )
+//           ],
+//         );
+//       }
 //   );
 // }
