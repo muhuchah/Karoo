@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
-import 'package:project/component/comment_file.dart';
 import 'package:project/component/image.dart';
 import 'package:project/component/job_file.dart';
 import 'package:project/component/skill_file.dart';
@@ -283,5 +282,25 @@ class JobRequest {
     if (response.statusCode != 201) {
       throw Exception("Unable to create comment");
     }
+  }
+
+  static Future<List<Job>> getSearchJobs(String search) async {
+    User user = User();
+    var response = await http.get(Uri.parse("$_base$_jobList?search=$search"),
+        headers: <String, String>{
+          "Authorization": "Bearer ${user.accessToken!}"
+        });
+
+
+    if (response.statusCode == 200) {
+      List<dynamic> body = jsonDecode(response.body);
+      List<Job> jobs = [];
+      for (int i = 0; i < body.length; i++) {
+        jobs.add(Job.listJson(body[i]));
+      }
+      return jobs;
+    }
+
+    throw Exception("Unable to search jobs");
   }
 }

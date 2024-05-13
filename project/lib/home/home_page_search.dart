@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:project/search/search.dart';
+import 'package:project/search/search_field.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/divider.dart';
@@ -31,7 +31,7 @@ class HomePageSearch extends StatelessWidget {
                   onTap: (){
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (context){
-                        return SearchPage();
+                        return SearchFieldPage();
                       })
                     );
                   },
