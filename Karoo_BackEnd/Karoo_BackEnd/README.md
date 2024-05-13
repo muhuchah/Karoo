@@ -863,32 +863,29 @@ If data is valid SpamRepost is created. status = 200
 If data is not valid. status = 400
 
 ### Chat Room
-> URL http://127.0.0.1:8000/support/chatroom/recipient_pk/
+> URL http://127.0.0.1:8000/support/chatroom/{recipient_email}/
 > Method GET
 
 ##### Response
 ```json
 [
     {
-        "id": 1,
         "content": "M1",
         "timestamp": "2024-05-13T11:05:54.070741+03:30",
-        "sender": 1,
-        "recipient": 2
+        "sender_email": "el.chahkandi@gmail.com",
+        "recipient_email": "m.h.chah4@gmail.com"
     },
     {
-        "id": 2,
         "content": "M2",
         "timestamp": "2024-05-13T11:06:00.656018+03:30",
-        "sender": 1,
-        "recipient": 2
+        "sender_email": "el.chahkandi@gmail.com",
+        "recipient_email": "m.h.chah4@gmail.com"
     },
     {
-        "id": 3,
         "content": "M3",
         "timestamp": "2024-05-13T11:06:07.543466+03:30",
-        "sender": 2,
-        "recipient": 1
+        "sender_email": "m.h.chah4@gmail.com",
+        "recipient_email": "el.chahkandi@gmail.com"
     }
 ]
 ```
