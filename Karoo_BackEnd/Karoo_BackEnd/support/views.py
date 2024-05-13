@@ -20,6 +20,25 @@ class SpamReportView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class SendMessageView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        user = request.user
+        data = request.data
+
+        try:
+            recipient = User.objects.get(email=data.get('recipient_email'))
+        except User.DoesNotExist:
+            return Response({'error': 'Recipient not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = MessageSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(sender=user, recipient=recipient)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 class ChatRoomView(APIView):
     permission_classes = [IsAuthenticated]
 
