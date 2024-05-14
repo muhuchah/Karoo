@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:project/edit_info/address.dart';
 import 'package:project/edit_info/edit_pages.dart';
+import 'package:project/edit_info/password.dart';
 import 'package:project/profile/user_info.dart';
 import 'package:project/request/user_requests.dart';
 import 'package:project/utils/app_color.dart';
@@ -45,7 +46,11 @@ class ProfileListTile extends StatelessWidget {
                     );
                   }
                   else if(userInfo == UserInfo.password){
-
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context){
+                          return EditPasswordPage(onTap: onTap,);
+                        })
+                    );
                   }
                   else{
                     editOnTap(context);
