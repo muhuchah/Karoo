@@ -53,9 +53,6 @@ class ProfileListTile extends StatelessWidget {
     else if(userInfo == UserInfo.phoneNumber){
       return "phone_number";
     }
-    else if(userInfo == UserInfo.address){
-      return "address";
-    }
     else{
       return "password";
     }

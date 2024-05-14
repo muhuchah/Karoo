@@ -58,6 +58,7 @@ class FirstPageChecker extends StatelessWidget{
         Navigator.of(context).pushReplacementNamed("/phone_city");
       }
       else{
+        await UserRequest.getAddress();
         Navigator.of(context).pushReplacementNamed("/home");
       }
     }

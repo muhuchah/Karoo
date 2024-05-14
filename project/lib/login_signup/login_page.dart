@@ -193,6 +193,7 @@ class _LoginPage extends State<StatefulWidget>{
         Navigator.of(context).pushReplacementNamed("/phone_city");
       }
       else{
+        await UserRequest.getAddress();
         Navigator.of(context).pop();
         Navigator.of(context).pushReplacementNamed("/home");
       }

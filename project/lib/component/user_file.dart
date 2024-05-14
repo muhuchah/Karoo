@@ -3,7 +3,9 @@ class User{
   String? _refreshToken;
   String? _fullName;
   String? _email;
-  String? _address;
+  String? _province;
+  String? _city;
+  int? _addressId;
   String? _phoneNumber;
 
   static final User _user = User._internal();
@@ -26,8 +28,12 @@ class User{
     _phoneNumber = number;
   }
 
-  set address(String? address){
-    _address = address;
+  set province(String? province){
+    _province = province;
+  }
+
+  set city(String? city){
+    _city = city;
   }
 
   set accessToken(String? token){
@@ -38,13 +44,21 @@ class User{
     _refreshToken = token;
   }
 
+  set addressId(int? value) {
+    _addressId = value;
+  }
+
+  int? get addressId => _addressId;
+
   String? get fullName{return _fullName;}
 
   String? get email{return _email;}
 
   String? get phoneNumber{return _phoneNumber;}
 
-  String? get address{return _address;}
+  String? get province{return _province;}
+
+  String? get city{return _city;}
 
   String? get accessToken{return _accessToken;}
 
@@ -52,7 +66,9 @@ class User{
 
   void setNullPart(){
     _fullName = null;
-    _address = null;
+    _province = null;
+    _city = null;
+    _addressId = null;
     _phoneNumber = null;
     _email = null;
     _accessToken = null;

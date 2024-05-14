@@ -93,8 +93,6 @@ class UserRequest{
     user.fullName = body["full_name"];
     user.email = body["email"];
     user.phoneNumber = body["phone_number"];
-    user.address = body["address"];
-    user.address = "Isfahan , Isfahan";
   }
 
   static Future<String> changeInfo(String bodyParam , String bodyValue) async {
@@ -222,11 +220,58 @@ class UserRequest{
         }
     );
 
-    print(response.statusCode);
-
     if(response.statusCode == 201){
       dynamic body = jsonDecode(response.body);
-      user.address = body["province_name"]+","+body["city_name"];
+      user.province = body["province_name"];
+      user.city = body["city_name"];
+      user.addressId = body["id"];
+    }
+    else if(response.statusCode == 404 || response.statusCode == 400){
+      throw Exception(jsonDecode(response.body)["message"]);
+    }
+    else {
+      throw Exception("Unable to add address");
+    }
+  }
+
+  static Future<void> getAddress() async {
+    User user = User();
+    final response = await http.get(Uri.parse(_base+_address),
+      headers: <String , String>{
+        "Authorization": "Bearer ${user.accessToken!}",
+      },
+    );
+
+    if(response.statusCode == 200){
+      var body = jsonDecode(response.body);
+      user.province = body[0]["province"];
+      user.city = body[0]["city"];
+      user.addressId = body[0]["id"];
+    }
+
+    else{
+      throw Exception("Unable to load address");
+    }
+  }
+
+  static Future<void> editAddress(String province , String city) async {
+    User user = User();
+    final response = await http.put(Uri.parse("$_base$_address${user.addressId}"),
+        headers: <String , String> {
+          "Authorization": "Bearer ${user.accessToken!}"},
+        body: <String , String>{
+          "province":province,
+          "city":city
+        }
+    );
+
+    print(response.statusCode);
+
+    if(response.statusCode == 200){
+      dynamic body = jsonDecode(response.body);
+      user.province = body["province_name"];
+      user.city = body["city_name"];
+      user.addressId = body["id"];
     }
     else if(response.statusCode == 404 || response.statusCode == 400){
       throw Exception(jsonDecode(response.body)["message"]);

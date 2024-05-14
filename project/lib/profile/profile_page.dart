@@ -51,7 +51,7 @@ class ProfilePage extends StatelessWidget {
           ProfileListTile(userInfo: UserInfo.phoneNumber,
               label: "Phone Number", text: user.phoneNumber!),
           ProfileListTile(userInfo: UserInfo.address,
-              label: "Address", text: user.address!),
+              label: "Address", text: "${user.province} , ${user.city}"),
           const ProfileListTile(userInfo: UserInfo.password,
             label: "Password", text: "********"),
           const SizedBox(height: 20,),
