@@ -762,7 +762,7 @@ Add a picture for a job.
 ### Job Comments
 
 #### Create a comment
-> URL http://127.0.0.1:8000/jobs/comment/create/          
+> URL http://127.0.0.1:8000/jobs/comment/create/               
 > Method POST         
 
 ##### Parameters
@@ -786,6 +786,13 @@ Add a picture for a job.
     "rating": 1,
     "date": "2024-05-03T08:55:59.218925+03:30",
     "job": 1
+}
+```
+
+If you already have a comment for this job:
+```json
+{
+    "error": "You have already commented on this job."
 }
 ```
 
@@ -839,7 +846,7 @@ Add a picture for a job.
 ## Support
 
 ### Spam Report
-> URL http://127.0.0.1:8000/support/spam_report/
+> URL http://127.0.0.1:8000/support/spam_report/                
 > Method POST
 
 
@@ -864,7 +871,7 @@ If data is not valid. status = 400
 
 
 ### Send Message
-> URL http://127.0.0.1:8000/support/send_message/
+> URL http://127.0.0.1:8000/support/send_message/               
 > Method POST
 
 ##### Parameters
@@ -887,7 +894,7 @@ If data is not valid. status = 400
 
 
 ### Chat Room
-> URL http://127.0.0.1:8000/support/chatroom/{recipient_email}/
+> URL http://127.0.0.1:8000/support/chatroom/{recipient_email}/              
 > Method GET
 
 ##### Response
@@ -917,7 +924,7 @@ If data is not valid. status = 400
 
 ### Cases
 Get a list of all cases.
-> URL http://127.0.0.1:8000/support/cases/
+> URL http://127.0.0.1:8000/support/cases/         
 > Method GET
 
 ##### Responses
@@ -936,7 +943,7 @@ Get a list of all cases.
 
 
 ### Case Chats
-> URL http://127.0.0.1:8000/support/cases/{case_id}/chats/
+> URL http://127.0.0.1:8000/support/cases/{case_id}/chats/             
 > Method GET
 
 ##### Response

@@ -188,6 +188,20 @@ class jobCommentsCreateAPIView(generics.CreateAPIView):
     serializer_class = job_commentsSerializer
     queryset = job_comments.objects.all()
 
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        # Check if the user has already commented on this job
+        user = request.user
+        job_id = serializer.validated_data['job'].id
+        if job_comments.objects.filter(user=user, job__id=job_id).exists():
+            return Response({"error": "You have already commented on this job."}, status=status.HTTP_400_BAD_REQUEST)
+
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
 
 class IsCommentOwner(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
