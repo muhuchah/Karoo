@@ -4,9 +4,9 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from django.db.models import Q
 
-from .models import SpamReport, Message, Case
+from .models import SpamReport, Message, Case, Chat
 from account_module.models import User
-from .serializers import SpamReportSerializer, MessageSerializer, CaseSerializer
+from .serializers import SpamReportSerializer, MessageSerializer, CaseSerializer, ChatSerializer
 
 
 class SpamReportView(APIView):
@@ -66,4 +66,13 @@ class CaseAPIView(APIView):
     def get(self, request):
         cases = Case.objects.all()
         serializer = CaseSerializer(cases, many=True)
+        return Response(serializer.data)
+
+
+class CaseChatsAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get (self, request, case_id):
+        chats = Chat.objects.filter(case_id=case_id)
+        serializer = ChatSerializer(chats, many=True)
         return Response(serializer.data)

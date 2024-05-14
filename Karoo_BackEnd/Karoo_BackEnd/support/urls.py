@@ -7,4 +7,5 @@ urlpatterns = [
     path('chatroom/<str:recipient_email>/', views.ChatRoomView.as_view(), name='ChatRoom'),
     path('send_message/', views.SendMessageView.as_view(), name='SendMessage'),
     path('cases/', views.CaseAPIView.as_view(), name='case-list'),
+    path('cases/<int:case_id>/chats/', views.CaseChatsAPIView.as_view(), name='case-chats'),
 ]

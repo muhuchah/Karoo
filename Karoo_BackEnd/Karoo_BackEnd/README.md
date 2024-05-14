@@ -933,3 +933,20 @@ Get a list of all cases.
     }
 ]
 ```
+
+
+### Case Chats
+> URL http://127.0.0.1:8000/support/cases/{case_id}/chats/
+> Method GET
+
+##### Response
+```json
+[
+    {
+        "id": 1,
+        "title": "Chat1_case1",
+        "last_updated": "2024-05-14T09:00:45.985757+03:30",
+        "case": 1
+    }
+]
+```
