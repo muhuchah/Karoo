@@ -291,7 +291,6 @@ class JobRequest {
           "Authorization": "Bearer ${user.accessToken!}"
         });
 
-
     if (response.statusCode == 200) {
       List<dynamic> body = jsonDecode(response.body);
       List<Job> jobs = [];

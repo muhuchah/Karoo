@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:project/request/job_request.dart';
 import 'package:project/search/search.dart';
 import 'package:project/widgets/long_button.dart';
 
@@ -68,7 +67,11 @@ class SearchFieldPage extends StatelessWidget {
                 padding: const EdgeInsets.all(20),
                 child: LongButton(
                   onTap: (){
-
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context){
+                          return SearchPage(search: controller.text);
+                        })
+                    );
                   },
                   text: "Search"
                 ),

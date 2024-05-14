@@ -82,7 +82,7 @@ class SearchPage extends StatelessWidget {
 
   Widget getJobs(List<Job> data , context){
     return SizedBox(
-      height: MediaQuery.of(context).size.height-120,
+      height: MediaQuery.of(context).size.height-150,
       child: ListView.builder(
         itemCount: data.length,
         itemBuilder:(context , index){
@@ -97,7 +97,7 @@ class SearchPage extends StatelessWidget {
                   );
                 },
                 child: Padding(
-                  padding: const EdgeInsets.all(20),
+                  padding: const EdgeInsets.only(left: 20 , right: 20 , bottom: 20),
                   child: JobListTile(job : data[index]),
                 ),
               ),
