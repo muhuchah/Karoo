@@ -46,7 +46,7 @@ class Chat(models.Model):
         return f"Chat title: {self.title}"
 
 class SupportMessage(models.Model):
-    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_messages')
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_support_messages')
     content = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
     chat = models.ForeignKey(Chat, on_delete=models.CASCADE, related_name='messages')
