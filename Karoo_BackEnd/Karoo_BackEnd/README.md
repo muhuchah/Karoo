@@ -913,3 +913,23 @@ If data is not valid. status = 400
     }
 ]
 ```
+
+
+### Cases
+Get a list of all cases.
+> URL http://127.0.0.1:8000/support/cases/
+> Method GET
+
+##### Responses
+```json
+[
+    {
+        "id": 1,
+        "title": "Case1"
+    },
+    {
+        "id": 2,
+        "title": "Case2"
+    }
+]
+```
