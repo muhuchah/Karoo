@@ -157,9 +157,9 @@ class jobPicturesAPIView(viewsets.ModelViewSet):
 class jobListAPIView(generics.ListAPIView):
     serializer_class = joblistSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
-    filterset_fields = ['SubCategory__title', 'SubCategory__MainCategory__title', 'user__addresses__city']
+    filterset_fields = ['SubCategory__title', 'SubCategory__MainCategory__title', 'user__addresses__city__name', 'user__addresses__province__name']
     search_fields = [
-        'title', 'user__full_name', 'SubCategory__title', 'SubCategory__MainCategory__title', '=user__addresses__city']
+        'title', 'user__full_name', 'SubCategory__title', 'SubCategory__MainCategory__title', 'user__addresses__city__name', 'user__addresses__province__name']
     queryset = job.objects.all()
 
     def list(self, request, *args, **kwargs):
