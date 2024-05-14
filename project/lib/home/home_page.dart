@@ -12,11 +12,18 @@ import 'package:project/widgets/divider.dart';
 import '../component/category.dart';
 import '../job/job_info.dart';
 
-class HomePage extends StatelessWidget {
-  List<Category>? categories = null;
-  double? width;
+class HomePage extends StatefulWidget {
   final Function(String mainCategory) onTap;
   HomePage({super.key , required this.onTap});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  List<Category>? categories = null;
+
+  double? width;
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +105,7 @@ class HomePage extends StatelessWidget {
                 child: Image.network(values[i].image!,
                   width: 80,height: 80,fit: BoxFit.fill,)),
               onTap: (){
-                onTap(values[i].title!);
+                widget.onTap(values[i].title!);
               },
             ),
           ),
@@ -165,7 +172,10 @@ class HomePage extends StatelessWidget {
             onTap: (){
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context){
-                  return JobInfoPage(id : data[i].id! , userJob: false,);
+                  return JobInfoPage(id : data[i].id! ,
+                    userJob: false, onTap: (){
+                      setState(() {});
+                    },);
                 }),
               );
             },

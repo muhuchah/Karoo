@@ -9,10 +9,15 @@ import '../job/job_info.dart';
 import '../widgets/custom_text.dart';
 import '../widgets/job_list_tile.dart';
 
-class SearchPage extends StatelessWidget {
+class SearchPage extends StatefulWidget {
   String search;
   SearchPage({super.key , required this.search});
 
+  @override
+  State<SearchPage> createState() => _SearchPageState();
+}
+
+class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +49,7 @@ class SearchPage extends StatelessWidget {
                             })
                         );
                       },
-                      child: CustomText(text: search, size: 16,
+                      child: CustomText(text: widget.search, size: 16,
                           textColor: Colors.black, weight: FontWeight.normal),
                     ),
                   ),
@@ -60,7 +65,7 @@ class SearchPage extends StatelessWidget {
           ),
           const SizedBox(height: 20,),
           const MyDivider(),
-          FutureBuilder(future: JobRequest.getSearchJobs(search),
+          FutureBuilder(future: JobRequest.getSearchJobs(widget.search),
             builder: (context , snapShot){
               if(snapShot.hasData){
                 return getJobs(snapShot.data! , context);
@@ -92,7 +97,9 @@ class SearchPage extends StatelessWidget {
                 onTap: (){
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context){
-                      return JobInfoPage(id : data[index].id! , userJob: false,);
+                      return JobInfoPage(id : data[index].id! , userJob: false,
+                        onTap: (){setState(() {});}
+                      );
                     }),
                   );
                 },

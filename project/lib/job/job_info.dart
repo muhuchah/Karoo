@@ -21,7 +21,9 @@ class JobInfoPage extends StatefulWidget {
   int id;
   bool userJob;
   Function? deleteOnTap;
-  JobInfoPage({super.key , required this.id , required this.userJob , this.deleteOnTap});
+  Function() onTap;
+  JobInfoPage({super.key , required this.id , required this.userJob ,
+    this.deleteOnTap , required this.onTap});
 
   @override
   State<JobInfoPage> createState() => _JobInfoPageState();
@@ -244,6 +246,7 @@ class _JobInfoPageState extends State<JobInfoPage> {
                         textButton: TextButton(
                           onPressed: () {
                             CommentData.onSubmitTap = (){
+                              widget.onTap();
                               setState(() {});
                             };
                             Navigator.of(context).push(MaterialPageRoute(

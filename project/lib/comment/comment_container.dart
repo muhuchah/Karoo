@@ -1,13 +1,19 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:project/comment/comment_data.dart';
+import 'package:project/component/user_file.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/divider.dart';
 
 import '../component/comment_file.dart';
+import '../component/job_file.dart';
+import 'comment_page.dart';
 
 class CommentTile extends StatelessWidget {
   Comment comment;
-  CommentTile({super.key , required this.comment});
+  Job? job;
+  CommentTile({super.key , required this.comment , this.job});
 
   @override
   Widget build(BuildContext context) {
@@ -22,25 +28,41 @@ class CommentTile extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    children: [
-                      SizedBox(width: 40,
-                        child: Row(children: [
-                          CustomText(text: comment.rating.toString(), size: 12,
-                              textColor: AppColor.loginText1, weight: FontWeight.normal),
-                          const SizedBox(width: 2,),
-                          const Icon(Icons.star,size: 15,color: AppColor.loginText1,),
-                        ],),
-                      ),
-                      SizedBox(
-                        width: 200,
-                        child: Text(comment.title! , overflow: TextOverflow.ellipsis ,
-                          maxLines: 1,style: const TextStyle(fontSize: 16 ,
-                            color: Colors.black , fontWeight: FontWeight.w500
-                          ),
-                        )
-                      ),
-                    ],
+                  GestureDetector(
+                    onTap: (){
+                      User user = User();
+                      if(comment.userEmail == user.email){
+                        CommentData.id = comment.id!;
+                        CommentData.title = comment.title!;
+                        CommentData.comment = comment.comment!;
+                        CommentData.rating = comment.rating!;
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context){
+                            return CommentPage(job : job! , create: false,);
+                          })
+                        );
+                      }
+                    },
+                    child: Row(
+                      children: [
+                        SizedBox(width: 40,
+                          child: Row(children: [
+                            CustomText(text: comment.rating.toString(), size: 12,
+                                textColor: AppColor.loginText1, weight: FontWeight.normal),
+                            const SizedBox(width: 2,),
+                            const Icon(Icons.star,size: 15,color: AppColor.loginText1,),
+                          ],),
+                        ),
+                        SizedBox(
+                          width: 200,
+                          child: Text(comment.title! , overflow: TextOverflow.ellipsis ,
+                            maxLines: 1,style: const TextStyle(fontSize: 16 ,
+                              color: Colors.black , fontWeight: FontWeight.w500
+                            ),
+                          )
+                        ),
+                      ],
+                    ),
                   ),
                   IconButton(
                     onPressed:(){

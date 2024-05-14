@@ -17,6 +17,7 @@ class JobRequest {
   static const String _userPictures = "jobs/user/pictures/";
   static const String _skills = "jobs/skills/";
   static const String _createComment = "jobs/comment/create/";
+  static const String _editComment = "jobs/comment/edit/";
 
   static Future<List<Job>> getJobs() async {
     User user = User();
@@ -281,6 +282,21 @@ class JobRequest {
 
     if (response.statusCode != 201) {
       throw Exception("Unable to create comment");
+    }
+  }
+
+  static Future<void> editComment(String title , String comment
+      , int rating , int jobId , int commentId) async {
+    User user = User();
+    var response = await http.put(Uri.parse("$_base$_editComment$commentId"),
+        headers: <String, String>{
+          "Content-Type": "application/json",
+          "Authorization": "Bearer ${user.accessToken!}"
+        },
+        body: jsonEncode(_getCommentBody(title, comment, rating, jobId)));
+
+    if (response.statusCode != 200) {
+      throw Exception("Unable to change comment");
     }
   }
 

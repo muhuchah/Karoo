@@ -14,7 +14,7 @@ import 'job_data.dart';
 
 class CreateJob extends StatefulWidget {
   TextEditingController titleController = TextEditingController(
-    text: JobData.title == "" ? "" : JobData.title,
+    text: JobData.title,
   );
   TextEditingController descriptionController = TextEditingController(
     text : JobData.description == "" ? null : JobData.description,

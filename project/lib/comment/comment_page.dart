@@ -12,13 +12,18 @@ import 'display_comment.dart';
 
 class CommentPage extends StatefulWidget {
   Job job;
-  TextEditingController titleController = TextEditingController();
-  TextEditingController commentController = TextEditingController();
+  bool create;
+  TextEditingController titleController = TextEditingController(
+    text: CommentData.title
+  );
+  TextEditingController commentController = TextEditingController(
+    text: CommentData.comment
+  );
   FocusNode titleFocus = FocusNode();
   FocusNode commentFocus = FocusNode();
   final _formKey = GlobalKey<FormState>();
-  int selectedRating = 0;
-  CommentPage({super.key , required this.job});
+  int selectedRating = CommentData.rating;
+  CommentPage({super.key , required this.job , required this.create});
 
   @override
   State<CommentPage> createState() => _CommentPageState();
@@ -28,9 +33,11 @@ class _CommentPageState extends State<CommentPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SubAppBar(text: "New Comment", leading: (){
-        Navigator.of(context).pop();
-      }),
+      appBar: SubAppBar(text: widget.create ? "New Comment" : "Edit Comment",
+          leading: (){
+            Navigator.of(context).pop();
+        }
+      ),
       backgroundColor: AppColor.background,
       body: SingleChildScrollView(
         child: SizedBox(
@@ -132,15 +139,27 @@ class _CommentPageState extends State<CommentPage> {
                         }
                         else if(widget._formKey.currentState!.validate()){
                           try {
-                            await JobRequest.createComment(
-                                widget.titleController.text,
-                                widget.commentController.text,
-                                widget.selectedRating,
-                                widget.job.id!);
+                            if(widget.create) {
+                              await JobRequest.createComment(
+                                  widget.titleController.text,
+                                  widget.commentController.text,
+                                  widget.selectedRating,
+                                  widget.job.id!);
+                            }
+                            else{
+                              await JobRequest.editComment(
+                                  widget.titleController.text,
+                                  widget.commentController.text,
+                                  widget.selectedRating,
+                                  widget.job.id!,
+                                  CommentData.id
+                              );
+                            }
 
                             Navigator.of(context).pop();
                             Navigator.of(context).pop();
                             CommentData.onSubmitTap!();
+                            CommentData.init();
                           }
                           catch(e){
                             ScaffoldMessenger.of(context).showSnackBar(
