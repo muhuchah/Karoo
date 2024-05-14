@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import SpamReport, Message
+from .models import SpamReport, Message, Case
 
 
 class SpamReportSerializer(serializers.ModelSerializer):
@@ -22,3 +22,9 @@ class MessageSerializer(serializers.ModelSerializer):
 
     def get_recipient_email(self, obj):
         return obj.recipient.email
+
+
+class CaseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Case
+        fields = '__all__'

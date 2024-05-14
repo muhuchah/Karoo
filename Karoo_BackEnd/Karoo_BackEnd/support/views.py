@@ -4,9 +4,9 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from django.db.models import Q
 
-from .models import SpamReport, Message
+from .models import SpamReport, Message, Case
 from account_module.models import User
-from .serializers import SpamReportSerializer, MessageSerializer
+from .serializers import SpamReportSerializer, MessageSerializer, CaseSerializer
 
 
 class SpamReportView(APIView):
@@ -58,3 +58,12 @@ class ChatRoomView(APIView):
             return Response({'error': 'Recipient not found'}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class CaseAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        cases = Case.objects.all()
+        serializer = CaseSerializer(cases, many=True)
+        return Response(serializer.data)
