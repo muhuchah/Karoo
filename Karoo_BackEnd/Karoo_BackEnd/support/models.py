@@ -2,6 +2,10 @@ from django.db import models
 from job_module.models import job
 from account_module.models import User
 
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.utils import timezone
+
 
 class SpamReport(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, null=False)
@@ -24,3 +28,19 @@ class Message(models.Model):
 
     def __str__(self):
         return f"Message from {self.sender} to {self.recipient} ({self.timestamp})"
+
+
+class Case(models.Model):
+    title = models.CharField(max_length=256)
+
+    def __str__(self):
+        return f"Case title: {self.title}"
+
+
+class Chat(models.Model):
+    title = models.CharField(max_length=256)
+    last_updated = models.DateTimeField(auto_now=True)
+    case = models.ForeignKey(Case, on_delete=models.CASCADE, related_name='chats')
+
+    def __str__(self):
+        return f"Chat title: {self.title}"
