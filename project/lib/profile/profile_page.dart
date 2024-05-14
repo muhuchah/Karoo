@@ -97,7 +97,11 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   const SizedBox(height: 20,),
                   ElevatedButton(onPressed: (){
-                    deleteAccountAlertDialog(context, "Password",_writeBlank());
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context){
+                        return DeletePage();
+                      })
+                    );
                   },
                     child: BigText(text: "Delete Account",size: 20,textColor: Colors.white,),
                     style: ElevatedButton.styleFrom(
