@@ -41,4 +41,4 @@ class SupportMessageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SupportMessage
-        fields = ['id', 'content', 'timestamp']
+        fields = ['content', 'timestamp', 'chat']

@@ -3,6 +3,7 @@ from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from django.db.models import Q
+from django.shortcuts import get_object_or_404
 
 from .models import SpamReport, Message, Case, Chat, SupportMessage
 from account_module.models import User
@@ -78,7 +79,7 @@ class CaseChatsAPIView(APIView):
         return Response(serializer.data)
 
 
-class ChatMessagesAPIView(APIView):
+class SupportMessagesAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, chat_id):
@@ -89,3 +90,15 @@ class ChatMessagesAPIView(APIView):
             return Response(serializer.data)
         except SupportMessage.DoesNotExist:
             return Response({'error': 'Chat not found'}, status=status.HTTP_404_NOT_FOUND)
+
+
+class SupportMessageCreateAPIView(APIView):
+    def post(self, request, *args, **kwargs):
+        serializer = SupportMessageSerializer(data=request.data)
+        if serializer.is_valid():
+            sender = request.user
+            content = serializer.validated_data.get('content')
+            chat = serializer.validated_data.get('chat')
+            message = SupportMessage.objects.create(sender=sender, content=content, chat=chat)
+            return Response(SupportMessageSerializer(message).data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

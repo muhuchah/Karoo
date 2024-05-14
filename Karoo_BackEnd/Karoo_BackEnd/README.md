@@ -959,7 +959,7 @@ Get a list of all cases.
 ```
 
 
-### Chat Messages
+### Get Chat Messages
 > URL http://127.0.0.1:8000/support/cases/chat/{chat_id}/messages/        
 > Method GET
 
@@ -967,14 +967,43 @@ Get a list of all cases.
 ```json
 [
     {
-        "id": 1,
         "content": "This m1",
-        "timestamp": "2024-05-14T12:22:49.995461+03:30"
+        "timestamp": "2024-05-14T12:22:49.995461+03:30",
+        "chat": 1
     },
     {
-        "id": 3,
         "content": "fasdfad",
-        "timestamp": "2024-05-14T12:26:52.803369+03:30"
+        "timestamp": "2024-05-14T12:26:52.803369+03:30",
+        "chat": 1
     }
 ]
+```
+
+### Create Chat Messages
+> URL http://127.0.0.1:8000/support/cases/chat/create_message/          
+> Method POST
+
+##### Parameters
+```json
+{
+    "content": "message from postman 938492",
+    "chat": 1
+}
+```
+
+##### Response
+```json
+{
+    "content": "message from postman 938492",
+    "timestamp": "2024-05-14T17:12:16.901707+03:30",
+    "chat": 1
+}
+```
+If Chat Doesn't Exist!
+```json
+{
+    "chat": [
+        "Invalid pk \"133\" - object does not exist."
+    ]
+}
 ```
