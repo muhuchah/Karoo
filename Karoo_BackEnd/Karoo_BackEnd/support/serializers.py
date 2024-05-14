@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import SpamReport, Message, Case, Chat
+from .models import SpamReport, Message, Case, Chat, SupportMessage
 
 
 class SpamReportSerializer(serializers.ModelSerializer):
@@ -35,3 +35,10 @@ class ChatSerializer(serializers.ModelSerializer):
     class Meta:
         model = Chat
         fields = '__all__'
+
+
+class SupportMessageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = SupportMessage
+        fields = ['id', 'content', 'timestamp']

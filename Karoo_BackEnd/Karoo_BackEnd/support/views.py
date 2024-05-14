@@ -4,9 +4,9 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from django.db.models import Q
 
-from .models import SpamReport, Message, Case, Chat
+from .models import SpamReport, Message, Case, Chat, SupportMessage
 from account_module.models import User
-from .serializers import SpamReportSerializer, MessageSerializer, CaseSerializer, ChatSerializer
+from .serializers import SpamReportSerializer, MessageSerializer, CaseSerializer, ChatSerializer, SupportMessageSerializer
 
 
 class SpamReportView(APIView):
@@ -76,3 +76,16 @@ class CaseChatsAPIView(APIView):
         chats = Chat.objects.filter(case_id=case_id)
         serializer = ChatSerializer(chats, many=True)
         return Response(serializer.data)
+
+
+class ChatMessagesAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, chat_id):
+        try:
+            user = request.user
+            messages = SupportMessage.objects.filter(chat_id=chat_id, sender=user)
+            serializer = SupportMessageSerializer(messages, many=True)
+            return Response(serializer.data)
+        except SupportMessage.DoesNotExist:
+            return Response({'error': 'Chat not found'}, status=status.HTTP_404_NOT_FOUND)

@@ -220,7 +220,7 @@ If Logout Was Not Successful.
 ### Generate data of provinces and cities
 In back-end run this command:
 > python manage.py generate_city
-Then Iran provinces and cities is added to database.
+> Then Iran provinces and cities is added to database.
 
 ### Retrieving All Provinces
 To get all the provinces, send a **GET** request to the following url.
@@ -954,6 +954,27 @@ Get a list of all cases.
         "title": "Chat1_case1",
         "last_updated": "2024-05-14T09:00:45.985757+03:30",
         "case": 1
+    }
+]
+```
+
+
+### Chat Messages
+> URL http://127.0.0.1:8000/support/cases/chat/{chat_id}/messages/        
+> Method GET
+
+##### Response
+```json
+[
+    {
+        "id": 1,
+        "content": "This m1",
+        "timestamp": "2024-05-14T12:22:49.995461+03:30"
+    },
+    {
+        "id": 3,
+        "content": "fasdfad",
+        "timestamp": "2024-05-14T12:26:52.803369+03:30"
     }
 ]
 ```
