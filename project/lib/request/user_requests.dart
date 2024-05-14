@@ -14,6 +14,7 @@ class UserRequest{
   static const String _provinces = "users/provinces/";
   static const String _cities = "users/cities/";
   static const String _address = "users/settings/address-list/";
+  static const String _editAddress = "users/settings/address-edit/";
   static const String _userSearch = "users/search/";
 
   static Future<String> signup({
@@ -244,8 +245,8 @@ class UserRequest{
 
     if(response.statusCode == 200){
       var body = jsonDecode(response.body);
-      user.province = body[0]["province"];
-      user.city = body[0]["city"];
+      user.province = body[0]["province_name"];
+      user.city = body[0]["city_name"];
       user.addressId = body[0]["id"];
     }
 
@@ -256,16 +257,14 @@ class UserRequest{
 
   static Future<void> editAddress(String province , String city) async {
     User user = User();
-    final response = await http.put(Uri.parse("$_base$_address${user.addressId}"),
+    final response = await http.put(Uri.parse("$_base$_editAddress${user.addressId}"),
         headers: <String , String> {
           "Authorization": "Bearer ${user.accessToken!}"},
         body: <String , String>{
-          "province":province,
-          "city":city
+          "province": province,
+          "city": city
         }
     );
-
-    print(response.statusCode);
 
     if(response.statusCode == 200){
       dynamic body = jsonDecode(response.body);

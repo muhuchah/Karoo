@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:project/edit_info/address.dart';
 import 'package:project/profile/user_info.dart';
 import 'package:project/request/user_requests.dart';
 import 'package:project/utils/app_color.dart';
@@ -8,15 +12,16 @@ class ProfileListTile extends StatelessWidget {
   final UserInfo userInfo;
   final String label;
   final String text;
-  const ProfileListTile({super.key , required this.userInfo ,
-    required this.label, required this.text});
+  Function() onTap;
+  ProfileListTile({super.key , required this.userInfo ,
+    required this.label, required this.text , required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Container(
-          margin: EdgeInsets.only(top: 15,left: 15,right: 5),
+          margin: const EdgeInsets.only(top: 15,left: 15,right: 5),
           child: Column(children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -26,19 +31,26 @@ class ProfileListTile extends StatelessWidget {
                   children: [
                     CustomText(text: label, size: 16,
                         textColor: Colors.black, weight:FontWeight.normal),
-                    SizedBox(height: 20,),
+                    const SizedBox(height: 20,),
                     CustomText(text: text, size: 16,
                         textColor: AppColor.hint, weight:FontWeight.normal)
                 ],),
                 IconButton(onPressed: (){
-                  _showDialog(context, label);
-                }, icon: Icon(Icons.arrow_forward_ios,)),
+                  if(userInfo == UserInfo.address){
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context){
+                        return EditAddressPage(onTap: onTap,);
+                      })
+                    );
+                  }
+                  // _showDialog(context, label);
+                }, icon: const Icon(Icons.arrow_forward_ios,)),
             ],),
           ],),
         ),
-        SizedBox(height: 20,),
+        const SizedBox(height: 20,),
         Container(height: 1,color: AppColor.divider,
-          margin: EdgeInsets.symmetric(horizontal: 10),)
+          margin: const EdgeInsets.symmetric(horizontal: 10),)
       ],
     );
   }
@@ -90,6 +102,7 @@ class ProfileListTile extends StatelessWidget {
                       duration: Duration(seconds: 1),));
               }
               if(userInfo == UserInfo.email){
+                _writeBlank();
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();
                 Navigator.of(context).pushReplacementNamed("/first");
@@ -105,5 +118,11 @@ class ProfileListTile extends StatelessWidget {
         ],
       );
     });
+  }
+
+  Future<void> _writeBlank() async {
+    final Directory directory = await getApplicationDocumentsDirectory();
+    final File file = File('${directory.path}/my_file.txt');
+    await file.writeAsString("");
   }
 }

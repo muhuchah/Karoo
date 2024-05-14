@@ -12,9 +12,15 @@ import 'package:project/widgets/big_text.dart';
 import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/my_appbars.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
   final User user = User();
-  ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -44,16 +50,16 @@ class ProfilePage extends StatelessWidget {
           Container(height: 1,color: AppColor.divider,
             margin: const EdgeInsets.symmetric(horizontal: 10),
           ),
-          ProfileListTile(userInfo:UserInfo.fullName ,
-              label: "Full Name", text: user.fullName!),
-          ProfileListTile(userInfo: UserInfo.email,
-          label: "Email", text: user.email!),
-          ProfileListTile(userInfo: UserInfo.phoneNumber,
-              label: "Phone Number", text: user.phoneNumber!),
-          ProfileListTile(userInfo: UserInfo.address,
-              label: "Address", text: "${user.province} , ${user.city}"),
-          const ProfileListTile(userInfo: UserInfo.password,
-            label: "Password", text: "********"),
+          ProfileListTile(userInfo:UserInfo.fullName , label: "Full Name",
+            text: user.fullName! , onTap: (){setState(() {});},),
+          ProfileListTile(userInfo: UserInfo.email, label: "Email",
+              text: user.email! , onTap: (){setState(() {});},),
+          ProfileListTile(userInfo: UserInfo.phoneNumber, label: "Phone Number",
+              text: user.phoneNumber! , onTap: (){setState(() {});},),
+          ProfileListTile(userInfo: UserInfo.address, label: "Address",
+              text: "${user.province} , ${user.city}" , onTap: (){setState(() {});},),
+          ProfileListTile(userInfo: UserInfo.password, label: "Password",
+              text: "********" , onTap: (){setState(() {});},),
           const SizedBox(height: 20,),
           Padding(
             padding: const EdgeInsets.all(20.0),
