@@ -318,4 +318,17 @@ class JobRequest {
 
     throw Exception("Unable to search jobs");
   }
+
+  static Future<void> deleteComment(int id) async {
+    User user = User();
+    var response = await http.delete(Uri.parse("$_base$_editComment$id"),
+      headers: <String, String>{
+        "Authorization": "Bearer ${user.accessToken!}"
+      }
+    );
+
+    if(response.statusCode != 204){
+      throw Exception("Unable to delete comment");
+    }
+  }
 }

@@ -3,6 +3,7 @@ import 'package:project/comment/comment_data.dart';
 import 'package:project/request/job_request.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/divider.dart';
+import 'package:project/widgets/long_button.dart';
 import 'package:project/widgets/my_appbars.dart';
 
 import '../component/job_file.dart';
@@ -126,57 +127,7 @@ class _CommentPageState extends State<CommentPage> {
                 const Spacer(),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Align(
-                    child: FirstPageButton(
-                      text: "Submit",
-                      color: AppColor.main,
-                      onTap:() async {
-                        if(widget.selectedRating == 0){
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text("Please select rating") ,
-                                duration: Duration(seconds: 2),)
-                          );
-                        }
-                        else if(widget._formKey.currentState!.validate()){
-                          try {
-                            if(widget.create) {
-                              await JobRequest.createComment(
-                                  widget.titleController.text,
-                                  widget.commentController.text,
-                                  widget.selectedRating,
-                                  widget.job.id!);
-                            }
-                            else{
-                              await JobRequest.editComment(
-                                  widget.titleController.text,
-                                  widget.commentController.text,
-                                  widget.selectedRating,
-                                  widget.job.id!,
-                                  CommentData.id
-                              );
-                            }
-
-                            Navigator.of(context).pop();
-                            Navigator.of(context).pop();
-                            CommentData.onSubmitTap!();
-                            CommentData.init();
-                          }
-                          catch(e){
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text(e.toString()) ,
-                                  duration: const Duration(seconds: 2),)
-                            );
-                          }
-                        }
-                        else if(widget.titleController.text == ""){
-                          widget.titleFocus.requestFocus();
-                        }
-                        else if(widget.commentController.text == ""){
-                          widget.commentFocus.requestFocus();
-                        }
-                      }
-                    ),
-                  ),
+                  child: getButton(),
                 ),
               ],
             ),
@@ -184,6 +135,133 @@ class _CommentPageState extends State<CommentPage> {
         ),
       ),
     );
+  }
+
+  Widget getButton(){
+    if(widget.create){
+      return FirstPageButton(
+        text: "Submit",
+        color: AppColor.main,
+        onTap:() async {
+          if(widget.selectedRating == 0){
+            ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text("Please select rating") ,
+                  duration: Duration(seconds: 2),)
+            );
+          }
+          else if(widget._formKey.currentState!.validate()){
+            try {
+              if(widget.create) {
+                await JobRequest.createComment(
+                    widget.titleController.text,
+                    widget.commentController.text,
+                    widget.selectedRating,
+                    widget.job.id!);
+              }
+              else{
+                await JobRequest.editComment(
+                    widget.titleController.text,
+                    widget.commentController.text,
+                    widget.selectedRating,
+                    widget.job.id!,
+                    CommentData.id
+                );
+              }
+
+              Navigator.of(context).pop();
+              Navigator.of(context).pop();
+              CommentData.onSubmitTap!();
+              CommentData.init();
+            }
+            catch(e){
+              ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(e.toString()) ,
+                    duration: const Duration(seconds: 2),)
+              );
+            }
+          }
+          else if(widget.titleController.text == ""){
+            widget.titleFocus.requestFocus();
+          }
+          else if(widget.commentController.text == ""){
+            widget.commentFocus.requestFocus();
+          }
+        }
+      );
+    }
+    else{
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          LongButton(
+            text: "Change",
+            onTap:() async {
+              if(widget.selectedRating == 0){
+                ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text("Please select rating") ,
+                      duration: Duration(seconds: 2),)
+                );
+              }
+              else if(widget._formKey.currentState!.validate()){
+                try {
+                  if(widget.create) {
+                    await JobRequest.createComment(
+                        widget.titleController.text,
+                        widget.commentController.text,
+                        widget.selectedRating,
+                        widget.job.id!);
+                  }
+                  else{
+                    await JobRequest.editComment(
+                        widget.titleController.text,
+                        widget.commentController.text,
+                        widget.selectedRating,
+                        widget.job.id!,
+                        CommentData.id
+                    );
+                  }
+
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                  CommentData.onSubmitTap!();
+                  CommentData.init();
+                }
+                catch(e){
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(e.toString()) ,
+                        duration: const Duration(seconds: 2),)
+                  );
+                }
+              }
+              else if(widget.titleController.text == ""){
+                widget.titleFocus.requestFocus();
+              }
+              else if(widget.commentController.text == ""){
+                widget.commentFocus.requestFocus();
+              }
+            }
+          ),
+          const SizedBox(height: 10,),
+          LongButton(
+            text: "Delete",
+            onTap:() async {
+              try {
+                await JobRequest.deleteComment(CommentData.id);
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+                CommentData.onSubmitTap!();
+                CommentData.init();
+              }
+              catch(e){
+                ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(e.toString()) ,
+                      duration: const Duration(seconds: 2),));
+              }
+            }
+          )
+        ],
+      );
+    }
   }
 
   List<Widget> getStars() {
