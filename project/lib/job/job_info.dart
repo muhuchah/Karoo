@@ -9,6 +9,7 @@ import 'package:project/first/first_page_button.dart';
 import 'package:project/job/icon_text_button_widget.dart';
 import 'package:project/job/icon_text_job_widget.dart';
 import 'package:project/job/job_widgets.dart';
+import 'package:project/job/spam.dart';
 import 'package:project/request/job_request.dart';
 import 'package:project/request/user_requests.dart';
 import 'package:project/widgets/custom_text.dart';
@@ -115,7 +116,11 @@ class _JobInfoPageState extends State<JobInfoPage> {
                     ),
                     IconButton(
                       onPressed: () {
-
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context){
+                            return SpamPage(job: job);
+                          }
+                        ));
                       },
                       icon: Image.asset(
                         "asset/icons/exclamation-mark.png", width: 24,
