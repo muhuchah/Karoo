@@ -4,6 +4,7 @@ import 'package:project/home/home.dart';
 import 'package:project/login_signup/forgot_password_page.dart';
 import 'package:project/login_signup/phone_city_page.dart';
 import 'package:project/login_signup/signup_page.dart';
+import 'package:project/my_karoo/edit_shaba.dart';
 import 'package:project/my_karoo/my_karoo_page.dart';
 import 'package:project/my_karoo/wallet.dart';
 import 'package:project/profile/profile_page.dart';
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
         "/myKaroo" : (context) => MyKarooPage(),
         "/profile" : (context) => ProfilePage(),
         "/wallet" : (context) => WalletPage(),
+        "/edit-shaba" : (context) => EditShabaNumber(),
       },
     );
   }

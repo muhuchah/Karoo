@@ -48,14 +48,17 @@ class WalletPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.white
                       ),
-                      child: TextField(
-                        controller: controller,
-                        decoration: const InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white)
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white)
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0),
+                        child: TextField(
+                          controller: controller,
+                          decoration: const InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white)
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white)
+                            ),
                           ),
                         ),
                       ),
@@ -115,7 +118,7 @@ class WalletPage extends StatelessWidget {
               const SizedBox(height: 40,),
               TextButton(
                 onPressed: (){
-                  
+                  Navigator.of(context).pushNamed("/edit-shaba");
                 },
                 style: TextButton.styleFrom(
                   padding: const EdgeInsets.symmetric(horizontal: 20)
