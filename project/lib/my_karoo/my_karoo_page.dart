@@ -20,6 +20,11 @@ class _MyKarooPageState extends State<MyKarooPage> {
       backgroundColor: AppColor.background,
       appBar: MainAppBar(text: "Karoo",actions: [
         IconButton(onPressed: (){
+          Navigator.of(context).pushNamed("/wallet");
+        }, icon: const Icon(Icons.wallet_outlined),
+          style: IconButton.styleFrom(iconSize: 32),
+        ),
+        IconButton(onPressed: (){
 
         }, icon: const Icon(Icons.add_alert_rounded),
           style: IconButton.styleFrom(iconSize: 32),

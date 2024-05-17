@@ -5,6 +5,7 @@ import 'package:project/login_signup/forgot_password_page.dart';
 import 'package:project/login_signup/phone_city_page.dart';
 import 'package:project/login_signup/signup_page.dart';
 import 'package:project/my_karoo/my_karoo_page.dart';
+import 'package:project/my_karoo/wallet.dart';
 import 'package:project/profile/profile_page.dart';
 import 'first/first_page.dart';
 import 'first/first_page_checker.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
         "/create_job" : (context) => CreateJob(),
         "/myKaroo" : (context) => MyKarooPage(),
         "/profile" : (context) => ProfilePage(),
+        "/wallet" : (context) => WalletPage(),
       },
     );
   }
