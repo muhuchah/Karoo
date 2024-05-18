@@ -126,8 +126,13 @@ class JobSkills extends StatelessWidget{
           children: [
             Image.asset("asset/icons/arrow_drop_forward.png",width: 15,height: 15,),
             const SizedBox(width: 5,),
-            CustomText(text: skills[i].title, size: 16,
-                textColor: Colors.black, weight: FontWeight.normal),
+            SizedBox(
+              width: 300,
+              child:Text(skills[i].title, overflow: TextOverflow.ellipsis,
+                style: const TextStyle(fontSize: 16,
+                color: Colors.black , fontWeight: FontWeight.normal
+              ),)
+            ),
           ],
         ),
       );

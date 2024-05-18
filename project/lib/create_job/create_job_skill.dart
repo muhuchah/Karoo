@@ -66,9 +66,16 @@ class _CreateJobSkillPageState extends State<CreateJobSkillPage> {
                               ),
                             ),
                             const SizedBox(width: 5,),
-                            CustomText(text: widget.skills![index].title, size: 16,
-                              textColor: getTextColor(widget.selectedSkills![index]),
-                              weight: FontWeight.normal),
+                            SizedBox(
+                              width: 300,
+                              child: Text(widget.skills![index].title ,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(fontSize: 16 ,
+                                  color: getTextColor(widget.selectedSkills![index]),
+                                  fontWeight: FontWeight.normal
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       );

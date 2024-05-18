@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/component/user_file.dart';
 import 'package:project/request/job_request.dart';
 import 'package:project/search/search.dart';
 import 'package:project/utils/app_color.dart';
@@ -9,6 +10,7 @@ import '../request/user_requests.dart';
 import '../widgets/drop_down_button.dart';
 
 class FilterAddressPage extends StatefulWidget {
+  bool first = false;
   FilterAddressPage({super.key});
 
   @override
@@ -22,6 +24,7 @@ class _FilterAddressPage extends State<FilterAddressPage> {
 
   @override
   Widget build(BuildContext context) {
+    _checkJobData();
     return Scaffold(
       backgroundColor: AppColor.background,
       appBar: SubAppBar(text: "Edit Address", leading: (){
@@ -72,6 +75,15 @@ class _FilterAddressPage extends State<FilterAddressPage> {
         ),
       ),
     );
+  }
+
+  void _checkJobData(){
+    if(!widget.first) {
+      User user = User();
+      selectedProvince = user.province!;
+      selectedCity = user.city!;
+      widget.first = true;
+    }
   }
 
   Widget getProvinces(){

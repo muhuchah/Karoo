@@ -20,11 +20,11 @@ class SpamPage extends StatefulWidget {
 
   void setReports(){
     reports.add("Bad Job");
-    reports.add("Bad Job");
-    reports.add("Bad Job");
-    reports.add("Bad Job");
-    reports.add("Bad Job");
-    reports.add("Bad Job");
+    reports.add("Very Bad Job");
+    reports.add("Very Very Bad Job");
+    reports.add("Very Very Very Bad Job");
+    reports.add("Very Very Very Very Bad Job");
+    reports.add("Very Very Very Very Very Bad Job");
 
     for(int i=0; i<reports.length;i++){
       selectedReports.add(false);
@@ -82,7 +82,11 @@ class _SpamPageState extends State<SpamPage> {
             padding: const EdgeInsets.only(left: 20 , right: 20 , top: 20 , bottom: 10),
             child: LongButton(
               onTap:() async {
-                
+                for(int i=0;i<widget.selectedReports.length;i++){
+                  if(widget.selectedReports[i]){
+                    await JobRequest.spam(widget.reports[i], widget.job.id!);
+                  }
+                }
                 Navigator.of(context).pop();
               },
               text: "Save"

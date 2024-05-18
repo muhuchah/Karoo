@@ -1,12 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:project/component/user_file.dart';
 import 'package:project/first/first_page_button.dart';
-import 'package:project/home/home.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/big_text.dart';
-import 'package:path_provider/path_provider.dart';
 
 import '../request/user_requests.dart';
 

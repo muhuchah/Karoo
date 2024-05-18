@@ -154,25 +154,31 @@ class _CreateJobState extends State<CreateJob> {
   }
 
   Widget getCategoryName(){
-    return TextButton(
-      onPressed: (){
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => MainCategoriesPage(
-            onTap: (mainCategory){
-              mainCategoryOnTap(context, mainCategory);
-            },
-            appBar: SubAppBar(text: "Category", leading: () {
-              Navigator.of(context).pop();
-            },),
-          ),)
-        );
-      },
-      child:Text(JobData.subCategory == "" ? "Choose" : JobData.subCategory,
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-        style: TextStyle(fontSize: 16 ,
-          color: JobData.subCategory == "" ? AppColor.hint : AppColor.loginText1,
-          fontWeight: FontWeight.normal,
+    return SizedBox(
+      width: 200,
+      child: Align(
+        alignment: Alignment.centerRight,
+        child: TextButton(
+          onPressed: (){
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => MainCategoriesPage(
+                onTap: (mainCategory){
+                  mainCategoryOnTap(context, mainCategory);
+                },
+                appBar: SubAppBar(text: "Category", leading: () {
+                  Navigator.of(context).pop();
+                },),
+              ),)
+            );
+          },
+          child:Text(JobData.subCategory == "" ? "Choose" : JobData.subCategory,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(fontSize: 16 ,
+              color: JobData.subCategory == "" ? AppColor.hint : AppColor.loginText1,
+              fontWeight: FontWeight.normal,
+            ),
+          ),
         ),
       ),
     );
