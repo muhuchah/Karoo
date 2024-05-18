@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/widgets/custom_text.dart';
+import 'package:project/widgets/divider.dart';
 import 'package:project/widgets/my_appbars.dart';
 import 'package:project/my_karoo/my_karoo_list_tile.dart';
 import 'package:project/utils/app_color.dart';
@@ -70,8 +71,14 @@ class _MyKarooPageState extends State<MyKarooPage> {
 
                 },
               ),
-              SizedBox(height: 40,),
-              MyKarooListText(text: "Help"),
+              const SizedBox(height: 40,),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25),
+                child: CustomText(text: "Help", size: 20,
+                    textColor: AppColor.text1, weight: FontWeight.w500),
+              ),
+              const SizedBox(height: 10,),
+              const MyDivider(margin: 10,),
               MyKarooListText(text: "Support"),
               MyKarooListText(text: "Karoo FAQ"),
               MyKarooListText(text: "About Karoo"),

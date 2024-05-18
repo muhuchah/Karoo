@@ -54,7 +54,7 @@ class MainCategoriesPage extends StatelessWidget {
   List<Widget> getCategories(List<Category> categories , context){
     List<Widget> children = [];
     for(Category c in categories){
-      children.add(CategoryTextIcon(
+      children.add(MainCategoryTextIcon(
         text: c.title!,
         onTap: (){
           onTap!(c.title!);

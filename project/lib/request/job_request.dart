@@ -18,6 +18,7 @@ class JobRequest {
   static const String _skills = "jobs/skills/";
   static const String _createComment = "jobs/comment/create/";
   static const String _editComment = "jobs/comment/edit/";
+  static const String _spam = "/support/spam_report/";
 
   static Future<List<Job>> getJobs() async {
     User user = User();
@@ -319,6 +320,37 @@ class JobRequest {
     throw Exception("Unable to search jobs");
   }
 
+  static String _getFilterUrl(Map<String , String> filters){
+    String url = "";
+    for(int i=0;i<filters.keys.length;i++){
+      url += "${filters.keys.elementAt(i)}=${filters[filters.keys.elementAt(i)]}";
+      if(i!=filters.length-1){
+        url += "&";
+      }
+    }
+    return url;
+  }
+
+  static Future<List<Job>> getFilterJobs(Map<String , String> filters) async {
+    User user = User();
+    String url = _getFilterUrl(filters);
+    var response = await http.get(Uri.parse("$_base$_jobList?$url"),
+        headers: <String, String>{
+          "Authorization": "Bearer ${user.accessToken!}"
+        });
+
+    if (response.statusCode == 200) {
+      List<dynamic> body = jsonDecode(response.body);
+      List<Job> jobs = [];
+      for (int i = 0; i < body.length; i++) {
+        jobs.add(Job.listJson(body[i]));
+      }
+      return jobs;
+    }
+
+    throw Exception("Unable to filter jobs");
+  }
+
   static Future<void> deleteComment(int id) async {
     User user = User();
     var response = await http.delete(Uri.parse("$_base$_editComment$id"),
@@ -329,6 +361,24 @@ class JobRequest {
 
     if(response.statusCode != 204){
       throw Exception("Unable to delete comment");
+    }
+  }
+
+  static Future<void> spam(String message , int jobId) async {
+    User user = User();
+    var response = await http.post(Uri.parse("$_base$_spam"),
+      headers: <String, String>{
+        "Content-Type": "application/json",
+        "Authorization": "Bearer ${user.accessToken!}"
+      },
+      body:{
+        "message" : message,
+        "job" : jobId
+      }
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception("Unable to send report");
     }
   }
 }

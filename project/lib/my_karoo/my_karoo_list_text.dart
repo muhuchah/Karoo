@@ -4,7 +4,8 @@ import 'package:project/widgets/divider.dart';
 
 class MyKarooListText extends StatelessWidget {
   final String text;
-  const MyKarooListText({super.key , required this.text});
+  final Color color;
+  const MyKarooListText({super.key , required this.text , this.color = Colors.black});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,8 @@ class MyKarooListText extends StatelessWidget {
             padding: const EdgeInsets.only(left: 10.0),
             child: TextButton(onPressed: (){
 
-            },child: Text(text , style: const TextStyle(fontSize: 20),),),
+            },child: Text(text , style: TextStyle(fontSize: 20 , color: color),),
+            ),
           ),
           const SizedBox(height: 10,),
           const MyDivider()

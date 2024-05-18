@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/request/job_request.dart';
+import 'package:project/search/search_data.dart';
 import 'package:project/search/search_field.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/divider.dart';
@@ -11,7 +12,8 @@ import '../widgets/job_list_tile.dart';
 
 class SearchPage extends StatefulWidget {
   String search;
-  SearchPage({super.key , required this.search});
+  Map<String , String>? filterTypes;
+  SearchPage({super.key , required this.search , this.filterTypes});
 
   @override
   State<SearchPage> createState() => _SearchPageState();
@@ -55,9 +57,16 @@ class _SearchPageState extends State<SearchPage> {
                   ),
                   IconButton(
                     onPressed: () {
-
+                      Navigator.of(context).pop();
+                      Navigator.of(context).pop();
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context){
+                            SearchData.init();
+                            return SearchFieldPage(filter: true,);
+                          })
+                      );
                     },
-                    icon: const Icon(Icons.search_outlined , size: 24,)
+                    icon: const Icon(Icons.filter_alt_outlined , size: 24,)
                   )
                 ],
               ),
@@ -65,7 +74,9 @@ class _SearchPageState extends State<SearchPage> {
           ),
           const SizedBox(height: 20,),
           const MyDivider(),
-          FutureBuilder(future: JobRequest.getSearchJobs(widget.search),
+          FutureBuilder(future: widget.filterTypes == null ?
+              JobRequest.getSearchJobs(widget.search) :
+              JobRequest.getFilterJobs(widget.filterTypes!),
             builder: (context , snapShot){
               if(snapShot.hasData){
                 return getJobs(snapShot.data! , context);
