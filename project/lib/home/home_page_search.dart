@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:project/component/user_file.dart';
 import 'package:project/search/search_field.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/custom_text.dart';
@@ -11,6 +12,7 @@ class HomePageSearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    User user = User();
     return Column(
       children: [
         const SizedBox(height: 20,),
@@ -45,9 +47,9 @@ class HomePageSearch extends StatelessWidget {
                 color: Colors.black,
               ),
               Container(width: 5,),
-              Text("Isfahan"),
+              Text(user.city!),
               IconButton(onPressed: (){
-
+                Navigator.of(context).pushNamed("/address-filter");
               }, icon: const Icon(Icons.location_on_outlined))
             ],
           ),

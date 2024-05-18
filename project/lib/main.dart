@@ -8,6 +8,7 @@ import 'package:project/my_karoo/edit_shaba.dart';
 import 'package:project/my_karoo/my_karoo_page.dart';
 import 'package:project/my_karoo/wallet.dart';
 import 'package:project/profile/profile_page.dart';
+import 'package:project/search/filter_address.dart';
 import 'first/first_page.dart';
 import 'first/first_page_checker.dart';
 import 'login_signup/login_page.dart';
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
         "/profile" : (context) => ProfilePage(),
         "/wallet" : (context) => WalletPage(),
         "/edit-shaba" : (context) => EditShabaNumber(),
+        "/address-filter" : (context) => FilterAddressPage()
       },
     );
   }
