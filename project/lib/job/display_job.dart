@@ -50,7 +50,10 @@ class _DisplayJobPageState extends State<DisplayJobPage> {
             );
           }
           else{
-            return CircularProgressIndicator();
+            return SizedBox(
+                height: MediaQuery.of(context).size.height,
+                child: Center(child: CircularProgressIndicator())
+            );
           }
         },
       ),

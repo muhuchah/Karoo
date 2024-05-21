@@ -47,12 +47,14 @@ class _SearchPageState extends State<SearchPage> {
                       onTap: (){
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context){
-                              return SearchFieldPage();
+                              return SearchFieldPage(text: widget.search,);
                             })
                         );
                       },
-                      child: CustomText(text: widget.search, size: 16,
-                          textColor: Colors.black, weight: FontWeight.normal),
+                      child:Text(widget.search , maxLines: 1, overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(fontSize: 16,color: Colors.black,
+                            fontWeight: FontWeight.normal
+                      ),)
                     ),
                   ),
                   IconButton(
@@ -62,7 +64,7 @@ class _SearchPageState extends State<SearchPage> {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context){
                             SearchData.init();
-                            return SearchFieldPage(filter: true,);
+                            return SearchFieldPage(filter: true,text: widget.search,);
                           })
                       );
                     },

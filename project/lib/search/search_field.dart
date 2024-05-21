@@ -12,11 +12,13 @@ import '../widgets/custom_text.dart';
 import '../widgets/my_appbars.dart';
 
 class SearchFieldPage extends StatefulWidget {
-  TextEditingController controller = TextEditingController();
+  TextEditingController? controller;
   FocusNode focus = FocusNode();
   bool filter;
+  String? text;
 
-  SearchFieldPage({super.key , this.filter = false}){
+  SearchFieldPage({super.key , this.filter = false, this.text}){
+    controller = TextEditingController(text: text);
     focus.requestFocus();
   }
 
@@ -42,9 +44,13 @@ class _SearchFieldPageState extends State<SearchFieldPage> {
                 padding: const EdgeInsets.all(20),
                 child: LongButton(
                   onTap: (){
+                    if(widget.text!=null){
+                      Navigator.of(context).pop();
+                    }
+                    Navigator.of(context).pop();
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (context){
-                        return SearchPage(search: widget.controller.text,
+                        return SearchPage(search: widget.controller!.text,
                           filterTypes: _checkFilterTypes(),
                         );
                       })

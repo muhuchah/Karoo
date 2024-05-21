@@ -44,7 +44,10 @@ class MainCategoriesPage extends StatelessWidget {
             );
           }
           else{
-            return CircularProgressIndicator();
+            return SizedBox(
+              height: MediaQuery.of(context).size.height,
+              child: Center(child: CircularProgressIndicator())
+            );
           }
         },
       ),
