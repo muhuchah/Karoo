@@ -67,9 +67,8 @@ class _CreateJobSkillPageState extends State<CreateJobSkillPage> {
                             ),
                             const SizedBox(width: 5,),
                             SizedBox(
-                              width: 300,
+                              width: MediaQuery.of(context).size.width-70,
                               child: Text(widget.skills![index].title ,
-                                overflow: TextOverflow.ellipsis,
                                 style: TextStyle(fontSize: 16 ,
                                   color: getTextColor(widget.selectedSkills![index]),
                                   fontWeight: FontWeight.normal

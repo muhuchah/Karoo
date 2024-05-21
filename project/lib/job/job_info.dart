@@ -52,7 +52,10 @@ class _JobInfoPageState extends State<JobInfoPage> {
             );
           }
           else{
-            return const CircularProgressIndicator();
+            return SizedBox(
+                height: MediaQuery.of(context).size.height,
+                child: Center(child: CircularProgressIndicator())
+            );
           }
         },
       )

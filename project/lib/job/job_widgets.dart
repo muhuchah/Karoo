@@ -109,11 +109,11 @@ class JobSkills extends StatelessWidget{
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: _getWidgets(),
+      children: _getWidgets(context),
     );
   }
 
-  List<Widget> _getWidgets(){
+  List<Widget> _getWidgets(context){
     List<Widget> children = [
       const CustomText(text: "Skills", size: 16,
           textColor: Colors.black, weight: FontWeight.w500),
@@ -127,8 +127,8 @@ class JobSkills extends StatelessWidget{
             Image.asset("asset/icons/arrow_drop_forward.png",width: 15,height: 15,),
             const SizedBox(width: 5,),
             SizedBox(
-              width: 300,
-              child:Text(skills[i].title, overflow: TextOverflow.ellipsis,
+              width: MediaQuery.of(context).size.width-60,
+              child:Text(skills[i].title,
                 style: const TextStyle(fontSize: 16,
                 color: Colors.black , fontWeight: FontWeight.normal
               ),)
