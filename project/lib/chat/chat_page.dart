@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:project/chat/chat_holder.dart';
 import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/divider.dart';
+import 'package:intl/intl.dart';
 
 import '../utils/app_color.dart';
 
@@ -95,8 +96,10 @@ class _ChatPageState extends State<ChatPage> {
                             padding: EdgeInsets.zero,
                             onPressed: (){
                               setState(() {
+                                DateTime now = DateTime.now();
+                                String formattedDate = DateFormat("kk:mm").format(now);
                                 widget.messages.add(ChatHolder(true,
-                                    widget.messageController.text, "12:03"));
+                                    widget.messageController.text, formattedDate));
                                 widget.messageController.text = "";
                                 widget.focusNode.requestFocus();
                               });
