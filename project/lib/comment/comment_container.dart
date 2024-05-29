@@ -94,7 +94,7 @@ class CommentTile extends StatelessWidget {
                   width: 60,
                   child: Row(
                     children: [
-                      CustomText(text: "1", size: 12,
+                      CustomText(text: "0", size: 12,
                           textColor: Colors.black, weight: FontWeight.normal),
                       const SizedBox(width: 4,),
                       GestureDetector(
@@ -104,7 +104,7 @@ class CommentTile extends StatelessWidget {
                         child: Image.asset("asset/icons/like.png",width: 13,height: 13,),
                       ),
                       const SizedBox(width: 10,),
-                      CustomText(text: "5", size: 12,
+                      CustomText(text: "0", size: 12,
                           textColor: Colors.black, weight: FontWeight.normal),
                       const SizedBox(width: 4,),
                       GestureDetector(

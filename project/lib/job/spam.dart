@@ -63,7 +63,7 @@ class _SpamPageState extends State<SpamPage> {
                         child: Checkbox(value: widget.selectedReports[index],
                           onChanged: (value){
                             setState(() {
-                              widget.selectedReports[index] = true;
+                              widget.selectedReports[index] = value!;
                             });
                           }
                         ),

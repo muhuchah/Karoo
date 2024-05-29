@@ -37,6 +37,7 @@ class _SearchPageState extends State<SearchPage> {
                 children: [
                   GestureDetector(
                     onTap: (){
+                      SearchData.init();
                       Navigator.of(context).pop();
                     },
                     child: const Icon(Icons.arrow_back_ios , size: 24,),

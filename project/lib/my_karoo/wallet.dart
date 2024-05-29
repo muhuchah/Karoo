@@ -30,7 +30,7 @@ class WalletPage extends StatelessWidget {
                   children: [
                     const CustomText(text: "Inventory", size: 24,
                         textColor: Colors.black, weight: FontWeight.w600),
-                    CustomText(text: "120\$", size: 24,
+                    CustomText(text: "0\$", size: 24,
                         textColor: Colors.black, weight: FontWeight.w600)
                   ],
                 ),

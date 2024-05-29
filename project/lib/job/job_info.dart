@@ -80,7 +80,10 @@ class _JobInfoPageState extends State<JobInfoPage> {
           );
         }
         else{
-          return const CircularProgressIndicator();
+          return SizedBox(
+            height: 200,
+            child: Center(child: const CircularProgressIndicator())
+          );
         }
       },
     );

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:project/chat/chat_holder.dart';
+import 'package:project/chat/chat_page.dart';
 import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/divider.dart';
 import 'package:project/widgets/my_appbars.dart';
@@ -79,10 +81,25 @@ class _MyKarooPageState extends State<MyKarooPage> {
               ),
               const SizedBox(height: 10,),
               const MyDivider(margin: 10,),
-              MyKarooListText(text: "Support"),
-              MyKarooListText(text: "Karoo FAQ"),
-              MyKarooListText(text: "About Karoo"),
-              MyKarooListText(text: "Contact us"),
+              MyKarooListText(text: "Support" , onTap: (){
+                Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                  return ChatPage(name: "Mohammad Mx", messages: [
+                    ChatHolder(false, "Hello","12:03"),
+                    ChatHolder(true, "A long text in chat with ...\n...\n...\n...","12:03"),
+                    ChatHolder(false, "I want a plumber","12:03"),
+                    ChatHolder(true, "I want a plumber","12:03"),
+                  ],);
+                }));
+              },),
+              MyKarooListText(text: "Karoo FAQ" , onTap: (){
+
+              },),
+              MyKarooListText(text: "About Karoo" , onTap: (){
+
+              },),
+              MyKarooListText(text: "Contact us" , onTap: (){
+
+              },),
               const SizedBox(height: 50,),
               const Padding(
                 padding: EdgeInsets.only(left: 20 , bottom: 20),

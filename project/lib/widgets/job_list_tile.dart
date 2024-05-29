@@ -63,9 +63,9 @@ class JobListTile extends StatelessWidget {
   Widget getImage(){
     if(job.picture == null){
       return Image.asset("asset/placeHolder.jpg",
-        fit: BoxFit.fitHeight,width: 150,height: 100,);
+        fit: BoxFit.fill,width: 150,height: 100,);
     }
     return Image.network(job.picture!,
-      fit: BoxFit.fitHeight,width: 150,height: 100,);
+      fit: BoxFit.fill,width: 150,height: 100,);
   }
 }
