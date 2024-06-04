@@ -5,6 +5,7 @@ import 'package:project/create_job/create_job_skill.dart';
 import 'package:project/job/job_info.dart';
 import 'package:project/request/job_request.dart';
 import 'package:project/time_table/time_table.dart';
+import 'package:project/time_table/time_table_data.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/divider.dart';
