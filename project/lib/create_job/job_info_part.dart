@@ -4,6 +4,7 @@ import 'package:project/create_job/create_job_location.dart';
 import 'package:project/create_job/create_job_skill.dart';
 import 'package:project/job/job_info.dart';
 import 'package:project/request/job_request.dart';
+import 'package:project/time_table/time_table.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/divider.dart';
@@ -75,6 +76,9 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                     text: "Time Table",
                     onTapString: "Set",
                     onTap: (){
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                        return TimeTablePage();
+                      }));
                     },
                   ),
                 ),
