@@ -78,6 +78,15 @@ class CaseChatsAPIView(APIView):
         serializer = ChatSerializer(chats, many=True)
         return Response(serializer.data)
 
+    def post(self, request, case_id):
+        data = request.data
+        data['case'] = case_id  # Add the case_id to the data
+        serializer = ChatSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class SupportMessagesAPIView(APIView):
     permission_classes = [IsAuthenticated]

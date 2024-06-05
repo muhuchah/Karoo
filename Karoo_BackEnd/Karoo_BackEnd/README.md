@@ -942,7 +942,7 @@ Get a list of all cases.
 ```
 
 
-### Case Chats
+### Get Case Chats
 > URL http://127.0.0.1:8000/support/cases/{case_id}/chats/             
 > Method GET
 
@@ -956,6 +956,27 @@ Get a list of all cases.
         "case": 1
     }
 ]
+```
+
+### Create Case Chats
+> URL http://127.0.0.1:8000/support/cases/{case_id}/chats/             
+> Method POST
+
+##### Parameters
+```json
+{
+    "title": "chat from postman"
+}
+```
+
+##### Response
+```json
+{
+    "id": 4,
+    "title": "chat from postman",
+    "last_updated": "2024-06-05T19:21:16.992007+03:30",
+    "case": 1
+}
 ```
 
 
