@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:project/chat/chat_page.dart';
+import 'package:project/chat/chat_page_holder.dart';
 import 'package:project/comment/comment_data.dart';
 import 'package:project/component/comment_file.dart';
 import 'package:project/component/job_file.dart';
@@ -80,9 +82,9 @@ class _JobInfoPageState extends State<JobInfoPage> {
           );
         }
         else{
-          return SizedBox(
+          return const SizedBox(
             height: 200,
-            child: Center(child: const CircularProgressIndicator())
+            child: Center(child: CircularProgressIndicator())
           );
         }
       },
@@ -306,7 +308,7 @@ class _JobInfoPageState extends State<JobInfoPage> {
                   const SizedBox(height: 20,),
                   Padding(
                     padding: const EdgeInsets.all(10),
-                    child: getButtons(job , context)
+                    child: getButtons(job , context , userValues[0])
                   ),
                   const SizedBox(height: 20,)
                 ],
@@ -318,7 +320,7 @@ class _JobInfoPageState extends State<JobInfoPage> {
     );
   }
 
-  Widget getButtons(Job job , context){
+  Widget getButtons(Job job , context , user_name){
     if(widget.userJob){
       return Column(
         children: [
@@ -350,8 +352,13 @@ class _JobInfoPageState extends State<JobInfoPage> {
         text: "Chat",
         color: AppColor.main,
         onTap: () {
-
-      });
+          Navigator.of(context).push(MaterialPageRoute(
+            builder:(context){
+              return ChatPageHolder(name: user_name, email: job.userEmail!);
+            }
+          ));
+        }
+      );
     }
   }
 }
