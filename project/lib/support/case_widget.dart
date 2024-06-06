@@ -5,8 +5,7 @@ import 'package:project/widgets/divider.dart';
 class CaseWidget extends StatefulWidget {
   bool isClick = false;
   String caseTitle;
-  List<String> subCases;
-  CaseWidget({super.key , required this.caseTitle , required this.subCases});
+  CaseWidget({super.key , required this.caseTitle});
 
   @override
   State<CaseWidget> createState() => _CaseWidgetState();
@@ -90,7 +89,7 @@ class _CaseWidgetState extends State<CaseWidget> {
 
   List<Widget> _getChildren(){
     List<Widget> children = [];
-    for(int i=0;i<widget.subCases.length;i++){
+    for(int i=0;i<2;i++){
       children.add(
         TextButton(
           onPressed: (){
@@ -101,7 +100,7 @@ class _CaseWidgetState extends State<CaseWidget> {
             padding: EdgeInsets.zero,
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           ),
-          child: CustomText(text: widget.subCases[i], size: 16,
+          child: CustomText(text: "", size: 16,
               textColor: Colors.black, weight: FontWeight.w400),
         )
       );

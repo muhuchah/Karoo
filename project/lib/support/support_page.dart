@@ -34,18 +34,7 @@ class _SupportPageState extends State<SupportPage> {
                     textColor: Colors.black, weight: FontWeight.w400),
               ),
               const SizedBox(height: 20,),
-              CaseWidget(
-                caseTitle: "Case 1",
-                subCases: ["Sub Case 1","Sub Case 2"]
-              ),
-              CaseWidget(
-                  caseTitle: "Case 2",
-                  subCases: ["Sub Case 3","Sub Case 4"]
-              ),
-              CaseWidget(
-                  caseTitle: "Case 3",
-                  subCases: ["Sub Case 5","Sub Case 6"]
-              ),
+
             ],
           ),
         ),
