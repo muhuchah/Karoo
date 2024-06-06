@@ -18,7 +18,6 @@ class JobRequest {
   static const String _skills = "jobs/skills/";
   static const String _createComment = "jobs/comment/create/";
   static const String _editComment = "jobs/comment/edit/";
-  static const String _spam = "support/spam_report/";
 
   static Future<List<Job>> getJobs() async {
     User user = User();
@@ -354,32 +353,13 @@ class JobRequest {
   static Future<void> deleteComment(int id) async {
     User user = User();
     var response = await http.delete(Uri.parse("$_base$_editComment$id"),
-      headers: <String, String>{
-        "Authorization": "Bearer ${user.accessToken!}"
-      }
+        headers: <String, String>{
+          "Authorization": "Bearer ${user.accessToken!}"
+        }
     );
 
-    if(response.statusCode != 204){
+    if (response.statusCode != 204) {
       throw Exception("Unable to delete comment");
-    }
-  }
-
-  static Future<void> spam(String message , int jobId) async {
-    User user = User();
-    Map values = {
-      "message" : message,
-      "job" : jobId
-    };
-    var response = await http.post(Uri.parse("$_base$_spam"),
-      headers: <String, String>{
-        "Content-Type": "application/json",
-        "Authorization": "Bearer ${user.accessToken!}"
-      },
-      body:jsonEncode(values),
-    );
-
-    if (response.statusCode != 201) {
-      throw Exception("Unable to send report");
     }
   }
 }

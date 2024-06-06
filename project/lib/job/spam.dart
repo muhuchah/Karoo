@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project/request/job_request.dart';
+import 'package:project/request/support_request.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/my_appbars.dart';
 
@@ -84,7 +84,7 @@ class _SpamPageState extends State<SpamPage> {
               onTap:() async {
                 for(int i=0;i<widget.selectedReports.length;i++){
                   if(widget.selectedReports[i]){
-                    await JobRequest.spam(widget.reports[i], widget.job.id!);
+                    await SupportRequest.spam(widget.reports[i], widget.job.id!);
                   }
                 }
                 Navigator.of(context).pop();
