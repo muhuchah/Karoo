@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:project/component/support.dart';
 import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/divider.dart';
 
 class CaseWidget extends StatefulWidget {
   bool isClick = false;
-  String caseTitle;
-  CaseWidget({super.key , required this.caseTitle});
+  Case chatCase;
+  CaseWidget({super.key , required this.chatCase});
 
   @override
   State<CaseWidget> createState() => _CaseWidgetState();
@@ -29,7 +30,7 @@ class _CaseWidgetState extends State<CaseWidget> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CustomText(text: widget.caseTitle, size: 16,
+              CustomText(text: widget.chatCase.title, size: 16,
                   textColor: Colors.black, weight: FontWeight.w600),
               IconButton(
                 padding: EdgeInsets.zero,
@@ -60,7 +61,7 @@ class _CaseWidgetState extends State<CaseWidget> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CustomText(text: widget.caseTitle, size: 16,
+                CustomText(text: widget.chatCase.title, size: 16,
                     textColor: Colors.black, weight: FontWeight.w600),
                 IconButton(
                   padding: EdgeInsets.zero,

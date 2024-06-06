@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:project/request/support_request.dart';
 import 'package:project/support/case_widget.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/my_appbars.dart';
+
+import '../component/support.dart';
 
 class SupportPage extends StatefulWidget {
   List<bool> isClickValues = [];
@@ -34,12 +37,39 @@ class _SupportPageState extends State<SupportPage> {
                     textColor: Colors.black, weight: FontWeight.w400),
               ),
               const SizedBox(height: 20,),
-
+              FutureBuilder(
+                future: SupportRequest.getCases(),
+                builder: (context, snapshot){
+                  if(snapshot.hasData){
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: getChildren(snapshot.data!),
+                    );
+                  }
+                  else if(snapshot.hasError){
+                    return SizedBox(
+                      height: 200,
+                      child: Center(child: CustomText(text: snapshot.toString(),
+                          size: 20, textColor: Colors.black, weight: FontWeight.normal)
+                      ),
+                    );
+                  }
+                  return const CircularProgressIndicator();
+                }
+              )
             ],
           ),
         ),
       ),
     );
+  }
+
+  List<Widget> getChildren(List<Case> data) {
+    List<Widget> children = [];
+    for(int i=0;i<data.length;i++){
+      children.add(CaseWidget(chatCase: data[i]));
+    }
+    return children;
   }
 
   @override

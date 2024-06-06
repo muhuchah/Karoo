@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:project/component/support.dart';
 
 import '../component/user_file.dart';
 
@@ -28,7 +29,7 @@ class SupportRequest{
     }
   }
 
-  static Future<void> getCases() async {
+  static Future<List<Case>> getCases() async {
     User user = User();
     var response = await http.get(Uri.parse("$_base$_cases"),
       headers: <String, String>{
@@ -36,10 +37,15 @@ class SupportRequest{
       }
     );
 
-    print(response.statusCode);
-
-    if (response.statusCode != 200) {
-      throw Exception("Unable to send report");
+    if (response.statusCode == 200) {
+      List<dynamic> body = jsonDecode(response.body);
+      List<Case> cases = [];
+      for(int i=0;i<body.length;i++){
+        cases.add(Case(id: body[i]["id"], title: body[i]["title"]));
+      }
+      return cases;
     }
+
+    throw Exception("Unable to load Cases");
   }
 }
