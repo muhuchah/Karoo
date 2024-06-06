@@ -31,14 +31,22 @@ class CaseSerializer(serializers.ModelSerializer):
 
 
 class ChatSerializer(serializers.ModelSerializer):
+    formatted_last_updated = serializers.SerializerMethodField()
 
     class Meta:
         model = Chat
-        fields = '__all__'
+        fields = ['id', 'title', 'case', 'formatted_last_updated']
+
+    def get_formatted_last_updated(self, obj):
+        return obj.last_updated.strftime('%Y-%m-%d@%H:%M:%S')
 
 
 class SupportMessageSerializer(serializers.ModelSerializer):
+    formatted_timestamp = serializers.SerializerMethodField()
 
     class Meta:
         model = SupportMessage
-        fields = ['content', 'timestamp', 'chat']
+        fields = ['content', 'formatted_timestamp', 'chat']
+
+    def get_formatted_timestamp(self, obj):
+        return obj.timestamp.strftime('%Y-%m-%d@%H:%M:%S')

@@ -950,10 +950,10 @@ Get a list of all cases.
 ```json
 [
     {
-        "id": 1,
-        "title": "Chat1_case1",
-        "last_updated": "2024-05-14T09:00:45.985757+03:30",
-        "case": 1
+        "id": 6,
+        "title": "Chat 1",
+        "case": 1,
+        "formatted_last_updated": "2024-06-06@17:45:05"
     }
 ]
 ```
@@ -988,14 +988,14 @@ Get a list of all cases.
 ```json
 [
     {
-        "content": "This m1",
-        "timestamp": "2024-05-14T12:22:49.995461+03:30",
-        "chat": 1
+        "content": "Message 1",
+        "formatted_timestamp": "2024-06-06@17:36:00",
+        "chat": 6
     },
     {
-        "content": "fasdfad",
-        "timestamp": "2024-05-14T12:26:52.803369+03:30",
-        "chat": 1
+        "content": "M2",
+        "formatted_timestamp": "2024-06-06@17:45:05",
+        "chat": 6
     }
 ]
 ```
