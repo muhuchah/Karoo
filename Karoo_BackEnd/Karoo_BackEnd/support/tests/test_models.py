@@ -18,8 +18,8 @@ class SpamReportModelTest(TestCase):
         self.main_category = baker.make(MainCategory)
         self.sub_category = baker.make(SubCategory, MainCategory=self.main_category)
 
-        self.province = baker.make(Province);
-        self.city = baker.make(City);
+        self.province = baker.make(Province)
+        self.city = baker.make(City, province=self.province)
 
         self.job = baker.make(
             job,
