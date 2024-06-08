@@ -21,8 +21,7 @@ class SpamReportModelTest(TestCase):
         self.province = baker.make(Province)
         self.city = baker.make(City, province=self.province)
 
-        self.job = baker.make(
-            job,
+        self.job = job.objects.create(
             user = self.user,
             SubCategory = self.sub_category,
             province = self.province,
