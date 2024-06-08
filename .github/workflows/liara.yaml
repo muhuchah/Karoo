@@ -13,6 +13,7 @@ jobs:
         with:
           node-version: "18"
       - name: update-liara
+        working-directory: Karoo_BackEnd/Karoo_BackEnd 
         env:
           LIARA_TOKEN: ${{ secrets.LIARA_API_TOKEN }}
         run: |
