@@ -9,9 +9,30 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: "18"
+
+      - name: Set Up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        working-directory: Karoo_BackEnd/Karoo_BackEnd
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+
+      - name: Run Django tests
+        working-directory: Karoo_BackEnd/Karoo_BackEnd 
+        run: |
+          source venv/bin/activate
+          python manage.py test
+
       - name: update-liara
         working-directory: Karoo_BackEnd/Karoo_BackEnd 
         env:
