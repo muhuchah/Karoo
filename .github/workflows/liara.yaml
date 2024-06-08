@@ -27,6 +27,12 @@ jobs:
           source venv/bin/activate
           pip install -r requirements.txt
 
+      - name: Generate City
+        working-directory: Karoo_BackEnd/Karoo_BackEnd
+        run: |
+          source venv/bin/activate
+          python manage.py generate_city
+
       - name: Run Django migrations
         working-directory: Karoo_BackEnd/Karoo_BackEnd
         run: |
