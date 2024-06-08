@@ -27,6 +27,13 @@ jobs:
           source venv/bin/activate
           pip install -r requirements.txt
 
+      - name: Run Django migrations
+        working-directory: Karoo_BackEnd/Karoo_BackEnd
+        run: |
+          source venv/bin/activate
+          python manage.py makemigrations 
+          python manage.py migrate
+
       - name: Run Django tests
         working-directory: Karoo_BackEnd/Karoo_BackEnd 
         run: |
