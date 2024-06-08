@@ -6,6 +6,7 @@ from job_module.models import job, skill
 from account_module.models import User, Province, City
 from category_module.models import MainCategory, SubCategory
 from model_bakery import baker
+from django.core.management import call_command
 
 class SpamReportModelTest(TestCase):
     def setUp(self):
@@ -18,8 +19,9 @@ class SpamReportModelTest(TestCase):
         self.main_category = baker.make(MainCategory)
         self.sub_category = baker.make(SubCategory, MainCategory=self.main_category)
 
-        self.province = baker.make(Province)
-        self.city = baker.make(City, province=self.province)
+        call_command('generate_city')
+        self.province = Province.objects.get(id=1)
+        self.city = City.objects.get(id=1)
 
         self.job = job.objects.create(
             user = self.user,
