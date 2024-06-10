@@ -28,3 +28,9 @@ class CreateSupportIssueSerializer(serializers.ModelSerializer):
     class Meta:
         model = SupportIssue
         fields = ['topic', 'message']
+
+
+class SupportIssueSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SupportIssue
+        fields = ['topic', 'message', 'reply']
