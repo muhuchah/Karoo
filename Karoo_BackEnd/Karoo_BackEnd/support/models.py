@@ -40,6 +40,6 @@ class SupportIssue(models.Model):
 
     def __str__(self):
         if self.reply == "NO REPLY":
-            return f"by {self.user.username} on {self.timestamp.strftime('%Y-%m-%d %H:%M:%S')}"
+            return f"by {self.user.full_name} on {self.timestamp.strftime('%Y-%m-%d %H:%M:%S')}"
         else:
             return f"Replied. Topic: {self.topic}"
