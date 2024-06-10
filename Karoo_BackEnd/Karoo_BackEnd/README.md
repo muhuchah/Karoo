@@ -1111,3 +1111,14 @@ If Balance < Amount returns 400 bad request:
 ```
 
 If any other error returns 400 bad request.                             
+
+### Pay
+> URL http://127.0.0.1:8000/wallet/pay/                                     
+> Method POST                     
+
+###### Parameters
+```json
+{
+    "amount": 2000
+}
+```
