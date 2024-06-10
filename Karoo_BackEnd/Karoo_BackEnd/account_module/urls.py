@@ -22,6 +22,8 @@ urlpatterns = [
     path('provinces/', views.ProvinceListView.as_view(), name='province_list'),
     path('cities/', views.CityListView.as_view(), name='city_list'),
 
-    path('search/', views.SearchUserAPIView.as_view(), name='search-users')
+    path('search/', views.SearchUserAPIView.as_view(), name='search-users'),
 
+    # Wallet
+    path('wallet/', views.WalletAPIView.as_view(), name='wallet-api'),
 ]

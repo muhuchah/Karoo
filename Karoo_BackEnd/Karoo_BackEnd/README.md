@@ -176,6 +176,33 @@ If user changes his email, an activation link will be sent to activate his email
 ```
 
 
+## Wallet 
+Create Wallet for user or edit Shaba_number            
+> URL http://127.0.0.1:8000/users/wallet/                 
+
+#### Parameters
+```json
+{
+    "Shaba_number": "3253647586fds"
+}
+```
+
+#### Responses
+If successfull It return 200 OK with following response:                                                
+```json
+{
+    "message": "Shaba number updated successfully"
+}
+```
+
+If Shaba_number is not provided It returns 400 Bad request:                     
+```json
+{
+    "error": "Shaba number is required"
+}
+```
+
+
 ## Logout
 > URL http://127.0.0.1:8000/users/logout/
 > 
