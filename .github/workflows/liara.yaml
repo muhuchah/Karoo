@@ -20,32 +20,6 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Install dependencies
-        working-directory: Karoo_BackEnd/Karoo_BackEnd
-        run: |
-          python -m venv venv
-          source venv/bin/activate
-          pip install -r requirements.txt
-
-      - name: Generate City
-        working-directory: Karoo_BackEnd/Karoo_BackEnd
-        run: |
-          source venv/bin/activate
-          python manage.py generate_city
-
-      - name: Run Django migrations
-        working-directory: Karoo_BackEnd/Karoo_BackEnd
-        run: |
-          source venv/bin/activate
-          python manage.py makemigrations 
-          python manage.py migrate
-
-      - name: Run Django tests
-        working-directory: Karoo_BackEnd/Karoo_BackEnd 
-        run: |
-          source venv/bin/activate
-          python manage.py test
-
       - name: update-liara
         working-directory: Karoo_BackEnd/Karoo_BackEnd 
         env:
