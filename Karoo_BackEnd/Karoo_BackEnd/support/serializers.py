@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import SpamReport, Message, Case, Chat, SupportMessage
+from .models import SpamReport, Message, SupportIssue
 
 
 class SpamReportSerializer(serializers.ModelSerializer):
@@ -24,29 +24,7 @@ class MessageSerializer(serializers.ModelSerializer):
         return obj.recipient.email
 
 
-class CaseSerializer(serializers.ModelSerializer):
+class CreateSupportIssueSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Case
-        fields = '__all__'
-
-
-class ChatSerializer(serializers.ModelSerializer):
-    formatted_last_updated = serializers.SerializerMethodField()
-
-    class Meta:
-        model = Chat
-        fields = ['id', 'title', 'case', 'formatted_last_updated']
-
-    def get_formatted_last_updated(self, obj):
-        return obj.last_updated.strftime('%Y-%m-%d@%H:%M:%S')
-
-
-class SupportMessageSerializer(serializers.ModelSerializer):
-    formatted_timestamp = serializers.SerializerMethodField()
-
-    class Meta:
-        model = SupportMessage
-        fields = ['content', 'formatted_timestamp', 'chat']
-
-    def get_formatted_timestamp(self, obj):
-        return obj.timestamp.strftime('%Y-%m-%d@%H:%M:%S')
+        model = SupportIssue
+        fields = ['topic', 'message']

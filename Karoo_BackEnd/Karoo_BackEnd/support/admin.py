@@ -1,8 +1,5 @@
 from django.contrib import admin
-from .models import SpamReport, Message, Case, Chat, SupportMessage
+from .models import SpamReport, Message
 
 admin.site.register(SpamReport)
 admin.site.register(Message)
-admin.site.register(Case)
-admin.site.register(Chat)
-admin.site.register(SupportMessage)
