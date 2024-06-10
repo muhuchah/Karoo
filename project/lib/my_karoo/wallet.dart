@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:project/request/user_requests.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/divider.dart';
@@ -28,7 +29,7 @@ class WalletPage extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const CustomText(text: "Inventory", size: 24,
+                    const CustomText(text: "Balance", size: 24,
                         textColor: Colors.black, weight: FontWeight.w600),
                     CustomText(text: "0\$", size: 24,
                         textColor: Colors.black, weight: FontWeight.w600)
@@ -112,8 +113,21 @@ class WalletPage extends StatelessWidget {
               const SizedBox(height: 10,),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: CustomText(text: "IR77 0120 0200 0000 9507 5838 56", size: 16,
-                    textColor: Colors.black, weight: FontWeight.w400),
+                child: FutureBuilder(
+                  future: UserRequest.getShabaNum(),
+                  builder: (context , snapshot){
+                    if(snapshot.hasData){
+                      return CustomText(text: snapshot.data!, size: 16,
+                          textColor: Colors.black, weight: FontWeight.w400);
+                    }
+                    else if(snapshot.hasError){
+                      return CustomText(text: snapshot.error.toString(), size: 16,
+                          textColor: Colors.black, weight: FontWeight.w400);
+                    }
+
+                    return const CircularProgressIndicator();
+                  }
+                )
               ),
               const SizedBox(height: 40,),
               TextButton(
