@@ -127,12 +127,3 @@ class Address(models.Model):
 
     def __str__(self):
         return f'User: {self.user}, City: {self.City}'
-
-
-class Wallet(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    Shaba_number = models.CharField(max_length=26, unique=True, null=False, blank=False)
-    balance = models.DecimalField(default=0.0, max_digits=10, decimal_places=2)
-
-    def __str__(self):
-        return f'User: {self.user}, Balance: {self.balance}'

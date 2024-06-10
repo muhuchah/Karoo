@@ -4,7 +4,7 @@ from django.contrib.auth.hashers import make_password
 
 from django.contrib.auth import get_user_model, authenticate
 from rest_framework import serializers
-from .models import Address, DiscountCode, Province, City, Wallet
+from .models import Address, DiscountCode, Province, City
 from account_module.utils.email_service import send_activation_email
 
 User = get_user_model()
@@ -153,14 +153,3 @@ class UserPublicInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['avatar', 'full_name', 'phone_number', 'email']
-
-
-class WalletSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Wallet
-        fields = ['user', 'Shaba_number', 'balance']
-        read_only_fields = ['balance']
-
-
-class WithdrawSerializer(serializers.Serializer):
-    amount = serializers.DecimalField(max_digits=10, decimal_places=2)
