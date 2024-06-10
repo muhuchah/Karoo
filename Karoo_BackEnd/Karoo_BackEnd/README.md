@@ -177,17 +177,18 @@ If user changes his email, an activation link will be sent to activate his email
 
 
 ## Wallet 
-Create Wallet for user or edit Shaba_number            
+### Create Wallet for user or edit Shaba_number            
 > URL http://127.0.0.1:8000/users/wallet/                 
+> Method POST               
 
-#### Parameters
+###### Parameters
 ```json
 {
     "Shaba_number": "3253647586fds"
 }
 ```
 
-#### Responses
+###### Responses
 If successfull It return 200 OK with following response:                                                
 ```json
 {
@@ -199,6 +200,26 @@ If Shaba_number is not provided It returns 400 Bad request:
 ```json
 {
     "error": "Shaba number is required"
+}
+```
+
+### Get Balance and Shaba_number           
+> URL http://127.0.0.1:8000/users/wallet/                 
+> Method GET      
+
+###### Responses              
+If successfull returns 200 OK.              
+```json
+{
+    "user": 1,
+    "Shaba_number": "3429829348923sjdfs",
+    "balance": "0.00"
+}
+```
+If Wallet Does Not Exist returns 404 not found.                                     
+```json
+{
+    "detail": "Wallet not found."
 }
 ```
 

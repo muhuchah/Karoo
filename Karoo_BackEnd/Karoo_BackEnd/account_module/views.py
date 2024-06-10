@@ -417,3 +417,16 @@ class WalletAPIView(APIView):
             return Response({"message": "Shaba number updated successfully"}, status=status.HTTP_200_OK)
 
         return Response({"message": "Wallet created successfully"}, status=status.HTTP_201_CREATED)
+
+    
+    def get(self, request):
+        try:
+            wallet = Wallet.objects.get(user=request.user)
+        except Wallet.DoesNotExist:
+            return Response(
+                {"detail": "Wallet not found."},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        serializer = WalletSerializer(wallet)
+        return Response(serializer.data, status=status.HTTP_200_OK)
