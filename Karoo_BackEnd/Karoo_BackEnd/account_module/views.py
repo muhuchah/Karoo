@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 from .models import Address, DiscountCode, Province, City, Wallet
 from .seryalizers import (UserSerialaizer, LoginSerializer, UserSettingSerializer, UserAddressSerializer
 , ForgotPasswordLinkSerializer, DiscountCodeSerializer, UserDeleteAccountSerializer, ProvinceSerializer,
-CitySerializer, UserPublicInfoSerializer, WalletSerializer)
+CitySerializer, UserPublicInfoSerializer, WalletSerializer, WithdrawSerializer)
 from rest_framework import generics, status, views
 from django.contrib.auth import get_user_model
 from account_module.utils.jwt_token_generator import get_token_for_user
@@ -430,3 +430,33 @@ class WalletAPIView(APIView):
 
         serializer = WalletSerializer(wallet)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class WalletWithdrawView(APIView):
+    def post(self, request):
+        serializer = WithdrawSerializer(data=request.data)
+        if serializer.is_valid():
+            amount = serializer.validated_data['amount']
+            try:
+                wallet = Wallet.objects.get(user=request.user)
+            except Wallet.DoesNotExist:
+                return Response(
+                    {"detail": "Wallet not found."},
+                    status=status.HTTP_404_NOT_FOUND
+                )
+
+            if wallet.balance < amount:
+                return Response(
+                    {"detail": "Insufficient balance."},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
+            wallet.balance -= amount
+            wallet.save()
+
+            return Response(
+                {"detail": "Withdrawal successful.", "new_balance": wallet.balance},
+                status=status.HTTP_200_OK
+            )
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -160,3 +160,7 @@ class WalletSerializer(serializers.ModelSerializer):
         model = Wallet
         fields = ['user', 'Shaba_number', 'balance']
         read_only_fields = ['balance']
+
+
+class WithdrawSerializer(serializers.Serializer):
+    amount = serializers.DecimalField(max_digits=10, decimal_places=2)

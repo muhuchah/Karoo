@@ -26,4 +26,5 @@ urlpatterns = [
 
     # Wallet
     path('wallet/', views.WalletAPIView.as_view(), name='wallet-api'),
+    path('wallet/withdraw/', views.WalletWithdrawView.as_view(), name='wallet-withdraw'),
 ]

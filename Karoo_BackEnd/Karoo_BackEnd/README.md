@@ -223,6 +223,42 @@ If Wallet Does Not Exist returns 404 not found.
 }
 ```
 
+### Withdraw
+> URL http://127.0.0.1:8000/users/wallet/withdraw/                    
+> Method POST                       
+
+###### Parameters
+```json
+{
+    "amount": 0
+}
+```
+
+###### Responses
+If successfull returns 200 OK:
+```json
+{
+    "detail": "Withdrawal successful.",
+    "new_balance": 0.0
+}
+```
+
+If Wallet Does Not Exist returns 404 not found:                          
+```json
+{
+    "detail": "Wallet not found."
+}
+```
+
+If Balance < Amount returns 400 bad request:                         
+```json
+{
+    "detail": "Insufficient balance."
+}
+```
+
+If any other error returns 400 bad request.                             
+
 
 ## Logout
 > URL http://127.0.0.1:8000/users/logout/
