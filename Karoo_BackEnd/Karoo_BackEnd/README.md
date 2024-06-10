@@ -870,7 +870,7 @@ If data is valid SpamRepost is created. status = 200
 If data is not valid. status = 400
 
 
-### Send Message
+### User Chat: Send Message
 > URL http://127.0.0.1:8000/support/send_message/               
 > Method POST
 
@@ -893,7 +893,7 @@ If data is not valid. status = 400
 ```
 
 
-### Chat Room
+### User Chat Room
 > URL http://127.0.0.1:8000/support/chatroom/{recipient_email}/              
 > Method GET
 
@@ -921,113 +921,50 @@ If data is not valid. status = 400
 ]
 ```
 
+### Create Issue
+> URL http://127.0.0.1:8000/support/create_issue/                       
+> Method POST                        
 
-### Cases
-Get a list of all cases.
-> URL http://127.0.0.1:8000/support/cases/         
-> Method GET
+###### Parameters
+```json
+{
+    "topic": "Support",
+    "message": "Issue 2"
+}
+```
 
-##### Responses
+###### Responses
+If successfull returns 201 Created:                  
+```json
+{
+    "topic": "Support",
+    "message": "Issue 2"
+}
+```
+
+If not successfull returns 400 bad request.                   
+
+### Get User Issues
+> URL http://127.0.0.1:8000/support/user_issues/                           
+> Method GET                                  
+
+###### Responses
+returns 200 ok:                       
 ```json
 [
     {
-        "id": 1,
-        "title": "Case1"
+        "topic": "Support",
+        "message": "Issue 1",
+        "reply": "NO REPLY"
     },
     {
-        "id": 2,
-        "title": "Case2"
+        "topic": "Support",
+        "message": "Issue 2",
+        "reply": "NO REPLY"
     }
 ]
 ```
 
-
-### Get Case Chats
-> URL http://127.0.0.1:8000/support/cases/{case_id}/chats/             
-> Method GET
-
-##### Response
-```json
-[
-    {
-        "id": 6,
-        "title": "Chat 1",
-        "case": 1,
-        "formatted_last_updated": "2024-06-06@17:45:05"
-    }
-]
-```
-
-### Create Case Chats
-> URL http://127.0.0.1:8000/support/cases/{case_id}/chats/             
-> Method POST
-
-##### Parameters
-```json
-{
-    "title": "chat from postman"
-}
-```
-
-##### Response
-```json
-{
-    "id": 4,
-    "title": "chat from postman",
-    "last_updated": "2024-06-05T19:21:16.992007+03:30",
-    "case": 1
-}
-```
-
-
-### Get Chat Messages
-> URL http://127.0.0.1:8000/support/cases/chat/{chat_id}/messages/        
-> Method GET
-
-##### Response
-```json
-[
-    {
-        "content": "Message 1",
-        "formatted_timestamp": "2024-06-06@17:36:00",
-        "chat": 6
-    },
-    {
-        "content": "M2",
-        "formatted_timestamp": "2024-06-06@17:45:05",
-        "chat": 6
-    }
-]
-```
-
-### Create Chat Messages
-> URL http://127.0.0.1:8000/support/cases/chat/create_message/          
-> Method POST
-
-##### Parameters
-```json
-{
-    "content": "message from postman 938492",
-    "chat": 1
-}
-```
-
-##### Response
-```json
-{
-    "content": "message from postman 938492",
-    "timestamp": "2024-05-14T17:12:16.901707+03:30",
-    "chat": 1
-}
-```
-If Chat Doesn't Exist!
-```json
-{
-    "chat": [
-        "Invalid pk \"133\" - object does not exist."
-    ]
-}
-```
 
 ## Wallet 
 ### Create Wallet for user or edit Shaba_number            
