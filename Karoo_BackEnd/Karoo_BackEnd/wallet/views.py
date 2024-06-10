@@ -7,17 +7,17 @@ from rest_framework.views import APIView
 from rest_framework import status
 import json
 import requests
+import time
 from django.http import JsonResponse
 
 
-from .models import Wallet
+from .models import Wallet, Payment
 from .serializers import WalletSerializer, WithdrawSerializer
 
 
 merchant = 'zibal'
 callbackUrl = 'http://127.0.0.1:8000/wallet/zibal/verify/'
 description = 'Karoo'
-orderId = 'ZBL-7799'
 mobile = '09152859657'
 
 ZIBAL_API_REQUEST = "https://gateway.zibal.ir/v1/request"
@@ -66,12 +66,15 @@ class PayView(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
+        user = request.user
+        order_id = f"ZBL-{user.id}-{int(time.time())}"
+
         data = {
             "merchant": merchant,
             "amount": amount,
             "callbackUrl": callbackUrl,
             "description": description,
-            "orderId": orderId,
+            "orderId": order_id,
             "mobile": mobile
         }
         data = json.dumps(data)
@@ -84,9 +87,17 @@ class PayView(APIView):
                 response = response.json()
                 if response['result'] == 100:
                     track_id = response['trackId']
+                    print(f"trackId: {track_id}")
                     startpay_url = ZIBAL_API_STARTPAY + str(track_id)
+
+                    Payment.objects.create (
+                        user=user,
+                        amount=amount,
+                        track_id=track_id,
+                        order_id=order_id
+                    )
+
                     return JsonResponse({'startpay_url': startpay_url})
-                    #return HttpResponseRedirect(startpay_url)
                 else:
                     return JsonResponse({'status': False, 'message': 'Payment initiation failed.', 'details': response})
 
@@ -114,11 +125,26 @@ class VerifyPayView(APIView):
                 if response.status_code == 200:
                     response = response.json()
                     if response['result'] == 100:
-                        # Retrieve the user's wallet and update the balance
                         try:
-                            wallet = Wallet.objects.get(user=request.user)
-                            wallet.balance += amount
+                            payment = Payment.objects.get(track_id=track_id, verified=False)
+                            payment.verified = True
+                            payment.save()
+
+                            wallet = Wallet.objects.get(user=payment.user)
+                            wallet.balance += payment.amount
                             wallet.save()
+
+                            return Response({
+                                'status': True,
+                                'message': 'Payment verified successfully.',
+                                'new_balance': wallet.balance,
+                                'details': response
+                            }, status=status.HTTP_200_OK)
+                        except Payment.DoesNotExist:
+                            return Response(
+                                {"status": False, "message": "Payment not found or already verified."},
+                                status=status.HTTP_404_NOT_FOUND
+                            )
                         except Wallet.DoesNotExist:
                             return Response(
                                 {"status": False, "message": "Wallet not found."},
@@ -137,11 +163,12 @@ class VerifyPayView(APIView):
                             'message': 'Payment verification failed.',
                             'details': response
                         }, status=status.HTTP_400_BAD_REQUEST)
+
                 return Response(response, status=status.HTTP_400_BAD_REQUEST)
             except requests.exceptions.Timeout:
-                return Response({'status': 'False', 'code': 'timeout'}, status=status.HTTP_504_GATEWAY_TIMEOUT)
+                return Response({'status': False, 'code': 'timeout'}, status=status.HTTP_504_GATEWAY_TIMEOUT)
             except requests.exceptions.ConnectionError:
-                return Response({'status': 'False', 'code': 'ConnectionError'}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
+                return Response({'status': False, 'code': 'ConnectionError'}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
         else:
             return JsonResponse({'status': False, 'message': 'Payment not successful or invalid trackId.'}, status=status.HTTP_400_BAD_REQUEST)
 

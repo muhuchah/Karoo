@@ -10,3 +10,12 @@ class Wallet(models.Model):
 
     def __str__(self):
         return f'User: {self.user}, Balance: {self.balance}'
+
+
+class Payment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    amount = models.PositiveIntegerField()
+    track_id = models.CharField(max_length=128)
+    order_id = models.CharField(max_length=128, unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    verified = models.BooleanField(default=False)
