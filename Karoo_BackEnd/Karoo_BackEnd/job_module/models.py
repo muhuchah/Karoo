@@ -25,6 +25,8 @@ class job(models.Model):
     province = models.ForeignKey(Province, on_delete=models.CASCADE, null=False, blank=False)
     city = models.ForeignKey(City, on_delete=models.CASCADE, null=False, blank=False)
 
+    timetable = models.ManyToManyField('DailySchedule', related_name='timetable', blank=True)
+
     def __str__(self):
         return self.title
 
@@ -81,3 +83,32 @@ class skill(models.Model):
     def __str__(self):
         return self.title
     
+
+
+class TimeSlot(models.Model):
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+
+    def __str__(self):
+        return f"{self.start_time} - {self.end_time}"
+
+class DailySchedule(models.Model):
+    DAYS_OF_WEEK = [
+        ('saturday', 'Saturday'),
+        ('sunday', 'Sunday'),
+        ('monday', 'Monday'),
+        ('tuesday', 'Tuesday'),
+        ('wednesday', 'Wednesday'),
+        ('thursday', 'Thursday'),
+        ('friday', 'Friday'),
+    ]
+
+    # user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
+    day_of_week = models.CharField(max_length=10, choices=DAYS_OF_WEEK)
+    time_slots = models.ManyToManyField(TimeSlot, blank=True)
+
+    def __str__(self):
+        res = ""
+        for time_slot in self.time_slots:
+            res = res + f"{self.day_of_week} - {time_slot.__str__()}\t"
+        return res

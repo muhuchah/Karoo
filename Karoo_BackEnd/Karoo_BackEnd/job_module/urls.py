@@ -6,9 +6,10 @@ job_user_router = DefaultRouter()
 job_user_router.register('info', views.jobUserAPIView, basename='job-info')
 job_user_router.register('pictures', views.jobPicturesAPIView, basename='job-pictures')
 
+job_user_router.register('time-slots', views.TimeSlotViewSet, basename='time-slots')
+job_user_router.register('daily-schedules', views.DailyScheduleViewSet, basename='job-timetable')
 
 urlpatterns = [
-    path('user/', include(job_user_router.urls)),
     path('user/', include(job_user_router.urls)),
     path('list/', views.jobListAPIView.as_view(), name='job-list'),
     path('detail/<int:pk>', views.jobRetrieveAPIView.as_view(), name='job-detail'),

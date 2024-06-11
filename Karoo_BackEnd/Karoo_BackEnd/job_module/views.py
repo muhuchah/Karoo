@@ -1,8 +1,8 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, generics, filters, permissions, status
 from rest_framework.exceptions import PermissionDenied
-from .models import job, job_pictures, job_comments, skill
-from .seryalizers import jobSerializer, job_picturesSerializer, joblistSerializer, job_commentsSerializer, skillSerializer
+from .models import job, job_pictures, job_comments, skill, TimeSlot, DailySchedule
+from .seryalizers import jobSerializer, job_picturesSerializer, joblistSerializer, job_commentsSerializer, skillSerializer, TimeSlotSerializer, DailyScheduleSerializer
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
@@ -243,3 +243,20 @@ class GetAllSkill(APIView):
         skills = skill.objects.all()
         serializer = skillSerializer(skills, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+
+class TimeSlotViewSet(viewsets.ModelViewSet):
+    queryset = TimeSlot.objects.all()
+    serializer_class = TimeSlotSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class DailyScheduleViewSet(viewsets.ModelViewSet):
+    serializer_class = DailyScheduleSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return DailySchedule.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
