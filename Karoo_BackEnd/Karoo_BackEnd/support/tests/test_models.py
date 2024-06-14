@@ -1,7 +1,7 @@
 from weakref import proxy
 from django.test import TestCase
 from django.utils import timezone
-from support.models import SpamReport, Message
+from support.models import SpamReport, Message, SupportIssue
 from job_module.models import job, skill
 from account_module.models import User, Province, City
 from category_module.models import MainCategory, SubCategory
@@ -95,6 +95,55 @@ class MessageModelTest(TestCase):
         messages = Message.objects.all()
         timestamps = [msg.timestamp for msg in messages]
         self.assertEqual(list(messages), list(messages.order_by('timestamp')))
+        self.assertEqual(timestamps, sorted(timestamps))
+
+    def tearDown(self):
+        User.objects.all().delete()
+
+
+class SupportIssueModelTest(TestCase):
+
+    def setUp(self):
+        self.user = baker.make(
+            User, 
+            email='testuser@example.com', 
+            full_name='Test User',
+            is_active=True
+        )
+
+        self.issue1 = SupportIssue.objects.create(
+            user=self.user,
+            topic='Issue Topic 1',
+            message='This is the first support issue message.',
+            timestamp=datetime.now()
+        )
+        time.sleep(0.5)
+        self.issue2 = SupportIssue.objects.create(
+            user=self.user,
+            topic='Issue Topic 2',
+            message='This is the second support issue message.',
+            timestamp=datetime.now() + timedelta(hours=1),
+            reply='This is a reply to the second issue.'
+        )
+
+    def test_support_issue_creation(self):
+        issue_count = SupportIssue.objects.count()
+        self.assertEqual(issue_count, 2)
+
+    def test_support_issue_string_representation_no_reply(self):
+        issue = SupportIssue.objects.get(topic='Issue Topic 1')
+        expected_str = f"by Test User on {issue.timestamp.strftime('%Y-%m-%d %H:%M:%S')}"
+        self.assertEqual(str(issue), expected_str)
+
+    def test_support_issue_string_representation_with_reply(self):
+        issue = SupportIssue.objects.get(topic='Issue Topic 2')
+        expected_str = f"Replied. Topic: {issue.topic}"
+        self.assertEqual(str(issue), expected_str)
+
+    def test_support_issue_ordering(self):
+        issues = SupportIssue.objects.all()
+        timestamps = [issue.timestamp for issue in issues]
+        self.assertEqual(list(issues), list(issues.order_by('timestamp')))
         self.assertEqual(timestamps, sorted(timestamps))
 
     def tearDown(self):
