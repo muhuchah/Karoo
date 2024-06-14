@@ -7,4 +7,5 @@ urlpatterns = [
     path('withdraw/', views.WalletWithdrawView.as_view(), name='wallet-withdraw'),
     path('pay/', views.PayView.as_view(), name='wallet-pay'),
     path('zibal/verify/', views.VerifyPayView.as_view(), name='zibal-verify'),
+    path('payment_history/', views.UserPaymentHistory.as_view(), name='payment-history'),
 ]

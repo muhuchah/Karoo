@@ -1059,3 +1059,41 @@ If any other error returns 400 bad request.
     "amount": 2000
 }
 ```
+
+### Payment History
+> URL http://127.0.0.1:8000/wallet/payment_history/                   
+> Method GET                                     
+
+###### Responses
+```json
+[
+    {
+        "amount": 2000,
+        "track_id": "3633590054",
+        "order_id": "ZBL-1-1718023774",
+        "created_at": "2024-06-10 16:19:37",
+        "verified": true
+    },
+    {
+        "amount": 2000,
+        "track_id": "3633590801",
+        "order_id": "ZBL-1-1718023826",
+        "created_at": "2024-06-10 16:20:29",
+        "verified": true
+    },
+    {
+        "amount": 2000,
+        "track_id": "3633592225",
+        "order_id": "ZBL-1-1718023897",
+        "created_at": "2024-06-10 16:21:47",
+        "verified": true
+    },
+    {
+        "amount": 2000,
+        "track_id": "3633594038",
+        "order_id": "ZBL-1-1718023997",
+        "created_at": "2024-06-10 16:23:20",
+        "verified": false
+    }
+]
+```

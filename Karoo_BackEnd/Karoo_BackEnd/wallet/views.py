@@ -12,7 +12,7 @@ from django.http import JsonResponse
 
 
 from .models import Wallet, Payment
-from .serializers import WalletSerializer, WithdrawSerializer
+from .serializers import WalletSerializer, WithdrawSerializer, PaymentSerializer
 
 
 merchant = 'zibal'
@@ -201,3 +201,11 @@ class WalletWithdrawView(APIView):
             )
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    
+class UserPaymentHistory(APIView):
+    def get(self, request):
+        user = request.user
+        payments = Payment.objects.filter(user=user)
+        serializer = PaymentSerializer(payments, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
