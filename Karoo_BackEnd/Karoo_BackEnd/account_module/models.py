@@ -126,4 +126,4 @@ class Address(models.Model):
 
 
     def __str__(self):
-        return f'User: {self.user}, City: {self.City}'
+        return f'User: {self.user}, City: {self.city.name}'
