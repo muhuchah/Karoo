@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project/category/main_category.dart';
 import 'package:project/create_job/create_job_buttons.dart';

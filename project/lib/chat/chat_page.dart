@@ -199,6 +199,8 @@ class _ChatPageState extends State<ChatPage> {
                       Expanded(
                         child: TextField(
                           controller: widget.messageController,
+                          minLines: 1,
+                          maxLines: 4,
                           focusNode: widget.focusNode,
                           decoration: const InputDecoration(
                               hintText: "Message" ,

@@ -35,7 +35,7 @@ class FirstPageChecker extends StatelessWidget{
                     else if(snapshot.hasError){
                       return FirstPage();
                     }
-                    return CircularProgressIndicator();
+                    return const CircularProgressIndicator();
                   }
                 );
               }
@@ -43,7 +43,7 @@ class FirstPageChecker extends StatelessWidget{
             else if(snapShot.hasError){
               return FirstPage();
             }
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           }
         ),
       ),
