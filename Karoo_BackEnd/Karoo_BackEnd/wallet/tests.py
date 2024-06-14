@@ -2,6 +2,10 @@ from django.test import TestCase
 from account_module.models import User
 from .models import Wallet, Payment
 from model_bakery import baker
+from rest_framework import status
+from rest_framework.test import APIClient
+from rest_framework_simplejwt.tokens import AccessToken
+from .serializers import PaymentSerializer
 
 
 class WalletModelTest(TestCase):
@@ -72,3 +76,38 @@ class PaymentModelTest(TestCase):
     def test_auto_now_add_created_at(self):
         payment = Payment.objects.get(order_id='order123')
         self.assertIsNotNone(payment.created_at)
+
+
+class UserPaymentHistoryTest(TestCase):
+
+    def setUp(self):
+        self.user = baker.make(
+            User, 
+            email='testuser@example.com', 
+            is_active=True
+        )
+        self.client = APIClient()
+        self.access_token = str(AccessToken.for_user(self.user))
+
+        self.payment1 = Payment.objects.create(
+            user=self.user,
+            amount=100,
+            track_id='track123',
+            order_id='order123'
+        )
+
+        self.payment2 = Payment.objects.create(
+            user=self.user,
+            amount=200,
+            track_id='track456',
+            order_id='order456'
+        )
+
+    def test_user_payment_history(self):
+        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.access_token}')
+        response = self.client.get('http://127.0.0.1:8000/wallet/payment_history/')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        payments = Payment.objects.filter(user=self.user)
+        serializer = PaymentSerializer(payments, many=True)
+        self.assertEqual(response.data, serializer.data)
