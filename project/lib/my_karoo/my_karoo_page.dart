@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/about/about_page.dart';
 import 'package:project/chat/chat_holder.dart';
 import 'package:project/chat/chat_page.dart';
 import 'package:project/support/support_page.dart';
@@ -91,7 +92,9 @@ class _MyKarooPageState extends State<MyKarooPage> {
 
               },),
               MyKarooListText(text: "About Karoo" , onTap: (){
-
+                Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                  return const About();
+                }));
               },),
               MyKarooListText(text: "Contact us" , onTap: (){
 
