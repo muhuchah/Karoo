@@ -18,6 +18,7 @@ import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/divider.dart';
 
 import '../comment/display_comment.dart';
+import '../request/support_request.dart';
 import '../utils/app_color.dart';
 
 class JobInfoPage extends StatefulWidget {
@@ -354,7 +355,11 @@ class _JobInfoPageState extends State<JobInfoPage> {
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
             builder:(context){
-              return ChatPageHolder(name: user_name, email: job.userEmail!);
+              return ChatPageHolder(
+                name: user_name,
+                email: job.userEmail!,
+                future: SupportRequest.getMessages(job.userEmail!),
+              );
             }
           ));
         }

@@ -3,17 +3,22 @@ import 'package:project/chat/chat_page.dart';
 
 import '../request/support_request.dart';
 import '../widgets/custom_text.dart';
+import 'chat_holder.dart';
 
 class ChatPageHolder extends StatelessWidget {
   String name;
   String email;
-  ChatPageHolder({super.key , required this.email , required this.name});
+  Future<List<ChatHolder>> future;
+
+  ChatPageHolder({super.key , required this.email , required this.name ,
+    required this.future
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder(
-        future: SupportRequest.getMessages(email),
+        future: future,
         builder: (context , snapshot){
           if(snapshot.hasData){
             return ChatPage(name: name, email: email , messages: snapshot.data!);

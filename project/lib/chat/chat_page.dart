@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:project/chat/chat_holder.dart';
 import 'package:project/request/support_request.dart';
 import 'package:project/widgets/custom_text.dart';
