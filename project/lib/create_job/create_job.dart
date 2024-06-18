@@ -68,6 +68,7 @@ class _CreateJobState extends State<CreateJob> {
                           textColor: Colors.black, weight: FontWeight.normal),
                       const SizedBox(height: 10,),
                       TextFormField(
+                        key: const Key("title"),
                         decoration: const InputDecoration(hintText: "Job Title" ,
                             hintStyle: TextStyle(color: AppColor.hint,fontSize: 16),
                             border: UnderlineInputBorder(),

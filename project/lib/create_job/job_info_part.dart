@@ -69,7 +69,7 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                     },
                   ),
                 ),
-                MyDivider(),
+                const MyDivider(),
                 Padding(
                   padding: const EdgeInsets.all(20),
                   child: CreateJobTextIcon(
@@ -78,12 +78,12 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                     onTapString: "Set",
                     onTap: (){
                       Navigator.of(context).push(MaterialPageRoute(builder: (context){
-                        return TimeTablePage();
+                        return const TimeTablePage();
                       }));
                     },
                   ),
                 ),
-                MyDivider(),
+                const MyDivider(),
                 Padding(
                   padding: const EdgeInsets.all(20),
                   child: CreateJobTextIcon(
@@ -100,7 +100,7 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                     },
                   ),
                 ),
-                MyDivider(),
+                const MyDivider(),
                 Padding(
                   padding: const EdgeInsets.all(20),
                   child: CreateJobTextIcon(
@@ -117,7 +117,7 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                     },
                   ),
                 ),
-                MyDivider(),
+                const MyDivider(),
                 Padding(
                   padding: const EdgeInsets.all(20),
                   child: CreateJobTextIcon(
@@ -134,7 +134,7 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                     },
                   ),
                 ),
-                MyDivider(),
+                const MyDivider(),
                 Padding(
                   padding:const EdgeInsets.only(top: 25 , bottom: 10 , left: 20 , right: 20),
                   child:Column(
