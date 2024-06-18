@@ -1,9 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:project/chat/chat_page.dart';
 import 'package:project/chat/chat_page_holder.dart';
 import 'package:project/comment/comment_data.dart';
-import 'package:project/component/comment_file.dart';
 import 'package:project/component/job_file.dart';
 import 'package:project/create_job/create_job.dart';
 import 'package:project/create_job/job_data.dart';

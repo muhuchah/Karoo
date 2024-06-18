@@ -9,7 +9,6 @@ import 'package:project/widgets/my_appbars.dart';
 import '../component/job_file.dart';
 import '../first/first_page_button.dart';
 import '../widgets/custom_text.dart';
-import 'display_comment.dart';
 
 class CommentPage extends StatefulWidget {
   Job job;
