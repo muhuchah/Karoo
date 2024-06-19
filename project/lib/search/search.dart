@@ -7,7 +7,6 @@ import 'package:project/widgets/divider.dart';
 
 import '../component/job_file.dart';
 import '../job/job_info.dart';
-import '../widgets/custom_text.dart';
 import '../widgets/job_list_tile.dart';
 
 class SearchPage extends StatefulWidget {

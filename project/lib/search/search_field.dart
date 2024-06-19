@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:project/search/search.dart';
 import 'package:project/search/search_data.dart';
 import 'package:project/widgets/long_button.dart';
