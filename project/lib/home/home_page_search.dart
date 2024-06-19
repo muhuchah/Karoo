@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:project/component/user_file.dart';
 import 'package:project/search/search_field.dart';
 import 'package:project/utils/app_color.dart';

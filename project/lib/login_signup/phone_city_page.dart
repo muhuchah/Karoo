@@ -59,6 +59,7 @@ class _PhoneCityPageState extends State<PhoneCityPage> {
                   Container(
                     child: Column(children: [
                       TextIcon(
+                        key: const Key("phone"),
                         labelText: "PHONE",
                         assetPath: "asset/icons/phone.svg",
                         controller: phoneController,

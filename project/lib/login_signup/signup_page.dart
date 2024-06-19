@@ -71,6 +71,7 @@ class _SignUpPage extends State<StatefulWidget> {
                   const BigText(text: "Create Account"),
                   const SizedBox(height: 50,),
                   TextIcon(
+                    key: const Key("full_name"),
                     labelText: "FULL NAME",
                     assetPath: "asset/icons/person.svg",
                     controller: fullNameController,
@@ -84,6 +85,7 @@ class _SignUpPage extends State<StatefulWidget> {
                   ),
                   const SizedBox(height: 20,),
                   TextIcon(
+                    key: const Key("email"),
                     labelText: "EMAIL",
                     assetPath: "asset/icons/email.svg",
                     controller: emailController,
@@ -97,6 +99,7 @@ class _SignUpPage extends State<StatefulWidget> {
                   ),
                   const SizedBox(height: 20,),
                   TextIcon(
+                    key: const Key("password"),
                     labelText: "PASSWORD",
                     assetPath: "asset/icons/password.svg",
                     controller: passwordController,
@@ -111,6 +114,7 @@ class _SignUpPage extends State<StatefulWidget> {
                   ),
                   const SizedBox(height: 20,),
                   TextIcon(
+                    key: const Key("confirm_password"),
                     labelText: "CONFIRM PASSWORD",
                     assetPath: "asset/icons/password.svg",
                     controller: confirmPasswordController,

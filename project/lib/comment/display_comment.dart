@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project/comment/comment_container.dart';
 import 'package:project/comment/comment_page.dart';
@@ -28,28 +29,33 @@ class DisplayComments extends StatelessWidget {
               },
               itemCount: job.comments!.length),
           ),
-          Align(
-            alignment: Alignment.centerRight,
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: ElevatedButton(
-                onPressed: (){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context){
-                    return CommentPage(job : job , create: true,);
-                  }));
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColor.main,
-                  fixedSize: const Size(160, 60),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-                ),
-                child: const Row(
-                  children: [
-                    CustomText(text: "Comment", size: 16,
-                        textColor: AppColor.background, weight: FontWeight.bold),
-                    SizedBox(width: 10,),
-                    Icon(Icons.add_comment_rounded , size: 28,color: AppColor.background,)
-                  ],
+          Expanded(
+            child: Align(
+              alignment: Alignment.topRight,
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: ElevatedButton(
+                  onPressed: (){
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                      return CommentPage(job : job , create: true,);
+                    }));
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColor.main,
+                    fixedSize: const Size(160, 60),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                  ),
+                  child: const SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        CustomText(text: "Comment", size: 16,
+                            textColor: AppColor.background, weight: FontWeight.bold),
+                        SizedBox(width: 10,),
+                        Icon(Icons.add_comment_rounded , size: 28,color: AppColor.background,)
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ),

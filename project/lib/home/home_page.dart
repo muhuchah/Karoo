@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:project/component/job_file.dart';
 import 'package:project/request/job_request.dart';
 import 'package:project/widgets/job_list_tile.dart';
@@ -21,7 +19,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Category>? categories = null;
+  List<Category>? categories;
 
   double? width;
 
@@ -34,9 +32,9 @@ class _HomePageState extends State<HomePage> {
         color: AppColor.background,
         child: Column(
           children: [
-            HomePageSearch(),
-            SizedBox(height: 10,),
-            Container(
+            const HomePageSearch(),
+            const SizedBox(height: 10,),
+            SizedBox(
               height: height-210,
               child: SingleChildScrollView(
                 child: Column(
@@ -60,7 +58,7 @@ class _HomePageState extends State<HomePage> {
         builder: (context , snapShot){
           if(snapShot.hasData){
             return Container(
-              margin: EdgeInsets.only(top: 10 , right: 10 , left: 10),
+              margin: const EdgeInsets.only(top: 10 , right: 10 , left: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: getCategories(snapShot.data!),
@@ -68,19 +66,19 @@ class _HomePageState extends State<HomePage> {
             );
           }
           else if(snapShot.hasError){
-            return Container(
+            return SizedBox(
               height: 200,
               child: Center(child: Text(snapShot.error.toString() ,
-                style: TextStyle(fontSize: 20),),)
+                style: const TextStyle(fontSize: 20),),)
               ,);
           }
-          return Center(child : CircularProgressIndicator());
+          return const Center(child : CircularProgressIndicator());
         }
       );
     }
     else{
       return Container(
-        margin: EdgeInsets.only(top: 10 , right: 10 , left: 10),
+        margin: const EdgeInsets.only(top: 10 , right: 10 , left: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: getCategories(categories!),
@@ -119,7 +117,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ));
-      rowChildren.add(SizedBox(width: 10,));
+      rowChildren.add(const SizedBox(width: 10,));
 
       if((i+1)%4 == 0){
         children.add(
@@ -133,11 +131,11 @@ class _HomePageState extends State<HomePage> {
             ),
           )
         );
-        children.add(SizedBox(height: 30,));
-        rowChildren = [SizedBox(width: 10,)];
+        children.add(const SizedBox(height: 30,));
+        rowChildren = [const SizedBox(width: 10,)];
       }
     }
-    children.add(MyDivider());
+    children.add(const MyDivider());
     return children;
   }
 
@@ -152,13 +150,13 @@ class _HomePageState extends State<HomePage> {
             );
           }
           else if(snapShot.hasError){
-            return Container(
+            return SizedBox(
               height: 200,
               child: Center(child: Text(snapShot.error.toString() ,
-                style: TextStyle(fontSize: 20),),)
+                style: const TextStyle(fontSize: 20),),)
               ,);
           }
-          return Center(child : CircularProgressIndicator());
+          return const Center(child : CircularProgressIndicator());
         }
     );
   }

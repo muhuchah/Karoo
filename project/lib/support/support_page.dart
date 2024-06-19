@@ -6,11 +6,10 @@ import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/my_appbars.dart';
 
 import '../chat/chat_holder.dart';
-import '../component/support.dart';
 import 'message_holder.dart';
 
 class SupportPage extends StatefulWidget {
-  SupportPage({super.key});
+  const SupportPage({super.key});
 
   @override
   State<SupportPage> createState() => _SupportPageState();

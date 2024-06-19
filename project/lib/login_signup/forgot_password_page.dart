@@ -64,6 +64,7 @@ class _ForgotPassword extends State<StatefulWidget> {
                         const BigText(text: "Forgot Password"),
                         const SizedBox(height: 80,),
                         TextIcon(
+                          key: const Key("email"),
                           labelText: "EMAIL",
                           assetPath: "asset/icons/email.svg",
                           controller: emailController,

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:project/comment/display_comment.dart';
+import 'package:project/comment/comment_container.dart';
+import 'package:project/component/comment_file.dart';
 import 'package:project/component/job_file.dart';
 
 void main(){
-  testWidgets("Comment list testing", (tester) async {
-
+  testWidgets("Comment container testing", (tester) async {
     Map listValues = {
       "id" : 1,
       "title" : "test job",
@@ -55,11 +55,14 @@ void main(){
       "Sub_category_title" : "doing coloring"
     };
 
-    Job job = Job.infoJson(infoValues);
-    await tester.pumpWidget(MaterialApp(home: DisplayComments(job: job),));
+    await tester.pumpWidget(MaterialApp(
+      home: CommentTile(comment: Comment(id: 1, comment: "comment",userEmail: "some email",
+        title: "good", date: "2024", rating: 3, userFullName: "some name"
+      ),job: Job.infoJson(infoValues),),)
+    );
 
-    expect(find.text("good job"), findsOneWidget);
     expect(find.text("good"), findsOneWidget);
-    expect(find.text("10 days ago"), findsOneWidget);
+    expect(find.text("comment"), findsOneWidget);
+    expect(find.text("2024"), findsOneWidget);
   });
 }

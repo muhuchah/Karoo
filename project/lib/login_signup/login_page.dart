@@ -69,6 +69,7 @@ class _LoginPage extends State<StatefulWidget>{
                       weight: FontWeight.normal),
                   const SizedBox(height: 60,),
                   TextIcon(
+                    key: const Key("email"),
                     labelText: "EMAIL",
                     assetPath: "asset/icons/email.svg",
                     controller: emailController,
@@ -82,6 +83,7 @@ class _LoginPage extends State<StatefulWidget>{
                   ),
                   const SizedBox(height: 30,),
                   TextIcon(
+                    key: const Key("password"),
                     labelText: "PASSWORD",
                     assetPath: "asset/icons/password.svg",
                     controller: passwordController,

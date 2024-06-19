@@ -13,7 +13,7 @@ class TextIcon extends StatelessWidget {
   final String? Function(String? value)? validatorFunction;
   final FocusNode? focus;
   final TextEditingController? controller;
-  const TextIcon({super.key , required this.labelText,
+  const TextIcon({required super.key , required this.labelText,
     required this.assetPath , this.size = 30 ,
     this.fontSize = 16 , this.borderColor = AppColor.text1,
     required this.controller , this.hintColor = AppColor.hint,

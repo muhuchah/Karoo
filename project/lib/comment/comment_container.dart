@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project/comment/comment_data.dart';
 import 'package:project/component/user_file.dart';
@@ -88,34 +87,30 @@ class CommentTile extends StatelessWidget {
               CustomText(text: comment.comment!, size: 16,
                   textColor: Colors.black, weight: FontWeight.normal),
               const SizedBox(height: 10,),
-              Align(
-                alignment: Alignment.topRight,
-                child: SizedBox(
-                  width: 60,
-                  child: Row(
-                    children: [
-                      CustomText(text: "0", size: 12,
-                          textColor: Colors.black, weight: FontWeight.normal),
-                      const SizedBox(width: 4,),
-                      GestureDetector(
-                        onTap: (){
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  const CustomText(text: "0", size: 12,
+                      textColor: Colors.black, weight: FontWeight.normal),
+                  const SizedBox(width: 4,),
+                  GestureDetector(
+                    onTap: (){
 
-                        },
-                        child: Image.asset("asset/icons/like.png",width: 13,height: 13,),
-                      ),
-                      const SizedBox(width: 10,),
-                      CustomText(text: "0", size: 12,
-                          textColor: Colors.black, weight: FontWeight.normal),
-                      const SizedBox(width: 4,),
-                      GestureDetector(
-                        onTap: (){
-
-                        },
-                        child: Image.asset("asset/icons/dislike.png",width: 13,height: 13,),
-                      ),
-                    ],
+                    },
+                    child: Image.asset("asset/icons/like.png",width: 13,height: 13,),
                   ),
-                ),
+                  const SizedBox(width: 10,),
+                  const CustomText(text: "0", size: 12,
+                      textColor: Colors.black, weight: FontWeight.normal),
+                  const SizedBox(width: 4,),
+                  GestureDetector(
+                    onTap: (){
+
+                    },
+                    child: Image.asset("asset/icons/dislike.png",width: 13,height: 13,),
+                  ),
+                  const SizedBox(width: 20,)
+                ],
               )
             ],
           ),
