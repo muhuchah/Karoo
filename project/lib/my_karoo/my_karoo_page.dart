@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:project/about/about_page.dart';
-import 'package:project/chat/chat_holder.dart';
-import 'package:project/chat/chat_page.dart';
 import 'package:project/support/support_page.dart';
 import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/divider.dart';

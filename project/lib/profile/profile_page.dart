@@ -76,7 +76,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ScaffoldMessenger
                           .of(context)
                           .showSnackBar(SnackBar(content: Text(response),
-                            duration: Duration(seconds: 1),))
+                            duration: const Duration(seconds: 1),))
                           .closed.then((value) {
                         Navigator.of(context).pop();
                         Navigator.of(context).pushReplacementNamed("/first");
@@ -85,15 +85,15 @@ class _ProfilePageState extends State<ProfilePage> {
                     catch(e){
                       ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text(e.toString()),
-                            duration: Duration(seconds: 1),));
+                            duration: const Duration(seconds: 1),));
                     }
                   },
-                    child: BigText(text: "Logout",size: 20,textColor: Colors.white,),
                     style: ElevatedButton.styleFrom(
                         backgroundColor: AppColor.main,
                         fixedSize: const Size(200, 40,),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
                     ),
+                    child: const BigText(text: "Logout",size: 20,textColor: Colors.white,),
                   ),
                   const SizedBox(height: 20,),
                   ElevatedButton(onPressed: (){
@@ -103,12 +103,12 @@ class _ProfilePageState extends State<ProfilePage> {
                       })
                     );
                   },
-                    child: BigText(text: "Delete Account",size: 20,textColor: Colors.white,),
                     style: ElevatedButton.styleFrom(
                         backgroundColor: AppColor.main,
                         fixedSize: const Size(200, 40,),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
                     ),
+                    child: const BigText(text: "Delete Account",size: 20,textColor: Colors.white,),
                   ),
                 ],
               ),

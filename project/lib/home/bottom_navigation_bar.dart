@@ -62,7 +62,7 @@ class MyBottomNavigation extends StatelessWidget{
                   icon:Icon(Icons.person_outline , size: 32,
                       color: currentIndex == 3 ? AppColor.button1 : Colors.black
                   )),
-                Text("Person" ,
+                Text("My Karoo" ,
                   style: TextStyle(color: currentIndex == 3 ? AppColor.button1 : Colors.black),),
               ],),
             ],

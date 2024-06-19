@@ -14,20 +14,20 @@ class MyKarooListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(right: 10 , left: 10 , top: 10),
+      margin: const EdgeInsets.only(right: 10 , left: 10 , top: 10),
       child: Column(children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-            Container(child:Row(children: [
+            Row(children: [
               Icon(icon,size: 32,),
-              SizedBox(width: 30,),
+              const SizedBox(width: 30,),
               Text(title,style: TextStyle(fontSize: textSize),),
-            ],),),
+            ],),
             IconButton(onPressed: onPressed,
-                icon: Icon(Icons.arrow_forward_ios))
+                icon: const Icon(Icons.arrow_forward_ios))
           ],),
         ),
         const SizedBox(height: 10,),

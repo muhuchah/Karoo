@@ -127,9 +127,11 @@ class UserRequest{
         "Authorization": "Bearer ${user.accessToken!}"
       },
       body: <String , String> {
-        "refresh": user.refreshToken!
+        "refresh_token": user.refreshToken!
       }
     );
+
+    print(response.statusCode);
 
     dynamic body = jsonDecode(response.body);
 
