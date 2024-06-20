@@ -6,8 +6,6 @@ import 'package:project/home/bottom_navigation_bar.dart';
 import 'package:project/job/display_job.dart';
 import 'package:project/my_karoo/my_karoo_page.dart';
 import 'package:project/utils/app_color.dart';
-import 'package:project/widgets/custom_text.dart';
-import 'package:project/widgets/floating_action_button.dart';
 
 import '../widgets/my_appbars.dart';
 import 'home_page.dart';

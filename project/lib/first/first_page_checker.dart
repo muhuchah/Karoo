@@ -64,7 +64,7 @@ class FirstPageChecker extends StatelessWidget{
     }
     catch(e){
       ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(e.toString()) , duration: Duration(seconds: 2),));
+          SnackBar(content: Text(e.toString()) , duration: const Duration(seconds: 2),));
     }
   }
 

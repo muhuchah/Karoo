@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/about/about_page.dart';
+import 'package:project/faq/faq_page.dart';
 import 'package:project/support/support_page.dart';
 import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/divider.dart';
@@ -87,7 +88,9 @@ class _MyKarooPageState extends State<MyKarooPage> {
                 }));
               },),
               MyKarooListText(text: "Karoo FAQ" , onTap: (){
-
+                Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                  return const KarooFAQ();
+                }));
               },),
               MyKarooListText(text: "About Karoo" , onTap: (){
                 Navigator.of(context).push(MaterialPageRoute(builder: (context){

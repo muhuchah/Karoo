@@ -126,7 +126,7 @@ class UserRequest{
         "Authorization": "Bearer ${user.accessToken!}"
       },
       body: <String , String> {
-        "refresh_token": user.refreshToken!
+        "refresh": user.refreshToken!
       }
     );
 

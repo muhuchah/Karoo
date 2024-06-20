@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:project/create_job/job_data.dart';
+import 'package:project/request/job_request.dart';
 import 'package:project/time_table/day_holder.dart';
 import 'package:project/time_table/time_table_data.dart';
 import 'package:project/utils/app_color.dart';
@@ -49,8 +51,18 @@ class _TimeTablePageState extends State<TimeTablePage> {
         Padding(
           padding: const EdgeInsets.all(20),
           child: LongButton(
-            onTap: (){
-
+            onTap: () async {
+              try{
+                await JobRequest.setTimeTable(JobData.job!.id!);
+                JobData.timeTable = true;
+                Navigator.of(context).pop();
+              }
+              catch(e){
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(e.toString()),
+                    duration: const Duration(seconds: 2),)
+                );
+              }
             },
             text:"Save"
           ),

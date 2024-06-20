@@ -16,6 +16,7 @@ class JobData{
   static String description = "";
   static String province = "";
   static String city = "";
+  static bool timeTable = false;
   static String experience = "";
   static String initialCost = "";
   static String costPerHour = "";
@@ -34,6 +35,7 @@ class JobData{
     JobData.description = "";
     JobData.province = "";
     JobData.city = "";
+    JobData.timeTable = false;
     JobData.experience = "";
     JobData.initialCost = "";
     JobData.costPerHour = "";

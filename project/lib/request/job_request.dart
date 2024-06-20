@@ -6,6 +6,7 @@ import 'package:project/component/image.dart';
 import 'package:project/component/job_file.dart';
 import 'package:project/component/skill_file.dart';
 import 'package:project/create_job/job_data.dart';
+import 'package:project/time_table/time_table_data.dart';
 
 import '../component/user_file.dart';
 
@@ -19,7 +20,6 @@ class JobRequest {
   static const String _createComment = "jobs/comment/create/";
   static const String _editComment = "jobs/comment/edit/";
   static const String _editTimeTable = "jobs/timetable/";
-  static const String _getTimeTable = "jobs/user/info/";
 
   static Future<List<Job>> getJobs() async {
     User user = User();
@@ -365,5 +365,46 @@ class JobRequest {
     }
   }
 
+  static String _getTimeTableValues(){
+    List timeTable = [];
+    Map<String,List<String>> times = TimeTableData.times;
 
+    times.forEach((key, value){
+      Map temp = {};
+      temp["day_of_week"] = key;
+
+      List listTimes = [];
+
+      for(String v in value){
+        List<String> timesValue = v.split("-");
+        Map tempTime = {
+          "start_time" : timesValue[0],
+          "end_time" : timesValue[1]
+        };
+
+        listTimes.add(tempTime);
+      }
+
+      temp["time_slots"] = listTimes;
+      timeTable.add(temp);
+    });
+
+    Map mapValues = {"timetable" : timeTable};
+
+    print(mapValues);
+
+    return jsonEncode(mapValues);
+  }
+
+  static Future<void> setTimeTable(int id) async {
+    User user = User();
+    var response = await http.post(Uri.parse("$_base$_editTimeTable$id/"),
+      headers: <String,String>{
+        "Authorization": "Bearer ${user.accessToken!}"
+      },
+      body: _getTimeTableValues()
+    );
+
+    print(response.statusCode);
+  }
 }

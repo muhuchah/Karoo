@@ -76,6 +76,7 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                     icon: const Icon(Icons.access_time_rounded , size: 24,),
                     text: "Time Table",
                     onTapString: "Set",
+                    onTapColor: JobData.timeTable ? AppColor.loginText1 : null,
                     onTap: (){
                       Navigator.of(context).push(MaterialPageRoute(builder: (context){
                         return TimeTablePage(isCreate: true,);
