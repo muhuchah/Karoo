@@ -103,12 +103,9 @@ class DailySchedule(models.Model):
         ('friday', 'Friday'),
     ]
 
-    # user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
-    day_of_week = models.CharField(max_length=10, choices=DAYS_OF_WEEK)
+    job = models.ForeignKey(job, on_delete=models.CASCADE, null=False, blank=False)
+    day_of_week = models.CharField(max_length=9, choices=DAYS_OF_WEEK)
     time_slots = models.ManyToManyField(TimeSlot, blank=True)
 
     def __str__(self):
-        res = ""
-        for time_slot in self.time_slots:
-            res = res + f"{self.day_of_week} - {time_slot.__str__()}\t"
-        return res
+        return f"{self.user} - {self.day_of_week}"

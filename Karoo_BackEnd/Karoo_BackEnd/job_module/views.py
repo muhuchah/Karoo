@@ -245,18 +245,43 @@ class GetAllSkill(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+class DailyScheduleAPIView(generics.CreateAPIView):
+    def post(self, request, pk):
+        try:
+            curr_job = job.objects.get(id=pk)
+        except:
+            return Response({'error': 'Job does not exist'}, status=HTTP_404_NOT_FOUND)
 
-class TimeSlotViewSet(viewsets.ModelViewSet):
-    queryset = TimeSlot.objects.all()
-    serializer_class = TimeSlotSerializer
-    permission_classes = [permissions.IsAuthenticated]
+        if request.user == curr_job.user:
+            timetable_data = request.data.get('timetable')
 
-class DailyScheduleViewSet(viewsets.ModelViewSet):
-    serializer_class = DailyScheduleSerializer
-    permission_classes = [permissions.IsAuthenticated]
+            daily_schedules = []
+            for day_data in timetable_data:
+                day_of_week = day_data['day_of_week']
+                time_slots_data = day_data['time_slots']
 
-    def get_queryset(self):
-        return DailySchedule.objects.filter(user=self.request.user)
+                # Create DailySchedule
+                daily_schedule, created = DailySchedule.objects.get_or_create(
+                    job=curr_job, day_of_week=day_of_week
+                )
 
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+                # Clear existing TimeSlots for this DailySchedule
+                daily_schedule.time_slots.all().delete()
+
+                # Create TimeSlots
+                for slot_data in time_slots_data:
+                    TimeSlot.objects.create(
+                        start_time=slot_data['start_time'],
+                        end_time=slot_data['end_time']
+                    )
+
+                daily_schedules.append(daily_schedule)
+
+            # Set the timetable for the job
+            curr_job.timetable.set(daily_schedules)
+            curr_job.save()
+
+            return Response({'message': 'Timetable updated successfully'}, status=HTTP_200_OK)
+        else:
+            return Response({'message': 'You are not allowed to change this job'}, status=HTTP_403_FORBIDDEN)
+                
