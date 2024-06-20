@@ -842,6 +842,109 @@ If you already have a comment for this job:
 ]
 ```
 
+### Time Table
+#### Update time table
+> URL http://127.0.0.1:8000/jobs/timetable/{job_id}            
+> Method POST         
+
+###### Parameters
+```json
+{
+    "timetable": [
+        {
+            "day_of_week": "friday",
+            "time_slots": [
+                {
+                    "start_time": "11:00:00",
+                    "end_time": "12:00:00"
+                },
+                {
+                    "start_time": "15:00:00",
+                    "end_time": "17:00:00"
+                }
+            ]
+        },
+        {
+            "day_of_week": "saturday",
+            "time_slots": [
+                {
+                    "start_time": "11:00:00",
+                    "end_time": "12:00:00"
+                }
+            ]
+        }
+    ]
+}
+```
+
+###### Responses
+If Ok returns 200 ok                
+```json
+{
+    "message": "Timetable updated successfully"
+}
+```
+
+If invalid job id returns 404 not found
+```json
+{
+    "error": "Job does not exist"
+}
+```
+
+If job is not for this user returns 403 forbidden
+```json
+{
+"messate" : "You are not allowed to change this job"
+}
+```
+
+#### Get time table
+> URL http://127.0.0.1:8000/jobs/user/info/               
+> Method GET              
+
+###### Response
+```json
+[
+    {
+        "id": 1,
+        "title": "Jobb",
+        "SubCategory": 1,
+        "Sub_category_title": "subcat",
+        "Main_category_title": "maincat",
+        "user_email": "mpouya.rhm9981+karoo@gmail.com",
+        "main_picture": null,
+        "main_picture_url": null,
+        "pictures": [],
+        "description": "this is job1",
+        "comments": [],
+        "skills": [
+            {
+                "id": 1,
+                "title": "skill1"
+            }
+        ],
+        "experiences": "experiences",
+        "approximation_cph": "approximation_cph",
+        "initial_cost": "initial_cost",
+        "province_name": "Tehran",
+        "city_name": "Tehran",
+        "average_rating": 0.0,
+        "timetable": [
+            {
+                "id": 1,
+                "day_of_week": "friday",
+                "time_slots": []
+            },
+            {
+                "id": 2,
+                "day_of_week": "saturday",
+                "time_slots": []
+            }
+        ]
+    }
+]
+```
 
 ## Support
 
