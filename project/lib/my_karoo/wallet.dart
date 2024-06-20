@@ -5,10 +5,18 @@ import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/divider.dart';
 import 'package:project/widgets/my_appbars.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class WalletPage extends StatelessWidget {
-  TextEditingController controller = TextEditingController();
+class WalletPage extends StatefulWidget {
+
   WalletPage({super.key});
+
+  @override
+  State<WalletPage> createState() => _WalletPageState();
+}
+
+class _WalletPageState extends State<WalletPage> {
+  TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -105,8 +113,40 @@ class WalletPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ElevatedButton(
-                    onPressed: (){
-
+                    onPressed: () async {
+                      try{
+                        double amount = double.parse(controller.text);
+                        if(amount<1000){
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text("Enter number greater than 1000"),
+                                duration: Duration(seconds: 2),
+                              )
+                          );
+                        }
+                        else{
+                          String url = await WalletRequest.pay(amount);
+                          if (!await launchUrl(Uri.parse(url))) {
+                            throw Exception('Could not launch $url');
+                          }
+                          else{
+                            Navigator.of(context).pop();
+                          }
+                        }
+                      }
+                      on FormatException catch (_){
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text("Enter number"),
+                              duration: Duration(seconds: 2),
+                            )
+                        );
+                      }
+                      catch(e){
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(e.toString()),
+                              duration: const Duration(seconds: 2),
+                            )
+                        );
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: AppColor.main,
@@ -117,8 +157,25 @@ class WalletPage extends StatelessWidget {
                         textColor: Colors.white, weight: FontWeight.w700),
                   ),
                   ElevatedButton(
-                    onPressed: (){
-
+                    onPressed: () async {
+                      try{
+                        await WalletRequest.withdraw(double.parse(controller.text));
+                        setState(() {});
+                      }
+                      on FormatException catch (_){
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text("Enter number"),
+                            duration: Duration(seconds: 2),
+                          )
+                        );
+                      }
+                      catch(e){
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(e.toString()),
+                              duration: const Duration(seconds: 2),
+                            )
+                        );
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: AppColor.main,
