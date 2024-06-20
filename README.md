@@ -1008,56 +1008,104 @@ If Chat Doesn't Exist!
 }
 ```
 
-## Time-Slots
-### xxx
-#### Get
-> URL http://127.0.0.1:8000//jobs/user/time-slots/     
-> Method GET
-
-
-#### Post
-> URL http://127.0.0.1:8000//jobs/user/time-slots/     
+## Time Table
+### Update time table
+> URL http://127.0.0.1:8000/jobs/timetable/{job_id}
 > Method POST
+
 ```json
 {
-    "start_time": "10:30:00",
-    "end_time": "12:30:00"
-}
-```
-
-## Time-Table
-### xxx
-#### Get
-> URL http://127.0.0.1:8000//jobs/user/time-slots/     
-> Method GET
-
-#### Post
-> URL http://127.0.0.1:8000//jobs/user/time-slots/     
-> Method POST
-```json
-{
-    "day_of_week": "saturday",
-    "time_slots": [
+    "timetable": [
         {
-            "start_time": "11:00:00",
-            "end_time": "12:00:00"
+            "day_of_week": "friday",
+            "time_slots": [
+                {
+                    "start_time": "11:00:00",
+                    "end_time": "12:00:00"
+                },
+                {
+                    "start_time": "15:00:00",
+                    "end_time": "17:00:00"
+                }
+            ]
+        },
+        {
+            "day_of_week": "saturday",
+            "time_slots": [
+                {
+                    "start_time": "11:00:00",
+                    "end_time": "12:00:00"
+                }
+            ]
         }
     ]
 }
 ```
-##### if ok returns:
+#### ok
+> HTTP_200_OK
 ```json
 {
-    "id": 6,
-    "day_of_week": "saturday",
-    "time_slots": [
-        {
-            "id": 3,
-            "start_time": "11:00:00",
-            "end_time": "12:00:00"
-        }
-    ]
+    "message": "Timetable updated successfully"
 }
+```
+#### invalid job id
+> HTTP_404_NOT_FOUND
+```json
+{
+    "error": "Job does not exist"
+}
+```
+#### job is not for this user
+> HTTP_403_FORBIDDEN
+```json
+{
+"messate" : "You are not allowed to change this job"
+}
+```
+
+### Get time table
+> URL http://127.0.0.1:8000/jobs/user/info/
+> Method GET
+```json
+[
+    {
+        "id": 1,
+        "title": "Jobb",
+        "SubCategory": 1,
+        "Sub_category_title": "subcat",
+        "Main_category_title": "maincat",
+        "user_email": "mpouya.rhm9981+karoo@gmail.com",
+        "main_picture": null,
+        "main_picture_url": null,
+        "pictures": [],
+        "description": "this is job1",
+        "comments": [],
+        "skills": [
+            {
+                "id": 1,
+                "title": "skill1"
+            }
+        ],
+        "experiences": "experiences",
+        "approximation_cph": "approximation_cph",
+        "initial_cost": "initial_cost",
+        "province_name": "Tehran",
+        "city_name": "Tehran",
+        "average_rating": 0.0,
+        "timetable": [
+            {
+                "id": 1,
+                "day_of_week": "friday",
+                "time_slots": []
+            },
+            {
+                "id": 2,
+                "day_of_week": "saturday",
+                "time_slots": []
+            }
+        ]
+    }
+]
 ```
 
 
