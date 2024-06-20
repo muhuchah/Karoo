@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/time_table/time_picker_holder.dart';
 import 'package:project/time_table/time_table_data.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/custom_text.dart';
@@ -27,8 +28,17 @@ class _DayHolderWidgetState extends State<DayHolderWidget> {
 
   Widget addButton(){
     return TextButton(
-      onPressed: (){
+      onPressed: () async {
+        TimeTableData.startTime = "";
+        TimeTableData.endTime = "";
 
+        Navigator.of(context).push(MaterialPageRoute(builder: (context){
+          return TimePickerHolder(
+            onTap: (){
+              setState(() {});
+            },
+            day: widget.text,);
+        }));
       },
       style: TextButton.styleFrom(
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
