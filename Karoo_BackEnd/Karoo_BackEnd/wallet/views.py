@@ -16,7 +16,7 @@ from .serializers import WalletSerializer, WithdrawSerializer, PaymentSerializer
 
 
 merchant = 'zibal'
-callbackUrl = 'http://127.0.0.1:8000/wallet/zibal/verify/'
+callbackUrl = 'https://karoo.liara.run/wallet/zibal/verify/'
 description = 'Karoo'
 mobile = '09152859657'
 
@@ -110,6 +110,8 @@ class PayView(APIView):
 
 
 class VerifyPayView(APIView):
+    permission_classes = []
+
     def get(self, request):
         success = request.GET.get('success')
         track_id = request.GET.get('trackId')
@@ -119,7 +121,7 @@ class VerifyPayView(APIView):
         if success == '1' and track_id:
             verify_data = json.dumps({"merchant": merchant, "trackId": track_id})
             headers = {'content-type': 'application/json', 'content-length': str(len(verify_data))}
-            
+
             try:
                 response = requests.post(ZIBAL_API_VERIFY, data=verify_data, headers=headers, timeout=10)
                 if response.status_code == 200:
@@ -150,13 +152,6 @@ class VerifyPayView(APIView):
                                 {"status": False, "message": "Wallet not found."},
                                 status=status.HTTP_404_NOT_FOUND
                             )
-
-                        return Response({
-                            'status': True,
-                            'message': 'Payment verified successfully.',
-                            'new_balance': wallet.balance,
-                            'details': response
-                        }, status=status.HTTP_200_OK)
                     else:
                         return JsonResponse({
                             'status': False,
