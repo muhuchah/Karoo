@@ -51,8 +51,12 @@ class _TimePickerHolderState extends State<TimePickerHolder> {
 
                           if(startTime!=null) {
                             setState(() {
+                              String m = "${startTime.minute}";
+                              if(startTime.minute < 10){
+                                m = "0${startTime.minute}";
+                              }
                               TimeTableData.startTime =
-                              "${startTime.hour}-${startTime.minute}";
+                              "${startTime.hour}:$m";
                             });
                           }
                         },
@@ -91,8 +95,12 @@ class _TimePickerHolderState extends State<TimePickerHolder> {
 
                             if(endTime!=null) {
                               setState(() {
+                                String m = "${endTime.minute}";
+                                if(endTime.minute < 10){
+                                  m = "0${endTime.minute}";
+                                }
                                 TimeTableData.endTime =
-                                "${endTime.hour}-${endTime.minute}";
+                                "${endTime.hour}:$m";
                               });
                             }
                           },
@@ -109,14 +117,17 @@ class _TimePickerHolderState extends State<TimePickerHolder> {
                   )
                 ],
               ),
-              Expanded(
-                child:LongButton(
-                  onTap: (){
-                    widget.onTap();
-                    Navigator.of(context).pop();
-                  },
-                  text: "Save",
-                )
+              const Spacer(),
+              LongButton(
+                onTap: (){
+                  String time = "${TimeTableData.startTime}-${TimeTableData.endTime}";
+                  if(!TimeTableData.times[widget.day]!.contains(time)){
+                    TimeTableData.times[widget.day]!.add(time);
+                  }
+                  widget.onTap();
+                  Navigator.of(context).pop();
+                },
+                text: "Save",
               )
             ],
           ),

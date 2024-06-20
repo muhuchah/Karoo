@@ -78,7 +78,7 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                     onTapString: "Set",
                     onTap: (){
                       Navigator.of(context).push(MaterialPageRoute(builder: (context){
-                        return const TimeTablePage();
+                        return TimeTablePage(isCreate: true,);
                       }));
                     },
                   ),

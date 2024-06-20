@@ -18,6 +18,8 @@ class JobRequest {
   static const String _skills = "jobs/skills/";
   static const String _createComment = "jobs/comment/create/";
   static const String _editComment = "jobs/comment/edit/";
+  static const String _editTimeTable = "jobs/timetable/";
+  static const String _getTimeTable = "jobs/user/info/";
 
   static Future<List<Job>> getJobs() async {
     User user = User();
@@ -362,4 +364,6 @@ class JobRequest {
       throw Exception("Unable to delete comment");
     }
   }
+
+
 }
