@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/first/first_page_button.dart';
-import 'package:project/request/user_requests.dart';
+import 'package:project/request/wallet_request.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/my_appbars.dart';
@@ -54,7 +54,7 @@ class EditShabaNumber extends StatelessWidget {
               padding: const EdgeInsets.all(20),
               child: FirstPageButton(text: "Save", color: AppColor.main, onTap: () async {
                 try {
-                  var request = await UserRequest.addShabaNum(controller.text);
+                  var request = await WalletRequest.addShabaNum(controller.text);
                   Navigator.of(context).pop();
                   Navigator.of(context).pop();
                   Navigator.of(context).pushNamed("/wallet");

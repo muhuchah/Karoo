@@ -7,6 +7,8 @@ class User{
   String? _city;
   int? _addressId;
   String? _phoneNumber;
+  String? _shabaNum;
+  double? _wallet;
 
   static final User _user = User._internal();
 
@@ -48,6 +50,12 @@ class User{
     _addressId = value;
   }
 
+  String? get shabaNum => _shabaNum;
+
+  set shabaNum(String? value) {
+    _shabaNum = value;
+  }
+
   int? get addressId => _addressId;
 
   String? get fullName{return _fullName;}
@@ -73,5 +81,11 @@ class User{
     _email = null;
     _accessToken = null;
     _refreshToken = null;
+  }
+
+  double? get wallet => _wallet;
+
+  set wallet(double? value) {
+    _wallet = value;
   }
 }

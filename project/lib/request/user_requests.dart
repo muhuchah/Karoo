@@ -16,7 +16,6 @@ class UserRequest{
   static const String _address = "users/settings/address-list/";
   static const String _editAddress = "users/settings/address-edit/";
   static const String _userSearch = "users/search/";
-  static const String _wallet = "wallet/";
 
   static Future<String> signup({
     required String fullName , required String email,
@@ -315,41 +314,5 @@ class UserRequest{
       return values;
     }
     throw Exception("Unable to search user");
-  }
-
-  static Future<String> getShabaNum() async {
-    User user = User();
-    var response = await http.get(Uri.parse(_base+_wallet),
-      headers: <String , String>{
-        "Authorization": "Bearer ${user.accessToken!}",
-      }
-    );
-
-    if(response.statusCode == 200){
-      return jsonDecode(response.body)["Shaba_number"].toString();
-    }
-    else if(response.statusCode == 404){
-      return "";
-    }
-    throw Exception("Unable to load shaba number");
-  }
-
-  static Future<void> addShabaNum(String shaba) async {
-    User user = User();
-    var response = await http.post(Uri.parse(_base+_wallet),
-      headers: <String , String>{
-        "Authorization": "Bearer ${user.accessToken!}",
-      },
-      body: <String , String>{
-        "Shaba_number" : shaba
-      }
-    );
-
-    if(response.statusCode == 400){
-      throw Exception(jsonDecode(response.body)["error"]);
-    }
-    else if(response.statusCode != 200 || response.statusCode != 201){
-      throw Exception("unable to add shaba number");
-    }
   }
 }
