@@ -77,6 +77,7 @@ class job_comments(models.Model):
     def __str__(self):
         return f'{self.title}, user:{self.user}, job:{self.job}'
 
+
 class skill(models.Model):
     title = models.CharField(max_length=200, null=False, blank=False)
     
@@ -84,13 +85,13 @@ class skill(models.Model):
         return self.title
     
 
-
 class TimeSlot(models.Model):
     start_time = models.TimeField()
     end_time = models.TimeField()
 
     def __str__(self):
         return f"{self.start_time} - {self.end_time}"
+
 
 class DailySchedule(models.Model):
     DAYS_OF_WEEK = [
@@ -108,4 +109,4 @@ class DailySchedule(models.Model):
     time_slots = models.ManyToManyField(TimeSlot, blank=True)
 
     def __str__(self):
-        return f"{self.user} - {self.day_of_week}"
+        return f"{self.job.user.full_name} - {self.day_of_week}"
