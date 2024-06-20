@@ -1,8 +1,8 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, generics, filters, permissions, status
 from rest_framework.exceptions import PermissionDenied
-from .models import job, job_pictures, job_comments, skill
-from .seryalizers import jobSerializer, job_picturesSerializer, joblistSerializer, job_commentsSerializer, skillSerializer
+from .models import job, job_pictures, job_comments, skill, TimeSlot, DailySchedule
+from .seryalizers import jobSerializer, job_picturesSerializer, joblistSerializer, job_commentsSerializer, skillSerializer, TimeSlotSerializer, DailyScheduleSerializer
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
@@ -243,3 +243,45 @@ class GetAllSkill(APIView):
         skills = skill.objects.all()
         serializer = skillSerializer(skills, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class DailyScheduleAPIView(generics.CreateAPIView):
+    def post(self, request, pk):
+        try:
+            curr_job = job.objects.get(id=pk)
+        except:
+            return Response({'error': 'Job does not exist'}, status=HTTP_404_NOT_FOUND)
+
+        if request.user == curr_job.user:
+            timetable_data = request.data.get('timetable')
+
+            daily_schedules = []
+            for day_data in timetable_data:
+                day_of_week = day_data['day_of_week']
+                time_slots_data = day_data['time_slots']
+
+                # Create DailySchedule
+                daily_schedule, created = DailySchedule.objects.get_or_create(
+                    job=curr_job, day_of_week=day_of_week
+                )
+
+                # Clear existing TimeSlots for this DailySchedule
+                daily_schedule.time_slots.all().delete()
+
+                # Create TimeSlots
+                for slot_data in time_slots_data:
+                    TimeSlot.objects.create(
+                        start_time=slot_data['start_time'],
+                        end_time=slot_data['end_time']
+                    )
+
+                daily_schedules.append(daily_schedule)
+
+            # Set the timetable for the job
+            curr_job.timetable.set(daily_schedules)
+            curr_job.save()
+
+            return Response({'message': 'Timetable updated successfully'}, status=HTTP_200_OK)
+        else:
+            return Response({'message': 'You are not allowed to change this job'}, status=HTTP_403_FORBIDDEN)
+                

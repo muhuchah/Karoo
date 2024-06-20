@@ -1,7 +1,8 @@
 from rest_framework import serializers
-from .models import job, job_pictures, job_comments, skill
+from .models import job, job_pictures, job_comments, skill, TimeSlot, DailySchedule
 from account_module.models import Address
 from django.db.models import Avg
+# from account_module.seryalizers import ProvinceSerializer, CitySerializer
 
 
 class job_commentsSerializer(serializers.ModelSerializer):
@@ -31,6 +32,40 @@ class skillSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class TimeSlotSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TimeSlot
+        fields = ['id', 'start_time', 'end_time']
+
+class DailyScheduleSerializer(serializers.ModelSerializer):
+    time_slots = TimeSlotSerializer(many=True)
+
+    class Meta:
+        model = DailySchedule
+        fields = ['id', 'day_of_week', 'time_slots']
+
+    def create(self, validated_data):
+        time_slots_data = validated_data.pop('time_slots')
+        daily_schedule = DailySchedule.objects.create(**validated_data)
+        for time_slot_data in time_slots_data:
+            time_slot, created = TimeSlot.objects.get_or_create(**time_slot_data)
+            daily_schedule.time_slots.add(time_slot)
+        return daily_schedule
+
+    def update(self, instance, validated_data):
+        time_slots_data = validated_data.pop('time_slots')
+        instance.day_of_week = validated_data.get('day_of_week', instance.day_of_week)
+        instance.save()
+
+        # Clear existing time slots
+        instance.time_slots.clear()
+
+        for time_slot_data in time_slots_data:
+            time_slot, created = TimeSlot.objects.get_or_create(**time_slot_data)
+            instance.time_slots.add(time_slot)
+
+        return instance
+
 class jobSerializer(serializers.ModelSerializer):
     pictures = job_picturesSerializer(many=True, read_only=True)
     comments = job_commentsSerializer(many=True, read_only=True)
@@ -42,13 +77,14 @@ class jobSerializer(serializers.ModelSerializer):
     average_rating = serializers.SerializerMethodField()
     province_name = serializers.SerializerMethodField()
     city_name = serializers.SerializerMethodField()
+    timetable = DailyScheduleSerializer(many=True, read_only=True)
 
     class Meta:
         model = job
         fields = ['id', 'title', 'SubCategory', 'Sub_category_title', 'Main_category_title', 'user_email',
                   'main_picture', 'main_picture_url',
                   'pictures', 'description', 'comments', 'skills', 'experiences', 'approximation_cph', 'initial_cost',
-                  'province_name', 'city_name', 'average_rating']
+                  'province_name', 'city_name', 'average_rating', 'timetable']
 
     def update(self, instance, validated_data):
         # validated_data.pop('description', None)
