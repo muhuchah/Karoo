@@ -182,7 +182,7 @@ If user changes his email, an activation link will be sent to activate his email
 **Post** the refresh token to the URL as bellow:
 ```json
 {
-    "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcxNDQxMzAyOSwiaWF0IjoxNzExODIxMDI5LCJqdGkiOiJmMzRiOGE4ZWZkN2I0ODU2YTZiOTg0OWQwYWIyZDNhMSIsInVzZXJfaWQiOjF9.8ONAz358PiAE52qF0snVT-JJWSSWXMoorgsuuZann9s"
+    "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcxNDQxMzAyOSwiaWF0IjoxNzExODIxMDI5LCJqdGkiOiJmMzRiOGE4ZWZkN2I0ODU2YTZiOTg0OWQwYWIyZDNhMSIsInVzZXJfaWQiOjF9.8ONAz358PiAE52qF0snVT-JJWSSWXMoorgsuuZann9s"
 }
 ```
 
