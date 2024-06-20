@@ -1007,3 +1007,57 @@ If Chat Doesn't Exist!
     ]
 }
 ```
+
+## Time-Slots
+### xxx
+#### Get
+> URL http://127.0.0.1:8000//jobs/user/time-slots/     
+> Method GET
+
+
+#### Post
+> URL http://127.0.0.1:8000//jobs/user/time-slots/     
+> Method POST
+```json
+{
+    "start_time": "10:30:00",
+    "end_time": "12:30:00"
+}
+```
+
+## Time-Table
+### xxx
+#### Get
+> URL http://127.0.0.1:8000//jobs/user/time-slots/     
+> Method GET
+
+#### Post
+> URL http://127.0.0.1:8000//jobs/user/time-slots/     
+> Method POST
+```json
+{
+    "day_of_week": "saturday",
+    "time_slots": [
+        {
+            "start_time": "11:00:00",
+            "end_time": "12:00:00"
+        }
+    ]
+}
+```
+##### if ok returns:
+```json
+{
+    "id": 6,
+    "day_of_week": "saturday",
+    "time_slots": [
+        {
+            "id": 3,
+            "start_time": "11:00:00",
+            "end_time": "12:00:00"
+        }
+    ]
+}
+```
+
+
