@@ -1,4 +1,9 @@
 class AppText{
+  static const String phone = "09123456789";
+  static const String email = "app.karoo@gmail.com";
+  static const String telegram = "@Karoo";
+  static const String address = "Isfahan,University of Isfahan";
+
   static const Map<String,String> faqValues = {
     "What is the Karoo app?" : "The Karoo app is a platform designed to help users find and add jobs related to home and cleaning services. Users can post job listings for tasks they need help with, or browse available jobs in their area.",
     "How do I download the Karoo app?" : "You can download the Karoo app from the Google Play Store. Simply search for \"Karoo\" and follow the installation instructions.",

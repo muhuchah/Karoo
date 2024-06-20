@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/about/about_page.dart';
+import 'package:project/about/contact_page.dart';
 import 'package:project/faq/faq_page.dart';
 import 'package:project/support/support_page.dart';
 import 'package:project/widgets/custom_text.dart';
@@ -98,7 +99,9 @@ class _MyKarooPageState extends State<MyKarooPage> {
                 }));
               },),
               MyKarooListText(text: "Contact us" , onTap: (){
-
+                Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                  return const Contact();
+                }));
               },),
               const SizedBox(height: 50,),
               const Padding(
