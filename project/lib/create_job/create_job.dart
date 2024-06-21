@@ -3,6 +3,7 @@ import 'package:project/category/main_category.dart';
 import 'package:project/create_job/create_job_buttons.dart';
 import 'package:project/create_job/create_job_picture.dart';
 import 'package:project/create_job/job_info_part.dart';
+import 'package:project/time_table/time_table_data.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/divider.dart';
@@ -33,6 +34,7 @@ class _CreateJobState extends State<CreateJob> {
       backgroundColor: AppColor.background,
       appBar: SubAppBar(text: "New Job",leading: (){
         JobData.init();
+        TimeTableData.init();
         Navigator.of(context).pop();
       },),
       body: SizedBox(

@@ -78,8 +78,12 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                     onTapString: "Set",
                     onTapColor: JobData.timeTable ? AppColor.loginText1 : null,
                     onTap: (){
+                      TimeTableData.onTap = (){
+                        setState(() {});
+                      };
+                      TimeTableData.isCreate = true;
                       Navigator.of(context).push(MaterialPageRoute(builder: (context){
-                        return TimeTablePage(isCreate: true,);
+                        return TimeTablePage();
                       }));
                     },
                   ),
@@ -197,6 +201,7 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                           if(JobData.isCreate) {
                             job = await JobRequest.createJob();
                             await sendImages(job.id!);
+                            await JobRequest.setTimeTable(job.id!);
 
                             Navigator.of(context).pop();
                             Navigator.of(context).pop();
@@ -205,6 +210,7 @@ class _CreateJobInfoPageState extends State<CreateJobInfoPage> {
                           else{
                             job = await JobRequest.editJob(JobData.job!);
                             await editImagesRequest(job);
+                            await JobRequest.setTimeTable(job.id!);
 
                             Navigator.of(context).pop();
                             Navigator.of(context).pop();

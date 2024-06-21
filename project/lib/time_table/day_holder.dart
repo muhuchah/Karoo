@@ -78,20 +78,25 @@ class _DayHolderWidgetState extends State<DayHolderWidget> {
       }
     }
 
-    if(times.length%2 == 0){
-      children.add(
-          addButton()
-      );
+    if (times.length % 2 == 0) {
+      if(TimeTableData.isCreate) {
+        children.add(
+            addButton()
+        );
+      }
     }
-    else{
-      rowChildren.add(
-          addButton()
-      );
+    else {
+      if(TimeTableData.isCreate) {
+        rowChildren.add(
+            addButton()
+        );
+      }
       children.add(Row(
         children: rowChildren,
       ));
       rowChildren = [];
     }
+
     children.add(const SizedBox(height: 20,));
     children.add(const MyDivider());
 

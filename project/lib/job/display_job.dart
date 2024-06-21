@@ -9,6 +9,7 @@ import 'package:project/widgets/my_appbars.dart';
 
 import '../component/job_file.dart';
 import '../create_job/job_data.dart';
+import '../time_table/time_table_data.dart';
 import '../widgets/floating_action_button.dart';
 import '../widgets/job_list_tile.dart';
 
@@ -61,6 +62,7 @@ class _DisplayJobPageState extends State<DisplayJobPage> {
         JobData.onTap = (job , context){
           setState(() {
             JobData.init();
+            TimeTableData.init();
 
             Navigator.of(context).push(MaterialPageRoute(builder: (context){
               return JobInfoPage(id : job.id! , userJob: true , deleteOnTap: (){

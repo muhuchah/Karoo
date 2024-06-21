@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:project/create_job/job_data.dart';
-import 'package:project/request/job_request.dart';
 import 'package:project/time_table/day_holder.dart';
 import 'package:project/time_table/time_table_data.dart';
 import 'package:project/utils/app_color.dart';
@@ -8,8 +7,7 @@ import 'package:project/widgets/long_button.dart';
 import 'package:project/widgets/my_appbars.dart';
 
 class TimeTablePage extends StatefulWidget {
-  bool isCreate;
-  TimeTablePage({super.key, required this.isCreate});
+  const TimeTablePage({super.key});
 
   @override
   State<TimeTablePage> createState() => _TimeTablePageState();
@@ -46,15 +44,15 @@ class _TimeTablePageState extends State<TimeTablePage> {
       const SizedBox(height: 30,)
     ];
 
-    if(widget.isCreate){
+    if(TimeTableData.isCreate){
       children.add(
         Padding(
           padding: const EdgeInsets.all(20),
           child: LongButton(
             onTap: () async {
               try{
-                await JobRequest.setTimeTable(JobData.job!.id!);
                 JobData.timeTable = true;
+                TimeTableData.onTap!();
                 Navigator.of(context).pop();
               }
               catch(e){
@@ -76,9 +74,8 @@ class _TimeTablePageState extends State<TimeTablePage> {
   @override
   void initState() {
     super.initState();
-    TimeTableData.init();
-    TimeTableData.onTap = (){
-      setState(() {});
-    };
+    if(TimeTableData.selectedValues.isEmpty) {
+      TimeTableData.init();
+    }
   }
 }

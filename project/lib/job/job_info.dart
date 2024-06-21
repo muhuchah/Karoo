@@ -11,6 +11,8 @@ import 'package:project/job/job_widgets.dart';
 import 'package:project/job/spam.dart';
 import 'package:project/request/job_request.dart';
 import 'package:project/request/user_requests.dart';
+import 'package:project/time_table/time_table.dart';
+import 'package:project/time_table/time_table_data.dart';
 import 'package:project/widgets/custom_text.dart';
 import 'package:project/widgets/divider.dart';
 
@@ -54,7 +56,7 @@ class _JobInfoPageState extends State<JobInfoPage> {
           else{
             return SizedBox(
                 height: MediaQuery.of(context).size.height,
-                child: Center(child: CircularProgressIndicator())
+                child: const Center(child: CircularProgressIndicator())
             );
           }
         },
@@ -216,7 +218,10 @@ class _JobInfoPageState extends State<JobInfoPage> {
                       text: "Time Table",
                       textButton: TextButton(
                         onPressed: () {
-
+                          TimeTableData.isCreate = false;
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                            return TimeTablePage();
+                          }));
                         },
                         child: const Text("Show"),
                       ),
@@ -327,6 +332,7 @@ class _JobInfoPageState extends State<JobInfoPage> {
             color: AppColor.main,
             onTap: () {
               JobData.setEditValues(job);
+              TimeTableData.isCreate = true;
               Navigator.of(context).push(MaterialPageRoute(builder: (context){
                 return CreateJob();
               }));

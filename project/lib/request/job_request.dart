@@ -68,7 +68,9 @@ class JobRequest {
         });
 
     if (response.statusCode == 200) {
-      Job job = Job.infoJson(jsonDecode(response.body));
+      dynamic body = jsonDecode(response.body);
+      Job job = Job.infoJson(body);
+      TimeTableData.setTimeTable(body["timetable"]);
       return job;
     }
 
@@ -391,20 +393,21 @@ class JobRequest {
 
     Map mapValues = {"timetable" : timeTable};
 
-    print(mapValues);
-
     return jsonEncode(mapValues);
   }
 
   static Future<void> setTimeTable(int id) async {
     User user = User();
-    var response = await http.post(Uri.parse("$_base$_editTimeTable$id/"),
+    var response = await http.post(Uri.parse("$_base$_editTimeTable$id"),
       headers: <String,String>{
+        "Content-Type": "application/json",
         "Authorization": "Bearer ${user.accessToken!}"
       },
       body: _getTimeTableValues()
     );
 
-    print(response.statusCode);
+    if (response.statusCode != 200) {
+      throw Exception("Unable to create time table");
+    }
   }
 }
