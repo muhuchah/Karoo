@@ -8,6 +8,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.status import *
 from account_module.models import Province, City
+from django.db import transaction
 
 
 class IsOwnerOrReadOnly(permissions.BasePermission):
@@ -256,30 +257,33 @@ class DailyScheduleAPIView(generics.CreateAPIView):
             timetable_data = request.data.get('timetable')
 
             daily_schedules = []
-            for day_data in timetable_data:
-                day_of_week = day_data['day_of_week']
-                time_slots_data = day_data['time_slots']
 
-                # Create DailySchedule
-                daily_schedule, created = DailySchedule.objects.get_or_create(
-                    job=curr_job, day_of_week=day_of_week
-                )
+            with transaction.atomic():
+                for day_data in timetable_data:
+                    day_of_week = day_data['day_of_week']
+                    time_slots_data = day_data['time_slots']
 
-                # Clear existing TimeSlots for this DailySchedule
-                daily_schedule.time_slots.all().delete()
-
-                # Create TimeSlots
-                for slot_data in time_slots_data:
-                    TimeSlot.objects.create(
-                        start_time=slot_data['start_time'],
-                        end_time=slot_data['end_time']
+                    # Create DailySchedule
+                    daily_schedule, created = DailySchedule.objects.get_or_create(
+                        job=curr_job, day_of_week=day_of_week
                     )
 
-                daily_schedules.append(daily_schedule)
+                    # Clear existing TimeSlots for this DailySchedule
+                    daily_schedule.time_slots.clear()
 
-            # Set the timetable for the job
-            curr_job.timetable.set(daily_schedules)
-            curr_job.save()
+                    # Create TimeSlots
+                    for slot_data in time_slots_data:
+                        time_slot, created = TimeSlot.objects.get_or_create(
+                            start_time=slot_data['start_time'],
+                            end_time=slot_data['end_time']
+                        )
+                        daily_schedule.time_slots.add(time_slot)
+
+                    daily_schedules.append(daily_schedule)
+
+                # Set the timetable for the job
+                curr_job.timetable.set(daily_schedules)
+                curr_job.save()
 
             return Response({'message': 'Timetable updated successfully'}, status=HTTP_200_OK)
         else:
