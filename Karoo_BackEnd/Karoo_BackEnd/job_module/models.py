@@ -108,4 +108,4 @@ class DailySchedule(models.Model):
     time_slots = models.ManyToManyField(TimeSlot, blank=True)
 
     def __str__(self):
-        return f"{self.user} - {self.day_of_week}"
+        return f"{self.job.user} - {self.day_of_week}"
