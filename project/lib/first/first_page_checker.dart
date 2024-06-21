@@ -8,7 +8,7 @@ import '../request/user_requests.dart';
 import 'first_page.dart';
 
 class FirstPageChecker extends StatelessWidget{
-  const FirstPageChecker({super.key});
+  FirstPageChecker({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,6 @@ class FirstPageChecker extends StatelessWidget{
                     if(snapshot.hasData){
                       User user = User();
                       user.refreshToken = refreshToken;
-                      user.accessToken = snapshot.data;
                       successLogin(context);
                     }
                     else if(snapshot.hasError){

@@ -17,6 +17,8 @@ class UserRequest{
   static const String _editAddress = "users/settings/address-edit/";
   static const String _userSearch = "users/search/";
 
+  static bool refreshReq = false;
+
   static Future<String> signup({
     required String fullName , required String email,
     required String password}) async{
@@ -130,8 +132,6 @@ class UserRequest{
       }
     );
 
-    print(response.statusCode);
-
     dynamic body = jsonDecode(response.body);
 
     if(response.statusCode == 200){
@@ -237,7 +237,7 @@ class UserRequest{
     }
   }
 
-  static Future<void> getAddress() async {
+  static Future<String> getAddress() async {
     User user = User();
     final response = await http.get(Uri.parse(_base+_address),
       headers: <String , String>{
@@ -250,6 +250,7 @@ class UserRequest{
       user.province = body[0]["province_name"];
       user.city = body[0]["city_name"];
       user.addressId = body[0]["id"];
+      return "";
     }
 
     else{
@@ -283,16 +284,25 @@ class UserRequest{
   }
 
   static Future<String> checkRefresh(String refresh) async {
-    final response = await http.post(Uri.parse(_base+_refresh),
-        body: <String , String>{
-          "refresh" : refresh
+    if(!refreshReq) {
+      refreshReq = true;
+      final response = await http.post(Uri.parse(_base + _refresh),
+        body: <String, String>{
+          "refresh": refresh
         }
-    );
+      );
 
-    if(response.statusCode == 200){
-      return jsonDecode(response.body)["access"];
+      if (response.statusCode == 200) {
+        User().accessToken = jsonDecode(response.body)["access"];
+        return jsonDecode(response.body)["access"];
+      }
+      throw Exception("Unable get access");
     }
-    throw Exception("Unable get access");
+    else{
+      return Future.delayed(const Duration(seconds: 10),(){
+        return "";
+      });
+    }
   }
 
   static Future<List<String>> searchUser(String email) async {
