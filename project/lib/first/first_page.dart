@@ -1,15 +1,10 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:project/first/first_page_button.dart';
 import 'package:project/utils/app_color.dart';
 import 'package:project/widgets/big_text.dart';
 
-import '../request/user_requests.dart';
-
 class FirstPage extends StatelessWidget {
   String text = "A network platform that connects people with skills and people who need those skills.";
-  String userTokens = "";
   FirstPage({super.key});
 
   @override
@@ -35,24 +30,26 @@ class FirstPage extends StatelessWidget {
             child: Container(
               width: double.infinity,
               padding: const EdgeInsets.only(left: 30 , top: 40 , right: 30),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  BigText(text: "Do Do" , size: 24,),
-                  SizedBox(height: 30,),
-                  BigText(text: text , size: 20,weight: FontWeight.normal,),
-                  SizedBox(height: 100,),
-                  FirstPageButton(text : "Log in",color: AppColor.button1,
-                    onTap: (){
-                      Navigator.of(context).pushNamed("/login");
-                    },),
-                  SizedBox(height: 15,),
-                  FirstPageButton(text: "Sign in",color: AppColor.button1,
-                    onTap: (){
-                      Navigator.of(context).pushNamed("/signup");
-                    },
-                  )
-                ],
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    BigText(text: "Do Do" , size: 24,),
+                    SizedBox(height: 30,),
+                    BigText(text: text , size: 20,weight: FontWeight.normal,),
+                    SizedBox(height: 100,),
+                    FirstPageButton(text : "Log in",color: AppColor.button1,
+                      onTap: (){
+                        Navigator.of(context).pushNamed("/login");
+                      },),
+                    SizedBox(height: 15,),
+                    FirstPageButton(text: "Sign in",color: AppColor.button1,
+                      onTap: (){
+                        Navigator.of(context).pushNamed("/signup");
+                      },
+                    )
+                  ],
+                ),
               ),
             ),
           ),
