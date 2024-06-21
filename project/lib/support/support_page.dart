@@ -9,7 +9,8 @@ import '../chat/chat_holder.dart';
 import 'message_holder.dart';
 
 class SupportPage extends StatefulWidget {
-  const SupportPage({super.key});
+  Future<List<SupportMessage>> future;
+  SupportPage({super.key, required this.future});
 
   @override
   State<SupportPage> createState() => _SupportPageState();
@@ -25,7 +26,7 @@ class _SupportPageState extends State<SupportPage> {
       }),
       backgroundColor: AppColor.background,
       body: FutureBuilder(
-        future: SupportRequest.getSupportMessages(),
+        future: widget.future,
         builder: (context, snapshot){
           if(snapshot.hasData){
             return SupportChatPage(messages: getChats(snapshot.data!));

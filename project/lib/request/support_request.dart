@@ -62,6 +62,7 @@ class SupportRequest{
 
     if (response.statusCode == 200) {
       List<dynamic> body = jsonDecode(response.body);
+      print(body);
       List<ChatHolder> messages = [];
       for(int i=0;i<body.length;i++){
         messages.add(ChatHolder(body[i]["sender_email"]==user.email,

@@ -9,6 +9,7 @@ import 'package:project/widgets/my_appbars.dart';
 import 'package:project/my_karoo/my_karoo_list_tile.dart';
 import 'package:project/utils/app_color.dart';
 
+import '../request/support_request.dart';
 import 'my_karoo_list_text.dart';
 
 class MyKarooPage extends StatefulWidget {
@@ -85,7 +86,7 @@ class _MyKarooPageState extends State<MyKarooPage> {
               const MyDivider(margin: 10,),
               MyKarooListText(text: "Support" , onTap: (){
                 Navigator.of(context).push(MaterialPageRoute(builder: (context){
-                  return SupportPage();
+                  return SupportPage(future: SupportRequest.getSupportMessages(),);
                 }));
               },),
               MyKarooListText(text: "Karoo FAQ" , onTap: (){
