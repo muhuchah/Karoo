@@ -93,6 +93,9 @@ class _SignUpPage extends State<StatefulWidget> {
                       if(value==null || value.isEmpty){
                         return "Please enter email";
                       }
+                      else if(!emailValidator(value)){
+                        return "Please enter email correctly";
+                      }
                       return null;
                     },
                     focus: emailFocus,
@@ -132,25 +135,37 @@ class _SignUpPage extends State<StatefulWidget> {
                     alignment: Alignment.centerRight,
                     child: ElevatedButton(onPressed: () async {
                       if(_formKey.currentState!.validate()){
-                        String? fullName = fullNameController?.text??"";
-                        String? email = emailController?.text??"";
-                        String? password = passwordController?.text??"";
-                        try {
-                          await UserRequest.signup(
-                              fullName: fullName,
-                              email: email,
-                              password: password);
+                        if(passwordController?.text != confirmPasswordController?.text){
                           ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text("You sign up successfully . please confirm email"),
-                                duration: Duration(seconds: 2),))
-                          .closed.then((value){
-                            Navigator.of(context).pushReplacementNamed("/login");
-                          });
-                        }
-                        catch(e){
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(e.toString()),
+                              SnackBar(content: Text("please confirm password correctly"),
                                 duration: Duration(seconds: 2),));
+                        }
+                        else {
+                          String? fullName = fullNameController?.text ?? "";
+                          String? email = emailController?.text ?? "";
+                          String? password = passwordController?.text ?? "";
+                          try {
+                            await UserRequest.signup(
+                                fullName: fullName,
+                                email: email,
+                                password: password);
+                            ScaffoldMessenger
+                                .of(context)
+                                .showSnackBar(
+                                SnackBar(content: Text(
+                                    "You sign up successfully . please confirm email"),
+                                  duration: Duration(seconds: 2),))
+                                .closed
+                                .then((value) {
+                              Navigator.of(context).pushReplacementNamed(
+                                  "/login");
+                            });
+                          }
+                          catch (e) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text(e.toString()),
+                                  duration: Duration(seconds: 2),));
+                          }
                         }
                       }
                       else{
@@ -212,5 +227,10 @@ class _SignUpPage extends State<StatefulWidget> {
         ),
       ),
     );
+  }
+
+  bool emailValidator(String email){
+    RegExp emailRegex = RegExp(r"^[a-zA-z0-9]+@[a-zA-z0-9]+\.[a-zA-z]+$");
+    return emailRegex.hasMatch(email);
   }
 }
