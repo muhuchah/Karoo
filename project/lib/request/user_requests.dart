@@ -295,7 +295,6 @@ class UserRequest{
       if (response.statusCode == 200) {
         User user = User();
         user.accessToken = jsonDecode(response.body)["access"];
-        print("access token : ${user.accessToken}");
         return "";
       }
       throw Exception("Unable get access");

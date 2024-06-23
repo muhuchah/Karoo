@@ -22,7 +22,6 @@ class FirstPageChecker extends StatelessWidget{
           builder: (context , readSnapShot){
             if(readSnapShot.hasData){
               String refreshToken = readSnapShot.data!;
-              print("refresh : $refreshToken");
               if(refreshToken == ""){
                 return FirstPage();
               }
@@ -33,8 +32,6 @@ class FirstPageChecker extends StatelessWidget{
                     if(snapshot.hasData){
                       User user = User();
                       user.refreshToken = refreshToken;
-                      // successLogin(context);
-                      // return FirstPage();
                       return FutureBuilder(
                         future: UserRequest.personalInformation(),
                         builder: (context , personalSnapshot) {
