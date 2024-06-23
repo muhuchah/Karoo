@@ -293,8 +293,10 @@ class UserRequest{
       );
 
       if (response.statusCode == 200) {
-        User().accessToken = jsonDecode(response.body)["access"];
-        return jsonDecode(response.body)["access"];
+        User user = User();
+        user.accessToken = jsonDecode(response.body)["access"];
+        print("access token : ${user.accessToken}");
+        return "";
       }
       throw Exception("Unable get access");
     }

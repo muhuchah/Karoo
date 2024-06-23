@@ -2,9 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:project/home/home.dart';
+import 'package:project/login_signup/phone_city_page.dart';
 
 import '../component/user_file.dart';
 import '../request/user_requests.dart';
+import '../widgets/custom_text.dart';
 import 'first_page.dart';
 
 class FirstPageChecker extends StatelessWidget{
@@ -16,9 +19,10 @@ class FirstPageChecker extends StatelessWidget{
       body: Center(
         child: FutureBuilder(
           future: _read(),
-          builder: (context , snapShot){
-            if(snapShot.hasData){
-              String refreshToken = snapShot.data!;
+          builder: (context , readSnapShot){
+            if(readSnapShot.hasData){
+              String refreshToken = readSnapShot.data!;
+              print("refresh : $refreshToken");
               if(refreshToken == ""){
                 return FirstPage();
               }
@@ -29,7 +33,46 @@ class FirstPageChecker extends StatelessWidget{
                     if(snapshot.hasData){
                       User user = User();
                       user.refreshToken = refreshToken;
-                      successLogin(context);
+                      // successLogin(context);
+                      // return FirstPage();
+                      return FutureBuilder(
+                        future: UserRequest.personalInformation(),
+                        builder: (context , personalSnapshot) {
+                          if (personalSnapshot.hasData) {
+                            if(user.phoneNumber == null){
+                              return const PhoneCityPage();
+                            }
+                            else{
+                              return FutureBuilder(
+                                future: UserRequest.getAddress(),
+                                builder: (context , addressSnapshot) {
+                                  if (addressSnapshot.hasData) {
+                                    return Home();
+                                  }
+                                  else if(addressSnapshot.hasError){
+                                    return SizedBox(
+                                      height: 200,
+                                      child: Center(child: CustomText(text: addressSnapshot.toString(),
+                                          size: 20, textColor: Colors.black, weight: FontWeight.normal)
+                                      ),
+                                    );
+                                  }
+                                  return const CircularProgressIndicator();
+                                }
+                              );
+                            }
+                          }
+                          else if(personalSnapshot.hasError){
+                            return SizedBox(
+                              height: 200,
+                              child: Center(child: CustomText(text: personalSnapshot.toString(),
+                                  size: 20, textColor: Colors.black, weight: FontWeight.normal)
+                              ),
+                            );
+                          }
+                          return const CircularProgressIndicator();
+                        }
+                      );
                     }
                     else if(snapshot.hasError){
                       return FirstPage();
@@ -39,7 +82,7 @@ class FirstPageChecker extends StatelessWidget{
                 );
               }
             }
-            else if(snapShot.hasError){
+            else if(readSnapShot.hasError){
               return FirstPage();
             }
             return const CircularProgressIndicator();

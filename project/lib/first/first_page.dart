@@ -34,15 +34,15 @@ class FirstPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    BigText(text: "Do Do" , size: 24,),
-                    SizedBox(height: 30,),
+                    const BigText(text: "Do Do" , size: 24,),
+                    const SizedBox(height: 30,),
                     BigText(text: text , size: 20,weight: FontWeight.normal,),
-                    SizedBox(height: 100,),
+                    const SizedBox(height: 100,),
                     FirstPageButton(text : "Log in",color: AppColor.button1,
                       onTap: (){
                         Navigator.of(context).pushNamed("/login");
                       },),
-                    SizedBox(height: 15,),
+                    const SizedBox(height: 15,),
                     FirstPageButton(text: "Sign in",color: AppColor.button1,
                       onTap: (){
                         Navigator.of(context).pushNamed("/signup");
