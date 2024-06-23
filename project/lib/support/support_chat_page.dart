@@ -42,104 +42,101 @@ class _SupportChatPageState extends State<SupportChatPage> {
                 Padding(
                   padding: const EdgeInsets.only(left: 20 , right: 10),
                   child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: TextField(
-                              controller: widget.messageController,
-                              minLines: 1,
-                              maxLines: 4,
-                              focusNode: widget.focusNode,
-                              decoration: const InputDecoration(
-                                  hintText: "Issue" ,
-                                  hintStyle: TextStyle(color: AppColor.hint),
-                                  border: InputBorder.none
-                              ),
+                    alignment: Alignment.bottomCenter,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            controller: widget.messageController,
+                            minLines: 1,
+                            maxLines: 4,
+                            focusNode: widget.focusNode,
+                            decoration: const InputDecoration(
+                              hintText: "Issue" ,
+                              hintStyle: TextStyle(color: AppColor.hint),
+                              border: InputBorder.none
                             ),
                           ),
-                          widget.isEmpty ? IconButton(
-                              padding: EdgeInsets.zero,
-                              onPressed: (){
+                        ),
+                        widget.isEmpty ? IconButton(
+                          padding: EdgeInsets.zero,
+                          onPressed: (){
 
-                              },
-                              icon: const Icon(Icons.attach_file_outlined , size: 24,)
-                          ) : IconButton(
-                              padding: EdgeInsets.zero,
-                              onPressed: () async {
-                                var message = widget.messageController.text;
-                                try {
-                                  DateTime now = DateTime.now();
-                                  String formattedDate = DateFormat("kk:mm")
-                                      .format(now);
-                                  widget.messages.add(ChatHolder(true,
-                                      widget.messageController.text,
-                                      formattedDate));
-                                  widget.messageController.text = "";
-                                  widget.focusNode.requestFocus();
+                          },
+                          icon: const Icon(Icons.attach_file_outlined , size: 24,)
+                      ) : IconButton(
+                          padding: EdgeInsets.zero,
+                          onPressed: () async {
+                            var message = widget.messageController.text;
+                            try {
+                              widget.messages.add(ChatHolder(true,
+                                  widget.messageController.text,
+                                  ""));
+                              widget.messageController.text = "";
+                              widget.focusNode.requestFocus();
 
-                                  await SupportRequest.sendSupportMessage(message);
-                                }
-                                catch(e){
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(content: Text(e.toString()),
-                                        duration: const Duration(seconds: 2),
-                                      )
-                                  );
-                                }
+                              await SupportRequest.sendSupportMessage(message);
+                            }
+                            catch(e){
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text(e.toString()),
+                                  duration: const Duration(seconds: 2),
+                                )
+                              );
+                            }
 
-                                setState(() {});
-                              },
-                              icon: const Icon(Icons.send , size: 24, color: AppColor.loginText1,)
-                          )
-                        ],
-                      )
+                            setState(() {});
+                          },
+                          icon: const Icon(Icons.send , size: 24, color: AppColor.loginText1,)
+                        )
+                      ],
+                    )
                   ),
                 ),
                 const MyDivider(),
                 ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: widget.messages.length,
-                    itemBuilder: (context , index){
-                      return Padding(
-                        padding: const EdgeInsets.only(left: 20 , right: 20 , top: 10 , bottom: 10),
-                        child: Align(
-                          alignment: widget.messages[index].isMe
-                              ? Alignment.centerRight : Alignment.centerLeft,
-                          child: Container(
-                            constraints: const BoxConstraints(maxWidth: 300),
-                            decoration: BoxDecoration(
-                                color: widget.messages[index].isMe ? AppColor.loginText1 : Colors.white,
-                                borderRadius: BorderRadius.circular(12)
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Stack(
-                                children: [
-                                  Positioned(
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        CustomText(text: widget.messages[index].message, size: 14,
-                                            textColor: Colors.black, weight: FontWeight.w400),
-                                        const SizedBox(width: 40,),
-                                      ],
-                                    ),
+                  shrinkWrap: true,
+                  itemCount: widget.messages.length,
+                  itemBuilder: (context , index){
+                    return Padding(
+                      padding: const EdgeInsets.only(left: 20 , right: 20 , top: 10 , bottom: 10),
+                      child: Align(
+                        alignment: widget.messages[index].isMe
+                            ? Alignment.centerRight : Alignment.centerLeft,
+                        child: Container(
+                          constraints: const BoxConstraints(maxWidth: 300),
+                          decoration: BoxDecoration(
+                              color: widget.messages[index].isMe ? AppColor.loginText1 : Colors.white,
+                              borderRadius: BorderRadius.circular(12)
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Stack(
+                              children: [
+                                Positioned(
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      CustomText(text: widget.messages[index].message, size: 14,
+                                          textColor: Colors.black, weight: FontWeight.w400),
+                                      const SizedBox(width: 40,),
+                                    ],
                                   ),
-                                  Positioned(
-                                    right: 0,
-                                    bottom: 0,
-                                    child:CustomText(text: widget.messages[index].time, size: 10,
-                                        textColor: Colors.black, weight: FontWeight.w400),
-                                  ),
-                                ],
-                              ),
+                                ),
+                                Positioned(
+                                  right: 0,
+                                  bottom: 0,
+                                  child:CustomText(text: widget.messages[index].time, size: 10,
+                                      textColor: Colors.black, weight: FontWeight.w400),
+                                ),
+                              ],
                             ),
                           ),
                         ),
-                      );
-                    }
+                      ),
+                    );
+                  }
                 ),
               ],
             ),

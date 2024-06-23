@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:project/chat/chat_holder.dart';
 
 import '../component/user_file.dart';
@@ -65,8 +66,10 @@ class SupportRequest{
       print(body);
       List<ChatHolder> messages = [];
       for(int i=0;i<body.length;i++){
+        DateTime time = DateTime.parse(body[i]["timestamp"]).toLocal();
+        String formattedTime = DateFormat("kk:mm").format(time);
         messages.add(ChatHolder(body[i]["sender_email"]==user.email,
-            body[i]["content"], "12:03"));
+            body[i]["content"], formattedTime));
       }
 
       return messages;

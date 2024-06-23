@@ -160,7 +160,15 @@ class _WalletPageState extends State<WalletPage> {
                     onPressed: () async {
                       try{
                         await WalletRequest.withdraw(double.parse(controller.text));
-                        setState(() {});
+                        setState(() {
+                          controller.text = "";
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text("Withdraw done!"),
+                              duration: Duration(seconds: 1),
+                            )
+                          );
+                        });
                       }
                       on FormatException catch (_){
                         ScaffoldMessenger.of(context).showSnackBar(

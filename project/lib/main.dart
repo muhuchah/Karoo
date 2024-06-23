@@ -27,7 +27,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: "Inter"
       ),
-      title: 'Flutter Demo',
       initialRoute: "/check_token",
       routes: {
         "/check_token" : (context) => FirstPageChecker(),
