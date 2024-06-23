@@ -1,29 +1,43 @@
 name: CD-Liara
 on:
-  push:
-    branches:
-      - back-end 
+ push:
+   branches:
+     - back-end
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+ deploy:
+   runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v3
+   steps:
+     - uses: actions/checkout@v3
+     - uses: actions/setup-node@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "18"
+     - name: Setup Node.js
+       uses: actions/setup-node@v3
+       with:
+         node-version: "18"
 
-      - name: Set Up Python
-        uses: actions/setup-python@v3
-        with:
-          python-version: '3.10'
+     - name: Set Up Python
+       uses: actions/setup-python@v3
+       with:
+         python-version: '3.9'
 
-      - name: update-liara
-        working-directory: Karoo_BackEnd/Karoo_BackEnd 
-        env:
-          LIARA_TOKEN: ${{ secrets.LIARA_API_TOKEN }}
-        run: |
-          npm i -g @liara/cli@5
-          liara deploy --app="karoo" --api-token="$LIARA_TOKEN" --no-app-logs --port=8000
+     - name: Install dependencies
+       working-directory: Karoo_BackEnd/Karoo_BackEnd
+       run: |
+         python -m venv venv
+         source venv/bin/activate
+         pip install -r requirements.txt
+                
+     - name: Run Django tests
+       working-directory: Karoo_BackEnd/Karoo_BackEnd
+       run: |
+         source venv/bin/activate
+         python manage.py test
+
+     - name: update-liara
+       working-directory: Karoo_BackEnd/Karoo_BackEnd
+       env:
+         LIARA_TOKEN: ${{ secrets.LIARA_API_TOKEN }}
+       run: |
+         npm i -g @liara/cli@5
+        liara deploy --app="karoo" --api-token="$LIARA_TOKEN" --no-app-logs --port=8000
