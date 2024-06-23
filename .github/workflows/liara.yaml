@@ -24,15 +24,16 @@ jobs:
      - name: Install dependencies
        working-directory: Karoo_BackEnd/Karoo_BackEnd
        run: |
-         python -m venv venv
-         source venv/bin/activate
+         python -m pip install --upgrade pip
          pip install -r requirements.txt
+
+     - name: Run migrations
+       working-directory: Karoo_BackEnd/Karoo_BackEnd
+       run: python manage.py migrate
                 
      - name: Run Django tests
        working-directory: Karoo_BackEnd/Karoo_BackEnd
-       run: |
-         source venv/bin/activate
-         python manage.py test
+       run: python manage.py test
 
      - name: update-liara
        working-directory: Karoo_BackEnd/Karoo_BackEnd
