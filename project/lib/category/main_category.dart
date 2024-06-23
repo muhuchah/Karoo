@@ -1,13 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:project/category/sub_category.dart';
-import 'package:project/home/bottom_navigation_bar.dart';
 
 import '../component/category.dart';
 import '../request/category_request.dart';
 import '../utils/app_color.dart';
-import '../widgets/my_appbars.dart';
 import 'category_text_icon.dart';
 
 class MainCategoriesPage extends StatelessWidget {

@@ -9,30 +9,16 @@ import '../widgets/long_button.dart';
 
 class SpamPage extends StatefulWidget {
   Job job;
-  List<String> reports = [];
-  List<bool> selectedReports = [];
-  SpamPage({super.key , required this.job}){
-    setReports();
-  }
+  SpamPage({super.key , required this.job});
 
   @override
   State<SpamPage> createState() => _SpamPageState();
-
-  void setReports(){
-    reports.add("Bad Job");
-    reports.add("Very Bad Job");
-    reports.add("Very Very Bad Job");
-    reports.add("Very Very Very Bad Job");
-    reports.add("Very Very Very Very Bad Job");
-    reports.add("Very Very Very Very Very Bad Job");
-
-    for(int i=0; i<reports.length;i++){
-      selectedReports.add(false);
-    }
-  }
 }
 
 class _SpamPageState extends State<SpamPage> {
+  List<String> reports = [];
+  List<bool> selectedReports = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +37,7 @@ class _SpamPageState extends State<SpamPage> {
                 return const SizedBox(height: 20,);
               },
               padding: const EdgeInsets.all(20),
-              itemCount: widget.reports.length,
+              itemCount: reports.length,
               itemBuilder: (context , index){
                 return Align(
                   alignment: Alignment.centerLeft,
@@ -60,16 +46,16 @@ class _SpamPageState extends State<SpamPage> {
                       SizedBox(
                         width: 30,
                         height: 30,
-                        child: Checkbox(value: widget.selectedReports[index],
+                        child: Checkbox(value: selectedReports[index],
                           onChanged: (value){
                             setState(() {
-                              widget.selectedReports[index] = value!;
+                              selectedReports[index] = value!;
                             });
                           }
                         ),
                       ),
                       const SizedBox(width: 5,),
-                      CustomText(text: widget.reports[index], size: 20,
+                      CustomText(text: reports[index], size: 20,
                           textColor: getTextColor(),
                           weight: FontWeight.normal),
                     ],
@@ -82,9 +68,9 @@ class _SpamPageState extends State<SpamPage> {
             padding: const EdgeInsets.only(left: 20 , right: 20 , top: 20 , bottom: 10),
             child: LongButton(
               onTap:() async {
-                for(int i=0;i<widget.selectedReports.length;i++){
-                  if(widget.selectedReports[i]){
-                    await SupportRequest.spam(widget.reports[i], widget.job.id!);
+                for(int i=0;i<selectedReports.length;i++){
+                  if(selectedReports[i]){
+                    await SupportRequest.spam(reports[i], widget.job.id!);
                   }
                 }
                 Navigator.of(context).pop();
@@ -99,5 +85,25 @@ class _SpamPageState extends State<SpamPage> {
 
   Color getTextColor() {
     return Colors.black;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    reports.add("Unwanted Promotion");
+    reports.add("Phishing or Fraud");
+    reports.add("Harassment or Bullying");
+    reports.add("Malware or Viruses");
+    reports.add("Impersonation");
+    reports.add("Scam");
+    reports.add("Explicit Content");
+    reports.add("Misleading Information");
+    reports.add("Spam");
+    reports.add("Other");
+
+    for(int i=0; i<reports.length;i++){
+      selectedReports.add(false);
+    }
   }
 }

@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:project/widgets/custom_text.dart';
-
 import '../component/category.dart';
 import '../request/category_request.dart';
 import '../utils/app_color.dart';
@@ -57,7 +54,7 @@ class SubCategoryPage extends StatelessWidget {
     List<Widget> children = [];
     if(values.isNotEmpty){
       children.add(SubCategoryTextIcon(text: "All", onTap: (){
-
+        onTap!("All",0);
       }));
     }
     for(Category c in values){

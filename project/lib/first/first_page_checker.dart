@@ -70,7 +70,6 @@ class FirstPageChecker extends StatelessWidget{
       final Directory directory = await getApplicationDocumentsDirectory();
       final File file = File('${directory.path}/my_file.txt');
       text = await file.readAsString();
-      print(text);
       List<String> values = text.split("\n");
       user.refreshToken = values[0];
       user.accessToken = values[1];

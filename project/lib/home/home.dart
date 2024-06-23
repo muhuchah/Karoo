@@ -101,7 +101,7 @@ class _HomeState extends State<Home> {
           subCategoryLeading(index);
         },
         onTap: (subCategory , id){
-          subCategoryOnTap(subCategory , index);
+          subCategoryOnTap(subCategory , index, mainCategory);
         },
       );
     });
@@ -118,25 +118,25 @@ class _HomeState extends State<Home> {
     });
   }
 
-  void subCategoryOnTap(subCategory , index){
+  void subCategoryOnTap(subCategory , index, mainCategory){
     setState(() {
       widget.widgets[index] = DisplayJobPage(title: subCategory,
         floatingActionButton: false, userJob: false,
         subCategory: subCategory, leadingOnTap: (){
-          jobLeading(index);
-        }
+          jobLeading(index, mainCategory);
+        },mainCategory: mainCategory,
       );
     });
   }
 
-  void jobLeading(index){
+  void jobLeading(index, mainCategory){
     setState(() {
       widget.widgets[index] = SubCategoryPage(mainCategory: widget.selectedCategory!,
         leading:(){
           subCategoryLeading(index);
         } ,
         onTap: (subCategory , id){
-          subCategoryOnTap(subCategory , index);
+          subCategoryOnTap(subCategory , index, mainCategory);
         },
       );
     });

@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:project/comment/display_comment.dart';
 import 'package:project/job/job_info.dart';
 import 'package:project/request/job_request.dart';
 import 'package:project/utils/app_color.dart';
@@ -16,11 +13,13 @@ import '../widgets/job_list_tile.dart';
 class DisplayJobPage extends StatefulWidget {
   String title;
   String? subCategory;
+  String? mainCategory;
   Function()? leadingOnTap;
   bool floatingActionButton;
   bool userJob;
   DisplayJobPage({super.key , required this.title , required this.subCategory ,
-    required this.leadingOnTap , required this.floatingActionButton , required this.userJob});
+    required this.leadingOnTap , required this.floatingActionButton ,
+    required this.userJob, this.mainCategory});
 
   @override
   State<DisplayJobPage> createState() => _DisplayJobPageState();
@@ -34,6 +33,7 @@ class _DisplayJobPageState extends State<DisplayJobPage> {
       appBar: getAppBar(),
       body: FutureBuilder(future: widget.subCategory == null ?
         JobRequest.getUserJobs() :
+          widget.subCategory == "All" ? JobRequest.getSearchJobs(widget.mainCategory!) :
         JobRequest.getJobsBySubCategory(widget.subCategory!),
         builder: (context , snapShot){
           if(snapShot.hasData){
