@@ -188,7 +188,7 @@ class _LoginPage extends State<StatefulWidget>{
   void successLogin(context) async{
     User user = User();
     try{
-      await _write("${user.refreshToken}\n");
+      await _write("${user.refreshToken}\n${user.accessToken}");
       await UserRequest.personalInformation();
       if(user.phoneNumber == null){
         Navigator.of(context).pop();
